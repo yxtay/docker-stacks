@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v1
+
+      - name: Fetch Secrets from Doppler
+        run: |
+          doppler secrets download --no-prefix --format env > .env
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+
+      - name: Set Environment Variables
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "DEPLOY_ENVIRONMENT=staging" >> $GITHUB_ENV
+            echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_STAGING_APP_ID }}" >> $GITHUB_ENV
+          else
+            echo "DEPLOY_ENVIRONMENT=production" >> $GITHUB_ENV
+            echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_PROD_APP_ID }}" >> $GITHUB_ENV
+          fi
+
+      - name: Trigger Dokploy Deployment
+        run: |
+          curl -X 'POST' \
+            "${{ secrets.DOKPLOY_URL }}/api/project.deploy" \
+            -H 'accept: application/json' \
+            -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
+            -H 'Content-Type: application/json' \
+            -d "{
+                 \"projectId\": \"${{ env.DOKPLOY_APP_ID }}\"
+            }"

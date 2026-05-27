@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  whoami:
+    image: traefik/whoami
+    networks:
+      - dokploy-network
+    deploy:
+      replicas: 1
+      labels:
+        # Production labels
+        - "traefik.enable=true"
+        - "traefik.http.routers.whoami-prod.rule=Host(\"${DOMAIN}\")"
+        - "traefik.http.routers.whoami-prod.entrypoints=websecure"
+        - "traefik.http.routers.whoami-prod.tls.certresolver=letsencrypt"
+        - "traefik.http.services.whoami-prod.loadbalancer.server.port=80"
+
+        # Staging labels (different router name and rule)
+        - "traefik.http.routers.whoami-staging.rule=Host(\"staging.${DOMAIN}\")"
+        - "traefik.http.routers.whoami-staging.entrypoints=websecure"
+        - "traefik.http.routers.whoami-staging.tls.certresolver=letsencrypt"
+        - "traefik.http.services.whoami-staging.loadbalancer.server.port=80"
+
+networks:
+  dokploy-network:
+    external: true

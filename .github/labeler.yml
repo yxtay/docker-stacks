@@ -1,0 +1,19 @@
+workflows:
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/*'
+
+scripts:
+  - changed-files:
+      - any-glob-to-any-file: 'scripts/*'
+
+stacks:
+  - changed-files:
+      - any-glob-to-any-file: 'stacks/*'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ['*.md', 'LICENSE']
+
+configs:
+  - changed-files:
+      - any-glob-to-any-file: ['.editorconfig', '.pre-commit-config.yaml', '.yamlfmt', '.mega-linter.yml']

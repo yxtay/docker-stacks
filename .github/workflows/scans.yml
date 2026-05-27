@@ -9,7 +9,8 @@ on:
   workflow_call:
   workflow_dispatch:
 
-permissions: {}
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,30 +26,28 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v4.4.4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: ${{ github.event_name == 'pull_request' }} # zizmor: ignore[artipacked]
-          fetch-depth: (${{ github.event.pull_request.commits || 2 }} + 1)
+          persist-credentials: ${{ github.event_name == 'pull_request' }}
+          fetch-depth: 0
 
       - id: megalinter
-        # You can override MegaLinter flavor used to have faster performances
-        # More info at https://megalinter.io/latest/flavors/
-        uses: oxsecurity/megalinter@0e3ce9b9c8c10effb9b269509cc47ca17cae31c7 # v9
+        uses: oxsecurity/megalinter@0e3ce9b9c8c10effb9b269509cc47ca17cae31c7 # v8.4.2
         env:
-          VALIDATE_ALL_CODEBASE: ${{ github.ref_name != github.event.repository.default_branch }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
+          VALIDATE_ALL_CODEBASE: ${{ github.ref_name != github.event.repository.default_branch }}
           DISABLE_ERRORS: ${{ github.ref_name != github.event.repository.default_branch }}
           GITHUB_TOKEN: ${{ github.token }}
 
       - if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: megalinter-reports
           path: megalinter-reports
 
       - if: ${{ success() || failure() }}
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4
+        uses: github/codeql-action/upload-sarif@b56ba49b26e50535fa1e7f7db0f4f7b4bf65d80d # v3.28.10
         with:
           sarif_file: megalinter-reports/megalinter-report.sarif
           ref: ${{ github.head_ref && format('refs/heads/{0}', github.head_ref) || github.ref }}
@@ -63,6 +62,5 @@ jobs:
           git push origin "HEAD:refs/heads/${GITHUB_HEAD_REF}"
         env:
           COMMIT_MESSAGE: "fix: apply megalinter fixes"
-          # https://api.github.com/users/megalinter-bot
           GITHUB_ACTOR: megalinter-bot
           GITHUB_ACTOR_ID: 129584137

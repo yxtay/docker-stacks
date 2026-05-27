@@ -1,43 +1,48 @@
 #!/bin/bash
 set -euo pipefail
 
+# Dokploy Setup Script for Oracle Cloud ARM (Reproducible & Idempotent)
+
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"
+RED="\033[0;31m"
 NC="\033[0m"
 
-printf "%bStarting Dokploy installation...%b\n" "$YELLOW" "$NC"
-
-sudo apt-get update
-sudo apt-get install -y curl ufw
-
-sudo ufw allow 80/tcp || true
-sudo ufw allow 443/tcp || true
-sudo ufw allow 3000/tcp || true
-sudo ufw allow 2377/tcp || true
-sudo ufw allow 7946/tcp || true
-sudo ufw allow 7946/udp || true
-sudo ufw allow 4789/udp || true
-sudo ufw --force enable
-
-if ! command -v docker &>/dev/null; then
-  curl -sSL https://get.docker.com | sh
-  sudo usermod -aG docker "$USER"
+# 1. Root Check
+if [ "$(id -u)" != "0" ]; then
+    printf "%bError: This script must be run as root%b\n" "$RED" "$NC" >&2
+    exit 1
 fi
 
-if ! docker info | grep -q "Swarm: active"; then
-  ADVERTISE_ADDR=$(curl -s ifconfig.me)
-  sudo docker swarm init --advertise-addr "$ADVERTISE_ADDR"
+# 2. OS Check
+if [ -f "/.dockerenv" ] || [ "$(uname)" != "Linux" ]; then
+    printf "%bError: This script must be run on a Linux host (not a container)%b\n" "$RED" "$NC" >&2
+    exit 1
 fi
 
-if ! docker network ls | grep -q "dokploy-network"; then
-  sudo docker network create --driver overlay --attachable dokploy-network
-fi
+# 3. Port Check (80, 443, 3000)
+for port in 80 443 3000; do
+    if ss -tulnp | grep -q ":$port "; then
+        printf "%bError: Port $port is already in use. Dokploy requires it to be free.%b\n" "$RED" "$NC" >&2
+        exit 1
+    fi
+done
 
-if ! docker service ls | grep -q "dokploy"; then
-  sudo mkdir -p /etc/dokploy
-  sudo chmod 777 /etc/dokploy
-  sudo docker service create --name dokploy --replicas 1 --network dokploy-network --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock --mount type=bind,source=/etc/dokploy,target=/etc/dokploy --publish published=3000,target=3000,mode=host --update-parallelism 1 --update-order stop-first dokploy/dokploy:latest
-fi
+printf "%bConfiguring Oracle Cloud firewall...%b\n" "$YELLOW" "$NC"
+
+apt-get update
+apt-get install -y curl ufw ss-utils || apt-get install -y curl ufw iproute2
+
+ufw allow 80/tcp || true
+ufw allow 443/tcp || true
+ufw allow 3000/tcp || true
+ufw allow 2377/tcp || true
+ufw allow 7946/tcp || true
+ufw allow 7946/udp || true
+ufw allow 4789/udp || true
+ufw --force enable
+
+printf "%bInstalling Dokploy via official script...%b\n" "$YELLOW" "$NC"
+curl -sSL https://dokploy.com/install.sh | sh
 
 printf "%bInstallation complete!%b\n" "$GREEN" "$NC"
-printf "Access Dokploy at http://%s:3000\n" "$(curl -s ifconfig.me)"

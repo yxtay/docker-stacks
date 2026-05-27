@@ -26,11 +26,15 @@ jobs:
       - name: Set Environment Variables
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "DEPLOY_ENVIRONMENT=staging" >> $GITHUB_ENV
-            echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_STAGING_APP_ID }}" >> $GITHUB_ENV
+            {
+              echo "DEPLOY_ENVIRONMENT=staging"
+              echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_STAGING_APP_ID }}"
+            } >> "$GITHUB_ENV"
           else
-            echo "DEPLOY_ENVIRONMENT=production" >> $GITHUB_ENV
-            echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_PROD_APP_ID }}" >> $GITHUB_ENV
+            {
+              echo "DEPLOY_ENVIRONMENT=production"
+              echo "DOKPLOY_APP_ID=${{ secrets.DOKPLOY_PROD_APP_ID }}"
+            } >> "$GITHUB_ENV"
           fi
 
       - name: Trigger Dokploy Deployment
@@ -40,6 +44,4 @@ jobs:
             -H 'accept: application/json' \
             -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
             -H 'Content-Type: application/json' \
-            -d "{
-                 \"projectId\": \"${{ env.DOKPLOY_APP_ID }}\"
-            }"
+            -d "{\"projectId\": \"${{ env.DOKPLOY_APP_ID }}\"}"

@@ -5,6 +5,9 @@ services:
     image: traefik/whoami
     networks:
       - dokploy-network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     deploy:
       replicas: 1
       labels:

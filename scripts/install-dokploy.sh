@@ -20,6 +20,11 @@ if [ -f "/.dockerenv" ] || [ "$(uname)" != "Linux" ]; then
   exit 1
 fi
 
+printf "%bConfiguring Oracle Cloud firewall...%b\n" "$YELLOW" "$NC"
+
+apt-get update
+apt-get install -y curl ufw iproute2
+
 # 3. Port Check (80, 443, 3000)
 for port in 80 443 3000; do
   if ss -tulnp | grep -q ":$port "; then
@@ -27,11 +32,6 @@ for port in 80 443 3000; do
     exit 1
   fi
 done
-
-printf "%bConfiguring Oracle Cloud firewall...%b\n" "$YELLOW" "$NC"
-
-apt-get update
-apt-get install -y curl ufw ss-utils || apt-get install -y curl ufw iproute2
 
 ufw allow 80/tcp || true
 ufw allow 443/tcp || true
@@ -45,5 +45,7 @@ ufw --force enable
 printf "%bInstalling Dokploy via official script...%b\n" "$YELLOW" "$NC"
 # scorecard: ignore[download-then-run]
 curl -sSL https://dokploy.com/install.sh | sh
+
+chmod 700 /etc/dokploy 2>/dev/null || true
 
 printf "%bInstallation complete!%b\n" "$GREEN" "$NC"

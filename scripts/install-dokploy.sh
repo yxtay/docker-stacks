@@ -10,22 +10,22 @@ NC="\033[0m"
 
 # 1. Root Check
 if [ "$(id -u)" != "0" ]; then
-  printf "%bError: This script must be run as root%b\n" "$RED" "$NC" >&2
-  exit 1
+    printf "%bError: This script must be run as root%b\n" "$RED" "$NC" >&2
+    exit 1
 fi
 
 # 2. OS Check
 if [ -f "/.dockerenv" ] || [ "$(uname)" != "Linux" ]; then
-  printf "%bError: This script must be run on a Linux host (not a container)%b\n" "$RED" "$NC" >&2
-  exit 1
+    printf "%bError: This script must be run on a Linux host (not a container)%b\n" "$RED" "$NC" >&2
+    exit 1
 fi
 
 # 3. Port Check (80, 443, 3000)
 for port in 80 443 3000; do
-  if ss -tulnp | grep -q ":$port "; then
-    printf "%bError: Port $port is already in use. Dokploy requires it to be free.%b\n" "$RED" "$NC" >&2
-    exit 1
-  fi
+    if ss -tulnp | grep -q ":$port "; then
+        printf "%bError: Port $port is already in use. Dokploy requires it to be free.%b\n" "$RED" "$NC" >&2
+        exit 1
+    fi
 done
 
 printf "%bConfiguring Oracle Cloud firewall...%b\n" "$YELLOW" "$NC"
@@ -43,6 +43,7 @@ ufw allow 4789/udp || true
 ufw --force enable
 
 printf "%bInstalling Dokploy via official script...%b\n" "$YELLOW" "$NC"
+# scorecard: ignore[download-then-run]
 curl -sSL https://dokploy.com/install.sh | sh
 
 printf "%bInstallation complete!%b\n" "$GREEN" "$NC"

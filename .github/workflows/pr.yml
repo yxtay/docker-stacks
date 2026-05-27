@@ -4,8 +4,7 @@ on:
     types: [opened, synchronize, reopened, edited]
     branches: [main]
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +17,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@0723387335d99d94262e6da274be960bb17ad8bc # v5.5.3
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -30,7 +29,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
+      - uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213 # v6
 
   label-size:
     permissions:
@@ -40,7 +39,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: pascalgn/size-label-action@646f890e17621c1704e17926715f430541793774 # v0.5.5
+      - uses: pascalgn/size-label-action@56b489b027932ec0cf60438a1a5f1a19c8fc71ff # v0.5.7
         env:
           GITHUB_TOKEN: ${{ github.token }}
           IGNORED: |

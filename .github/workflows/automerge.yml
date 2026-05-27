@@ -3,8 +3,7 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,11 +15,11 @@ jobs:
       contents: write
       pull-requests: write
 
-    if: ${{ github.event_pull_request.user.login == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - id: metadata
-        uses: dependabot/fetch-metadata@db30297b9e3059972f088a4a2f1ff5c8c03c4c9b # v2.3.0
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3
 
       - name: log metadata
         run: echo "${DEPENDABOT_METADATA}"
@@ -40,7 +39,7 @@ jobs:
       contents: write
       pull-requests: write
 
-    if: ${{ github.event_pull_request.user.login == 'pre-commit-ci[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'pre-commit-ci[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: automerge

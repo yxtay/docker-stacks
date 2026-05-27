@@ -19,7 +19,7 @@ jobs:
 
       - name: Fetch Secrets from Doppler
         run: |
-          doppler secrets download --no-prefix --format env > .env
+          doppler secrets download --format env --no-file > .env
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 

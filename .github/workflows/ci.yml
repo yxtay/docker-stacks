@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: MegaLinter
+        id: ml
         uses: oxsecurity/megalinter@v8
         env:
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

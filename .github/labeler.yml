@@ -1,0 +1,32 @@
+feature:
+  - branch: ["^feat(ure)?/"]
+
+fix:
+  - branch: [^fix/]
+
+docs:
+  - branch: ["^docs?/"]
+
+style:
+  - branch: [^style/]
+
+refactor:
+  - branch: [^refactor/]
+
+perf:
+  - branch: ["^perf(ormance)?/"]
+
+test:
+  - branch: ["^tests?/"]
+
+build:
+  - branch: [^build/]
+
+ci:
+  - branch: [^ci/]
+
+chore:
+  - branch: [^chore/]
+
+revert:
+  - branch: [^revert/]

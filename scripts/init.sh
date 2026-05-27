@@ -15,17 +15,12 @@ add_port_rule() {
   local protocol=$2
   if ! iptables -C INPUT -p "$protocol" --dport "$port" -j ACCEPT 2>/dev/null; then
     echo "Adding rule for port $port/$protocol"
-    # OCI Ubuntu images typically have a REJECT rule at the end.
-    # We insert after the SSH rule which is typically at position 6.
-    # However, to be safer and more idempotent, we can just insert at the top (1)
-    # or find the first REJECT rule and insert before it.
-    # The user specifically said "after the ssh accept rule".
-    # Lets try to find the SSH rule position or default to 6.
-    SSH_RULE_POS=$(iptables -L INPUT --line-numbers | grep "tcp dpt:ssh" | awk "{print \$1}" | head -n 1)
-    if [ -z "$SSH_RULE_POS" ]; then
+    # Find the first REJECT rule and insert before it, or default to position 1
+    REJECT_RULE_POS=$(iptables -L INPUT --line-numbers | grep "REJECT" | awk "{print \$1}" | head -n 1)
+    if [ -z "$REJECT_RULE_POS" ]; then
       INSERT_POS=1
     else
-      INSERT_POS=$((SSH_RULE_POS + 1))
+      INSERT_POS=$REJECT_RULE_POS
     fi
     iptables -I INPUT "$INSERT_POS" -p "$protocol" --dport "$port" -j ACCEPT
   else

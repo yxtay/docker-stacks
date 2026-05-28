@@ -2,12 +2,12 @@
 
 set -euo pipefail
 
-echo "Updating and upgrading packages..."
+echo "Upgrading and installing packages..."
 export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 apt-get update
-apt-get upgrade -y
-apt-get install -y iptables-persistent
+apt-get upgrade --yes
+apt-get install --yes --no-install-recommends iptables-persistent
 
 echo "Configuring iptables..."
 
@@ -15,10 +15,10 @@ echo "Configuring iptables..."
 add_port_rule() {
   local port=$1
   local protocol=$2
-  if ! iptables -C INPUT -p "$protocol" --dport "$port" -j ACCEPT 2>/dev/null; then
+  if ! iptables --check INPUT --protocol "$protocol" --dport "$port" --jump ACCEPT 2>/dev/null; then
     echo "Adding rule for port $port/$protocol"
     # Insert at the top to ensure it precedes any REJECT rules
-    iptables -I INPUT -p "$protocol" --dport "$port" -j ACCEPT
+    iptables --insert INPUT --protocol "$protocol" --dport "$port" --jump ACCEPT
   else
     echo "Rule for port $port/$protocol already exists"
   fi
@@ -36,13 +36,13 @@ echo "Handling Dokploy installation/update..."
 
 install_args=""
 if command -v docker >/dev/null 2>&1 &&
-  docker ps --filter name=dokploy --format '{{.Names}}' 2>/dev/null | grep -q "dokploy"; then
+  docker ps --filter name=dokploy --format '{{.Names}}' 2>/dev/null | grep --quiet "dokploy"; then
   echo "Dokploy is already installed. Updating..."
   install_args="update"
 else
   echo "Dokploy not found. Installing..."
 fi
 # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
-curl -sSL https://dokploy.com/install.sh | bash -s $install_args
+curl --silent --show-error --location https://dokploy.com/install.sh | bash -s $install_args
 
 echo "Init script completed successfully!"

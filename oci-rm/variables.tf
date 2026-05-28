@@ -108,9 +108,14 @@ variable "tcp_ingress_ports" {
 }
 
 variable "udp_ingress_ports" {
-  type        = list(number)
-  description = "List of UDP ports to allow ingress"
-  default     = [443]
+  type        = string
+  description = "Comma-separated list of UDP ports to allow ingress"
+  default     = "443"
+
+  validation {
+    condition     = can(regex("^([0-9]+(,[0-9]+)*)?$", replace(var.udp_ingress_ports, " ", "")))
+    error_message = "udp_ingress_ports must be a comma-separated list of numbers or empty."
+  }
 }
 
 variable "user_data" {

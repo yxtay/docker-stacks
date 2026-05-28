@@ -102,9 +102,14 @@ variable "ssh_source_cidr" {
 }
 
 variable "tcp_ingress_ports" {
-  type        = list(number)
-  description = "List of TCP ports to allow ingress"
-  default     = [80, 443, 3000]
+  type        = string
+  description = "Comma-separated list of TCP ports to allow ingress"
+  default     = "80,443,3000"
+
+  validation {
+    condition     = can(regex("^([0-9]+(,[0-9]+)*)?$", replace(var.tcp_ingress_ports, " ", "")))
+    error_message = "tcp_ingress_ports must be a comma-separated list of numbers or empty."
+  }
 }
 
 variable "udp_ingress_ports" {

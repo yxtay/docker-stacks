@@ -36,6 +36,19 @@ printf '{"ssh_public_key": %s, "instance_display_name": %s}' \
   >"${VARS_FILE}"
 
 if [[ -n "${STACK_ID:-}" ]]; then
+  echo "Merging variables with existing stack..."
+  EXISTING_VARS=$(oci resource-manager stack get \
+    --stack-id "${STACK_ID}" \
+    --query 'data.variables' \
+    --raw-output)
+  python3 -c "
+import json, sys
+existing = json.loads(sys.argv[1])
+existing.update(json.load(open(sys.argv[2])))
+print(json.dumps(existing))
+" "${EXISTING_VARS}" "${VARS_FILE}" >"${VARS_FILE}.merged"
+  mv "${VARS_FILE}.merged" "${VARS_FILE}"
+
   echo "Updating stack ${STACK_ID}..."
   oci resource-manager stack update \
     --stack-id "${STACK_ID}" \

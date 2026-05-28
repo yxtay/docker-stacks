@@ -58,8 +58,16 @@ All variables have sensible defaults. Required inputs:
 
 Requires OCI CLI configured (`oci setup config`).
 
+**Create** a new stack and apply:
+
 ```bash
 COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-stack-create.sh
+```
+
+**Update** an existing stack (updates config and variables, then applies):
+
+```bash
+STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-create.sh
 ```
 
 ### Retry on out-of-capacity errors

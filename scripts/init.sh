@@ -15,14 +15,8 @@ add_port_rule() {
   local protocol=$2
   if ! iptables -C INPUT -p "$protocol" --dport "$port" -j ACCEPT 2>/dev/null; then
     echo "Adding rule for port $port/$protocol"
-    # Find the first REJECT rule and insert before it, or default to position 1
-    REJECT_RULE_POS=$(iptables -L INPUT --line-numbers | grep "REJECT" | awk "{print \$1}" | head -n 1)
-    if [ -z "$REJECT_RULE_POS" ]; then
-      INSERT_POS=1
-    else
-      INSERT_POS=$REJECT_RULE_POS
-    fi
-    iptables -I INPUT "$INSERT_POS" -p "$protocol" --dport "$port" -j ACCEPT
+    # Insert at the top (position 1) to ensure it precedes any REJECT rules
+    iptables -I INPUT 1 -p "$protocol" --dport "$port" -j ACCEPT
   else
     echo "Rule for port $port/$protocol already exists"
   fi

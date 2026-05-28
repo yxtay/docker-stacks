@@ -1,9 +1,10 @@
 #!/bin/bash
 
-set -euo pipefaile
+set -euo pipefail
 
 echo "Updating and upgrading packages..."
 export DEBIAN_FRONTEND=noninteractive
+export NEEDRESTART_MODE=a
 apt-get update
 apt-get upgrade -y
 
@@ -36,14 +37,16 @@ netfilter-persistent save
 
 echo "Handling Dokploy installation/update..."
 
-if command -v docker >/dev/null 2>&1 && docker service inspect dokploy >/dev/null 2>&1; then
+install_args=""
+if command -v docker >/dev/null 2>&1 &&
+  docker info --format '{{.Swarm.LocalNodeState}}' 2>/dev/null | grep -q "active" &&
+  docker service inspect dokploy >/dev/null 2>&1; then
   echo "Dokploy is already installed. Updating..."
-  # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
-  curl -sSL https://dokploy.com/install.sh | bash -s update
+  install_args="update"
 else
   echo "Dokploy not found. Installing..."
-  # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
-  curl -sSL https://dokploy.com/install.sh | bash
 fi
+# nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
+curl -sSL https://dokploy.com/install.sh | bash -s $install_args
 
 echo "Init script completed successfully!"

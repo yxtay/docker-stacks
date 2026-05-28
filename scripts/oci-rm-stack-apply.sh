@@ -8,12 +8,12 @@ set -euo pipefail
 #   STACK_ID              - OCI Resource Manager stack OCID
 # Optional:
 #   RETRY_INTERVAL        - seconds between capacity retries (default: 300)
-#   RATE_LIMIT_BACKOFF    - initial backoff seconds on 429 errors, doubles each time (default: 60)
+#   RATE_LIMIT_BACKOFF    - seconds to wait on 429 errors (default: 600)
 #   MAX_RETRIES           - max capacity retry attempts; 0 = unlimited (default: 0)
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
 RETRY_INTERVAL=${RETRY_INTERVAL:-300}
-RATE_LIMIT_BACKOFF=${RATE_LIMIT_BACKOFF:-60}
+RATE_LIMIT_BACKOFF=${RATE_LIMIT_BACKOFF:-600}
 MAX_RETRIES=${MAX_RETRIES:-0}
 
 attempt=0
@@ -28,7 +28,6 @@ while true; do
 
   echo "Attempt $attempt: creating apply job..."
   JOB_ID=""
-  rate_backoff=$RATE_LIMIT_BACKOFF
   while true; do
     err_file=$(mktemp)
     if JOB_ID=$(oci resource-manager job create-apply-job \
@@ -40,11 +39,9 @@ while true; do
       break
     fi
     if grep -qi "TooManyRequests\|429" "$err_file"; then
-      echo "  Rate limited (429). Waiting ${rate_backoff}s..."
+      echo "  Rate limited (429). Waiting ${RATE_LIMIT_BACKOFF}s..."
       rm -f "$err_file"
-      sleep "$rate_backoff"
-      rate_backoff=$((rate_backoff * 2))
-      [[ $rate_backoff -gt 600 ]] && rate_backoff=600
+      sleep "$RATE_LIMIT_BACKOFF"
     else
       cat "$err_file" >&2
       rm -f "$err_file"

@@ -25,31 +25,26 @@ while true; do
   fi
 
   echo "Attempt ${attempt}: creating apply job..."
-  JOB_ID=""
-  while true; do
-    err_file=$(mktemp)
-    if JOB_ID=$(oci resource-manager job create-apply-job \
-      --stack-id "${STACK_ID}" \
-      --execution-plan-strategy AUTO_APPROVED \
-      --query 'data.id' \
-      --raw-output 2>"${err_file}"); then
-      rm -f "${err_file}"
-      break
-    fi
+  err_file=$(mktemp)
+  if ! JOB_ID=$(oci resource-manager job create-apply-job \
+    --stack-id "${STACK_ID}" \
+    --execution-plan-strategy AUTO_APPROVED \
+    --query 'data.id' \
+    --raw-output 2>"${err_file}"); then
     if grep -qi "TooManyRequests\|429" "${err_file}"; then
-      echo "  Rate limited (429). Waiting ${RETRY_INTERVAL}s..."
+      echo "  Rate limited. Retrying in ${RETRY_INTERVAL}s..."
       rm -f "${err_file}"
       sleep "${RETRY_INTERVAL}"
-    else
-      cat "${err_file}" >&2
-      rm -f "${err_file}"
-      exit 1
+      continue
     fi
-  done
+    cat "${err_file}" >&2
+    rm -f "${err_file}"
+    exit 1
+  fi
+  rm -f "${err_file}"
   echo "Job: ${JOB_ID}"
 
   # Poll until terminal state
-  STATUS=""
   while true; do
     STATUS=$(oci resource-manager job get \
       --job-id "${JOB_ID}" \
@@ -68,7 +63,6 @@ while true; do
     exit 0
   fi
 
-  # Check whether failure was a capacity error
   LOGS=$(oci resource-manager job get-job-logs \
     --job-id "${JOB_ID}" \
     --query 'data[*].message' \

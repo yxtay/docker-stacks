@@ -51,28 +51,28 @@ resource "oci_core_security_list" "sl" {
 
   # TCP Ports
   dynamic "ingress_security_rules" {
-    for_each = var.tcp_ingress_ports
+    for_each = split(",", replace(var.tcp_ingress_ports, " ", ""))
     content {
       protocol  = "6"
       source    = "0.0.0.0/0"
       stateless = false
       tcp_options {
-        min = ingress_security_rules.value
-        max = ingress_security_rules.value
+        min = tonumber(ingress_security_rules.value)
+        max = tonumber(ingress_security_rules.value)
       }
     }
   }
 
   # UDP Ports
   dynamic "ingress_security_rules" {
-    for_each = var.udp_ingress_ports
+    for_each = split(",", replace(var.udp_ingress_ports, " ", ""))
     content {
       protocol  = "17"
       source    = "0.0.0.0/0"
       stateless = false
       udp_options {
-        min = ingress_security_rules.value
-        max = ingress_security_rules.value
+        min = tonumber(ingress_security_rules.value)
+        max = tonumber(ingress_security_rules.value)
       }
     }
   }

@@ -23,11 +23,11 @@ resource "oci_core_route_table" "rt" {
   }
 }
 
+#checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
+#checkov:skip=CKV_OCI_19:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
+#checkov:skip=CKV_OCI_20:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
+#checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
 resource "oci_core_security_list" "sl" {
-  #checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
-  #checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
-  #checkov:skip=CKV_OCI_19:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
-  #checkov:skip=CKV_OCI_20:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
   display_name   = "${var.vcn_display_name}-sl"

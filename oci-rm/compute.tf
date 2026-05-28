@@ -13,6 +13,8 @@ data "oci_core_images" "instance_image" {
 }
 
 resource "oci_core_instance" "instance" {
+  #checkov:skip=CKV_OCI_5:Legacy IMDS is used intentionally for compatibility with various user scripts.
+  #checkov:skip=CKV_OCI_4:PV encryption in transit is deprecated in OCI provider v6+; no supported replacement on oci_core_instance.
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name
@@ -39,7 +41,4 @@ resource "oci_core_instance" "instance" {
     { ssh_authorized_keys = var.ssh_public_key },
     var.user_data != "" ? { user_data = local.user_data } : {}
   )
-
-  # checkov:skip=CKV_OCI_5:Legacy IMDS is used intentionally for compatibility with various user scripts.
-  # checkov:skip=CKV_OCI_4:PV encryption in transit is deprecated in OCI provider v6+; no supported replacement on oci_core_instance.
 }

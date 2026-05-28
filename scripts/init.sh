@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 
 echo "Upgrading and installing packages..."

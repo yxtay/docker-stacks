@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 
 # Required:
@@ -42,30 +41,4 @@ STACK_ID=$(oci resource-manager stack create \
   --raw-output)
 echo "Stack: $STACK_ID"
 
-echo "Applying stack..."
-JOB_ID=$(oci resource-manager job create-apply-job \
-  --stack-id "$STACK_ID" \
-  --execution-plan-strategy AUTO_APPROVED \
-  --query 'data.id' \
-  --raw-output)
-echo "Job: $JOB_ID"
-
-echo "Waiting for job to complete..."
-while true; do
-  STATUS=$(oci resource-manager job get \
-    --job-id "$JOB_ID" \
-    --query 'data."lifecycle-state"' \
-    --raw-output)
-  echo "  Status: $STATUS"
-  case "$STATUS" in
-  SUCCEEDED) break ;;
-  FAILED | CANCELING | CANCELED)
-    echo "Job $STATUS" >&2
-    exit 1
-    ;;
-  esac
-  sleep 10
-done
-
-echo "Done! View outputs at:"
-echo "  https://cloud.oracle.com/resourcemanager/stacks/$STACK_ID"
+STACK_ID="$STACK_ID" "$SCRIPT_DIR/oci-rm-retry.sh"

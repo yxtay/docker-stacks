@@ -55,7 +55,7 @@ variable "instance_memory_in_gbs" {
 variable "boot_volume_size_in_gbs" {
   type        = number
   description = "Boot volume size in GB (min 47; Always Free allows 200 GB total block storage)"
-  default     = 50
+  default     = 100
 
   validation {
     condition     = var.boot_volume_size_in_gbs >= 47 && var.boot_volume_size_in_gbs <= 200
@@ -77,11 +77,11 @@ variable "instance_image_os" {
 variable "instance_image_os_version" {
   type        = string
   description = "OS version (Ubuntu: 22.04, 20.04 | Oracle Linux: 9, 8)"
-  default     = "22.04"
+  default     = "24.04"
 
   validation {
-    condition     = contains(["22.04", "20.04", "9", "8"], var.instance_image_os_version)
-    error_message = "instance_image_os_version must be one of: 22.04, 20.04, 9, 8."
+    condition     = contains(["24.04", "22.04", "20.04", "9", "8"], var.instance_image_os_version)
+    error_message = "instance_image_os_version must be one of: 24.04, 22.04, 20.04, 9, 8."
   }
 }
 

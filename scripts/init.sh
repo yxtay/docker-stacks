@@ -35,7 +35,8 @@ netfilter-persistent save
 echo "Handling Dokploy installation/update..."
 
 install_args=""
-if docker ps --filter name=dokploy --format '{{.Names}}' 2>/dev/null | grep -q "dokploy"; then
+if command -v docker >/dev/null 2>&1 &&
+  docker ps --filter name=dokploy --format '{{.Names}}' 2>/dev/null | grep -q "dokploy"; then
   echo "Dokploy is already installed. Updating..."
   install_args="update"
 else

@@ -7,13 +7,11 @@ set -euo pipefail
 # Required:
 #   STACK_ID              - OCI Resource Manager stack OCID
 # Optional:
-#   RETRY_INTERVAL        - seconds between capacity retries (default: 300)
-#   RATE_LIMIT_BACKOFF    - seconds to wait on 429 errors (default: 600)
+#   RETRY_INTERVAL        - seconds between retries for capacity and rate-limit errors (default: 600)
 #   MAX_RETRIES           - max capacity retry attempts; 0 = unlimited (default: 0)
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
-RETRY_INTERVAL=${RETRY_INTERVAL:-300}
-RATE_LIMIT_BACKOFF=${RATE_LIMIT_BACKOFF:-600}
+RETRY_INTERVAL=${RETRY_INTERVAL:-600}
 MAX_RETRIES=${MAX_RETRIES:-0}
 
 attempt=0
@@ -39,9 +37,9 @@ while true; do
       break
     fi
     if grep -qi "TooManyRequests\|429" "${err_file}"; then
-      echo "  Rate limited (429). Waiting ${RATE_LIMIT_BACKOFF}s..."
+      echo "  Rate limited (429). Waiting ${RETRY_INTERVAL}s..."
       rm -f "${err_file}"
-      sleep "${RATE_LIMIT_BACKOFF}"
+      sleep "${RETRY_INTERVAL}"
     else
       cat "${err_file}" >&2
       rm -f "${err_file}"

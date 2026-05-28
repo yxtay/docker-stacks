@@ -56,5 +56,3 @@ else
     --raw-output)
   echo "Stack: ${STACK_ID}"
 fi
-
-STACK_ID="${STACK_ID}" "${SCRIPT_DIR}/oci-rm-stack-apply.sh"

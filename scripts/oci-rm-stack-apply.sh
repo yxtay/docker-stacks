@@ -21,67 +21,67 @@ attempt=0
 while true; do
   attempt=$((attempt + 1))
 
-  if [[ $MAX_RETRIES -gt 0 && $attempt -gt $MAX_RETRIES ]]; then
-    echo "Max retries ($MAX_RETRIES) reached." >&2
+  if [[ ${MAX_RETRIES} -gt 0 && ${attempt} -gt ${MAX_RETRIES} ]]; then
+    echo "Max retries (${MAX_RETRIES}) reached." >&2
     exit 1
   fi
 
-  echo "Attempt $attempt: creating apply job..."
+  echo "Attempt ${attempt}: creating apply job..."
   JOB_ID=""
   while true; do
     err_file=$(mktemp)
     if JOB_ID=$(oci resource-manager job create-apply-job \
-      --stack-id "$STACK_ID" \
+      --stack-id "${STACK_ID}" \
       --execution-plan-strategy AUTO_APPROVED \
       --query 'data.id' \
-      --raw-output 2>"$err_file"); then
-      rm -f "$err_file"
+      --raw-output 2>"${err_file}"); then
+      rm -f "${err_file}"
       break
     fi
-    if grep -qi "TooManyRequests\|429" "$err_file"; then
+    if grep -qi "TooManyRequests\|429" "${err_file}"; then
       echo "  Rate limited (429). Waiting ${RATE_LIMIT_BACKOFF}s..."
-      rm -f "$err_file"
-      sleep "$RATE_LIMIT_BACKOFF"
+      rm -f "${err_file}"
+      sleep "${RATE_LIMIT_BACKOFF}"
     else
-      cat "$err_file" >&2
-      rm -f "$err_file"
+      cat "${err_file}" >&2
+      rm -f "${err_file}"
       exit 1
     fi
   done
-  echo "Job: $JOB_ID"
+  echo "Job: ${JOB_ID}"
 
   # Poll until terminal state
   STATUS=""
   while true; do
     STATUS=$(oci resource-manager job get \
-      --job-id "$JOB_ID" \
+      --job-id "${JOB_ID}" \
       --query 'data."lifecycle-state"' \
       --raw-output)
-    echo "  Status: $STATUS"
-    case "$STATUS" in
+    echo "  Status: ${STATUS}"
+    case "${STATUS}" in
     SUCCEEDED | FAILED | CANCELING | CANCELED) break ;;
     esac
     sleep 15
   done
 
-  if [[ "$STATUS" == "SUCCEEDED" ]]; then
+  if [[ "${STATUS}" == "SUCCEEDED" ]]; then
     echo "Done! View outputs at:"
-    echo "  https://cloud.oracle.com/resourcemanager/stacks/$STACK_ID"
+    echo "  https://cloud.oracle.com/resourcemanager/stacks/${STACK_ID}"
     exit 0
   fi
 
   # Check whether failure was a capacity error
   LOGS=$(oci resource-manager job get-job-logs \
-    --job-id "$JOB_ID" \
+    --job-id "${JOB_ID}" \
     --query 'data[*].message' \
     --output json 2>/dev/null || echo '[]')
 
-  if echo "$LOGS" | grep -qi "out of host capacity\|out of capacity"; then
+  if echo "${LOGS}" | grep -qi "out of host capacity\|out of capacity"; then
     echo "Out of capacity. Retrying in ${RETRY_INTERVAL}s (Ctrl-C to stop)..."
-    sleep "$RETRY_INTERVAL"
+    sleep "${RETRY_INTERVAL}"
   else
     echo "Job failed for a non-capacity reason. Check logs:" >&2
-    echo "  oci resource-manager job get-job-logs --job-id $JOB_ID" >&2
+    echo "  oci resource-manager job get-job-logs --job-id ${JOB_ID}" >&2
     exit 1
   fi
 done

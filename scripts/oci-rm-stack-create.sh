@@ -13,32 +13,32 @@ SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY:-$(cat "${SSH_PUBLIC_KEY_FILE:-$HOME/.ssh/id_ed2
 STACK_DISPLAY_NAME=${STACK_DISPLAY_NAME:-arm-free-tier}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 STACK_ZIP=$(mktemp --suffix=.zip)
 VARS_FILE=$(mktemp --suffix=.json)
 
 cleanup() {
-  rm -f "$STACK_ZIP" "$VARS_FILE"
+  rm -f "${STACK_ZIP}" "${VARS_FILE}"
 }
 trap cleanup EXIT
 
 echo "Zipping OCI RM stack..."
-(cd "$REPO_ROOT/oci-rm" && zip -r "$STACK_ZIP" .)
+(cd "${REPO_ROOT}/oci-rm" && zip -r "${STACK_ZIP}" .)
 
 echo "Writing variables..."
 printf '{"ssh_public_key": %s, "instance_display_name": %s}' \
-  "$(printf '%s' "$SSH_PUBLIC_KEY" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
-  "$(printf '%s' "$STACK_DISPLAY_NAME" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
-  >"$VARS_FILE"
+  "$(printf '%s' "${SSH_PUBLIC_KEY}" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
+  "$(printf '%s' "${STACK_DISPLAY_NAME}" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
+  >"${VARS_FILE}"
 
 echo "Creating stack..."
 STACK_ID=$(oci resource-manager stack create \
-  --compartment-id "$COMPARTMENT_OCID" \
-  --config-source "$STACK_ZIP" \
-  --display-name "$STACK_DISPLAY_NAME" \
-  --variables "file://$VARS_FILE" \
+  --compartment-id "${COMPARTMENT_OCID}" \
+  --config-source "${STACK_ZIP}" \
+  --display-name "${STACK_DISPLAY_NAME}" \
+  --variables "file://${VARS_FILE}" \
   --query 'data.id' \
   --raw-output)
-echo "Stack: $STACK_ID"
+echo "Stack: ${STACK_ID}"
 
-STACK_ID="$STACK_ID" "$SCRIPT_DIR/oci-rm-stack-apply.sh"
+STACK_ID="${STACK_ID}" "${SCRIPT_DIR}/oci-rm-stack-apply.sh"

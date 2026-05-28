@@ -110,7 +110,7 @@ variable "user_data" {
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"
-  default     = "arm-vcn"
+  default     = "vcn-default"
 }
 
 variable "vcn_cidr_block" {

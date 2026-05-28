@@ -11,12 +11,14 @@ set -euo pipefail
 # Optional:
 #   STACK_ID               - existing stack OCID; if set, updates instead of creates
 #   STACK_DISPLAY_NAME     - stack/instance name (default: oci-rm-arm-free-tier)
+#   USER_DATA_FILE         - cloud-init script path (default: scripts/init.sh)
 
 SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY:-$(cat "${SSH_PUBLIC_KEY_FILE:-$HOME/.ssh/id_ed25519.pub}")}
 STACK_DISPLAY_NAME=${STACK_DISPLAY_NAME:-oci-rm-arm-free-tier}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+USER_DATA_FILE=${USER_DATA_FILE:-"${SCRIPT_DIR}/init.sh"}
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 VARS_FILE="${WORK_DIR}/vars.json"
@@ -30,9 +32,11 @@ echo "Zipping OCI RM stack..."
 (cd "${REPO_ROOT}/oci-rm" && zip -r "${STACK_ZIP}" .)
 
 echo "Writing variables..."
-printf '{"ssh_public_key": %s, "instance_display_name": %s}' \
-  "$(printf '%s' "${SSH_PUBLIC_KEY}" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
-  "$(printf '%s' "${STACK_DISPLAY_NAME}" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
+jq -n \
+  --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
+  --arg instance_display_name "${STACK_DISPLAY_NAME}" \
+  --rawfile user_data "${USER_DATA_FILE}" \
+  '{ssh_public_key: $ssh_public_key, instance_display_name: $instance_display_name, user_data: $user_data}' \
   >"${VARS_FILE}"
 
 if [[ -n "${STACK_ID:-}" ]]; then

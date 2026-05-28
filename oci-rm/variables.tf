@@ -101,6 +101,18 @@ variable "ssh_source_cidr" {
   }
 }
 
+variable "tcp_ingress_ports" {
+  type        = list(number)
+  description = "List of TCP ports to allow ingress"
+  default     = [80, 443, 3000]
+}
+
+variable "udp_ingress_ports" {
+  type        = list(number)
+  description = "List of UDP ports to allow ingress"
+  default     = [443]
+}
+
 variable "user_data" {
   type        = string
   description = "Cloud-init script to run on first boot (paste contents of scripts/init.sh to auto-install Dokploy)"

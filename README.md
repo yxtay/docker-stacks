@@ -18,9 +18,9 @@ This project uses several tools to ensure code quality and consistency:
 
 ## OCI Resource Manager — ARM Free Tier VPS
 
-The `oci-rm/` directory contains a Terraform stack for OCI Resource Manager that
-provisions an Ampere A1 (ARM) Always Free VPS, including VCN, subnet, internet
-gateway, security rules, and compute instance.
+The `oci-rm/` directory contains a modular Terraform stack for OCI Resource
+Manager that provisions an Ampere A1 (ARM) Always Free VPS, including VCN,
+subnet, internet gateway, security rules, and compute instance.
 
 ### Always Free limits
 
@@ -31,7 +31,18 @@ gateway, security rules, and compute instance.
 | Memory        | 24 GB total across all A1 instances |
 | Block storage | 200 GB total                        |
 
-Defaults: 2 OCPU / 12 GB RAM / 50 GB boot volume.
+Defaults: 4 OCPU / 24 GB RAM / 200 GB boot volume (Max Always Free).
+
+### Features
+
+- **Modular Architecture**: Clean separation of concerns with network and
+  compute modules.
+- **Structured Cloud-init**: Automatically updates packages and installs `curl`
+  and `git`.
+- **Configurable Networking**: Easily specify additional TCP/UDP ports for
+  ingress.
+- **ORM Optimized**: Enhanced `schema.yaml` with logical grouping and
+  descriptive tooltips.
 
 ### Variables
 
@@ -39,7 +50,8 @@ All variables have sensible defaults. Required inputs:
 
 - **Compartment** — target OCI compartment
 - **SSH Public Key** — key for instance access
-- **Cloud-init Script** (optional) — paste `scripts/init.sh` to auto-install Dokploy
+- **Cloud-init Script** (optional) — paste `scripts/init.sh` to auto-install
+  Dokploy. This will be wrapped in a structured cloud-config.
 
 ### Deploy via OCI Console (recommended)
 

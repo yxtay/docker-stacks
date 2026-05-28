@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.3.0"
   required_providers {
     oci = {
       source  = "oracle/oci"
@@ -65,6 +66,7 @@ resource "oci_core_route_table" "rt" {
 }
 
 resource "oci_core_security_list" "sl" {
+  #checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
   display_name   = "${var.vcn_display_name}-sl"
@@ -75,9 +77,10 @@ resource "oci_core_security_list" "sl" {
     stateless   = false
   }
 
+  #checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
   ingress_security_rules {
     protocol  = "6"
-    source    = "0.0.0.0/0"
+    source    = var.ssh_source_cidr
     stateless = false
     tcp_options {
       min = 22
@@ -167,6 +170,12 @@ resource "oci_core_instance" "instance" {
     source_type             = "image"
     source_id               = data.oci_core_images.instance_image.images[0].id
     boot_volume_size_in_gbs = var.boot_volume_size_in_gbs
+  }
+
+  is_pv_encryption_in_transit_enabled = true
+
+  metadata_options {
+    are_legacy_imds_headers_enabled = false
   }
 
   metadata = merge(

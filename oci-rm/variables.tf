@@ -90,6 +90,17 @@ variable "ssh_public_key" {
   description = "SSH public key for instance access"
 }
 
+variable "ssh_source_cidr" {
+  type        = string
+  description = "CIDR block allowed to reach port 22. Restrict to your IP for better security (e.g. 203.0.113.0/32)."
+  default     = "0.0.0.0/0"
+
+  validation {
+    condition     = can(cidrnetmask(var.ssh_source_cidr))
+    error_message = "ssh_source_cidr must be a valid CIDR block."
+  }
+}
+
 variable "user_data" {
   type        = string
   description = "Cloud-init script to run on first boot (paste contents of scripts/init.sh to auto-install Dokploy)"

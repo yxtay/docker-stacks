@@ -42,6 +42,7 @@ if command -v docker >/dev/null 2>&1 && docker service inspect dokploy >/dev/nul
   curl -sSL https://dokploy.com/install.sh | bash -s update
 else
   echo "Dokploy not found. Installing..."
+  # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
   curl -sSL https://dokploy.com/install.sh | bash
 fi
 

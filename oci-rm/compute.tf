@@ -37,8 +37,8 @@ resource "oci_core_instance" "instance" {
     boot_volume_size_in_gbs = var.boot_volume_size_in_gbs
   }
 
-  metadata = merge(
-    { ssh_authorized_keys = var.ssh_public_key },
-    var.user_data != "" ? { user_data = local.user_data } : {}
-  )
+  metadata = {
+    ssh_authorized_keys = var.ssh_public_key
+    user_data           = local.user_data
+  }
 }

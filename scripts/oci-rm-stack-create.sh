@@ -10,7 +10,7 @@ set -euo pipefail
 #     or SSH_PUBLIC_KEY_FILE - path to public key file (default: ~/.ssh/id_ed25519.pub)
 # Optional:
 #   STACK_ID               - existing stack OCID; if set, updates instead of creates
-#   STACK_DISPLAY_NAME     - stack/instance name (default: arm-free-tier)
+#   STACK_DISPLAY_NAME     - stack/instance name (default: oci-rm-arm-free-tier)
 
 SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY:-$(cat "${SSH_PUBLIC_KEY_FILE:-$HOME/.ssh/id_ed25519.pub}")}
 STACK_DISPLAY_NAME=${STACK_DISPLAY_NAME:-oci-rm-arm-free-tier}

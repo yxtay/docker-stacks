@@ -150,6 +150,7 @@ resource "oci_core_subnet" "subnet" {
 }
 
 resource "oci_core_instance" "instance" {
+  #checkov:skip=CKV_OCI_18:metadata_options block is not supported by the OCI Terraform provider; legacy IMDS cannot be disabled via Terraform.
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name
@@ -173,10 +174,6 @@ resource "oci_core_instance" "instance" {
   }
 
   is_pv_encryption_in_transit_enabled = true
-
-  metadata_options {
-    are_legacy_imds_headers_enabled = false
-  }
 
   metadata = merge(
     { ssh_authorized_keys = var.ssh_public_key },

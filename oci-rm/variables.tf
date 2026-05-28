@@ -33,7 +33,7 @@ variable "instance_display_name" {
 variable "instance_ocpus" {
   type        = number
   description = "Number of OCPUs (max 4 total across all A1 Always Free instances)"
-  default     = 2
+  default     = 4
 
   validation {
     condition     = var.instance_ocpus >= 1 && var.instance_ocpus <= 4
@@ -44,7 +44,7 @@ variable "instance_ocpus" {
 variable "instance_memory_in_gbs" {
   type        = number
   description = "Memory in GB (max 24 total across all A1 Always Free instances; ratio 1:1 to 1:8 OCPU:GB)"
-  default     = 12
+  default     = 24
 
   validation {
     condition     = var.instance_memory_in_gbs >= 1 && var.instance_memory_in_gbs <= 24
@@ -55,7 +55,7 @@ variable "instance_memory_in_gbs" {
 variable "boot_volume_size_in_gbs" {
   type        = number
   description = "Boot volume size in GB (min 47; Always Free allows 200 GB total block storage)"
-  default     = 100
+  default     = 200
 
   validation {
     condition     = var.boot_volume_size_in_gbs >= 47 && var.boot_volume_size_in_gbs <= 200

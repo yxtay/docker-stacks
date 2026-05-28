@@ -111,9 +111,15 @@ variables:
     required: true
 
   instance_image_os_version:
-    type: string
+    type: enum
     title: "OS Version"
     description: "Ubuntu: 24.04, 22.04, 20.04 | Oracle Linux: 9, 8"
+    enum:
+      - "24.04"
+      - "22.04"
+      - "20.04"
+      - "9"
+      - "8"
     default: "24.04"
     required: true
 

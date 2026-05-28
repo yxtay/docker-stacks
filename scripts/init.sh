@@ -33,6 +33,7 @@ add_port_rule 3000 tcp
 netfilter-persistent save
 
 echo "Handling Dokploy installation/update..."
+# https://docs.dokploy.com/docs/core/installation
 
 install_args=""
 if command -v docker >/dev/null 2>&1 &&
@@ -43,6 +44,6 @@ else
   echo "Dokploy not found. Installing..."
 fi
 # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
-curl --silent --show-error --location https://dokploy.com/install.sh | bash -s $install_args
+curl -fsSL https://dokploy.com/install.sh | bash -s $install_args
 
 echo "Init script completed successfully!"

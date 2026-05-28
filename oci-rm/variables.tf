@@ -102,15 +102,15 @@ variable "ssh_source_cidr" {
 }
 
 variable "tcp_ingress_ports" {
-  type        = string
-  description = "Comma-separated list of TCP ports to allow ingress"
-  default     = "80,443,3000"
+  type        = list(number)
+  description = "List of TCP ports to allow ingress"
+  default     = [80, 443, 3000]
 }
 
 variable "udp_ingress_ports" {
-  type        = string
-  description = "Comma-separated list of UDP ports to allow ingress"
-  default     = "443"
+  type        = list(number)
+  description = "List of UDP ports to allow ingress"
+  default     = [443]
 }
 
 variable "user_data" {

@@ -65,8 +65,9 @@ resource "oci_core_route_table" "rt" {
   }
 }
 
+#checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
+#checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
 resource "oci_core_security_list" "sl" {
-  #checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
   display_name   = "${var.vcn_display_name}-sl"
@@ -77,7 +78,6 @@ resource "oci_core_security_list" "sl" {
     stateless   = false
   }
 
-  #checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
   ingress_security_rules {
     protocol  = "6"
     source    = var.ssh_source_cidr
@@ -149,8 +149,8 @@ resource "oci_core_subnet" "subnet" {
   security_list_ids = [oci_core_security_list.sl.id]
 }
 
+#checkov:skip=CKV_OCI_18:metadata_options block is not supported by the OCI Terraform provider; legacy IMDS cannot be disabled via Terraform.
 resource "oci_core_instance" "instance" {
-  #checkov:skip=CKV_OCI_18:metadata_options block is not supported by the OCI Terraform provider; legacy IMDS cannot be disabled via Terraform.
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name

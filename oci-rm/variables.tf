@@ -17,6 +17,11 @@ variable "availability_domain_number" {
   type        = number
   description = "Availability domain number (1, 2, or 3)"
   default     = 1
+
+  validation {
+    condition     = var.availability_domain_number >= 1 && var.availability_domain_number <= 3
+    error_message = "availability_domain_number must be 1, 2, or 3."
+  }
 }
 
 variable "instance_display_name" {
@@ -29,30 +34,55 @@ variable "instance_ocpus" {
   type        = number
   description = "Number of OCPUs (max 4 total across all A1 Always Free instances)"
   default     = 2
+
+  validation {
+    condition     = var.instance_ocpus >= 1 && var.instance_ocpus <= 4
+    error_message = "instance_ocpus must be between 1 and 4 (Always Free limit)."
+  }
 }
 
 variable "instance_memory_in_gbs" {
   type        = number
   description = "Memory in GB (max 24 total across all A1 Always Free instances; ratio 1:1 to 1:8 OCPU:GB)"
   default     = 12
+
+  validation {
+    condition     = var.instance_memory_in_gbs >= 1 && var.instance_memory_in_gbs <= 24
+    error_message = "instance_memory_in_gbs must be between 1 and 24 (Always Free limit)."
+  }
 }
 
 variable "boot_volume_size_in_gbs" {
   type        = number
   description = "Boot volume size in GB (min 47; Always Free allows 200 GB total block storage)"
   default     = 50
+
+  validation {
+    condition     = var.boot_volume_size_in_gbs >= 47 && var.boot_volume_size_in_gbs <= 200
+    error_message = "boot_volume_size_in_gbs must be between 47 and 200."
+  }
 }
 
 variable "instance_image_os" {
   type        = string
   description = "Operating system"
   default     = "Canonical Ubuntu"
+
+  validation {
+    condition     = contains(["Canonical Ubuntu", "Oracle Linux"], var.instance_image_os)
+    error_message = "instance_image_os must be 'Canonical Ubuntu' or 'Oracle Linux'."
+  }
 }
 
 variable "instance_image_os_version" {
   type        = string
   description = "OS version (Ubuntu: 22.04, 20.04 | Oracle Linux: 9, 8)"
   default     = "22.04"
+
+  validation {
+    condition     = contains(["22.04", "20.04", "9", "8"], var.instance_image_os_version)
+    error_message = "instance_image_os_version must be one of: 22.04, 20.04, 9, 8."
+  }
 }
 
 variable "ssh_public_key" {

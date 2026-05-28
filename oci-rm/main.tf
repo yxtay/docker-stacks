@@ -30,6 +30,13 @@ data "oci_core_images" "instance_image" {
   shape                    = "VM.Standard.A1.Flex"
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
+
+  lifecycle {
+    postcondition {
+      condition     = length(self.images) > 0
+      error_message = "No images found for ${var.instance_image_os} ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
+    }
+  }
 }
 
 resource "oci_core_vcn" "vcn" {

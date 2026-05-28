@@ -2,16 +2,18 @@
 set -euo pipefail
 
 # Retries an apply job on an existing OCI Resource Manager stack until it
-# succeeds. Intended for "Out of host capacity" errors on A1.Flex Free Tier.
+# succeeds. Handles "Out of host capacity" and 429 rate-limit errors.
 #
 # Required:
-#   STACK_ID         - OCI Resource Manager stack OCID
+#   STACK_ID              - OCI Resource Manager stack OCID
 # Optional:
-#   RETRY_INTERVAL   - seconds between retries (default: 300)
-#   MAX_RETRIES      - max attempts before giving up; 0 = unlimited (default: 0)
+#   RETRY_INTERVAL        - seconds between capacity retries (default: 300)
+#   RATE_LIMIT_BACKOFF    - initial backoff seconds on 429 errors, doubles each time (default: 60)
+#   MAX_RETRIES           - max capacity retry attempts; 0 = unlimited (default: 0)
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
 RETRY_INTERVAL=${RETRY_INTERVAL:-300}
+RATE_LIMIT_BACKOFF=${RATE_LIMIT_BACKOFF:-60}
 MAX_RETRIES=${MAX_RETRIES:-0}
 
 attempt=0
@@ -25,11 +27,30 @@ while true; do
   fi
 
   echo "Attempt $attempt: creating apply job..."
-  JOB_ID=$(oci resource-manager job create-apply-job \
-    --stack-id "$STACK_ID" \
-    --execution-plan-strategy AUTO_APPROVED \
-    --query 'data.id' \
-    --raw-output)
+  JOB_ID=""
+  rate_backoff=$RATE_LIMIT_BACKOFF
+  while true; do
+    err_file=$(mktemp)
+    if JOB_ID=$(oci resource-manager job create-apply-job \
+      --stack-id "$STACK_ID" \
+      --execution-plan-strategy AUTO_APPROVED \
+      --query 'data.id' \
+      --raw-output 2>"$err_file"); then
+      rm -f "$err_file"
+      break
+    fi
+    if grep -qi "TooManyRequests\|429" "$err_file"; then
+      echo "  Rate limited (429). Waiting ${rate_backoff}s..."
+      rm -f "$err_file"
+      sleep "$rate_backoff"
+      rate_backoff=$((rate_backoff * 2))
+      [[ $rate_backoff -gt 600 ]] && rate_backoff=600
+    else
+      cat "$err_file" >&2
+      rm -f "$err_file"
+      exit 1
+    fi
+  done
   echo "Job: $JOB_ID"
 
   # Poll until terminal state

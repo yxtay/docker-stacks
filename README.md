@@ -62,26 +62,6 @@ Requires OCI CLI configured (`oci setup config`).
 COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-cli.sh
 ```
 
-### Deploy via local Terraform
-
-Requires OCI CLI configured (`oci setup config`) and Terraform installed.
-
-```bash
-TENANCY_OCID=<tenancy-ocid> \
-COMPARTMENT_OCID=<compartment-ocid> \
-REGION=<region> \
-bash scripts/oci-rm-terraform.sh
-```
-
-Or create `oci-rm/terraform.tfvars` and run the script without env vars:
-
-```hcl
-tenancy_ocid     = "ocid1.tenancy.oc1..<hash>"
-compartment_ocid = "ocid1.compartment.oc1..<hash>"
-region           = "ap-singapore-1"
-ssh_public_key   = "ssh-ed25519 AAAA..."
-```
-
 ### Retry on out-of-capacity errors
 
 A1.Flex Free Tier capacity is limited and apply jobs may fail with

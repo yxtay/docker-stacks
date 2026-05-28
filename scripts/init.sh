@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefaile
 
 echo "Updating and upgrading packages..."
 export DEBIAN_FRONTEND=noninteractive

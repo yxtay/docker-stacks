@@ -165,15 +165,15 @@ variables:
     required: true
 
   tcp_ingress_ports:
-    type: list(integer)
+    type: string
     title: "TCP Ingress Ports"
-    description: "List of TCP ports to allow ingress."
-    default: [80, 443, 3000]
+    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,3000)."
+    default: "80,443,3000"
     required: false
 
   udp_ingress_ports:
-    type: list(integer)
+    type: string
     title: "UDP Ingress Ports"
-    description: "List of UDP ports to allow ingress."
-    default: [443]
+    description: "Comma-separated list of UDP ports to allow ingress (e.g., 443)."
+    default: "443"
     required: false

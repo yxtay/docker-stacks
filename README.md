@@ -59,7 +59,7 @@ All variables have sensible defaults. Required inputs:
 Requires OCI CLI configured (`oci setup config`).
 
 ```bash
-COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-cli.sh
+COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-stack-create.sh
 ```
 
 ### Retry on out-of-capacity errors
@@ -67,7 +67,7 @@ COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-cli.sh
 A1.Flex Free Tier capacity is limited and apply jobs may fail with
 `500-InternalError, Out of host capacity`. Since networking resources are
 created first and are idempotent, re-applying the same stack retries only
-the instance. `scripts/oci-rm-retry.sh` automates this loop.
+the instance. `scripts/oci-rm-stack-apply.sh` automates this loop.
 
 Get the stack OCID from the OCI Console or from a failed job:
 
@@ -79,10 +79,10 @@ oci resource-manager job get --job-id <failed-job-ocid> \
 Then run the retry loop (checks every 5 minutes by default):
 
 ```bash
-STACK_ID=<stack-ocid> bash scripts/oci-rm-retry.sh
+STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-apply.sh
 
 # Custom interval and max attempts:
-STACK_ID=<stack-ocid> RETRY_INTERVAL=60 MAX_RETRIES=20 bash scripts/oci-rm-retry.sh
+STACK_ID=<stack-ocid> RETRY_INTERVAL=60 MAX_RETRIES=20 bash scripts/oci-rm-stack-apply.sh
 ```
 
 ## Dokploy Setup on OCI

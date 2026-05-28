@@ -65,7 +65,7 @@ variables:
   instance_display_name:
     type: string
     title: "Instance Name"
-    default: "arm-free-tier"
+    default: "instance-docker-stacks"
     required: true
 
   instance_ocpus:
@@ -74,7 +74,7 @@ variables:
     description: "Number of OCPUs. Always Free quota is 4 total across all A1 instances."
     minimum: 1
     maximum: 4
-    default: 2
+    default: 4
     required: true
 
   instance_memory_in_gbs:
@@ -83,7 +83,7 @@ variables:
     description: "Memory in GB. Always Free quota is 24 GB total. Ratio must be 1:1 to 1:8 (OCPU:GB)."
     minimum: 1
     maximum: 24
-    default: 12
+    default: 24
     required: true
 
   boot_volume_size_in_gbs:
@@ -92,7 +92,7 @@ variables:
     description: "Boot volume size in GB. Minimum 47 GB. Always Free allows 200 GB total block storage."
     minimum: 47
     maximum: 200
-    default: 100
+    default: 200
     required: true
 
   instance_image_os:
@@ -140,7 +140,7 @@ variables:
   vcn_display_name:
     type: string
     title: "VCN Name"
-    default: "arm-vcn"
+    default: "vcn-default"
     required: true
 
   vcn_cidr_block:

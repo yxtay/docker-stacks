@@ -25,7 +25,7 @@ gateway, security rules, and compute instance.
 ### Always Free limits
 
 | Resource | Limit |
-|---|---|
+| --- | --- |
 | Shape | `VM.Standard.A1.Flex` |
 | OCPUs | 4 total across all A1 instances |
 | Memory | 24 GB total across all A1 instances |
@@ -56,24 +56,10 @@ All variables have sensible defaults. Required inputs:
 
 ### Deploy via OCI CLI
 
+Requires OCI CLI configured (`oci setup config`).
+
 ```bash
-# Create stack
-oci resource-manager stack create \
-  --compartment-id <compartment-ocid> \
-  --config-source oci-rm-stack.zip \
-  --display-name "arm-free-tier" \
-  --variables '{"ssh_public_key":"<your-key>"}'
-
-# Apply stack (auto-approved)
-oci resource-manager job create-apply-job \
-  --stack-id <stack-ocid> \
-  --execution-plan-strategy AUTO_APPROVED
-
-# Poll job status
-oci resource-manager job get --job-id <job-ocid>
-
-# Get outputs after apply
-oci resource-manager job get-job-tf-state --job-id <job-ocid> --file -
+COMPARTMENT_OCID=<compartment-ocid> bash scripts/oci-rm-cli.sh
 ```
 
 ### Deploy via local Terraform
@@ -81,35 +67,19 @@ oci resource-manager job get-job-tf-state --job-id <job-ocid> --file -
 Requires OCI CLI configured (`oci setup config`) and Terraform installed.
 
 ```bash
-cd oci-rm
-terraform init
-terraform plan \
-  -var tenancy_ocid=<tenancy-ocid> \
-  -var compartment_ocid=<compartment-ocid> \
-  -var region=<region> \
-  -var ssh_public_key="$(cat ~/.ssh/id_ed25519.pub)"
-terraform apply
+TENANCY_OCID=<tenancy-ocid> \
+COMPARTMENT_OCID=<compartment-ocid> \
+REGION=<region> \
+bash scripts/oci-rm-terraform.sh
 ```
 
-Or create a `terraform.tfvars` file:
+Or create `oci-rm/terraform.tfvars` and run the script without env vars:
 
 ```hcl
 tenancy_ocid     = "ocid1.tenancy.oc1..<hash>"
 compartment_ocid = "ocid1.compartment.oc1..<hash>"
 region           = "ap-singapore-1"
 ssh_public_key   = "ssh-ed25519 AAAA..."
-```
-
-### Destroy
-
-```bash
-# Via CLI
-oci resource-manager job create-destroy-job \
-  --stack-id <stack-ocid> \
-  --execution-plan-strategy AUTO_APPROVED
-
-# Via local Terraform
-terraform destroy
 ```
 
 ## Dokploy Setup on OCI

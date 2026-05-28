@@ -1,0 +1,156 @@
+title: "ARM Free Tier VPS"
+description: "Creates an Ampere A1 (ARM) Always Free VPS on Oracle Cloud Infrastructure"
+schemaVersion: 1.1.0
+version: "20190304"
+locale: "en"
+
+variableGroups:
+  - title: "General"
+    visible: false
+    variables:
+      - tenancy_ocid
+      - compartment_ocid
+      - region
+
+  - title: "Instance"
+    variables:
+      - instance_display_name
+      - availability_domain_number
+      - instance_ocpus
+      - instance_memory_in_gbs
+      - boot_volume_size_in_gbs
+
+  - title: "Operating System"
+    variables:
+      - instance_image_os
+      - instance_image_os_version
+
+  - title: "Access"
+    variables:
+      - ssh_public_key
+      - ssh_source_cidr
+      - user_data
+
+  - title: "Network"
+    variables:
+      - vcn_display_name
+      - vcn_cidr_block
+      - subnet_cidr_block
+
+variables:
+  tenancy_ocid:
+    type: string
+    title: "Tenancy OCID"
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    required: true
+
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    required: true
+
+  availability_domain_number:
+    type: integer
+    title: "Availability Domain"
+    description: "Availability domain number. Most Free Tier accounts only have AD 1."
+    minimum: 1
+    maximum: 3
+    default: 1
+    required: true
+
+  instance_display_name:
+    type: string
+    title: "Instance Name"
+    default: "instance-docker-stacks"
+    required: true
+
+  instance_ocpus:
+    type: integer
+    title: "OCPUs"
+    description: "Number of OCPUs. Always Free quota is 4 total across all A1 instances."
+    minimum: 1
+    maximum: 4
+    default: 4
+    required: true
+
+  instance_memory_in_gbs:
+    type: integer
+    title: "Memory (GB)"
+    description: "Memory in GB. Always Free quota is 24 GB total. Ratio must be 1:1 to 1:8 (OCPU:GB)."
+    minimum: 1
+    maximum: 24
+    default: 24
+    required: true
+
+  boot_volume_size_in_gbs:
+    type: integer
+    title: "Boot Volume Size (GB)"
+    description: "Boot volume size in GB. Minimum 47 GB. Always Free allows 200 GB total block storage."
+    minimum: 47
+    maximum: 200
+    default: 200
+    required: true
+
+  instance_image_os:
+    type: enum
+    title: "Operating System"
+    enum:
+      - "Canonical Ubuntu"
+      - "Oracle Linux"
+    default: "Canonical Ubuntu"
+    required: true
+
+  instance_image_os_version:
+    type: enum
+    title: "OS Version"
+    description: "Ubuntu: 24.04, 22.04, 20.04 | Oracle Linux: 9, 8"
+    enum:
+      - "24.04"
+      - "22.04"
+      - "20.04"
+      - "9"
+      - "8"
+    default: "24.04"
+    required: true
+
+  ssh_public_key:
+    type: oci:core:ssh:publickey
+    title: "SSH Public Key"
+    description: "Public key for SSH access. Ubuntu username is 'ubuntu'; Oracle Linux is 'opc'."
+    required: true
+
+  ssh_source_cidr:
+    type: string
+    title: "SSH Source CIDR"
+    description: "CIDR block allowed to reach SSH (port 22). Restrict to your IP for better security (e.g. 203.0.113.0/32)."
+    default: "0.0.0.0/0"
+    required: true
+
+  user_data:
+    type: text
+    title: "Cloud-init Script"
+    description: "Optional shell script to run on first boot. Paste contents of scripts/init.sh to auto-install Dokploy."
+    required: false
+    default: ""
+
+  vcn_display_name:
+    type: string
+    title: "VCN Name"
+    default: "vcn-default"
+    required: true
+
+  vcn_cidr_block:
+    type: string
+    title: "VCN CIDR Block"
+    default: "10.0.0.0/16"
+    required: true
+
+  subnet_cidr_block:
+    type: string
+    title: "Subnet CIDR Block"
+    default: "10.0.0.0/24"
+    required: true

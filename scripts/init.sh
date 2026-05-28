@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 
 echo "Upgrading and installing packages..."
@@ -13,8 +12,8 @@ echo "Configuring iptables..."
 
 # Function to add iptables rule if it doesnt exist
 add_port_rule() {
-  local port=$1
-  local protocol=$2
+  local port=${1}
+  local protocol=${2}
   if ! iptables --check INPUT --protocol "$protocol" --dport "$port" --jump ACCEPT 2>/dev/null; then
     echo "Adding rule for port $port/$protocol"
     # Insert at the top to ensure it precedes any REJECT rules

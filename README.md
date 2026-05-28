@@ -82,6 +82,29 @@ region           = "ap-singapore-1"
 ssh_public_key   = "ssh-ed25519 AAAA..."
 ```
 
+### Retry on out-of-capacity errors
+
+A1.Flex Free Tier capacity is limited and apply jobs may fail with
+`500-InternalError, Out of host capacity`. Since networking resources are
+created first and are idempotent, re-applying the same stack retries only
+the instance. `scripts/oci-rm-retry.sh` automates this loop.
+
+Get the stack OCID from the OCI Console or from a failed job:
+
+```bash
+oci resource-manager job get --job-id <failed-job-ocid> \
+  --query 'data."stack-id"' --raw-output
+```
+
+Then run the retry loop (checks every 5 minutes by default):
+
+```bash
+STACK_ID=<stack-ocid> bash scripts/oci-rm-retry.sh
+
+# Custom interval and max attempts:
+STACK_ID=<stack-ocid> RETRY_INTERVAL=60 MAX_RETRIES=20 bash scripts/oci-rm-retry.sh
+```
+
 ## Dokploy Setup on OCI
 
 This repository includes a script to automate the setup of Dokploy on an Oracle

@@ -26,7 +26,7 @@ resource "oci_core_instance" "instance" {
   }
 
   create_vnic_details {
-    subnet_id        = var.subnet_id
+    subnet_id        = oci_core_subnet.subnet.id
     display_name     = "${var.instance_display_name}-vnic"
     assign_public_ip = true
   }
@@ -39,6 +39,6 @@ resource "oci_core_instance" "instance" {
 
   metadata = merge(
     { ssh_authorized_keys = var.ssh_public_key },
-    var.user_data != "" ? { user_data = var.user_data } : {}
+    var.user_data != "" ? { user_data = local.user_data } : {}
   )
 }

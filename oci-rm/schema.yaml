@@ -91,7 +91,7 @@ variables:
     description: "Boot volume size in GB. Minimum 47 GB. Always Free allows 200 GB total block storage."
     minimum: 47
     maximum: 200
-    default: 50
+    default: 100
     required: true
 
   instance_image_os:
@@ -106,13 +106,14 @@ variables:
   instance_image_os_version:
     type: enum
     title: "OS Version"
-    description: "Ubuntu: 22.04, 20.04 | Oracle Linux: 9, 8"
+    description: "Ubuntu: 24.04, 22.04, 20.04 | Oracle Linux: 9, 8"
     enum:
+      - "24.04"
       - "22.04"
       - "20.04"
       - "9"
       - "8"
-    default: "22.04"
+    default: "24.04"
     required: true
 
   ssh_public_key:

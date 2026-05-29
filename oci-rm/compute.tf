@@ -5,7 +5,7 @@ data "oci_identity_availability_domain" "ad" {
 
 data "oci_core_images" "instance_image" {
   compartment_id           = var.compartment_ocid
-  operating_system         = var.instance_image_os
+  operating_system         = "Canonical Ubuntu"
   operating_system_version = var.instance_image_os_version
   shape                    = "VM.Standard.A1.Flex"
   sort_by                  = "TIMECREATED"

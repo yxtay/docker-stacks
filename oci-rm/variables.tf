@@ -63,17 +63,6 @@ variable "boot_volume_size_in_gbs" {
   }
 }
 
-variable "instance_image_os" {
-  type        = string
-  description = "Operating system"
-  default     = "Canonical Ubuntu"
-
-  validation {
-    condition     = var.instance_image_os == "Canonical Ubuntu"
-    error_message = "instance_image_os must be 'Canonical Ubuntu'."
-  }
-}
-
 variable "instance_image_os_version" {
   type        = string
   description = "Ubuntu OS version"

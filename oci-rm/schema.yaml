@@ -19,9 +19,8 @@ variableGroups:
       - instance_memory_in_gbs
       - boot_volume_size_in_gbs
 
-  - title: "Operating System Selection"
+  - title: "Operating System"
     variables:
-      - instance_image_os
       - instance_image_os_version
 
   - title: "Access and Automation"
@@ -98,15 +97,6 @@ variables:
     minimum: 47
     maximum: 200
     default: 200
-    required: true
-
-  instance_image_os:
-    type: enum
-    title: "Operating System"
-    description: "The operating system to install on the instance."
-    enum:
-      - "Canonical Ubuntu"
-    default: "Canonical Ubuntu"
     required: true
 
   instance_image_os_version:

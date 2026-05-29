@@ -104,7 +104,7 @@ variable "ssh_source_cidr" {
 variable "tcp_ingress_ports" {
   type        = string
   description = "Comma-separated list of TCP ports to allow ingress"
-  default     = "80,443,3000"
+  default     = "80,443,9443"
 
   validation {
     condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
@@ -125,8 +125,82 @@ variable "udp_ingress_ports" {
 
 variable "user_data" {
   type        = string
-  description = "Cloud-init script to run on first boot (paste contents of scripts/init.sh to auto-install Dokploy)"
-  default     = ""
+  description = "Cloud-init configuration to run on first boot (defaults to templates/cloud-init.yaml)"
+  default     = <<-EOT
+#cloud-config
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+ssh:
+  permit_root_login: false
+  password_authentication: false
+
+disable_root: true
+
+apt:
+  unattended-upgrades:
+    enable: true
+    auto_reboot: true
+
+packages:
+  - ufw
+  - curl
+  - git
+
+write_files:
+  - path: /etc/sysctl.d/99-hardening.conf
+    content: |
+      # IP Spoofing protection
+      net.ipv4.conf.all.rp_filter = 1
+      net.ipv4.conf.default.rp_filter = 1
+      # Ignore ICMP broadcast requests
+      net.ipv4.icmp_echo_ignore_broadcasts = 1
+      # Disable source packet routing
+      net.ipv4.conf.all.accept_source_route = 0
+      net.ipv6.conf.all.accept_source_route = 0
+      net.ipv4.conf.default.accept_source_route = 0
+      net.ipv6.conf.default.accept_source_route = 0
+      # Ignore send redirects
+      net.ipv4.conf.all.send_redirects = 0
+      net.ipv4.conf.default.send_redirects = 0
+      # Block SYN attacks
+      net.ipv4.tcp_syncookies = 1
+      net.ipv4.tcp_max_syn_backlog = 2048
+      net.ipv4.tcp_synack_retries = 2
+      net.ipv4.tcp_syn_retries = 5
+      # Log Martians
+      net.ipv4.conf.all.log_martians = 1
+      net.ipv4.conf.default.log_martians = 1
+
+runcmd:
+  # Flush iptables before enabling UFW
+  - [ iptables, -P, INPUT, ACCEPT ]
+  - [ iptables, -P, FORWARD, ACCEPT ]
+  - [ iptables, -P, OUTPUT, ACCEPT ]
+  - [ iptables, -t, nat, -F ]
+  - [ iptables, -t, mangle, -F ]
+  - [ iptables, -F ]
+  - [ iptables, -X ]
+  - [ sh, -c, "netfilter-persistent save || true" ]
+
+  # Replace iptables with UFW
+  - [ ufw, default, deny, incoming ]
+  - [ ufw, default, allow, outgoing ]
+  - [ ufw, allow, 22/tcp ]
+  - [ ufw, allow, 80/tcp ]
+  - [ ufw, allow, 443/tcp ]
+  - [ ufw, allow, 443/udp ]
+  - [ ufw, allow, 9443/tcp ]
+  - [ ufw, --force, enable ]
+
+  # Install Docker
+  - [ sh, -c, "curl -fsSL https://get.docker.com -o get-docker.sh" ]
+  - [ sh, get-docker.sh ]
+  - [ sh, -c, "usermod -aG docker ubuntu || true" ]
+  - [ sh, -c, "usermod -aG docker opc || true" ]
+  - [ rm, get-docker.sh ]
+EOT
 }
 
 variable "vcn_display_name" {

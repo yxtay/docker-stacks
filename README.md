@@ -112,17 +112,15 @@ Docker-ready Ubuntu instance on Oracle Cloud Infrastructure (OCI).
 The `oci-rm/templates/cloud-init.yaml` configuration performs the following actions:
 
 1. Updates and upgrades system packages.
-2. Configures `unattended-upgrades` with automatic reboots for security.
-3. Configures `iptables` to allow traffic on essential ports:
-
-- **22 (TCP)**: SSH.
-- **80 (TCP)**: HTTP.
-- **443 (TCP/UDP)**: HTTPS (including HTTP/3).
-- **9443 (TCP)**: Portainer (to be added later).
-
+1. Configures `unattended-upgrades` with automatic reboots for security.
+1. Configures `iptables` to allow traffic on essential ports:
+    - **22 (TCP)**: SSH.
+    - **80 (TCP)**: HTTP.
+    - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
+    - **9443 (TCP)**: Portainer (to be added later).
 1. Installs Docker using the official `get.docker.com` script.
-2. Adds the default system user (`ubuntu` or `opc`) to the `docker` group.
-3. Applies security hardening through `sysctl` and SSH configuration.
+1. Adds the default system user (`ubuntu` or `opc`) to the `docker` group.
+1. Reboots to apply all changes.
 
 ### Usage
 

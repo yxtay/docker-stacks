@@ -27,7 +27,7 @@ if [[ "${LATEST_STATUS}" == "SUCCEEDED" ]]; then
 elif [[ "${LATEST_STATUS}" == "IN_PROGRESS" || "${LATEST_STATUS}" == "ACCEPTED" ]]; then
   echo "Job already running (${LATEST_STATUS}). Skipping."
   exit 0
-elif [[ "${LATEST_STATUS}" == "FAILED" || "${LATEST_STATUS}" == "CANCELED" ]]; then
+elif [[ "${LATEST_STATUS}" == "FAILED" ]]; then
   echo "Previous job ${LATEST_JOB_ID} ${LATEST_STATUS}. Logs:"
   LOGS=$(oci resource-manager job get-job-logs \
     --job-id "${LATEST_JOB_ID}" \

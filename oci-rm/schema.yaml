@@ -1,18 +1,17 @@
 title: "ARM Free Tier VPS"
 description: "Creates an Ampere A1 (ARM) Always Free VPS on Oracle Cloud Infrastructure"
 schemaVersion: 1.1.0
-version: "20190304"
+version: "20240522"
 locale: "en"
 
 variableGroups:
-  - title: "General"
-    visible: false
+  - title: "General Configuration"
     variables:
       - tenancy_ocid
       - compartment_ocid
       - region
 
-  - title: "Instance"
+  - title: "Instance Details"
     variables:
       - instance_display_name
       - availability_domain_number
@@ -20,43 +19,48 @@ variableGroups:
       - instance_memory_in_gbs
       - boot_volume_size_in_gbs
 
-  - title: "Operating System"
+  - title: "Operating System Selection"
     variables:
       - instance_image_os
       - instance_image_os_version
 
-  - title: "Access"
+  - title: "Access and Automation"
     variables:
       - ssh_public_key
       - ssh_source_cidr
       - user_data
 
-  - title: "Network"
+  - title: "Networking Setup"
     variables:
       - vcn_display_name
       - vcn_cidr_block
       - subnet_cidr_block
+      - tcp_ingress_ports
+      - udp_ingress_ports
 
 variables:
   tenancy_ocid:
     type: string
     title: "Tenancy OCID"
     required: true
+    visible: false
 
   compartment_ocid:
     type: oci:identity:compartment:id
     title: "Compartment"
+    description: "The compartment where the resources will be created."
     required: true
 
   region:
     type: oci:identity:region:name
     title: "Region"
+    description: "The region to deploy the instance."
     required: true
 
   availability_domain_number:
     type: integer
     title: "Availability Domain"
-    description: "Availability domain number. Most Free Tier accounts only have AD 1."
+    description: "Availability domain number (1, 2, or 3). Note: Most Free Tier accounts have limited AD availability."
     minimum: 1
     maximum: 3
     default: 1
@@ -65,13 +69,14 @@ variables:
   instance_display_name:
     type: string
     title: "Instance Name"
-    default: "instance-docker-stacks"
+    description: "A friendly name for the compute instance."
+    default: "arm-free-tier"
     required: true
 
   instance_ocpus:
     type: integer
     title: "OCPUs"
-    description: "Number of OCPUs. Always Free quota is 4 total across all A1 instances."
+    description: "Number of OCPUs. Always Free limit is 4 total across all A1 instances."
     minimum: 1
     maximum: 4
     default: 4
@@ -80,7 +85,7 @@ variables:
   instance_memory_in_gbs:
     type: integer
     title: "Memory (GB)"
-    description: "Memory in GB. Always Free quota is 24 GB total. Ratio must be 1:1 to 1:8 (OCPU:GB)."
+    description: "Memory in GB. Always Free limit is 24 GB total. Recommended ratio 1:6 (OCPU:GB)."
     minimum: 1
     maximum: 24
     default: 24
@@ -98,6 +103,7 @@ variables:
   instance_image_os:
     type: enum
     title: "Operating System"
+    description: "The operating system to install on the instance."
     enum:
       - "Canonical Ubuntu"
       - "Oracle Linux"
@@ -120,37 +126,54 @@ variables:
   ssh_public_key:
     type: oci:core:ssh:publickey
     title: "SSH Public Key"
-    description: "Public key for SSH access. Ubuntu username is 'ubuntu'; Oracle Linux is 'opc'."
+    description: "The public key to allow SSH access to the instance."
     required: true
 
   ssh_source_cidr:
     type: string
     title: "SSH Source CIDR"
-    description: "CIDR block allowed to reach SSH (port 22). Restrict to your IP for better security (e.g. 203.0.113.0/32)."
+    description: "Restrict SSH access to this CIDR block (e.g., your public IP /32)."
     default: "0.0.0.0/0"
     required: true
 
   user_data:
     type: text
-    title: "Cloud-init Script"
-    description: "Optional shell script to run on first boot. Paste contents of scripts/init.sh to auto-install Dokploy."
+    title: "Cloud-init Script (User Data)"
+    description: "Optional bash script to run on first boot. The script will be wrapped in a cloud-config runcmd."
     required: false
     default: ""
 
   vcn_display_name:
     type: string
     title: "VCN Name"
-    default: "vcn-default"
+    description: "Name for the Virtual Cloud Network."
+    default: "vcn-free-tier"
     required: true
 
   vcn_cidr_block:
     type: string
     title: "VCN CIDR Block"
+    description: "The primary CIDR block for the VCN."
     default: "10.0.0.0/16"
     required: true
 
   subnet_cidr_block:
     type: string
     title: "Subnet CIDR Block"
+    description: "The CIDR block for the public subnet."
     default: "10.0.0.0/24"
     required: true
+
+  tcp_ingress_ports:
+    type: string
+    title: "TCP Ingress Ports"
+    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,3000)."
+    default: "80,443,3000"
+    required: false
+
+  udp_ingress_ports:
+    type: string
+    title: "UDP Ingress Ports"
+    description: "Comma-separated list of UDP ports to allow ingress (e.g., 443)."
+    default: "443"
+    required: false

@@ -101,6 +101,28 @@ variable "ssh_source_cidr" {
   }
 }
 
+variable "tcp_ingress_ports" {
+  type        = string
+  description = "Comma-separated list of TCP ports to allow ingress"
+  default     = "80,443,3000"
+
+  validation {
+    condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
+    error_message = "tcp_ingress_ports must be a comma-separated list of valid port numbers (1-65535)."
+  }
+}
+
+variable "udp_ingress_ports" {
+  type        = string
+  description = "Comma-separated list of UDP ports to allow ingress"
+  default     = "443"
+
+  validation {
+    condition     = alltrue([for p in compact(split(",", replace(var.udp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
+    error_message = "udp_ingress_ports must be a comma-separated list of valid port numbers (1-65535)."
+  }
+}
+
 variable "user_data" {
   type        = string
   description = "Cloud-init script to run on first boot (paste contents of scripts/init.sh to auto-install Dokploy)"
@@ -110,7 +132,7 @@ variable "user_data" {
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"
-  default     = "vcn-default"
+  default     = "vcn-free-tier"
 }
 
 variable "vcn_cidr_block" {

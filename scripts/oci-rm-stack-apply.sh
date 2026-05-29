@@ -1,79 +1,49 @@
 #!/bin/bash
 set -euo pipefail
 
-# Retries an apply job on an existing OCI Resource Manager stack until it
-# succeeds. Handles "Out of host capacity" and 429 rate-limit errors.
+# Submits an apply job on an existing OCI Resource Manager stack.
+# Designed for cron: runs once, skips if instance already provisioned
+# or a job is currently in progress.
 #
 # Required:
-#   STACK_ID              - OCI Resource Manager stack OCID
-# Optional:
-#   RETRY_INTERVAL        - seconds between retries for capacity and rate-limit errors (default: 600)
-#   MAX_RETRIES           - max capacity retry attempts; 0 = unlimited (default: 0)
+#   STACK_ID - OCI Resource Manager stack OCID
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
-RETRY_INTERVAL=${RETRY_INTERVAL:-600}
-MAX_RETRIES=${MAX_RETRIES:-0}
 
-attempt=0
+# Check latest job — skip if already succeeded or in progress
+LATEST_JOB=$(oci resource-manager job list \
+  --stack-id "${STACK_ID}" \
+  --sort-by TIMECREATED \
+  --sort-order DESC \
+  --limit 1 \
+  --query 'data[0].{id:id,status:"lifecycle-state"}' \
+  --output json 2>/dev/null || echo '{}')
 
-while true; do
-  attempt=$((attempt + 1))
+LATEST_STATUS=$(echo "${LATEST_JOB}" | jq -r '.status // empty')
+LATEST_JOB_ID=$(echo "${LATEST_JOB}" | jq -r '.id // empty')
 
-  if [[ ${MAX_RETRIES} -gt 0 && ${attempt} -gt ${MAX_RETRIES} ]]; then
-    echo "Max retries (${MAX_RETRIES}) reached." >&2
-    exit 1
-  fi
-
-  echo "Attempt ${attempt}: creating apply job..."
-  err_file=$(mktemp)
-  if ! JOB_ID=$(oci resource-manager job create-apply-job \
-    --stack-id "${STACK_ID}" \
-    --execution-plan-strategy AUTO_APPROVED \
-    --query 'data.id' \
-    --raw-output 2>"${err_file}"); then
-    if grep -qi "TooManyRequests\|429" "${err_file}"; then
-      echo "  Rate limited. Retrying in ${RETRY_INTERVAL}s..."
-      rm -f "${err_file}"
-      sleep "${RETRY_INTERVAL}"
-      continue
-    fi
-    cat "${err_file}" >&2
-    rm -f "${err_file}"
-    exit 1
-  fi
-  rm -f "${err_file}"
-  echo "Job: ${JOB_ID}"
-
-  # Poll until terminal state
-  while true; do
-    STATUS=$(oci resource-manager job get \
-      --job-id "${JOB_ID}" \
-      --query 'data."lifecycle-state"' \
-      --raw-output)
-    echo "  Status: ${STATUS}"
-    case "${STATUS}" in
-    SUCCEEDED | FAILED | CANCELING | CANCELED) break ;;
-    esac
-    sleep 15
-  done
-
-  if [[ "${STATUS}" == "SUCCEEDED" ]]; then
-    echo "Done! View outputs at:"
-    echo "  https://cloud.oracle.com/resourcemanager/stacks/${STACK_ID}"
-    exit 0
-  fi
-
-  LOGS=$(oci resource-manager job get-job-logs \
-    --job-id "${JOB_ID}" \
+if [[ "${LATEST_STATUS}" == "SUCCEEDED" ]]; then
+  echo "Stack already applied successfully. Skipping."
+  exit 0
+elif [[ "${LATEST_STATUS}" == "IN_PROGRESS" || "${LATEST_STATUS}" == "ACCEPTED" ]]; then
+  echo "Job already running (${LATEST_STATUS}). Skipping."
+  exit 0
+elif [[ "${LATEST_STATUS}" == "FAILED" || "${LATEST_STATUS}" == "CANCELED" ]]; then
+  echo "Previous job ${LATEST_JOB_ID} ${LATEST_STATUS}. Logs:"
+  oci resource-manager job get-job-logs \
+    --job-id "${LATEST_JOB_ID}" \
     --query 'data[*].message' \
-    --output json 2>/dev/null || echo '[]')
+    --output table 2>/dev/null || true
+  echo ""
+fi
 
-  if echo "${LOGS}" | grep -qi "out of host capacity\|out of capacity"; then
-    echo "Out of capacity. Retrying in ${RETRY_INTERVAL}s (Ctrl-C to stop)..."
-    sleep "${RETRY_INTERVAL}"
-  else
-    echo "Job failed for a non-capacity reason. Check logs:" >&2
-    echo "  oci resource-manager job get-job-logs --job-id ${JOB_ID}" >&2
-    exit 1
-  fi
-done
+# Submit apply job
+echo "Creating apply job..."
+if ! JOB_ID=$(oci resource-manager job create-apply-job \
+  --stack-id "${STACK_ID}" \
+  --execution-plan-strategy AUTO_APPROVED \
+  --query 'data.id' \
+  --raw-output 2>&1); then
+  echo "Failed to create job: ${JOB_ID}" >&2
+  exit 1
+fi

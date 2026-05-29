@@ -27,3 +27,7 @@ oci resource-manager stack update \
   --config-source "${STACK_ZIP}" \
   --force
 echo "Stack updated."
+
+# Apply the stack
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec "${SCRIPT_DIR}/oci-rm-stack-apply.sh"

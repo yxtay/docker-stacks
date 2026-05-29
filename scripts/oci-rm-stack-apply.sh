@@ -13,7 +13,7 @@ set -euo pipefail
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
 
 # Check latest job — skip if already succeeded or in progress
-read -r LATEST_JOB_ID LATEST_STATUS <<< "$(oci resource-manager job list \
+read -r LATEST_JOB_ID LATEST_STATUS <<<"$(oci resource-manager job list \
   --stack-id "${STACK_ID}" \
   --sort-by TIMECREATED \
   --sort-order DESC \

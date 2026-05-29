@@ -107,8 +107,8 @@ variable "tcp_ingress_ports" {
   default     = "80,443,3000"
 
   validation {
-    condition     = can(regex("^([0-9]+(,[0-9]+)*)?$", replace(var.tcp_ingress_ports, " ", "")))
-    error_message = "tcp_ingress_ports must be a comma-separated list of numbers or empty."
+    condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
+    error_message = "tcp_ingress_ports must be a comma-separated list of valid port numbers (1-65535)."
   }
 }
 
@@ -118,8 +118,8 @@ variable "udp_ingress_ports" {
   default     = "443"
 
   validation {
-    condition     = can(regex("^([0-9]+(,[0-9]+)*)?$", replace(var.udp_ingress_ports, " ", "")))
-    error_message = "udp_ingress_ports must be a comma-separated list of numbers or empty."
+    condition     = alltrue([for p in compact(split(",", replace(var.udp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
+    error_message = "udp_ingress_ports must be a comma-separated list of valid port numbers (1-65535)."
   }
 }
 
@@ -132,7 +132,7 @@ variable "user_data" {
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"
-  default     = "vcn-default"
+  default     = "vcn-free-tier"
 }
 
 variable "vcn_cidr_block" {

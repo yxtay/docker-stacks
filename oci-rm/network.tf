@@ -51,7 +51,7 @@ resource "oci_core_security_list" "sl" {
 
   # TCP Ports
   dynamic "ingress_security_rules" {
-    for_each = compact(split(",", replace(var.tcp_ingress_ports, " ", "")))
+    for_each = distinct(compact(split(",", replace(var.tcp_ingress_ports, " ", ""))))
     content {
       protocol  = "6"
       source    = "0.0.0.0/0"
@@ -65,7 +65,7 @@ resource "oci_core_security_list" "sl" {
 
   # UDP Ports
   dynamic "ingress_security_rules" {
-    for_each = compact(split(",", replace(var.udp_ingress_ports, " ", "")))
+    for_each = distinct(compact(split(",", replace(var.udp_ingress_ports, " ", ""))))
     content {
       protocol  = "17"
       source    = "0.0.0.0/0"

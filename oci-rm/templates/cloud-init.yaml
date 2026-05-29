@@ -30,7 +30,7 @@ runcmd:
   - [sh, -c, "netfilter-persistent save"]
 
   # Install Docker
-  - [curl, -fsSL, 'https://get.docker.com', -o, get-docker.sh]
+  - [curl, -fsSL, "https://get.docker.com", -o, get-docker.sh]
   - [sh, get-docker.sh]
   - [usermod, -aG, docker, ubuntu]
   - [rm, get-docker.sh]

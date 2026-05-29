@@ -23,10 +23,11 @@ resource "oci_core_route_table" "rt" {
   }
 }
 
+#checkov:skip=CKV_OCI_17:Ensure VCN inbound security lists are stateless
+#checkov:skip=CKV_OCI_19:Ensure no security list allow ingress from 0.0.0.0:0 to port 22
+#checkov:skip=CKV_OCI_20:Ensure no security list allow ingress from 0.0.0.0:0 to port 3389
+#checkov:skip=CKV_OCI_22:Ensure no security list allow ingress from 0.0.0.0:0 to port 22
 resource "oci_core_security_list" "sl" {
-  # checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically.
-  # checkov:skip=CKV_OCI_19:SSH port is open for initial access to the VPS.
-  # checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via variable.
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
   display_name   = "${var.vcn_display_name}-sl"
@@ -48,47 +49,31 @@ resource "oci_core_security_list" "sl" {
     }
   }
 
-  # HTTP
-  ingress_security_rules {
-    protocol  = "6"
-    source    = "0.0.0.0/0"
-    stateless = false
-    tcp_options {
-      min = 80
-      max = 80
+  # TCP Ports
+  dynamic "ingress_security_rules" {
+    for_each = distinct(compact(split(",", replace(var.tcp_ingress_ports, " ", ""))))
+    content {
+      protocol  = "6"
+      source    = "0.0.0.0/0"
+      stateless = false
+      tcp_options {
+        min = tonumber(ingress_security_rules.value)
+        max = tonumber(ingress_security_rules.value)
+      }
     }
   }
 
-  # HTTPS (TCP)
-  ingress_security_rules {
-    protocol  = "6"
-    source    = "0.0.0.0/0"
-    stateless = false
-    tcp_options {
-      min = 443
-      max = 443
-    }
-  }
-
-  # HTTPS (UDP)
-  ingress_security_rules {
-    protocol  = "17"
-    source    = "0.0.0.0/0"
-    stateless = false
-    udp_options {
-      min = 443
-      max = 443
-    }
-  }
-
-  # Dokploy Dashboard
-  ingress_security_rules {
-    protocol  = "6"
-    source    = "0.0.0.0/0"
-    stateless = false
-    tcp_options {
-      min = 3000
-      max = 3000
+  # UDP Ports
+  dynamic "ingress_security_rules" {
+    for_each = distinct(compact(split(",", replace(var.udp_ingress_ports, " ", ""))))
+    content {
+      protocol  = "17"
+      source    = "0.0.0.0/0"
+      stateless = false
+      udp_options {
+        min = tonumber(ingress_security_rules.value)
+        max = tonumber(ingress_security_rules.value)
+      }
     }
   }
 

@@ -21,7 +21,7 @@ read -r LATEST_JOB_ID LATEST_STATUS <<<"$(oci resource-manager job list \
   --query 'data[0].[id, "lifecycle-state"]' \
   --output text 2>/dev/null || true)"
 
-if [[ "${LATEST_STATUS}" == "SUCCEEDED" && "${FORCE_APPLY:-false}" != "true" ]]; then
+if [[ "${LATEST_STATUS}" == "SUCCEEDED" ]]; then
   echo "Stack already applied successfully. Skipping."
   exit 0
 elif [[ "${LATEST_STATUS}" == "IN_PROGRESS" || "${LATEST_STATUS}" == "ACCEPTED" ]]; then

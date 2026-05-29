@@ -70,33 +70,36 @@ All variables have sensible defaults. Required inputs:
 
 Requires OCI CLI configured (`oci setup config`).
 
-**Update** an existing stack's Terraform config (does not modify variables):
+**Update** an existing stack's Terraform config:
 
 ```bash
 STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-update.sh
 ```
 
-### Retry on out-of-capacity errors
+### Apply via cron (out-of-capacity retry)
 
 A1.Flex Free Tier capacity is limited and apply jobs may fail with
 `500-InternalError, Out of host capacity`. Since networking resources are
 created first and are idempotent, re-applying the same stack retries only
-the instance. `scripts/oci-rm-stack-apply.sh` automates this loop.
+the instance.
 
-Get the stack OCID from the OCI Console or from a failed job:
+`scripts/oci-rm-stack-apply.sh` is designed for cron:
 
-```bash
-oci resource-manager job get --job-id <failed-job-ocid> \
-  --query 'data."stack-id"' --raw-output
-```
-
-Then run the retry loop (checks every 5 minutes by default):
+- Skips if previous apply already succeeded (idempotent)
+- Skips if a job is already in progress
+- Prints logs from previous failed job before retrying
+- Exits 0 on capacity errors (no cron failure spam)
 
 ```bash
+# Run once
 STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-apply.sh
 
-# Custom interval and max attempts:
-STACK_ID=<stack-ocid> RETRY_INTERVAL=60 MAX_RETRIES=20 bash scripts/oci-rm-stack-apply.sh
+# Run at interval in terminal (every 10 minutes)
+export STACK_ID=<stack-ocid>
+watch -n 600 bash scripts/oci-rm-stack-apply.sh
+
+# Cron example (every 10 minutes)
+*/10 * * * * STACK_ID=<stack-ocid> /path/to/scripts/oci-rm-stack-apply.sh
 ```
 
 ## Dokploy Setup on OCI

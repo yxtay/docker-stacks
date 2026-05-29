@@ -98,8 +98,11 @@ resource "oci_core_default_dhcp_options" "dhcp" {
 }
 
 resource "oci_core_subnet" "subnet" {
-  compartment_id = var.compartment_ocid
-  vcn_id         = oci_core_vcn.vcn.id
-  cidr_block     = var.subnet_cidr_block
-  display_name   = "${var.vcn_display_name}-subnet"
+  compartment_id    = var.compartment_ocid
+  vcn_id            = oci_core_vcn.vcn.id
+  cidr_block        = var.subnet_cidr_block
+  display_name      = "${var.vcn_display_name}-subnet"
+  route_table_id    = oci_core_default_route_table.rt.id
+  security_list_ids = [oci_core_default_security_list.sl.id]
+  dhcp_options_id   = oci_core_default_dhcp_options.dhcp.id
 }

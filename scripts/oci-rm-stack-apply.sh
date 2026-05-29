@@ -24,7 +24,7 @@ read -r LATEST_JOB_ID LATEST_STATUS <<<"$(oci resource-manager job list \
 if [[ "${LATEST_STATUS}" == "SUCCEEDED" ]]; then
   echo "Stack already applied successfully. Skipping."
   exit 0
-elif [[ "${LATEST_STATUS}" == "IN_PROGRESS" || "${LATEST_STATUS}" == "ACCEPTED" ]]; then
+elif [[ "${LATEST_STATUS}" == "IN_PROGRESS" || "${LATEST_STATUS}" == "ACCEPTED" || "${LATEST_STATUS}" == "CANCELING" ]]; then
   echo "Job already running (${LATEST_STATUS}). Skipping."
   exit 0
 elif [[ "${LATEST_STATUS}" == "FAILED" ]]; then

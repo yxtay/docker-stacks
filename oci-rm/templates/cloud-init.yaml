@@ -7,17 +7,13 @@ apt:
   unattended-upgrades:
     enable: true
     auto_reboot: true
+    remove_unused_dependencies: true
+    remove_unused_kernel_packages: true
 
 packages:
   - curl
   - git
   - iptables-persistent
-
-write_files:
-  - path: /etc/apt/apt.conf.d/99unattended-upgrades-custom
-    content: |
-      Unattended-Upgrade::Remove-Unused-Dependencies "true";
-      Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
 
 runcmd:
   # Disable UFW if active

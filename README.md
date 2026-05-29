@@ -70,7 +70,7 @@ All variables have sensible defaults. Required inputs:
 
 Requires OCI CLI configured (`oci setup config`).
 
-**Update** an existing stack's Terraform config and apply:
+**Update** an existing stack's Terraform config:
 
 ```bash
 STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-update.sh

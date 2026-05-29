@@ -25,7 +25,7 @@ subnet, internet gateway, security rules, and compute instance.
 ### Always Free limits
 
 | Resource      | Limit                               |
-| ------------- | ----------------------------------- |
+|---------------|-------------------------------------|
 | Shape         | `VM.Standard.A1.Flex`               |
 | OCPUs         | 4 total across all A1 instances     |
 | Memory        | 24 GB total across all A1 instances |

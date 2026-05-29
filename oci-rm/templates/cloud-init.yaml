@@ -11,7 +11,7 @@ runcmd:
   - [iptables, -I, INPUT, 1, -p, tcp, --dport, 443, -j, ACCEPT]
   - [iptables, -I, INPUT, 1, -p, udp, --dport, 443, -j, ACCEPT]
   - [iptables, -I, INPUT, 1, -p, tcp, --dport, 9443, -j, ACCEPT]
-  - [sh, -c, "netfilter-persistent save"]
+  - [netfilter-persistent, save]
 
   # Install Docker
   - [curl, -fsSL, "https://get.docker.com", -o, get-docker.sh]

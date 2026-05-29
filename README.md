@@ -25,7 +25,7 @@ subnet, internet gateway, security rules, and compute instance.
 ### Always Free limits
 
 | Resource      | Limit                               |
-|---------------|-------------------------------------|
+| ------------- | ----------------------------------- |
 | Shape         | `VM.Standard.A1.Flex`               |
 | OCPUs         | 4 total across all A1 instances     |
 | Memory        | 24 GB total across all A1 instances |
@@ -112,15 +112,15 @@ Docker-ready Ubuntu instance on Oracle Cloud Infrastructure (OCI).
 The `oci-rm/templates/cloud-init.yaml` configuration performs the following actions:
 
 1. Updates and upgrades system packages.
-1. Configures `unattended-upgrades` with automatic reboots for security.
-1. Configures `iptables` to allow traffic on essential ports:
+2. Configures `unattended-upgrades` with automatic reboots for security.
+3. Configures `iptables` to allow traffic on essential ports:
     - **22 (TCP)**: SSH.
     - **80 (TCP)**: HTTP.
     - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
     - **9443 (TCP)**: Portainer (to be added later).
-1. Installs Docker using the official `get.docker.com` script.
-1. Adds the default system user (`ubuntu` or `opc`) to the `docker` group.
-1. Reboots to apply all changes.
+4. Installs Docker using the official `get.docker.com` script.
+5. Adds the default system user (`ubuntu` or `opc`) to the `docker` group.
+6. Reboots to apply all changes.
 
 ### Usage
 

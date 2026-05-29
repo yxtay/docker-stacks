@@ -2,24 +2,8 @@
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
-
 packages:
-  - curl
-  - git
   - iptables-persistent
-  - unattended-upgrades
-
-write_files:
-  - path: /etc/apt/apt.conf.d/20auto-upgrades
-    content: |
-      APT::Periodic::Update-Package-Lists "1";
-      APT::Periodic::Unattended-Upgrade "1";
-      APT::Periodic::AutocleanInterval "7";
-  - path: /etc/apt/apt.conf.d/50unattended-upgrades
-    content: |
-      Unattended-Upgrade::Automatic-Reboot "true";
-      Unattended-Upgrade::Remove-Unused-Dependencies "true";
-      Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
 
 runcmd:
   # Configure iptables

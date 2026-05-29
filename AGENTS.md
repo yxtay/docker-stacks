@@ -29,6 +29,10 @@ submitting changes.
 
 ## Infrastructure Initialization
 
-- **Cloud-init**: The instance initialization is handled via `oci-rm/templates/cloud-init.yaml`.
-- **Terraform Fallback**: `oci-rm/compute.tf` is configured to automatically use the `cloud-init.yaml` template if the `user_data` variable is left empty.
-- **Networking**: `iptables` is used for port management instead of `ufw` to ensure compatibility with Docker networking.
+- **Cloud-init**: The instance initialization is handled via
+  `oci-rm/templates/cloud-init.yaml`.
+- **Terraform Fallback**: `oci-rm/compute.tf` is configured to automatically
+  use the `cloud-init.yaml` template if the `user_data` variable is left
+  empty.
+- **Networking**: `iptables` is used for port management instead of `ufw` to
+  ensure compatibility with Docker networking.

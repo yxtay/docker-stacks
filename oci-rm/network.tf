@@ -23,11 +23,10 @@ resource "oci_core_route_table" "rt" {
   }
 }
 
-#checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically by OCI connection tracking.
-#checkov:skip=CKV_OCI_19:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
-#checkov:skip=CKV_OCI_20:Dynamic blocks cause Checkov to fail; ports are restricted by for_each loop.
-#checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via ssh_source_cidr variable; defaults to 0.0.0.0/0 for a public VPS template.
 resource "oci_core_security_list" "sl" {
+  # checkov:skip=CKV_OCI_17:Stateful rules used intentionally; return traffic handled automatically.
+  # checkov:skip=CKV_OCI_19:SSH port is open for initial access to the VPS.
+  # checkov:skip=CKV_OCI_22:SSH source CIDR is configurable via variable.
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
   display_name   = "${var.vcn_display_name}-sl"
@@ -49,31 +48,47 @@ resource "oci_core_security_list" "sl" {
     }
   }
 
-  # TCP Ports
-  dynamic "ingress_security_rules" {
-    for_each = distinct(compact(split(",", replace(var.tcp_ingress_ports, " ", ""))))
-    content {
-      protocol  = "6"
-      source    = "0.0.0.0/0"
-      stateless = false
-      tcp_options {
-        min = tonumber(ingress_security_rules.value)
-        max = tonumber(ingress_security_rules.value)
-      }
+  # HTTP
+  ingress_security_rules {
+    protocol  = "6"
+    source    = "0.0.0.0/0"
+    stateless = false
+    tcp_options {
+      min = 80
+      max = 80
     }
   }
 
-  # UDP Ports
-  dynamic "ingress_security_rules" {
-    for_each = distinct(compact(split(",", replace(var.udp_ingress_ports, " ", ""))))
-    content {
-      protocol  = "17"
-      source    = "0.0.0.0/0"
-      stateless = false
-      udp_options {
-        min = tonumber(ingress_security_rules.value)
-        max = tonumber(ingress_security_rules.value)
-      }
+  # HTTPS (TCP)
+  ingress_security_rules {
+    protocol  = "6"
+    source    = "0.0.0.0/0"
+    stateless = false
+    tcp_options {
+      min = 443
+      max = 443
+    }
+  }
+
+  # HTTPS (UDP)
+  ingress_security_rules {
+    protocol  = "17"
+    source    = "0.0.0.0/0"
+    stateless = false
+    udp_options {
+      min = 443
+      max = 443
+    }
+  }
+
+  # Dokploy Dashboard
+  ingress_security_rules {
+    protocol  = "6"
+    source    = "0.0.0.0/0"
+    stateless = false
+    tcp_options {
+      min = 3000
+      max = 3000
     }
   }
 

@@ -43,6 +43,10 @@ write_files:
       # Log Martians
       net.ipv4.conf.all.log_martians = 1
       net.ipv4.conf.default.log_martians = 1
+  - path: /etc/apt/apt.conf.d/99unattended-upgrades-custom
+    content: |
+      Unattended-Upgrade::Remove-Unused-Dependencies "true";
+      Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
 
 runcmd:
   # Disable UFW if active

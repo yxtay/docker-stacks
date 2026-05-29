@@ -69,19 +69,19 @@ variable "instance_image_os" {
   default     = "Canonical Ubuntu"
 
   validation {
-    condition     = contains(["Canonical Ubuntu", "Oracle Linux"], var.instance_image_os)
-    error_message = "instance_image_os must be 'Canonical Ubuntu' or 'Oracle Linux'."
+    condition     = var.instance_image_os == "Canonical Ubuntu"
+    error_message = "instance_image_os must be 'Canonical Ubuntu'."
   }
 }
 
 variable "instance_image_os_version" {
   type        = string
-  description = "OS version (Ubuntu: 22.04, 20.04 | Oracle Linux: 9, 8)"
+  description = "Ubuntu OS version"
   default     = "24.04"
 
   validation {
-    condition     = contains(["24.04", "22.04", "20.04", "9", "8"], var.instance_image_os_version)
-    error_message = "instance_image_os_version must be one of: 24.04, 22.04, 20.04, 9, 8."
+    condition     = contains(["24.04", "22.04", "20.04"], var.instance_image_os_version)
+    error_message = "instance_image_os_version must be one of: 24.04, 22.04, 20.04."
   }
 }
 

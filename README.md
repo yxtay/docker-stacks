@@ -119,7 +119,7 @@ The `oci-rm/templates/cloud-init.yaml` configuration performs the following acti
     - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
     - **9443 (TCP)**: Portainer (to be added later).
 4. Installs Docker using the official `get.docker.com` script.
-5. Adds the default system user (`ubuntu` or `opc`) to the `docker` group.
+5. Adds the `ubuntu` user to the `docker` group.
 6. Reboots to apply all changes.
 
 ### Usage

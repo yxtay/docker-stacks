@@ -113,8 +113,7 @@ The `oci-rm/templates/cloud-init.yaml` configuration performs the following acti
 
 1. Updates and upgrades system packages.
 2. Configures `unattended-upgrades` with automatic reboots for security.
-3. Sets up `ufw` (Uncomplicated Firewall) as a modern replacement for
-  `iptables`, allowing traffic on:
+3. Configures `iptables` to allow traffic on essential ports:
 
 - **22 (TCP)**: SSH.
 - **80 (TCP)**: HTTP.

@@ -15,9 +15,9 @@ apt:
     auto_reboot: true
 
 packages:
-  - ufw
   - curl
   - git
+  - iptables-persistent
 
 write_files:
   - path: /etc/sysctl.d/99-hardening.conf
@@ -45,25 +45,16 @@ write_files:
       net.ipv4.conf.default.log_martians = 1
 
 runcmd:
-  # Flush iptables before enabling UFW
-  - [iptables, -P, INPUT, ACCEPT]
-  - [iptables, -P, FORWARD, ACCEPT]
-  - [iptables, -P, OUTPUT, ACCEPT]
-  - [iptables, -t, nat, -F]
-  - [iptables, -t, mangle, -F]
-  - [iptables, -F]
-  - [iptables, -X]
-  - [sh, -c, "netfilter-persistent save || true"]
+  # Disable UFW if active
+  - [ufw, disable]
 
-  # Replace iptables with UFW
-  - [ufw, default, deny, incoming]
-  - [ufw, default, allow, outgoing]
-  - [ufw, allow, 22/tcp]
-  - [ufw, allow, 80/tcp]
-  - [ufw, allow, 443/tcp]
-  - [ufw, allow, 443/udp]
-  - [ufw, allow, 9443/tcp]
-  - [ufw, --force, enable]
+  # Configure iptables
+  - [iptables, -I, INPUT, 1, -p, tcp, --dport, 22, -j, ACCEPT]
+  - [iptables, -I, INPUT, 1, -p, tcp, --dport, 80, -j, ACCEPT]
+  - [iptables, -I, INPUT, 1, -p, tcp, --dport, 443, -j, ACCEPT]
+  - [iptables, -I, INPUT, 1, -p, udp, --dport, 443, -j, ACCEPT]
+  - [iptables, -I, INPUT, 1, -p, tcp, --dport, 9443, -j, ACCEPT]
+  - [sh, -c, "netfilter-persistent save"]
 
   # Install Docker
   - [sh, -c, "curl -fsSL https://get.docker.com -o get-docker.sh"]

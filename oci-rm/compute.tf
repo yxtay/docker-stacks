@@ -10,11 +10,18 @@ data "oci_core_images" "instance_image" {
   shape                    = "VM.Standard.A1.Flex"
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
+
+  lifecycle {
+    postcondition {
+      condition     = length(self.images) > 0
+      error_message = "No images found for ${var.instance_image_os} ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
+    }
+  }
 }
 
+#checkov:skip=CKV_OCI_5:Legacy IMDS is used intentionally for compatibility with various user scripts.
+#checkov:skip=CKV_OCI_4:PV encryption in transit is deprecated in OCI provider v6+; no supported replacement on oci_core_instance.
 resource "oci_core_instance" "instance" {
-  # checkov:skip=CKV_OCI_5:Legacy IMDS is used intentionally for compatibility with various user scripts.
-  # checkov:skip=CKV_OCI_4:PV encryption in transit is deprecated in OCI provider v6+; no supported replacement on oci_core_instance.
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name

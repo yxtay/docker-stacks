@@ -39,6 +39,6 @@ resource "oci_core_instance" "instance" {
 
   metadata = merge(
     { ssh_authorized_keys = var.ssh_public_key },
-    var.user_data != "" ? { user_data = local.user_data } : {}
+    var.user_data != "" ? { user_data = base64encode(var.user_data) } : {}
   )
 }

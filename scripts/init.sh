@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 apt-get update
 apt-get upgrade --yes
-apt-get install --yes --no-install-recommends iptables-persistent
+apt-get install --yes --no-install-recommends curl git iptables-persistent
 
 echo "Configuring iptables..."
 
@@ -28,7 +28,6 @@ add_port_rule 443 tcp
 add_port_rule 443 udp
 add_port_rule 3000 tcp
 
-# Make iptables persistent
 netfilter-persistent save
 
 echo "Handling Dokploy installation/update..."

@@ -14,7 +14,7 @@ data "oci_core_images" "instance_image" {
   lifecycle {
     postcondition {
       condition     = length(self.images) > 0
-      error_message = "No images found for ${var.instance_image_os} ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
+      error_message = "No images found for Canonical Ubuntu ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
     }
   }
 }

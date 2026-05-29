@@ -3,6 +3,7 @@ package_update: true
 package_upgrade: true
 package_reboot_if_required: true
 packages:
+  - curl
   - iptables-persistent
 
 runcmd:
@@ -14,7 +15,7 @@ runcmd:
   - [netfilter-persistent, save]
 
   # Install Docker
-  - [curl, -fsSL, "https://get.docker.com", -o, get-docker.sh]
+  - [curl, -fsSL, --retry, 5, --retry-delay, 5, "https://get.docker.com", -o, get-docker.sh]
   - [sh, get-docker.sh]
   - [usermod, -aG, docker, ubuntu]
   - [rm, get-docker.sh]

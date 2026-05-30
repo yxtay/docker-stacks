@@ -25,6 +25,7 @@ services:
       - streamnzb_data:/app/data
     expose:
       - 7000
+      - 119
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:7000/"]
     restart: unless-stopped

@@ -52,5 +52,5 @@ submitting changes.
     strictly required (e.g., URLs with colons).
   - Health checks should specify only the `test` command, leaving other options
     as default.
-  - Use `curl -fsSL` or `wget -qO-` for health check commands where
+  - Use `curl -fsSL` or `wget -nvO-` for health check commands where
     appropriate.

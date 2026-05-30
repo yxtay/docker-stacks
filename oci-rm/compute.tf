@@ -57,8 +57,8 @@ resource "oci_core_instance" "instance" {
   }
 
   source_details {
-    source_type    = "bootVolume"
-    boot_volume_id = oci_core_boot_volume.boot_volume.id
+    source_type = "bootVolume"
+    source_id   = oci_core_boot_volume.boot_volume.id
   }
 
   metadata = {

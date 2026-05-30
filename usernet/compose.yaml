@@ -2,7 +2,7 @@ services:
   nzbhydra2:
     # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
-    image: lscr.io/linuxserver/nzbhydra2:latest
+    image: ghcr.io/linuxserver/nzbhydra2:latest
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
@@ -31,7 +31,7 @@ services:
   nzbdav:
     # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
-    image: nzbdav/nzbdav:latest
+    image: ghcr.io/nzbdav-dev/nzbdav:latest
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}

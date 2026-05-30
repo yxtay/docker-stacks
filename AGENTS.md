@@ -51,5 +51,6 @@ submitting changes.
     strictly required (e.g., URLs with colons).
   - Health checks should specify only the `test` command, leaving other options
     as default.
+  - Prefer `ghcr.io` over `docker.io` registry.
   - Use `curl -fsSL` or `wget -nvO-` for health check commands where
     appropriate.

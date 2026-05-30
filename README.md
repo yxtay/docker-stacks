@@ -139,7 +139,7 @@ curl -sSL https://dokploy.com/install.sh | sh
 
 ## Usenet Stack
 
-The `usernet/` directory contains a Docker Compose stack for Usenet
+The `usenet/` directory contains a Docker Compose stack for Usenet
 streaming and indexing, optimized for deployment with Dokploy.
 
 ### Services
@@ -153,6 +153,6 @@ streaming and indexing, optimized for deployment with Dokploy.
 
 1. Create a new project in Dokploy.
 2. Create a new Compose service.
-3. Use the content of `usernet/compose.yaml`.
-4. Configure environment variables as defined in `usernet/.env.example`.
+3. Use the content of `usenet/compose.yaml`.
+4. Configure environment variables as defined in `usenet/.env.example`.
 5. Ensure the `dokploy-network` is available.

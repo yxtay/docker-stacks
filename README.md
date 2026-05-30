@@ -50,8 +50,8 @@ All variables have sensible defaults. Required inputs:
 
 - **Compartment** — target OCI compartment
 - **SSH Public Key** — key for instance access
-- **Cloud-init Script** (optional) — paste `scripts/init.sh` to auto-install
-  Dokploy. This will be wrapped in a structured cloud-config.
+- **Cloud-init Configuration** (optional) — paste `oci-rm/templates/cloud-init.yaml`
+  to customize the instance setup. Defaults to the provided template.
 
 ### Deploy via OCI Console (recommended)
 
@@ -102,49 +102,33 @@ watch -n 600 bash scripts/oci-rm-stack-apply.sh
 */10 * * * * STACK_ID=<stack-ocid> /path/to/scripts/oci-rm-stack-apply.sh
 ```
 
-## Dokploy Setup on OCI
+## Docker Setup on OCI
 
-This repository includes a script to automate the setup of Dokploy on an Oracle
-Cloud Infrastructure (OCI) Ubuntu instance.
+This repository includes a cloud-init configuration to automate the setup of a
+Docker-ready Ubuntu instance on Oracle Cloud Infrastructure (OCI).
 
-### Initialization Script
+### Cloud-init Configuration
 
-The `scripts/init.sh` script performs the following actions:
+The `oci-rm/templates/cloud-init.yaml` configuration performs the following actions:
 
 1. Updates and upgrades system packages.
-2. Configures `iptables` to allow traffic on essential ports:
-    - **80 (TCP)**: HTTP traffic.
-    - **443 (TCP/UDP)**: HTTPS traffic.
-    - **3000 (TCP)**: Dokploy Dashboard.
-3. Ensures `iptables` rules are persistent across reboots using
-`iptables-persistent`.
-4. Installs Dokploy if it is not already present, or updates it if it is.
+1. Configures `iptables` to allow traffic on essential ports:
+    - **80 (TCP)**: HTTP.
+    - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
+    - **9443 (TCP)**: Portainer (to be added later).
+1. Installs Docker using the official `get.docker.com` script.
+1. Adds the `ubuntu` user to the `docker` group.
+1. Reboots to apply all changes.
 
 ### Usage
 
 #### As Cloud-init User Data
 
-When creating a new OCI instance, you can provide the contents of
-`scripts/init.sh` as the **Cloud-init script** (User Data) to automate the
-entire setup process.
+When creating a new OCI instance, the Terraform stack automatically uses
+the template. You can also manually provide the contents of
+`oci-rm/templates/cloud-init.yaml` as the **Cloud-init script** (User Data).
 
-#### Manual Execution
+#### Portainer
 
-You can also run the script manually on an existing Ubuntu instance:
-
-```bash
-sudo ./scripts/init.sh
-```
-
-### Managing Deployments with Dokploy
-
-Once Dokploy is installed, you can access the dashboard at
-`http://<your-instance-ip>:3000`.
-
-Dokploy allows you to easily manage and deploy:
-
-- **Docker Compose Stacks**: Deploy complex multi-container applications by
-providing your `docker-compose.yml` directly in the Dokploy interface.
-- **Applications**: Deploy web applications from GitHub, GitLab, or Bitbucket.
-- **Databases**: Easily provision and manage PostgreSQL, MySQL, MongoDB, and
-Redis instances.
+Portainer will be added in a future update to manage your containers easily via
+a web interface.

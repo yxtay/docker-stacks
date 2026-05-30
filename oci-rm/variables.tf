@@ -63,25 +63,14 @@ variable "boot_volume_size_in_gbs" {
   }
 }
 
-variable "instance_image_os" {
-  type        = string
-  description = "Operating system"
-  default     = "Canonical Ubuntu"
-
-  validation {
-    condition     = contains(["Canonical Ubuntu", "Oracle Linux"], var.instance_image_os)
-    error_message = "instance_image_os must be 'Canonical Ubuntu' or 'Oracle Linux'."
-  }
-}
-
 variable "instance_image_os_version" {
   type        = string
-  description = "OS version (Ubuntu: 22.04, 20.04 | Oracle Linux: 9, 8)"
+  description = "Ubuntu OS version"
   default     = "24.04"
 
   validation {
-    condition     = contains(["24.04", "22.04", "20.04", "9", "8"], var.instance_image_os_version)
-    error_message = "instance_image_os_version must be one of: 24.04, 22.04, 20.04, 9, 8."
+    condition     = contains(["24.04", "22.04", "20.04"], var.instance_image_os_version)
+    error_message = "instance_image_os_version must be one of: 24.04, 22.04, 20.04."
   }
 }
 
@@ -104,7 +93,7 @@ variable "ssh_source_cidr" {
 variable "tcp_ingress_ports" {
   type        = string
   description = "Comma-separated list of TCP ports to allow ingress"
-  default     = "80,443,3000"
+  default     = "80,443,9443"
 
   validation {
     condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
@@ -125,7 +114,7 @@ variable "udp_ingress_ports" {
 
 variable "user_data" {
   type        = string
-  description = "Cloud-init script to run on first boot (paste contents of scripts/init.sh to auto-install Dokploy)"
+  description = "Cloud-init configuration to run on first boot (defaults to templates/cloud-init.yaml)"
   default     = ""
 }
 

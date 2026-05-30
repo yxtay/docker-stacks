@@ -19,9 +19,8 @@ variableGroups:
       - instance_memory_in_gbs
       - boot_volume_size_in_gbs
 
-  - title: "Operating System Selection"
+  - title: "Operating System"
     variables:
-      - instance_image_os
       - instance_image_os_version
 
   - title: "Access and Automation"
@@ -100,26 +99,14 @@ variables:
     default: 200
     required: true
 
-  instance_image_os:
-    type: enum
-    title: "Operating System"
-    description: "The operating system to install on the instance."
-    enum:
-      - "Canonical Ubuntu"
-      - "Oracle Linux"
-    default: "Canonical Ubuntu"
-    required: true
-
   instance_image_os_version:
     type: enum
     title: "OS Version"
-    description: "Ubuntu: 24.04, 22.04, 20.04 | Oracle Linux: 9, 8"
+    description: "Ubuntu version"
     enum:
       - "24.04"
       - "22.04"
       - "20.04"
-      - "9"
-      - "8"
     default: "24.04"
     required: true
 
@@ -138,11 +125,10 @@ variables:
 
   user_data:
     type: text
-    title: "Cloud-init Script (User Data)"
-    description: "Optional bash script to run on first boot. The script will be wrapped in a cloud-config runcmd."
+    title: "Cloud-init Configuration"
+    description: "Cloud-init configuration in YAML format (defaults to templates/cloud-init.yaml)."
     required: false
     default: ""
-
   vcn_display_name:
     type: string
     title: "VCN Name"
@@ -167,8 +153,8 @@ variables:
   tcp_ingress_ports:
     type: string
     title: "TCP Ingress Ports"
-    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,3000)."
-    default: "80,443,3000"
+    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,9443)."
+    default: "80,443,9443"
     required: false
 
   udp_ingress_ports:

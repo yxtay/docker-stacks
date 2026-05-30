@@ -29,6 +29,10 @@ resource "oci_core_boot_volume" "boot_volume" {
     id   = data.oci_core_images.instance_image.images[0].id
     type = "image"
   }
+
+  lifecycle {
+    ignore_changes = [source_details]
+  }
 }
 
 #checkov:skip=CKV_OCI_4:Ensure OCI Compute Instance boot volume has in-transit data encryption enabled
@@ -38,6 +42,8 @@ resource "oci_core_instance" "instance" {
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name
   shape               = "VM.Standard.A1.Flex"
+
+  preserve_boot_volume = true
 
   shape_config {
     ocpus         = var.instance_ocpus

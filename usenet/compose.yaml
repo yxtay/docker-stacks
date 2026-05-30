@@ -60,7 +60,7 @@ services:
     expose:
       - 7000
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://localhost:7000/${USENETSTREAMER_STREAM_TOKEN:-}"]
     restart: unless-stopped
 
 volumes:

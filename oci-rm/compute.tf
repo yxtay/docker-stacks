@@ -5,7 +5,7 @@ data "oci_identity_availability_domain" "ad" {
 
 data "oci_core_images" "instance_image" {
   compartment_id           = var.compartment_ocid
-  operating_system         = var.instance_image_os
+  operating_system         = "Canonical Ubuntu"
   operating_system_version = var.instance_image_os_version
   shape                    = "VM.Standard.A1.Flex"
   sort_by                  = "TIMECREATED"
@@ -14,7 +14,7 @@ data "oci_core_images" "instance_image" {
   lifecycle {
     postcondition {
       condition     = length(self.images) > 0
-      error_message = "No images found for ${var.instance_image_os} ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
+      error_message = "No images found for Canonical Ubuntu ${var.instance_image_os_version} with shape VM.Standard.A1.Flex in this region/compartment."
     }
   }
 }
@@ -55,8 +55,8 @@ resource "oci_core_instance" "instance" {
     boot_volume_id = oci_core_boot_volume.boot_volume.id
   }
 
-  metadata = merge(
-    { ssh_authorized_keys = var.ssh_public_key },
-    var.user_data != "" ? { user_data = base64encode(var.user_data) } : {}
-  )
+  metadata = {
+    ssh_authorized_keys = var.ssh_public_key
+    user_data           = base64encode(var.user_data != "" ? var.user_data : file("${path.module}/templates/cloud-init.yaml"))
+  }
 }

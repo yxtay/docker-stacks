@@ -19,6 +19,8 @@ data "oci_core_images" "instance_image" {
   }
 }
 
+#checkov:skip=CKV_OCI_2:KMS not available in Always Free tier
+#checkov:skip=CKV_OCI_15:Backup policy not required for ephemeral dev instance
 resource "oci_core_boot_volume" "boot_volume" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
@@ -30,6 +32,7 @@ resource "oci_core_boot_volume" "boot_volume" {
     type = "image"
   }
 
+  # To change OS version: taint this resource then apply
   lifecycle {
     ignore_changes = [source_details]
   }

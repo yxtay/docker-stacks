@@ -7,6 +7,7 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
+      - BASEURL=${NZBHYDRA_BASE_URL:-}
     volumes:
       - nzbhydra2_data:/config
     expose:
@@ -19,6 +20,8 @@ services:
     # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/gaisberg/streamnzb:latest
+    environment:
+      - ADDON_BASE_URL=${STREAMNZB_BASE_URL:-}
     volumes:
       - streamnzb_data:/app/data
     expose:
@@ -36,6 +39,7 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
+      - BASE_URL=${NZBDAV_BASE_URL:-}
     volumes:
       - nzbdav_data:/config
     expose:
@@ -50,6 +54,8 @@ services:
     image: ghcr.io/sanket9225/usenetstreamer:latest
     environment:
       - ADDON_SHARED_SECRET=${USENETSTREAMER_ADDON_SHARED_SECRET}
+      - ADDON_BASE_URL=${USENETSTREAMER_BASE_URL:-}
+      - ADDON_STREAM_TOKEN=${USENETSTREAMER_STREAM_TOKEN:-}
       - CONFIG_DIR=/data/config
     volumes:
       - usenetstreamer_data:/data/config

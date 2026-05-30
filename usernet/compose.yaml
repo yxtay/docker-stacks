@@ -14,10 +14,6 @@ services:
       - "5076"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5076/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     restart: unless-stopped
 
   streamnzb:
@@ -32,10 +28,6 @@ services:
       - "119"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7000/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     restart: unless-stopped
 
   nzbdav:
@@ -53,10 +45,6 @@ services:
       - "3000"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     restart: unless-stopped
 
   usenetstreamer:
@@ -73,10 +61,6 @@ services:
       - "7000"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7000/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     restart: unless-stopped
 
 volumes:

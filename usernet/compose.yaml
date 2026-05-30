@@ -22,8 +22,8 @@ services:
     image: ghcr.io/gaisberg/streamnzb:latest
     container_name: streamnzb
     environment:
-      - INDEXER_QUERY_HEADER=${STREAMNZB_INDEXER_QUERY_HEADER}
-      - INDEXER_GRAB_HEADER=${STREAMNZB_INDEXER_GRAB_HEADER}
+      - INDEXER_QUERY_HEADER=${STREAMNZB_INDEXER_QUERY_HEADER:-}
+      - INDEXER_GRAB_HEADER=${STREAMNZB_INDEXER_GRAB_HEADER:-}
     volumes:
       - streamnzb_data:/app/data
     expose:

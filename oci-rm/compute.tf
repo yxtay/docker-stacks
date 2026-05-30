@@ -27,8 +27,6 @@ resource "oci_core_instance" "instance" {
   display_name        = var.instance_display_name
   shape               = "VM.Standard.A1.Flex"
 
-  preserve_boot_volume = true
-
   shape_config {
     ocpus         = var.instance_ocpus
     memory_in_gbs = var.instance_memory_in_gbs

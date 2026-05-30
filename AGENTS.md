@@ -37,12 +37,11 @@ submitting changes.
 - **Networking**: `iptables` is used for port management instead of `ufw` to
   ensure compatibility with Docker networking.
 
-### Usenet Stack
+## Docker Stacks & Dokploy
 
-- When modifying `usernet/compose.yaml`, ensure checkov skip annotations
-  (`# checkov:skip=...`) are preserved or updated if necessary, as the stack
-  is optimized for Dokploy and might trigger false positives for standard
-  security checks.
+- When modifying Docker Compose stacks, ensure checkov skip annotations
+  (`# checkov:skip=...`) are preserved or updated if necessary, as they are
+  often required for Dokploy-optimized configurations.
 - For Docker Compose files (especially for Dokploy):
   - Do not set `container_name`.
   - Use `expose` instead of `ports` for port configuration.

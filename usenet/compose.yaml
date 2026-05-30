@@ -4,9 +4,9 @@ services:
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/linuxserver/nzbhydra2:latest
     environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-UTC}
     volumes:
       - nzbhydra2_data:/config
     expose:
@@ -20,7 +20,7 @@ services:
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/gaisberg/streamnzb:latest
     environment:
-      - TZ=${TZ:-UTC}
+      TZ: ${TZ:-UTC}
     volumes:
       - streamnzb_data:/app/data
     expose:
@@ -35,9 +35,9 @@ services:
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/nzbdav-dev/nzbdav:latest
     environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-UTC}
     volumes:
       - nzbdav_data:/config
     expose:
@@ -51,22 +51,18 @@ services:
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/sanket9225/usenetstreamer:latest
     environment:
-      - ADDON_BASE_URL=${USENETSTREAMER_BASE_URL:-}
-      - ADDON_SHARED_SECRET=${USENETSTREAMER_SHARED_SECRET:-}
-      - ADDON_STREAM_TOKEN=${USENETSTREAMER_STREAM_TOKEN:-}
-      - CONFIG_DIR=/data/config
+      ADDON_BASE_URL: ${USENETSTREAMER_BASE_URL:-}
+      ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:-}
+      ADDON_STREAM_TOKEN: ${USENETSTREAMER_STREAM_TOKEN:-}
+      NZBDAV_URL: http://nzbdav:3000
+      NZBDAV_WEBDAV_URL: http://nzbdav:3000
+      CONFIG_DIR: /data/config
     volumes:
       - usenetstreamer_data:/data/config
     expose:
       - 7000
     healthcheck:
-      test:
-        [
-          CMD,
-          wget,
-          -qO-,
-          "http://localhost:7000/${USENETSTREAMER_STREAM_TOKEN:-}",
-        ]
+      test: [CMD, wget, -qO-, "http://localhost:7000/"]
     restart: unless-stopped
 
 volumes:

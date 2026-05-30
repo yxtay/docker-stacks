@@ -62,7 +62,7 @@ services:
     expose:
       - 7000
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://127.0.0.1:7000/"]
     restart: unless-stopped
 
 volumes:

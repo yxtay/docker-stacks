@@ -19,13 +19,15 @@ services:
     # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
     # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/gaisberg/streamnzb:latest
+    environment:
+      - TZ=${TZ:-UTC}
     volumes:
       - streamnzb_data:/app/data
     expose:
       - 7000
       - 119
     healthcheck:
-      test: [CMD, wget, -nvO-, "http://localhost:7000/"]
+      test: [CMD, wget, -nv, -O-, "http://localhost:7000/"]
     restart: unless-stopped
 
   nzbdav:
@@ -41,7 +43,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -nvO-, "http://localhost:3000/health"]
+      test: [CMD, wget, -nv, -O-, "http://localhost:3000/health"]
     restart: unless-stopped
 
   usenetstreamer:
@@ -58,7 +60,7 @@ services:
     expose:
       - 7000
     healthcheck:
-      test: [CMD, wget, -nvO-, "http://localhost:7000/"]
+      test: [CMD, wget, -nv, -O-, "http://localhost:7000/"]
     restart: unless-stopped
 
 volumes:

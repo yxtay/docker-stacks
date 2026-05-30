@@ -52,5 +52,5 @@ submitting changes.
   - Health checks should specify only the `test` command, leaving other options
     as default.
   - Prefer `ghcr.io` over `docker.io` registry.
-  - Use `curl -fsSL` or `wget -nv -O-` for health check commands where
+  - Use `curl -fsSL` or `wget -qO-` for health check commands where
     appropriate.

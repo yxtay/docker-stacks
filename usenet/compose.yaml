@@ -25,9 +25,8 @@ services:
       - streamnzb_data:/app/data
     expose:
       - 7000
-      - 119
     healthcheck:
-      test: [CMD, wget, -nv, -O-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://localhost:7000/"]
     restart: unless-stopped
 
   nzbdav:
@@ -43,7 +42,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -nv, -O-, "http://localhost:3000/health"]
+      test: [CMD, wget, -qO-, "http://localhost:3000/health"]
     restart: unless-stopped
 
   usenetstreamer:
@@ -52,15 +51,15 @@ services:
     image: ghcr.io/sanket9225/usenetstreamer:latest
     environment:
       - ADDON_BASE_URL=${USENETSTREAMER_BASE_URL:-}
-      - ADDON_SHARED_SECRET=${USENETSTREAMER_SHARED_SECRET}
-      - ADDON_STREAM_TOKEN=${USENETSTREAMER_STREAM_TOKEN}
+      - ADDON_SHARED_SECRET=${USENETSTREAMER_SHARED_SECRET:-}
+      - ADDON_STREAM_TOKEN=${USENETSTREAMER_STREAM_TOKEN:-}
       - CONFIG_DIR=/data/config
     volumes:
       - usenetstreamer_data:/data/config
     expose:
       - 7000
     healthcheck:
-      test: [CMD, wget, -nv, -O-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://localhost:7000/"]
     restart: unless-stopped
 
 volumes:

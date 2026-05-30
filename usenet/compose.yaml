@@ -12,7 +12,7 @@ services:
     expose:
       - 5076
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:5076/"]
+      test: [CMD, curl, -fsSL, "http://localhost:5076/actuator/health/ping"]
     restart: unless-stopped
 
   streamnzb:
@@ -41,7 +41,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -nvO-, "http://localhost:3000/"]
+      test: [CMD, wget, -nvO-, "http://localhost:3000/health"]
     restart: unless-stopped
 
   usenetstreamer:

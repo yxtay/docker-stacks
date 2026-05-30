@@ -115,7 +115,7 @@ The `oci-rm/templates/cloud-init.yaml` configuration performs the following acti
 1. Configures `iptables` to allow traffic on essential ports:
     - **80 (TCP)**: HTTP.
     - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
-    - **9443 (TCP)**: Portainer (to be added later).
+    - **3000 (TCP)**: Dokploy dashboard.
 1. Installs Docker using the official `get.docker.com` script.
 1. Adds the `ubuntu` user to the `docker` group.
 1. Reboots to apply all changes.
@@ -128,7 +128,11 @@ When creating a new OCI instance, the Terraform stack automatically uses
 the template. You can also manually provide the contents of
 `oci-rm/templates/cloud-init.yaml` as the **Cloud-init script** (User Data).
 
-#### Portainer
+#### Dokploy
 
-Portainer will be added in a future update to manage your containers easily via
-a web interface.
+After the instance is ready, install [Dokploy](https://dokploy.com) to manage
+containers via a web dashboard on port 3000:
+
+```bash
+curl -sSL https://dokploy.com/install.sh | sh
+```

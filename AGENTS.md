@@ -36,3 +36,10 @@ submitting changes.
   empty.
 - **Networking**: `iptables` is used for port management instead of `ufw` to
   ensure compatibility with Docker networking.
+
+### Usenet Stack
+
+- When modifying `usernet/compose.yaml`, ensure checkov skip annotations
+(`# checkov:skip=...`) are preserved or updated if necessary, as the stack
+is optimized for Dokploy and might trigger false positives for standard
+security checks.

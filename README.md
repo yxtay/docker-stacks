@@ -136,3 +136,23 @@ containers via a web dashboard on port 3000:
 ```bash
 curl -sSL https://dokploy.com/install.sh | sh
 ```
+
+## Usenet Stack
+
+The `usernet/` directory contains a Docker Compose stack for Usenet
+streaming and indexing, optimized for deployment with Dokploy.
+
+### Services
+
+- **NZBHydra2**: Indexer manager and meta-search.
+- **StreamNZB**: Stream-based Usenet addon for Stremio.
+- **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
+- **UsenetStreamer**: HTTP stream server for Usenet.
+
+### Deployment on Dokploy
+
+1. Create a new project in Dokploy.
+2. Create a new Compose service.
+3. Use the content of `usernet/compose.yaml`.
+4. Configure environment variables as defined in `usernet/.env.example`.
+5. Ensure the `dokploy-network` is available.

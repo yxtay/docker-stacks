@@ -1,0 +1,74 @@
+services:
+  nzbhydra2:
+    # checkov:skip=CKV_DOCKER_2: Healthcheck not provided by upstream
+    # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
+    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
+    image: lscr.io/linuxserver/nzbhydra2:latest
+    container_name: nzbhydra2
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+    volumes:
+      - nzbhydra2_data:/config
+    expose:
+      - "5076"
+    restart: unless-stopped
+
+  streamnzb:
+    # checkov:skip=CKV_DOCKER_2: Healthcheck not provided by upstream
+    # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
+    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
+    image: ghcr.io/gaisberg/streamnzb:latest
+    container_name: streamnzb
+    environment:
+      - INDEXER_QUERY_HEADER=${STREAMNZB_INDEXER_QUERY_HEADER}
+      - INDEXER_GRAB_HEADER=${STREAMNZB_INDEXER_GRAB_HEADER}
+    volumes:
+      - streamnzb_data:/app/data
+    expose:
+      - "7000"
+      - "119"
+    restart: unless-stopped
+
+  nzbdav:
+    # checkov:skip=CKV_DOCKER_2: Healthcheck not provided by upstream
+    # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
+    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
+    image: nzbdav/nzbdav:latest
+    container_name: nzbdav
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+    volumes:
+      - nzbdav_data:/config
+    expose:
+      - "3000"
+    restart: unless-stopped
+
+  usenetstreamer:
+    # checkov:skip=CKV_DOCKER_2: Healthcheck not provided by upstream
+    # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
+    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
+    image: ghcr.io/sanket9225/usenetstreamer:latest
+    container_name: usenetstreamer
+    environment:
+      - ADDON_SHARED_SECRET=${USENETSTREAMER_ADDON_SHARED_SECRET}
+      - CONFIG_DIR=/data/config
+    volumes:
+      - usenetstreamer_data:/data/config
+    expose:
+      - "7000"
+    restart: unless-stopped
+
+volumes:
+  nzbhydra2_data:
+  streamnzb_data:
+  nzbdav_data:
+  usenetstreamer_data:
+
+networks:
+  default:
+    name: dokploy-network
+    external: true

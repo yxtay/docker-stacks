@@ -43,6 +43,8 @@ Defaults: 4 OCPU / 24 GB RAM / 200 GB boot volume (Max Always Free).
   ingress.
 - **ORM Optimized**: Enhanced `schema.yaml` with logical grouping and
   descriptive tooltips.
+- **Explicit Boot Volume Management**: Boot volume is managed as a standalone
+  resource for better visibility and lifecycle control.
 
 ### Variables
 

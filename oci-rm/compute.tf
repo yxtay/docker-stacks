@@ -19,6 +19,18 @@ data "oci_core_images" "instance_image" {
   }
 }
 
+resource "oci_core_boot_volume" "boot_volume" {
+  availability_domain = data.oci_identity_availability_domain.ad.name
+  compartment_id      = var.compartment_ocid
+  display_name        = "${var.instance_display_name}-boot-volume"
+  size_in_gbs         = var.boot_volume_size_in_gbs
+
+  source_details {
+    id   = data.oci_core_images.instance_image.images[0].id
+    type = "image"
+  }
+}
+
 #checkov:skip=CKV_OCI_4:Ensure OCI Compute Instance boot volume has in-transit data encryption enabled
 #checkov:skip=CKV_OCI_5:Ensure OCI Compute Instance has Legacy MetaData service endpoint disabled
 resource "oci_core_instance" "instance" {
@@ -39,9 +51,8 @@ resource "oci_core_instance" "instance" {
   }
 
   source_details {
-    source_type             = "image"
-    source_id               = data.oci_core_images.instance_image.images[0].id
-    boot_volume_size_in_gbs = var.boot_volume_size_in_gbs
+    source_type    = "bootVolume"
+    boot_volume_id = oci_core_boot_volume.boot_volume.id
   }
 
   metadata = merge(

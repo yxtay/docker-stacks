@@ -12,7 +12,7 @@ services:
     expose:
       - 5076
     healthcheck:
-      test: [CMD, curl, -f, "http://localhost:5076/"]
+      test: [CMD, curl, -fsSL, "http://localhost:5076/"]
     restart: unless-stopped
 
   streamnzb:

@@ -1,11 +1,11 @@
 services:
   portainer:
     image: portainer/portainer-ce:lts
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /data/portainer:/data
     expose:
       - 8000
     ports:
       - 9443:9443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /data/portainer:/data
     restart: unless-stopped

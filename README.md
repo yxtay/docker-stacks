@@ -38,7 +38,7 @@ Defaults: 4 OCPU / 24 GB RAM / 200 GB boot volume (Max Always Free).
 - **Modular Architecture**: Clean separation of concerns with network and
   compute modules.
 - **Structured Cloud-init**: Automatically updates packages and installs `curl`
-  and `git`.
+  and `iptables-persistent`.
 - **Configurable Networking**: Easily specify additional TCP/UDP ports for
   ingress.
 - **ORM Optimized**: Enhanced `schema.yaml` with logical grouping and
@@ -137,21 +137,29 @@ manage containers via a web dashboard on port 3000:
 curl -sSL https://dokploy.com/install.sh | sh
 ```
 
-## Usenet Stack
+## Docker Stacks
 
-The `usenet/` directory contains a Docker Compose stack for Usenet
-streaming and indexing, managed via Dokploy.
+All compose stacks use Dokploy's shared `dokploy-network` as the default
+network for cross-stack communication.
 
-### Services
+### Public Stack
+
+The `public/` directory contains public-facing utility services:
+
+- **whoami**: HTTP service returning request headers (reverse proxy testing).
+- **httpbin**: HTTP request/response testing tool.
+- **librespeed**: Self-hosted speed test.
+
+Deploy via Dokploy: **Projects → Create Compose** with `public/compose.yaml`.
+
+### Usenet Stack
+
+The `usenet/` directory contains a Usenet streaming and indexing stack:
 
 - **NZBHydra2**: Indexer manager and meta-search.
 - **StreamNZB**: Stream-based Usenet addon for Stremio.
 - **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
 - **UsenetStreamer**: HTTP stream server for Usenet.
 
-### Deployment on Dokploy
-
-1. In Dokploy, go to **Projects → Create Compose**.
-2. Use the content of `usenet/compose.yaml`.
-3. Configure environment variables as defined in `usenet/.env.example`.
-4. Deploy the stack.
+Deploy via Dokploy: **Projects → Create Compose** with `usenet/compose.yaml`.
+Configure environment variables per `usenet/.env.example`.

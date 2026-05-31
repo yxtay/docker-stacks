@@ -1,0 +1,18 @@
+services:
+  whoami:
+    image: ghcr.io/traefik/whoami:latest
+    expose:
+      - 80
+    restart: unless-stopped
+
+  httpbin:
+    image: ghcr.io/mccutchen/go-httpbin:latest
+    expose:
+      - 8080
+    restart: unless-stopped
+
+  librespeed:
+    image: ghcr.io/librespeed/speedtest:latest
+    expose:
+      - 8080
+    restart: unless-stopped

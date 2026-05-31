@@ -50,14 +50,7 @@
 *.{$DOMAIN} {
   @www host www.{env.DOMAIN}
   handle @www {
-    root * /usr/share/caddy
-
-    respond /healthz "OK"
-    respond /readyz "OK"
-    respond /livez "OK"
-
-    metrics /metrics
-
+    root /usr/share/caddy
     file_server
   }
 

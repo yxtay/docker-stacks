@@ -146,11 +146,13 @@ network for cross-stack communication.
 
 The `public/` directory contains public-facing utility services:
 
+- **DuckDNS**: Dynamic DNS updater.
 - **whoami**: HTTP service returning request headers (reverse proxy testing).
 - **httpbin**: HTTP request/response testing tool.
 - **librespeed**: Self-hosted speed test.
 
 Deploy via Dokploy: **Projects → Create Compose** with `public/compose.yaml`.
+Configure environment variables per `public/.env.example`.
 
 ### Usenet Stack
 

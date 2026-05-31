@@ -1,4 +1,13 @@
 services:
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    environment:
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
+      - FILE__TOKEN=/run/secrets/duckdns_token
+    secrets:
+      - duckdns_token
+    restart: unless-stopped
+
   whoami:
     image: ghcr.io/traefik/whoami:latest
     expose:
@@ -16,3 +25,7 @@ services:
     expose:
       - 8080
     restart: unless-stopped
+
+secrets:
+  duckdns_token:
+    environment: DUCKDNS_TOKEN

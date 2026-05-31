@@ -27,7 +27,7 @@ variable "availability_domain_number" {
 variable "instance_display_name" {
   type        = string
   description = "Instance display name"
-  default     = "arm-free-tier"
+  default     = "instance-ampere-a1-ubuntu"
 }
 
 variable "instance_ocpus" {
@@ -93,7 +93,7 @@ variable "ssh_source_cidr" {
 variable "tcp_ingress_ports" {
   type        = string
   description = "Comma-separated list of TCP ports to allow ingress"
-  default     = "80,443,9443"
+  default     = "80,443,3000"
 
   validation {
     condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])
@@ -121,7 +121,7 @@ variable "user_data" {
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"
-  default     = "vcn-free-tier"
+  default     = "vcn-default"
 }
 
 variable "vcn_cidr_block" {

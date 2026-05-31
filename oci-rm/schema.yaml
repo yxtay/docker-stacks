@@ -69,7 +69,7 @@ variables:
     type: string
     title: "Instance Name"
     description: "A friendly name for the compute instance."
-    default: "arm-free-tier"
+    default: "instance-ampere-a1-ubuntu"
     required: true
 
   instance_ocpus:
@@ -133,7 +133,7 @@ variables:
     type: string
     title: "VCN Name"
     description: "Name for the Virtual Cloud Network."
-    default: "vcn-free-tier"
+    default: "vcn-default"
     required: true
 
   vcn_cidr_block:
@@ -153,8 +153,8 @@ variables:
   tcp_ingress_ports:
     type: string
     title: "TCP Ingress Ports"
-    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,9443)."
-    default: "80,443,9443"
+    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,3000)."
+    default: "80,443,3000"
     required: false
 
   udp_ingress_ports:

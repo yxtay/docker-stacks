@@ -37,9 +37,9 @@ submitting changes.
 - **Networking**: `iptables` is used for port management instead of `ufw` to
   ensure compatibility with Docker networking.
 
-## Docker Stacks & Portainer
+## Docker Stacks & Dokploy
 
-- For Docker Compose files (managed via Portainer):
+- For Docker Compose files (managed via Dokploy):
   - Do not set `container_name`.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when

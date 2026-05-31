@@ -1,4 +1,5 @@
 #cloud-config
+timezone: Asia/Singapore
 package_update: true
 package_upgrade: true
 
@@ -6,12 +7,19 @@ packages:
   - curl
   - iptables-persistent
 
+write_files:
+  - path: /etc/docker/daemon.json
+    content: |
+      {
+        "log-driver": "journald"
+      }
+
 runcmd:
   # Configure iptables
   - [iptables, -I, INPUT, "1", -p, tcp, --dport, "80", -j, ACCEPT]
   - [iptables, -I, INPUT, "1", -p, tcp, --dport, "443", -j, ACCEPT]
   - [iptables, -I, INPUT, "1", -p, udp, --dport, "443", -j, ACCEPT]
-  - [iptables, -I, INPUT, "1", -p, tcp, --dport, "3000", -j, ACCEPT]
+  - [iptables, -I, INPUT, "1", -p, tcp, --dport, "9443", -j, ACCEPT]
   - [netfilter-persistent, save]
 
   # Install Docker

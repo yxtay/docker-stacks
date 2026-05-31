@@ -37,16 +37,11 @@ submitting changes.
 - **Networking**: `iptables` is used for port management instead of `ufw` to
   ensure compatibility with Docker networking.
 
-## Docker Stacks & Dokploy
+## Docker Stacks & Portainer
 
-- When modifying Docker Compose stacks, ensure checkov skip annotations
-  (`# checkov:skip=...`) are preserved or updated if necessary, as they are
-  often required for Dokploy-optimized configurations.
-- For Docker Compose files (especially for Dokploy):
+- For Docker Compose files (managed via Portainer):
   - Do not set `container_name`.
   - Use `expose` instead of `ports` for port configuration.
-  - Use `networks: default: name: dokploy-network: external: true` to avoid
-    setting networks per service.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when
     strictly required (e.g., URLs with colons).
   - Health checks should specify only the `test` command, leaving other options
@@ -54,3 +49,8 @@ submitting changes.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use `curl -fsSL` or `wget -qO-` for health check commands where
     appropriate.
+- Key ordering in compose files:
+  - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
+  - Service-level: `image`/`build`, `command`/`entrypoint`, `environment`,
+    `env_file`, `volumes`, `ports`/`expose`, `networks`, `depends_on`,
+    `healthcheck`, `restart`, `deploy`, `labels`.

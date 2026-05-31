@@ -1,8 +1,6 @@
 services:
   nzbhydra2:
-    # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
-    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
-    image: ghcr.io/linuxserver/nzbhydra2:latest
+    image: lscr.io/linuxserver/nzbhydra2:latest
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -16,8 +14,6 @@ services:
     restart: unless-stopped
 
   streamnzb:
-    # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
-    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/gaisberg/streamnzb:latest
     environment:
       TZ: ${TZ:-UTC}
@@ -31,8 +27,6 @@ services:
     restart: unless-stopped
 
   nzbdav:
-    # checkov:skip=CKV_DOCKER_3: User managed via PUID/PGID
-    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/nzbdav-dev/nzbdav:latest
     environment:
       PUID: ${PUID:-1000}
@@ -47,8 +41,6 @@ services:
     restart: unless-stopped
 
   usenetstreamer:
-    # checkov:skip=CKV_DOCKER_3: Runs as root/internally managed
-    # checkov:skip=CKV_DOCKER_7: Using latest tag for convenience
     image: ghcr.io/sanket9225/usenetstreamer:latest
     environment:
       ADDON_BASE_URL: ${USENETSTREAMER_BASE_URL:-}
@@ -70,8 +62,3 @@ volumes:
   streamnzb_data:
   nzbdav_data:
   usenetstreamer_data:
-
-networks:
-  default:
-    name: dokploy-network
-    external: true

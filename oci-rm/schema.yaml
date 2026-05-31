@@ -69,7 +69,7 @@ variables:
     type: string
     title: "Instance Name"
     description: "A friendly name for the compute instance."
-    default: "ampere-a1-ubuntu"
+    default: "instance-ampere-a1-ubuntu"
     required: true
 
   instance_ocpus:

@@ -27,7 +27,7 @@ variable "availability_domain_number" {
 variable "instance_display_name" {
   type        = string
   description = "Instance display name"
-  default     = "ampere-a1-ubuntu"
+  default     = "instance-ampere-a1-ubuntu"
 }
 
 variable "instance_ocpus" {

@@ -43,9 +43,7 @@ services:
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:latest
     environment:
-      ADDON_BASE_URL: ${USENETSTREAMER_BASE_URL:-}
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:-}
-      ADDON_STREAM_TOKEN: ${USENETSTREAMER_STREAM_TOKEN:-}
       NZBDAV_URL: http://nzbdav:3000
       NZBDAV_WEBDAV_URL: http://nzbdav:3000
       CONFIG_DIR: /data/config

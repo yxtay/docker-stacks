@@ -4,8 +4,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /data/portainer:/data
-    expose:
-      - 8000
     ports:
       - 9443:9443
+    expose:
+      - 8000
     restart: unless-stopped

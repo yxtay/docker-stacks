@@ -49,3 +49,8 @@ submitting changes.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use `curl -fsSL` or `wget -qO-` for health check commands where
     appropriate.
+- Key ordering in compose files:
+  - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
+  - Service-level: `image`/`build`, `command`/`entrypoint`, `environment`,
+    `env_file`, `volumes`, `ports`/`expose`, `networks`, `depends_on`,
+    `healthcheck`, `restart`, `deploy`, `labels`.

@@ -69,7 +69,7 @@ variables:
     type: string
     title: "Instance Name"
     description: "A friendly name for the compute instance."
-    default: "arm-free-tier"
+    default: "ampere-a1-ubuntu"
     required: true
 
   instance_ocpus:
@@ -133,7 +133,7 @@ variables:
     type: string
     title: "VCN Name"
     description: "Name for the Virtual Cloud Network."
-    default: "vcn-free-tier"
+    default: "vcn-default"
     required: true
 
   vcn_cidr_block:

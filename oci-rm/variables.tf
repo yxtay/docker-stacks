@@ -27,7 +27,7 @@ variable "availability_domain_number" {
 variable "instance_display_name" {
   type        = string
   description = "Instance display name"
-  default     = "arm-free-tier"
+  default     = "ampere-a1-ubuntu"
 }
 
 variable "instance_ocpus" {
@@ -121,7 +121,7 @@ variable "user_data" {
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"
-  default     = "vcn-free-tier"
+  default     = "vcn-default"
 }
 
 variable "vcn_cidr_block" {

@@ -2,7 +2,7 @@ services:
   duckdns:
     image: lscr.io/linuxserver/duckdns:latest
     environment:
-      - SUBDOMAINS=${SUBDOMAINS}
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token

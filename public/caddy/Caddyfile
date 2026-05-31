@@ -8,17 +8,17 @@
   }
 
   dynamic_dns {
-    provider duckdns {env.DUCKDNS_API_TOKEN}
+    provider duckdns {$DUCKDNS_API_TOKEN}
     domains {
-      {env.DOMAIN}
+      {$DOMAIN}
     }
     versions ipv4
   }
-  acme_dns duckdns {env.DUCKDNS_API_TOKEN}
+  acme_dns duckdns {$DUCKDNS_API_TOKEN}
 }
 
 (reverse_proxy) {
-  @{args[0]} host {args[0]}.{env.DOMAIN}
+  @{args[0]} host {args[0]}.{$DOMAIN}
   handle @{args[0]} {
     reverse_proxy {args[1]} {
       fail_duration 30s
@@ -35,12 +35,7 @@
   redir https://www.{host}{uri} permanent
 }
 
-*.{$DOMAIN} {
-  @www host www.{env.DOMAIN}
-  handle @www {
-    root /usr/share/caddy
-    file_server
-  }
-
-  error 404
+www.{$DOMAIN} {
+  root * /usr/share/caddy
+  file_server
 }

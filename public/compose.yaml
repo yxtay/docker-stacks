@@ -1,0 +1,56 @@
+services:
+  caddy:
+    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:latest
+
+    cap_add:
+      - NET_ADMIN
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+      DUCKDNS_API_TOKEN: ${DUCKDNS_API_TOKEN}
+      CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
+
+    volumes:
+      - ./caddy:/srv
+      - /apps/caddy/data:/data
+
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    expose:
+      - 2019
+
+    healthcheck:
+      test: [CMD, wget, -qO-, 'http://localhost:2019/config']
+    restart: unless-stopped
+
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy caddy localhost:2020
+
+  whoami:
+    image: ghcr.io/traefik/whoami:latest
+    expose:
+      - 80
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy whoami whoami:80
+    restart: unless-stopped
+
+  httpbin:
+    image: ghcr.io/mccutchen/go-httpbin:latest
+    expose:
+      - 8080
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy httpbin httpbin:8080
+    restart: unless-stopped
+
+  librespeed:
+    image: ghcr.io/librespeed/speedtest:latest
+    expose:
+      - 8080
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy librespeed librespeed:8080
+    restart: unless-stopped

@@ -1,0 +1,86 @@
+# The Caddyfile is an easy way to configure your Caddy web server.
+#
+# Unless the file starts with a global options block, the first
+# uncommented line is always the address of your site.
+#
+# To use your own domain name (with automatic HTTPS), first make
+# sure your domain's A/AAAA DNS records are properly pointed to
+# this machine's public IP, then replace ":80" below with your
+# domain name.
+{
+  # debug
+  admin :2019 {
+    origins localhost 127.0.0.1 ::1 192.168.0.0/16
+  }
+
+  log {
+    format json {
+      time_format iso8601
+    }
+  }
+
+  dynamic_dns {
+    provider duckdns {env.DUCKDNS_API_TOKEN} # for DuckDNS
+    domains {
+      {env.DOMAIN}
+    }
+    versions ipv4
+  }
+  acme_dns duckdns {env.DUCKDNS_API_TOKEN} #  for DuckDNS
+
+  servers {
+    trusted_proxies static private_ranges
+    trusted_proxies_strict
+  }
+}
+
+(defaults) {
+  handle_errors {
+    header -Server
+    respond "{err.status_code} {err.status_text} {err.message} {err.trace}"
+  }
+}
+
+(reverse_proxy) {
+  @{args[0]} host {args[0]}.{env.DOMAIN}
+  handle @{args[0]} {
+    reverse_proxy {args[1]} {
+      fail_duration 30s
+    }
+  }
+}
+
+:80 {
+  root * /usr/share/caddy
+  file_server
+}
+
+:2020 {
+  reverse_proxy localhost:2019 {
+    header_up Host localhost
+    header_up Origin localhost
+  }
+}
+
+{$DOMAIN} {
+  redir https://www.{host}{uri} permanent
+}
+
+*.{$DOMAIN} {
+  import defaults
+
+  @www host www.{env.DOMAIN}
+  handle @www {
+    root * /usr/share/caddy
+
+    respond /healthz "OK"
+    respond /readyz "OK"
+    respond /livez "OK"
+
+    metrics /metrics
+
+    file_server
+  }
+
+  error 404
+}

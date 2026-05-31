@@ -1,17 +1,5 @@
-# The Caddyfile is an easy way to configure your Caddy web server.
-#
-# Unless the file starts with a global options block, the first
-# uncommented line is always the address of your site.
-#
-# To use your own domain name (with automatic HTTPS), first make
-# sure your domain's A/AAAA DNS records are properly pointed to
-# this machine's public IP, then replace ":80" below with your
-# domain name.
 {
   # debug
-  admin :2019 {
-    origins localhost 127.0.0.1 ::1 192.168.0.0/16
-  }
 
   log {
     format json {
@@ -20,24 +8,17 @@
   }
 
   dynamic_dns {
-    provider duckdns {env.DUCKDNS_API_TOKEN} # for DuckDNS
+    provider duckdns {env.DUCKDNS_API_TOKEN}
     domains {
       {env.DOMAIN}
     }
     versions ipv4
   }
-  acme_dns duckdns {env.DUCKDNS_API_TOKEN} #  for DuckDNS
+  acme_dns duckdns {env.DUCKDNS_API_TOKEN}
 
   servers {
     trusted_proxies static private_ranges
     trusted_proxies_strict
-  }
-}
-
-(defaults) {
-  handle_errors {
-    header -Server
-    respond "{err.status_code} {err.status_text} {err.message} {err.trace}"
   }
 }
 
@@ -57,7 +38,7 @@
 
 :2020 {
   reverse_proxy localhost:2019 {
-    header_up Host localhost
+    # header_up Host localhost
     header_up Origin localhost
   }
 }
@@ -67,8 +48,6 @@
 }
 
 *.{$DOMAIN} {
-  import defaults
-
   @www host www.{env.DOMAIN}
   handle @www {
     root * /usr/share/caddy

@@ -3,8 +3,9 @@ services:
     image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:latest
     environment:
       DOMAIN: ${DOMAIN:-localhost}
-      DUCKDNS_API_TOKEN: ${DUCKDNS_API_TOKEN}
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
+    secrets:
+      - duckdns_token
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./caddy:/srv
@@ -43,3 +44,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy librespeed librespeed:8080
+
+secrets:
+  duckdns_token:
+    environment: DUCKDNS_TOKEN

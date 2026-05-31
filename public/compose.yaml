@@ -6,20 +6,18 @@ services:
       DUCKDNS_API_TOKEN: ${DUCKDNS_API_TOKEN}
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./caddy:/srv
       - /apps/caddy/data:/data
     ports:
       - 80:80
       - 443:443
       - 443:443/udp
-    expose:
-      - 2019
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2019/config"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy caddy localhost:2020
 
   whoami:
     image: ghcr.io/traefik/whoami:latest

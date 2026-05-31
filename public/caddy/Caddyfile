@@ -23,9 +23,9 @@
 }
 
 (reverse_proxy) {
-  @{args[0]} host {args[0]}.{env.DOMAIN}
-  handle @{args[0]} {
-    reverse_proxy {args[1]} {
+  @{args.0} host {args.0}.{env.DOMAIN}
+  handle @{args.0} {
+    reverse_proxy {args.1} {
       fail_duration 30s
     }
   }
@@ -34,13 +34,6 @@
 :80 {
   root * /usr/share/caddy
   file_server
-}
-
-:2020 {
-  reverse_proxy localhost:2019 {
-    # header_up Host localhost
-    header_up Origin localhost
-  }
 }
 
 {$DOMAIN} {
@@ -54,5 +47,7 @@
     file_server
   }
 
-  error 404
+  handle {
+    error 404
+  }
 }

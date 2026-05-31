@@ -16,8 +16,6 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2019/config"]
     restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
 
   whoami:
     image: ghcr.io/traefik/whoami:latest

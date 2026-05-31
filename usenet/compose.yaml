@@ -62,3 +62,8 @@ volumes:
   streamnzb_data:
   nzbdav_data:
   usenetstreamer_data:
+
+networks:
+  default:
+    name: dokploy-network
+    external: true

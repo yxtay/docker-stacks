@@ -15,11 +15,6 @@
     versions ipv4
   }
   acme_dns duckdns {env.DUCKDNS_API_TOKEN}
-
-  servers {
-    trusted_proxies static private_ranges
-    trusted_proxies_strict
-  }
 }
 
 (reverse_proxy) {
@@ -47,7 +42,5 @@
     file_server
   }
 
-  handle {
-    error 404
-  }
+  error 404
 }

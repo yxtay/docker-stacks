@@ -26,11 +26,6 @@ services:
       - 8080
     restart: unless-stopped
 
-networks:
-  default:
-    name: dokploy-network
-    external: true
-
 secrets:
   duckdns_token:
     environment: DUCKDNS_TOKEN

@@ -40,16 +40,6 @@ submitting changes.
 ## Docker Stacks & Dokploy
 
 - For Docker Compose files (managed via Dokploy):
-  - Set the default network to Dokploy's shared network so services don't need
-    per-service network config:
-
-    ```yaml
-    networks:
-      default:
-        name: dokploy-network
-        external: true
-    ```
-
   - Do not set `container_name`.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when

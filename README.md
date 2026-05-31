@@ -139,9 +139,6 @@ curl -sSL https://dokploy.com/install.sh | sh
 
 ## Docker Stacks
 
-All compose stacks use Dokploy's shared `dokploy-network` as the default
-network for cross-stack communication.
-
 ### Public Stack
 
 The `public/` directory contains public-facing utility services:

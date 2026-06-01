@@ -3,7 +3,7 @@
 
 	log {
 		format json {
-			time_format iso8601
+			time_format rfc3339
 		}
 	}
 	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS

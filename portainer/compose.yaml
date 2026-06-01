@@ -5,10 +5,10 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
-      - PORTAINER_COMPOSE_DATA=/apps/portainer/data/compose
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /apps/portainer:/data
+      # to allow using relative path, mount /data for portainer_data
+      - /data:/data
     ports:
       - 9443:9443
     expose:
@@ -19,7 +19,7 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy portainer portainer:9000
 
-networks:
-  default:
-    name: public_default
-    external: true
+# networks:
+#   default:
+#     name: public_default
+#     external: true

@@ -14,3 +14,11 @@ services:
     expose:
       - 8000
     restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy portainer portainer:9443
+
+networks:
+  default:
+    name: public_default
+    external: true

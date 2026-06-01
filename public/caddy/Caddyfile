@@ -1,0 +1,38 @@
+{
+  # debug
+
+  log {
+    format json {
+      time_format iso8601
+    }
+  }
+  acme_dns duckdns {file./run/secrets/duckdns_token} #  for DuckDNS
+}
+
+(reverse_proxy) {
+  @{args[0]} host {args[0]}.{env.DOMAIN}
+  handle @{args[0]} {
+    reverse_proxy {args[1]} {
+      fail_duration 30s
+    }
+  }
+}
+
+:80 {
+  root * /usr/share/caddy
+  file_server
+}
+
+{$DOMAIN} {
+  redir https://www.{host}{uri} permanent
+}
+
+*.{$DOMAIN} {
+  @www host www.{env.DOMAIN}
+  handle @www {
+    root /usr/share/caddy
+    file_server
+  }
+
+  error 404
+}

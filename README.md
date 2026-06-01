@@ -141,12 +141,19 @@ docker compose -f portainer/compose.yaml up -d
 
 ### Public Stack
 
-The `public/` directory contains public-facing utility services:
+The `public/` directory contains public-facing utility services behind a Caddy
+reverse proxy with automatic HTTPS:
 
+- **Caddy**: Reverse proxy with automatic TLS via DuckDNS ACME DNS challenge,
+  using the [caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy](https://github.com/serfriz/caddy-custom-builds)
+  image for DuckDNS DDNS, CrowdSec, GeoIP, and Docker label-based routing.
 - **DuckDNS**: Dynamic DNS updater.
 - **whoami**: HTTP service returning request headers (reverse proxy testing).
 - **httpbin**: HTTP request/response testing tool.
 - **librespeed**: Self-hosted speed test.
+
+Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
+labels for automatic reverse proxy configuration.
 
 Deploy via Portainer: **Stacks → Add stack** with `public/compose.yaml`.
 Configure environment variables per `public/.env.example`.

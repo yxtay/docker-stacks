@@ -18,6 +18,6 @@ trim_trailing_whitespace=false
 [{*.{py,rs},Dockerfile}]
 indent_size=4
 
-[{*.{go,lua},go.{mod,sum},Makefile}]
+[{*.{go,lua},go.{mod,sum},Caddyfile,Makefile}]
 indent_style=tab
 tab_width=4

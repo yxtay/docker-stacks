@@ -10,8 +10,8 @@ services:
       - duckdns_token
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${REPO_PATH:?}/public/caddy:/srv
-      - /apps/caddy/data:/data
+      - ./caddy:/srv
+      - /data/caddy:/data
     ports:
       - 80:80
       - 443:443

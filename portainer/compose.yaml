@@ -1,14 +1,15 @@
 services:
   portainer:
     image: portainer/portainer-ce:lts
+    command: --data ${PORTAINER_DATA}
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
-      - PORTAINER_COMPOSE_DATA=/apps/portainer/data/compose
+      - PORTAINER_DATA=${PORTAINER_DATA:?}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /apps/portainer:/data
+      - ${PORTAINER_DATA}:${PORTAINER_DATA}
     ports:
       - 9443:9443
     expose:
@@ -19,7 +20,7 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy portainer portainer:9000
 
-networks:
-  default:
-    name: public_default
-    external: true
+# networks:
+#   default:
+#     name: public_default
+#     external: true

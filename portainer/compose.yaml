@@ -1,0 +1,16 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+      - PORTAINER_DATA=${PORTAINER_DATA}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PORTAINER_DATA}:/data
+    ports:
+      - 9443:9443
+    expose:
+      - 8000
+    restart: unless-stopped

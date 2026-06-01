@@ -51,6 +51,9 @@ services:
 
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:latest
+    depends_on:
+      nzbdav:
+        condition: service_healthy
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:-}
       NZBDAV_URL: http://nzbdav:3000

@@ -5,10 +5,10 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
-      - PORTAINER_DATA=${PORTAINER_DATA}
+      - PORTAINER_COMPOSE_DATA=/apps/portainer/compose/data
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${PORTAINER_DATA:?}:/data
+      - /apps/portainer:/data
     ports:
       - 9443:9443
     expose:

@@ -9,6 +9,48 @@
 	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
 }
 
+(security_headers) {
+	header {
+		# https://securityheaders.com/
+		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+		# https://paulbradley.dev/caddyfile-web-security-headers/
+		# https://www.talkincyber.com/secure-caddy/
+		# https://scotthelme.co.uk/content-security-policy-an-introduction/
+		# https://nullsweep.com/http-security-headers-a-complete-guide/
+		# https://www.darkrelay.com/post/http-security-headers
+		# https://www.invicti.com/blog/web-security/http-security-headers
+		# https://geekflare.com/http-header-implementation/
+		# https://infosec.mozilla.org/guidelines/web_security
+
+		# Enable HTTP Strict Transport Security (HSTS)
+		Strict-Transport-Security "max-age=31536000"
+
+		# Disallow the site to be rendered within a frame (clickjacking protection)
+		?X-Frame-Options "SAMEORIGIN"
+
+		# Prevent search engines from indexing
+		X-Robots-Tag "noindex, nofollow"
+
+		# Disallow sniffing of X-Content-Type-Options
+		X-Content-Type-Options "nosniff"
+
+		# Set Referrer Policy
+		Referrer-Policy "strict-origin-when-cross-origin"
+
+		# Safe baseline CSP
+		Content-Security-Policy "upgrade-insecure-requests"
+
+		# Disable cross-domain policy file loading
+		X-Permitted-Cross-Domain-Policies "none"
+
+		# Disable buggy browser XSS filters
+		?X-XSS-Protection "0"
+
+		# Remove Server header
+		-Server
+	}
+}
+
 (reverse_proxy) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
@@ -23,6 +65,7 @@
 }
 
 *.{$DOMAIN} {
+	import security_headers
 	@www host www.{env.DOMAIN}
 	handle @www {
 		root * /usr/share/caddy

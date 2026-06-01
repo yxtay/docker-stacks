@@ -169,3 +169,20 @@ The `usenet/` directory contains a Usenet streaming and indexing stack:
 
 Deploy via Portainer: **Stacks → Add stack** with `usenet/compose.yaml`.
 Configure environment variables per `usenet/.env.example`.
+
+## Security
+
+### Security Headers
+
+The Caddy configuration includes a `security_headers` snippet that implements
+industry-standard security headers based on recommendations from:
+
+- [Security Headers](https://securityheaders.com/)
+- [OWASP HTTP Headers Cheat Sheet][owasp]
+- [Mozilla Web Security Guidelines][mozilla]
+
+These headers are imported by default in the wildcard subdomain block
+(`*.{$DOMAIN}`).
+
+[owasp]: https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+[mozilla]: https://infosec.mozilla.org/guidelines/web_security

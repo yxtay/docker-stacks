@@ -145,8 +145,8 @@ The `public/` directory contains public-facing utility services behind a Caddy
 reverse proxy with automatic HTTPS:
 
 - **Caddy**: Reverse proxy with automatic TLS via DuckDNS ACME DNS challenge,
-  using the [caddy-crowdsec-geoip-ratelimit-security-dockerproxy](https://github.com/serfriz/caddy-custom-builds)
-  image for CrowdSec, GeoIP, rate-limiting, and Docker label-based routing.
+  using the [caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy](https://github.com/serfriz/caddy-custom-builds)
+  image for DuckDNS DDNS, CrowdSec, GeoIP, and Docker label-based routing.
 - **DuckDNS**: Dynamic DNS updater.
 - **whoami**: HTTP service returning request headers (reverse proxy testing).
 - **httpbin**: HTTP request/response testing tool.

@@ -2,7 +2,7 @@ services:
   caddy:
     image: ghcr.io/serfriz/caddy-crowdsec-geoip-ratelimit-security-dockerproxy:latest
     healthcheck:
-      test: [CMD, wget, -qO-, /dev/null, 'http://localhost:2019/config']
+      test: [CMD, wget, -qO-, /dev/null, "http://localhost:2019/config"]
     environment:
       DOMAIN: ${DOMAIN:-localhost}
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile

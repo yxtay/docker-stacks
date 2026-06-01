@@ -167,5 +167,9 @@ The `usenet/` directory contains a Usenet streaming and indexing stack:
 - **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
 - **UsenetStreamer**: HTTP stream server for Usenet.
 
+Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
+labels, sharing the `public_default` network with the public stack's Caddy
+instance.
+
 Deploy via Portainer: **Stacks → Add stack** with `usenet/compose.yaml`.
 Configure environment variables per `usenet/.env.example`.

@@ -1,14 +1,15 @@
 services:
   portainer:
     image: portainer/portainer-ce:lts
+    command: --data ${PORTAINER_DATA}
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
+      - PORTAINER_DATA=${PORTAINER_DATA:?}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # to allow using relative path, mount /data for portainer_data
-      - /data:/data
+      - ${PORTAINER_DATA}:${PORTAINER_DATA}
     ports:
       - 9443:9443
     expose:

@@ -57,6 +57,7 @@ services:
 networks:
   default:
     driver: overlay
+    attachable: true
 
 secrets:
   duckdns_token:

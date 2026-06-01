@@ -5,7 +5,7 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
-      - PORTAINER_COMPOSE_DATA=/apps/portainer/compose/data
+      - PORTAINER_COMPOSE_DATA=/apps/portainer/data/compose
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /apps/portainer:/data

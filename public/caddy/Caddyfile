@@ -26,7 +26,10 @@
 		?Cache-Control "no-store, no-cache, must-revalidate"
 
 		# Safe baseline CSP
-		Content-Security-Policy "upgrade-insecure-requests"
+		Content-Security-Policy "upgrade-insecure-requests; frame-ancestors 'self'"
+
+		# Cross-Origin-Embedder-Policy (default)
+		?Cross-Origin-Embedder-Policy "require-corp"
 
 		# Process-Isolate documents to prevent others from access in pop-up window
 		?Cross-Origin-Opener-Policy "same-origin"
@@ -40,14 +43,19 @@
 		# Set Referrer Policy
 		Referrer-Policy "strict-origin-when-cross-origin"
 
-		# Remove Server header
-		-Server
-
 		# Enable HTTP Strict Transport Security (HSTS)
 		Strict-Transport-Security "max-age=31536000"
 
+		# Remove identifying headers
+		-Server
+		-Via
+		-X-Powered-By
+
 		# Disallow sniffing of X-Content-Type-Options
 		X-Content-Type-Options "nosniff"
+
+		# Disable DNS prefetching
+		?X-DNS-Prefetch-Control "off"
 
 		# Disallow the site to be rendered within a frame (clickjacking protection)
 		?X-Frame-Options "SAMEORIGIN"

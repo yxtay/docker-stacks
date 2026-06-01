@@ -18,11 +18,6 @@
 	}
 }
 
-:80 {
-	root * /usr/share/caddy
-	file_server
-}
-
 {$DOMAIN} {
 	redir https://www.{host}{uri} permanent
 }
@@ -30,9 +25,11 @@
 *.{$DOMAIN} {
 	@www host www.{env.DOMAIN}
 	handle @www {
-		root /usr/share/caddy
+		root * /usr/share/caddy
 		file_server
 	}
 
-	error 404
+	handle {
+		error 404
+	}
 }

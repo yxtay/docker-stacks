@@ -22,4 +22,3 @@ services:
 networks:
   default:
     name: public_default
-    external: true

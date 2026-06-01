@@ -55,7 +55,7 @@ services:
       nzbdav:
         condition: service_healthy
     environment:
-      ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:-}
+      ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000
       NZBDAV_WEBDAV_URL: http://nzbdav:3000
       CONFIG_DIR: /data/config

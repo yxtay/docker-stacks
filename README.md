@@ -73,7 +73,7 @@ Requires OCI CLI configured (`oci setup config`).
 **Update** an existing stack's Terraform config:
 
 ```bash
-STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-update.sh
+STACK_ID=<stack-ocid> bash bin/oci-rm-stack-update.sh
 ```
 
 ### Apply via cron (out-of-capacity retry)
@@ -83,7 +83,7 @@ A1.Flex Free Tier capacity is limited and apply jobs may fail with
 created first and are idempotent, re-applying the same stack retries only
 the instance.
 
-`scripts/oci-rm-stack-apply.sh` is designed for cron:
+`bin/oci-rm-stack-apply.sh` is designed for cron:
 
 - Skips if previous apply already succeeded (idempotent)
 - Skips if a job is already in progress
@@ -92,14 +92,14 @@ the instance.
 
 ```bash
 # Run once
-STACK_ID=<stack-ocid> bash scripts/oci-rm-stack-apply.sh
+STACK_ID=<stack-ocid> bash bin/oci-rm-stack-apply.sh
 
 # Run at interval in terminal (every 10 minutes)
 export STACK_ID=<stack-ocid>
-watch -n 600 bash scripts/oci-rm-stack-apply.sh
+watch -n 600 bash bin/oci-rm-stack-apply.sh
 
 # Cron example (every 10 minutes)
-*/10 * * * * STACK_ID=<stack-ocid> /path/to/scripts/oci-rm-stack-apply.sh
+*/10 * * * * STACK_ID=<stack-ocid> /path/to/bin/oci-rm-stack-apply.sh
 ```
 
 ## Docker Setup on OCI

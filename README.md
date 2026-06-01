@@ -115,7 +115,7 @@ The `oci-rm/templates/cloud-init.yaml` configuration performs the following acti
 1. Configures `iptables` to allow traffic on essential ports:
     - **80 (TCP)**: HTTP.
     - **443 (TCP/UDP)**: HTTPS (including HTTP/3).
-    - **3000 (TCP)**: Dokploy dashboard.
+    - **9443 (TCP)**: Portainer dashboard (HTTPS).
 1. Installs Docker using the official `get.docker.com` script.
 1. Adds the `ubuntu` user to the `docker` group.
 1. Reboots to apply all changes.
@@ -128,13 +128,13 @@ When creating a new OCI instance, the Terraform stack automatically uses
 the template. You can also manually provide the contents of
 `oci-rm/templates/cloud-init.yaml` as the **Cloud-init script** (User Data).
 
-#### Dokploy
+#### Portainer
 
-After the instance is ready, install [Dokploy](https://dokploy.com) to
-manage containers via a web dashboard on port 3000:
+After the instance is ready, install [Portainer](https://www.portainer.io) to
+manage containers via a web dashboard on port 9443:
 
 ```bash
-curl -sSL https://dokploy.com/install.sh | sh
+docker compose -f portainer/compose.yaml up -d
 ```
 
 ## Docker Stacks
@@ -148,7 +148,7 @@ The `public/` directory contains public-facing utility services:
 - **httpbin**: HTTP request/response testing tool.
 - **librespeed**: Self-hosted speed test.
 
-Deploy via Dokploy: **Projects → Create Compose** with `public/compose.yaml`.
+Deploy via Portainer: **Stacks → Add stack** with `public/compose.yaml`.
 Configure environment variables per `public/.env.example`.
 
 ### Usenet Stack
@@ -160,5 +160,5 @@ The `usenet/` directory contains a Usenet streaming and indexing stack:
 - **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
 - **UsenetStreamer**: HTTP stream server for Usenet.
 
-Deploy via Dokploy: **Projects → Create Compose** with `usenet/compose.yaml`.
+Deploy via Portainer: **Stacks → Add stack** with `usenet/compose.yaml`.
 Configure environment variables per `usenet/.env.example`.

@@ -22,32 +22,44 @@
 		# https://geekflare.com/http-header-implementation/
 		# https://infosec.mozilla.org/guidelines/web_security
 
-		# Enable HTTP Strict Transport Security (HSTS)
-		Strict-Transport-Security "max-age=31536000"
-
-		# Disallow the site to be rendered within a frame (clickjacking protection)
-		?X-Frame-Options "SAMEORIGIN"
-
-		# Prevent search engines from indexing
-		X-Robots-Tag "noindex, nofollow"
-
-		# Disallow sniffing of X-Content-Type-Options
-		X-Content-Type-Options "nosniff"
-
-		# Set Referrer Policy
-		Referrer-Policy "strict-origin-when-cross-origin"
+		# Recommended Cache-Control for sensitive data (default)
+		?Cache-Control "no-store, no-cache, must-revalidate"
 
 		# Safe baseline CSP
 		Content-Security-Policy "upgrade-insecure-requests"
 
-		# Disable cross-domain policy file loading
-		X-Permitted-Cross-Domain-Policies "none"
+		# Process-Isolate documents to prevent others from access in pop-up window
+		?Cross-Origin-Opener-Policy "same-origin"
 
-		# Disable buggy browser XSS filters
-		?X-XSS-Protection "0"
+		# Limit current resource loading to the site and sub-domains only
+		?Cross-Origin-Resource-Policy "same-origin"
+
+		# Disable FLoC tracking
+		Permissions-Policy "interest-cohort=()"
+
+		# Set Referrer Policy
+		Referrer-Policy "strict-origin-when-cross-origin"
 
 		# Remove Server header
 		-Server
+
+		# Enable HTTP Strict Transport Security (HSTS)
+		Strict-Transport-Security "max-age=31536000"
+
+		# Disallow sniffing of X-Content-Type-Options
+		X-Content-Type-Options "nosniff"
+
+		# Disallow the site to be rendered within a frame (clickjacking protection)
+		?X-Frame-Options "SAMEORIGIN"
+
+		# Disable cross-domain policy file loading
+		X-Permitted-Cross-Domain-Policies "none"
+
+		# Prevent search engines from indexing
+		X-Robots-Tag "noindex, nofollow"
+
+		# Disable buggy browser XSS filters
+		?X-XSS-Protection "0"
 	}
 }
 

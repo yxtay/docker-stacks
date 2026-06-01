@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: ghcr.io/serfriz/caddy-crowdsec-geoip-ratelimit-security-dockerproxy:latest
+    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:latest
     healthcheck:
       test: [CMD, wget, -qO, /dev/null, "http://localhost:2019/config"]
     environment:

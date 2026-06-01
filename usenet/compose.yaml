@@ -9,8 +9,8 @@ services:
       - /data/nzbhydra2:/config
     expose:
       - 5076
-    # healthcheck:
-    #   test: [CMD, curl, -fsSL, "http://localhost:5076/actuator/health/ping"]
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:5076/actuator/health/ping"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -25,8 +25,8 @@ services:
     expose:
       - 7000
       - 119
-    # healthcheck:
-    #   test: [CMD, wget, -qO-, "http://localhost:7000/"]
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:7000/"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -42,8 +42,8 @@ services:
       - /data/nzbdav:/config
     expose:
       - 3000
-    # healthcheck:
-    #   test: [CMD, wget, -qO-, "http://localhost:3000/health"]
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:3000/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -60,8 +60,8 @@ services:
       - /data/usenetstreamer:/data/config
     expose:
       - 7000
-    # healthcheck:
-    #   test: [CMD, wget, -qO-, "http://127.0.0.1:7000/"]
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://127.0.0.1:7000/"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

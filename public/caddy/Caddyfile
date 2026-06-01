@@ -1,6 +1,5 @@
 {
 	# debug
-	admin localhost:2019
 
 	log {
 		format json {

@@ -6,7 +6,7 @@
 			time_format iso8601
 		}
 	}
-	acme_dns duckdns {file./run/secrets/duckdns_token} #  for DuckDNS
+	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
 }
 
 (reverse_proxy) {

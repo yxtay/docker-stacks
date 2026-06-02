@@ -8,8 +8,7 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        patterns:
-          - "*"
+        patterns: ["*"]
 
   - package-ecosystem: docker
     directory: /public
@@ -19,8 +18,7 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        patterns:
-          - "*"
+        patterns: ["*"]
 
   - package-ecosystem: docker
     directory: /usenet
@@ -30,8 +28,7 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        patterns:
-          - "*"
+        patterns: ["*"]
 
   - package-ecosystem: github-actions
     directory: /
@@ -41,8 +38,7 @@ updates:
       prefix: ci(github-actions)
     groups:
       github-actions:
-        patterns:
-          - "*"
+        patterns: ["*"]
 
   - package-ecosystem: terraform
     directory: /oci-rm
@@ -52,5 +48,4 @@ updates:
       prefix: "chore(terraform)"
     groups:
       terraform:
-        patterns:
-          - "*"
+        patterns: ["*"]

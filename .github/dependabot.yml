@@ -1,5 +1,35 @@
 version: 2
 updates:
+  - package-ecosystem: docker
+    directory: /portainer
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "chore(docker)"
+    groups:
+      docker:
+        applies-to: version-updates
+
+  - package-ecosystem: docker
+    directory: /public
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "chore(docker)"
+    groups:
+      docker:
+        applies-to: version-updates
+
+  - package-ecosystem: docker
+    directory: /usenet
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "chore(docker)"
+    groups:
+      docker:
+        applies-to: version-updates
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -8,4 +38,11 @@ updates:
       prefix: ci(github-actions)
     groups:
       github-actions:
-        update-types: [minor, patch]
+        applies-to: version-updates
+
+  - package-ecosystem: terraform
+    directory: /oci-rm
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "chore(terraform)"

@@ -128,51 +128,19 @@ When creating a new OCI instance, the Terraform stack automatically uses
 the template. You can also manually provide the contents of
 `oci-rm/templates/cloud-init.yaml` as the **Cloud-init script** (User Data).
 
-#### Portainer
-
-After the instance is ready, install [Portainer](https://www.portainer.io) to
-manage containers via a web dashboard on port 9443:
-
-```bash
-docker compose -f portainer/compose.yaml up -d
-```
-
 ## Docker Stacks
 
 ### Public Stack
 
 The `public/` directory contains public-facing utility services behind a Caddy
-reverse proxy with automatic HTTPS:
-
-- **Caddy**: Reverse proxy with automatic TLS via DuckDNS ACME DNS challenge,
-  using the [caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy](https://github.com/serfriz/caddy-custom-builds)
-  image for DuckDNS DDNS, CrowdSec, GeoIP, and Docker label-based routing.
-- **DuckDNS**: Dynamic DNS updater.
-- **whoami**: HTTP service returning request headers (reverse proxy testing).
-- **httpbin**: HTTP request/response testing tool.
-- **librespeed**: Self-hosted speed test.
-
-Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
-labels for automatic reverse proxy configuration.
-
-Deploy via Portainer: **Stacks → Add stack** with `public/compose.yaml`.
-Configure environment variables per `public/.env.example`.
+reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
+(`*.DOMAIN`) using Caddy Docker labels, sharing the `public_default` network
+with Caddy.
 
 ### Usenet Stack
 
-The `usenet/` directory contains a Usenet streaming and indexing stack:
 
-- **NZBHydra2**: Indexer manager and meta-search.
-- **StreamNZB**: Stream-based Usenet addon for Stremio.
-- **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
-- **UsenetStreamer**: HTTP stream server for Usenet.
-
-Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
-labels, sharing the `public_default` network with the public stack's Caddy
-instance.
-
-Deploy via Portainer: **Stacks → Add stack** with `usenet/compose.yaml`.
-Configure environment variables per `usenet/.env.example`.
+The `usenet/` directory contains a Usenet streaming and indexing stack.
 
 ## Security
 
@@ -181,7 +149,6 @@ Configure environment variables per `usenet/.env.example`.
 The Caddy configuration includes a `security_headers` snippet that implements
 industry-standard security headers based on recommendations from:
 
-- [Security Headers](https://securityheaders.com/)
 - [OWASP HTTP Headers Cheat Sheet][owasp]
 - [Mozilla Web Security Guidelines][mozilla]
 

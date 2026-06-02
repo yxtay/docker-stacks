@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce:lts
+    image: portainer/portainer-ce:2.42.0
     command: --data ${PORTAINER_DATA}
     environment:
       - PUID=${PUID:-1000}

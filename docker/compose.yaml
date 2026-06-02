@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   beszel:
-    image: ghcr.io/henrygd/beszel/beszel:v0.18.7
+    image: ghcr.io/henrygd/beszel/beszel:0.18.7
     volumes:
       - /data/beszel:/beszel_data
     expose:

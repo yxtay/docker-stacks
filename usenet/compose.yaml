@@ -67,6 +67,17 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
 
+  usenet_ultimate:
+    image: ghcr.io/dsmart33/usenet-ultimate:latest
+    volumes:
+      - /data/usenet_ultimate:/app/config
+    expose:
+      - 1337
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy usenet_ultimate usenet_ultimate:1337
+
 networks:
   default:
     name: public_default

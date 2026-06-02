@@ -166,6 +166,7 @@ The `usenet/` directory contains a Usenet streaming and indexing stack:
 - **StreamNZB**: Stream-based Usenet addon for Stremio.
 - **NZBDav**: WebDAV server for mounting NZB documents as a virtual file system.
 - **UsenetStreamer**: HTTP stream server for Usenet.
+- **Usenet-Ultimate**: Modern Usenet addon for Stremio.
 
 Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
 labels, sharing the `public_default` network with the public stack's Caddy

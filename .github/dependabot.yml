@@ -8,7 +8,6 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        applies-to: version-updates
         patterns:
           - "*"
 
@@ -20,7 +19,6 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        applies-to: version-updates
         patterns:
           - "*"
 
@@ -32,7 +30,6 @@ updates:
       prefix: "chore(docker)"
     groups:
       docker:
-        applies-to: version-updates
         patterns:
           - "*"
 
@@ -44,7 +41,6 @@ updates:
       prefix: ci(github-actions)
     groups:
       github-actions:
-        applies-to: version-updates
         patterns:
           - "*"
 
@@ -56,6 +52,5 @@ updates:
       prefix: "chore(terraform)"
     groups:
       terraform:
-        applies-to: version-updates
         patterns:
           - "*"

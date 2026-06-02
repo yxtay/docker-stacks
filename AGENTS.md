@@ -49,8 +49,30 @@ submitting changes.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use `curl -fsSL` or `wget -qO-` for health check commands where
     appropriate.
+  - Use host bind mounts under `/data/<service-name>/` instead of named
+    volumes.
+  - All stacks join the `public_default` external network for Caddy
+    integration.
+  - Caddy reverse proxy labels follow this pattern:
+
+    ```yaml
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy <service-name> <service-name>:<port>
+    ```
+
+  - Use `depends_on` with `condition: service_healthy` or
+    `condition: service_started` when a service requires another to be ready.
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
-  - Service-level: `image`/`build`, `command`/`entrypoint`, `environment`,
-    `env_file`, `volumes`, `ports`/`expose`, `networks`, `depends_on`,
-    `healthcheck`, `restart`, `deploy`, `labels`.
+  - Service-level (grouped by concern):
+    1. Identity: `image`, `build`, `pull_policy`, `platform`, `profiles`
+    2. Execution: `command`, `entrypoint`, `working_dir`, `user`
+    3. Dependencies: `depends_on`, `extends`
+    4. Configuration: `environment`, `env_file`, `secrets`, `configs`
+    5. Storage: `volumes`, `tmpfs`
+    6. Networking: `ports`, `expose`, `networks`, `network_mode`,
+        `extra_hosts`, `dns`
+    7. Lifecycle: `healthcheck`, `restart`, `deploy`,
+        `stop_grace_period`, `stop_signal`
+    8. Metadata: `labels`, `annotations`, `logging`

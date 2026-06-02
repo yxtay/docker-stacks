@@ -11,16 +11,7 @@
 
 (security_headers) {
 	header {
-		# https://securityheaders.com/
 		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
-		# https://paulbradley.dev/caddyfile-web-security-headers/
-		# https://www.talkincyber.com/secure-caddy/
-		# https://scotthelme.co.uk/content-security-policy-an-introduction/
-		# https://nullsweep.com/http-security-headers-a-complete-guide/
-		# https://www.darkrelay.com/post/http-security-headers
-		# https://www.invicti.com/blog/web-security/http-security-headers
-		# https://geekflare.com/http-header-implementation/
-		# https://infosec.mozilla.org/guidelines/web_security
 
 		# Recommended Cache-Control for sensitive data (default)
 		?Cache-Control "no-store, no-cache, must-revalidate"

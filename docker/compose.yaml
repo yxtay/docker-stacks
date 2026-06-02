@@ -1,0 +1,45 @@
+services:
+  autoheal:
+    image: willfarrell/autoheal:latest
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: all
+      AUTOHEAL_INTERVAL: 60
+      AUTOHEAL_ONLY_MONITOR_RUNNING: true
+      WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX}-autoheal
+    restart: unless-stopped
+
+  beszel:
+    image: ghcr.io/henrygd/beszel/beszel:latest
+    volumes:
+      - /data/beszel/hub:/beszel_data
+    expose:
+      - 8090
+    healthcheck:
+      test: [CMD, /beszel, health, --url, "http://localhost:8090"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy beszel beszel:8090
+
+  dozzle:
+    image: ghcr.io/amir20/dozzle:latest
+    environment:
+      DOZZLE_ENABLE_ACTIONS: true
+      DOZZLE_ENABLE_SHELL: true
+    volumes:
+      - /data/dozzle:/data
+    expose:
+      - 8080
+    healthcheck:
+      test: [CMD, /dozzle, healthcheck]
+    restart: unless-stopped
+    deploy:
+      mode: global
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy dozzle dozzle:8080
+
+networks:
+  default:
+    name: public_default
+    external: true

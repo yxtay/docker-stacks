@@ -9,6 +9,8 @@ updates:
     groups:
       docker:
         applies-to: version-updates
+        patterns:
+          - "*"
 
   - package-ecosystem: docker
     directory: /public
@@ -19,6 +21,8 @@ updates:
     groups:
       docker:
         applies-to: version-updates
+        patterns:
+          - "*"
 
   - package-ecosystem: docker
     directory: /usenet
@@ -29,6 +33,8 @@ updates:
     groups:
       docker:
         applies-to: version-updates
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: /
@@ -39,6 +45,8 @@ updates:
     groups:
       github-actions:
         applies-to: version-updates
+        patterns:
+          - "*"
 
   - package-ecosystem: terraform
     directory: /oci-rm
@@ -49,3 +57,5 @@ updates:
     groups:
       terraform:
         applies-to: version-updates
+        patterns:
+          - "*"

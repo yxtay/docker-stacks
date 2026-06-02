@@ -17,7 +17,7 @@ services:
       - 8000
       - 9000
     healthcheck:
-      test: [CMD, portainer, --health-check]
+      test: [CMD, /portainer, --version]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

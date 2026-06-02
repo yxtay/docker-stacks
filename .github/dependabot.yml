@@ -46,3 +46,6 @@ updates:
       interval: daily
     commit-message:
       prefix: "chore(terraform)"
+    groups:
+      terraform:
+        applies-to: version-updates

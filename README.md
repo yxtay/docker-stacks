@@ -139,7 +139,6 @@ with Caddy.
 
 ### Usenet Stack
 
-
 The `usenet/` directory contains a Usenet streaming and indexing stack.
 
 ## Security

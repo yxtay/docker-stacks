@@ -43,7 +43,7 @@
 		?X-DNS-Prefetch-Control "off"
 
 		# Disallow the site to be rendered within a frame (clickjacking protection)
-		?X-Frame-Options "SAMEORIGIN"
+		X-Frame-Options "SAMEORIGIN"
 
 		# Disable cross-domain policy file loading
 		X-Permitted-Cross-Domain-Policies "none"
@@ -52,7 +52,7 @@
 		?X-Robots-Tag "noindex, nofollow"
 
 		# Disable buggy browser XSS filters
-		?X-XSS-Protection "0"
+		X-XSS-Protection "0"
 	}
 }
 

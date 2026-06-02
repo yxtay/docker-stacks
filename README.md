@@ -25,7 +25,7 @@ subnet, internet gateway, security rules, and compute instance.
 ### Always Free limits
 
 | Resource      | Limit                               |
-|---------------|-------------------------------------|
+| ------------- | ----------------------------------- |
 | Shape         | `VM.Standard.A1.Flex`               |
 | OCPUs         | 4 total across all A1 instances     |
 | Memory        | 24 GB total across all A1 instances |
@@ -136,6 +136,21 @@ The `public/` directory contains public-facing utility services behind a Caddy
 reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`) using Caddy Docker labels, sharing the `public_default` network
 with Caddy.
+
+### Docker Stack
+
+The `docker/` directory contains monitoring and maintenance services
+for docker containers.
+
+### Portainer Stack
+
+The `portainer/` directory contains the Portainer CE container management UI.
+Use `bin/portainer-up.sh` in cron to setup GitOps.
+
+```bash
+# Cron example (every 5 minutes)
+*/5 * * * * /path/to/bin/portainer-up.sh
+```
 
 ### Usenet Stack
 

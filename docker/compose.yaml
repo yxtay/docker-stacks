@@ -1,0 +1,61 @@
+services:
+  autoheal:
+    image: willfarrell/autoheal:1.2.0
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: all
+      AUTOHEAL_INTERVAL: 60
+      AUTOHEAL_ONLY_MONITOR_RUNNING: true
+      WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+  # dozzle:
+  #   image: ghcr.io/amir20/dozzle:v10.6.3
+  #   environment:
+  #     DOZZLE_ENABLE_ACTIONS: true
+  #     DOZZLE_ENABLE_SHELL: true
+  #   volumes:
+  #     - /data/dozzle:/data
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   expose:
+  #     - 8080
+  #   healthcheck:
+  #     test: [CMD, /dozzle, healthcheck]
+  #   restart: unless-stopped
+  #   labels:
+  #     caddy: "*.{$$DOMAIN}"
+  #     caddy.import: reverse_proxy dozzle dozzle:8080
+
+  beszel:
+    image: ghcr.io/henrygd/beszel/beszel:0.18.7
+    volumes:
+      - /data/beszel/hub:/beszel_data
+    ports:
+      - 8090:8090
+    healthcheck:
+      test: [CMD, /beszel, health, --url, "http://localhost:8090"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy beszel beszel:8090
+
+  beszel_agent:
+    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7
+    environment:
+      HUB_URL: http://localhost:8090
+      KEY: ${BESZEL_AGENT_KEY}
+      TOKEN: ${BESZEL_AGENT_TOKEN}
+    volumes:
+      - /data/beszel/agent:/var/lib/beszel-agent
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    network_mode: host
+    healthcheck:
+      test: [CMD, /agent, health]
+    restart: unless-stopped
+
+networks:
+  default:
+    name: public_default
+    external: true

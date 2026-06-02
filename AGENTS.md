@@ -71,8 +71,8 @@ submitting changes.
     3. Dependencies: `depends_on`, `extends`
     4. Configuration: `environment`, `env_file`, `secrets`, `configs`
     5. Storage: `volumes`, `tmpfs`
-    6. Networking: `ports`, `expose`, `networks`, `network_mode`,
-        `extra_hosts`, `dns`
+    6. Networking: `ports`, `expose`, `hostname`, `networks`,
+        `network_mode`, `extra_hosts`, `dns`
     7. Lifecycle: `healthcheck`, `restart`, `deploy`,
         `stop_grace_period`, `stop_signal`
     8. Metadata: `labels`, `annotations`, `logging`

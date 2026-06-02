@@ -1,6 +1,5 @@
 {
 	# debug
-
 	log {
 		format json {
 			time_format rfc3339
@@ -28,8 +27,8 @@
 		# Set Referrer Policy
 		Referrer-Policy "strict-origin-when-cross-origin"
 
-		# Enable HTTP Strict Transport Security (HSTS) with preload
-		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		# Enable HTTP Strict Transport Security (HSTS)
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
 		# Remove identifying headers
 		-Server
@@ -71,6 +70,7 @@
 
 *.{$DOMAIN} {
 	import security_headers
+
 	@www host www.{env.DOMAIN}
 	handle @www {
 		root * /usr/share/caddy

@@ -35,7 +35,7 @@
 		Referrer-Policy "strict-origin-when-cross-origin"
 
 		# Enable HTTP Strict Transport Security (HSTS)
-		Strict-Transport-Security "max-age=31536000"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
 		# Remove identifying headers
 		-Server

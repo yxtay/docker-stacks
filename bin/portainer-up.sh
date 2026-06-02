@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR=$(cd "$(dirname "${0}")/.." && pwd)
-STACK_DATA=/data/portainer
-STACK_DIR=${REPO_DIR}/portainer
+PORTAINER_DATA=/data/portainer
+cd "$(dirname "${0}")/.."
 
-# Pull and reset to latest if remote has changes
-git -C "${REPO_DIR}" fetch origin main
-LOCAL=$(git -C "${REPO_DIR}" rev-parse HEAD)
-REMOTE=$(git -C "${REPO_DIR}" rev-parse origin/main)
+# Check remote HEAD without fetching objects
+LOCAL=$(git rev-parse HEAD)
+REMOTE=$(git ls-remote origin HEAD | cut -f1)
 
 if [ "${LOCAL}" == "${REMOTE}" ]; then
   exit 0
 fi
 
+# Fetch and reset to latest
 echo "Updating: ${LOCAL} -> ${REMOTE}"
-git -C "${REPO_DIR}" reset --hard origin/main
-
-cd "${STACK_DIR}"
+git fetch origin
+git reset --hard "${REMOTE}"
+cd portainer
 
 # Generate .env if missing
 if [ ! -f .env ]; then
@@ -28,7 +27,7 @@ if [ ! -f .env ]; then
 PUID=$(id -u)
 PGID=$(id -g)
 TZ=${TZ}
-PORTAINER_DATA=${STACK_DATA}
+PORTAINER_DATA=${PORTAINER_DATA}
 EOF
 fi
 

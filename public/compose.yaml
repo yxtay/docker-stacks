@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
 
   duckdns:
-    image: lscr.io/linuxserver/duckdns:version-48732f94
+    image: lscr.io/linuxserver/duckdns:version-d67e71cc
     environment:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
       - FILE__TOKEN=/run/secrets/duckdns_token

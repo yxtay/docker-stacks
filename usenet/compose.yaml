@@ -1,6 +1,6 @@
 services:
   nzbhydra2:
-    image: lscr.io/linuxserver/nzbhydra2:v8.8.1-ls90
+    image: lscr.io/linuxserver/nzbhydra2:8.8.1
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}

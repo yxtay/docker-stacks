@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PORTAINER_DATA=/data/portainer
-cd "$(dirname "${0}")/.."
+cd "$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)/portainer"
 
 # Check remote HEAD without fetching objects
 LOCAL=$(git rev-parse HEAD)
@@ -16,7 +16,6 @@ fi
 echo "Updating: ${LOCAL} -> ${REMOTE}"
 git fetch origin
 git reset --hard "${REMOTE}"
-cd portainer
 
 # Generate .env if missing
 if [ ! -f .env ]; then

@@ -55,7 +55,7 @@
 		X-Permitted-Cross-Domain-Policies "none"
 
 		# Prevent search engines from indexing
-		X-Robots-Tag "noindex, nofollow"
+        ?X-Robots-Tag "noindex, nofollow"
 
 		# Disable buggy browser XSS filters
 		?X-XSS-Protection "0"

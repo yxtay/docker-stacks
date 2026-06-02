@@ -21,7 +21,8 @@ git reset --hard "${REMOTE}"
 if [ ! -f .env ]; then
   TZ=$(timedatectl show -p Timezone --value 2>/dev/null ||
     cat /etc/timezone 2>/dev/null ||
-    readlink /etc/localtime | sed 's|.*/zoneinfo/||')
+    readlink /etc/localtime | sed 's|.*/zoneinfo/||' ||
+    echo "UTC")
   cat >.env <<EOF
 PUID=$(id -u)
 PGID=$(id -g)

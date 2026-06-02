@@ -9,6 +9,53 @@
 	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
 }
 
+(security_headers) {
+	header {
+		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+
+		# Safe baseline CSP
+		?Content-Security-Policy "upgrade-insecure-requests; frame-ancestors 'self'"
+
+		# Process-Isolate documents to prevent others from access in pop-up window
+		?Cross-Origin-Opener-Policy "same-origin"
+
+		# Limit current resource loading to the site and sub-domains only
+		?Cross-Origin-Resource-Policy "same-site"
+
+		# Disable FLoC tracking
+		Permissions-Policy "interest-cohort=()"
+
+		# Set Referrer Policy
+		Referrer-Policy "strict-origin-when-cross-origin"
+
+		# Enable HTTP Strict Transport Security (HSTS)
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+		# Remove identifying headers
+		-Server
+		-Via
+		-X-Powered-By
+
+		# Disallow sniffing of X-Content-Type-Options
+		X-Content-Type-Options "nosniff"
+
+		# Disable DNS prefetching
+		?X-DNS-Prefetch-Control "off"
+
+		# Disallow the site to be rendered within a frame (clickjacking protection)
+		X-Frame-Options "SAMEORIGIN"
+
+		# Disable cross-domain policy file loading
+		X-Permitted-Cross-Domain-Policies "none"
+
+		# Prevent search engines from indexing
+		?X-Robots-Tag "noindex, nofollow"
+
+		# Disable buggy browser XSS filters
+		X-XSS-Protection "0"
+	}
+}
+
 (reverse_proxy) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
@@ -23,6 +70,7 @@
 }
 
 *.{$DOMAIN} {
+	import security_headers
 	@www host www.{env.DOMAIN}
 	handle @www {
 		root * /usr/share/caddy

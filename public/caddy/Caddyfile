@@ -16,9 +16,6 @@
 		# Safe baseline CSP
 		?Content-Security-Policy "upgrade-insecure-requests; frame-ancestors 'self'"
 
-		# Cross-Origin-Embedder-Policy (default)
-		?Cross-Origin-Embedder-Policy "require-corp"
-
 		# Process-Isolate documents to prevent others from access in pop-up window
 		?Cross-Origin-Opener-Policy "same-origin"
 

@@ -17,7 +17,14 @@ services:
       - 8000
       - 9000
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:9000/api/status"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "--quiet",
+          "http://localhost:9000/api/status",
+        ]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

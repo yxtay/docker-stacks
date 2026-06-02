@@ -128,15 +128,6 @@ When creating a new OCI instance, the Terraform stack automatically uses
 the template. You can also manually provide the contents of
 `oci-rm/templates/cloud-init.yaml` as the **Cloud-init script** (User Data).
 
-#### Portainer
-
-After the instance is ready, install [Portainer](https://www.portainer.io) to
-manage containers via a web dashboard on port 9443:
-
-```bash
-docker compose -f portainer/compose.yaml up -d
-```
-
 ## Docker Stacks
 
 ### Public Stack
@@ -146,15 +137,9 @@ reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`) using Caddy Docker labels for automatic reverse proxy
 configuration.
 
-Deploy via Portainer: **Stacks → Add stack** with `public/compose.yaml`.
-Configure environment variables per `public/.env.example`.
-
 ### Usenet Stack
 
 The `usenet/` directory contains a Usenet streaming and indexing stack.
 Services are exposed via wildcard subdomains (`*.DOMAIN`) using Caddy Docker
 labels, sharing the `public_default` network with the public stack's Caddy
 instance.
-
-Deploy via Portainer: **Stacks → Add stack** with `usenet/compose.yaml`.
-Configure environment variables per `usenet/.env.example`.

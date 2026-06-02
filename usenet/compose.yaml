@@ -1,6 +1,6 @@
 services:
   nzbhydra2:
-    image: lscr.io/linuxserver/nzbhydra2:latest
+    image: lscr.io/linuxserver/nzbhydra2:v3.9.1-ls7
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -17,7 +17,7 @@ services:
       caddy.import: reverse_proxy nzbhydra2 nzbhydra2:5076
 
   streamnzb:
-    image: ghcr.io/gaisberg/streamnzb:latest
+    image: ghcr.io/gaisberg/streamnzb:v4.7.0
     environment:
       TZ: ${TZ:-UTC}
     volumes:
@@ -33,7 +33,7 @@ services:
       caddy.import: reverse_proxy streamnzb streamnzb:7000
 
   nzbdav:
-    image: ghcr.io/nzbdav-dev/nzbdav:latest
+    image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -50,7 +50,7 @@ services:
       caddy.import: reverse_proxy nzbdav nzbdav:3000
 
   usenetstreamer:
-    image: ghcr.io/sanket9225/usenetstreamer:latest
+    image: ghcr.io/sanket9225/usenetstreamer:1.7.12
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000
@@ -68,7 +68,7 @@ services:
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
 
   usenet_ultimate:
-    image: ghcr.io/dsmart33/usenet-ultimate:latest
+    image: ghcr.io/dsmart33/usenet-ultimate:v1.4.1
     volumes:
       - /data/usenet_ultimate:/app/config
     expose:

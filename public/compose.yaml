@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:latest
+    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.3
     healthcheck:
       test: [CMD, wget, -qO, /dev/null, "http://127.0.0.1:2019/config"]
     environment:
@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
 
   duckdns:
-    image: lscr.io/linuxserver/duckdns:latest
+    image: lscr.io/linuxserver/duckdns:version-48732f94
     environment:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
       - FILE__TOKEN=/run/secrets/duckdns_token
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
 
   whoami:
-    image: ghcr.io/traefik/whoami:latest
+    image: ghcr.io/traefik/whoami:v1.11.0
     expose:
       - 80
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
       caddy.import: reverse_proxy whoami whoami:80
 
   httpbin:
-    image: ghcr.io/mccutchen/go-httpbin:latest
+    image: ghcr.io/mccutchen/go-httpbin:2.21.0
     expose:
       - 8080
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
       caddy.import: reverse_proxy httpbin httpbin:8080
 
   librespeed:
-    image: ghcr.io/librespeed/speedtest:latest
+    image: ghcr.io/librespeed/speedtest:6.1.0
     expose:
       - 8080
     restart: unless-stopped

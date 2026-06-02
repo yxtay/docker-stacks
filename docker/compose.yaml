@@ -50,6 +50,7 @@ services:
       - /data/beszel/agent:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    hostname: beszel_agent
     healthcheck:
       test: [CMD, /agent, health]
     restart: unless-stopped

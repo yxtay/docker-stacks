@@ -6,6 +6,8 @@ services:
       AUTOHEAL_INTERVAL: 60
       AUTOHEAL_ONLY_MONITOR_RUNNING: true
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
   beszel:

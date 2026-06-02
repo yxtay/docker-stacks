@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PORTAINER_DATA=/data/portainer
+PORTAINER_DATA=${PORTAINER_DATA:-/data/portainer}
 cd "$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)/portainer"
 
 # Check remote HEAD without fetching objects

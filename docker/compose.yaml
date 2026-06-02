@@ -20,8 +20,6 @@ services:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #   expose:
   #     - 8080
-  #   networks:
-  #     - public_default
   #   healthcheck:
   #     test: [CMD, /dozzle, healthcheck]
   #   restart: unless-stopped
@@ -33,11 +31,8 @@ services:
     image: ghcr.io/henrygd/beszel/beszel:0.18.7
     volumes:
       - /data/beszel/hub:/beszel_data
-    expose:
-      - 8090
-    networks:
-      - default
-      - public_default
+    ports:
+      - 8090:8090
     healthcheck:
       test: [CMD, /beszel, health, --url, "http://localhost:8090"]
     restart: unless-stopped
@@ -48,7 +43,7 @@ services:
   beszel_agent:
     image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7
     environment:
-      HUB_URL: http://beszel:8090
+      HUB_URL: http://localhost:8090
       KEY: ${BESZEL_AGENT_KEY}
       TOKEN: ${BESZEL_AGENT_TOKEN}
     volumes:
@@ -61,6 +56,6 @@ services:
     restart: unless-stopped
 
 networks:
-  public_default:
+  default:
     name: public_default
     external: true

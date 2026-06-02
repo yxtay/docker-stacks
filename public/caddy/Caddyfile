@@ -13,9 +13,6 @@
 	header {
 		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
 
-		# Recommended Cache-Control for sensitive data (default)
-		?Cache-Control "no-store, no-cache, must-revalidate"
-
 		# Safe baseline CSP
         ?Content-Security-Policy "upgrade-insecure-requests; frame-ancestors 'self'"
 

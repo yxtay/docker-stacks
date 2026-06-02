@@ -19,8 +19,8 @@
 		# Process-Isolate documents to prevent others from access in pop-up window
 		?Cross-Origin-Opener-Policy "same-origin"
 
-		# Limit current resource loading to the site and sub-domains only
-		?Cross-Origin-Resource-Policy "same-origin"
+        # Limit current resource loading to the site and sub-domains only
+        ?Cross-Origin-Resource-Policy "same-site"
 
 		# Disable FLoC tracking
 		Permissions-Policy "interest-cohort=()"

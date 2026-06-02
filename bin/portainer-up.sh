@@ -34,3 +34,4 @@ fi
 cat .env
 docker compose up --detach --pull always --remove-orphans
 docker image prune --force
+docker network prune --force

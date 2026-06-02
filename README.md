@@ -133,7 +133,9 @@ the template. You can also manually provide the contents of
 ### Public Stack
 
 The `public/` directory contains public-facing utility services behind a Caddy
-reverse proxy with automatic HTTPS.
+reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
+(`*.DOMAIN`) using Caddy Docker labels, sharing the `public_default` network
+with Caddy.
 
 ### Usenet Stack
 

@@ -4,7 +4,7 @@ services:
     healthcheck:
       test: [CMD, wget, -qO, /dev/null, "http://127.0.0.1:2019/config"]
     environment:
-      DOMAIN: ${DOMAIN:-localhost}
+      DOMAIN: ${DOMAIN:?}
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
     secrets:
       - duckdns_token
@@ -21,11 +21,30 @@ services:
   duckdns:
     image: lscr.io/linuxserver/duckdns:version-d67e71cc
     environment:
-      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS:?}
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token
     restart: unless-stopped
+
+  tinyauth:
+    image: ghcr.io/steveiliop56/tinyauth:v5.0.7
+    environment:
+      TINYAUTH_APPURL: https://tinyauth.${DOMAIN:?}
+      TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:-}
+      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID:-}
+      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRETFILE: /run/secrets/github_oauth_client_secret
+      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
+      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRETFILE: /run/secrets/google_oauth_client_secret
+    secrets:
+      - github_oauth_client_secret
+      - google_oauth_client_secret
+    expose:
+      - 3000
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy tinyauth tinyauth:3000
 
   whoami:
     image: ghcr.io/traefik/whoami:v1.11.0
@@ -53,25 +72,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth librespeed librespeed:8080
-
-  tinyauth:
-    image: ghcr.io/steveiliop56/tinyauth:v5.0.7
-    environment:
-      TINYAUTH_APPURL: https://tinyauth.${DOMAIN}
-      TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:-}
-      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID:-}
-      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRETFILE: /run/secrets/github_oauth_client_secret
-      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
-      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRETFILE: /run/secrets/google_oauth_client_secret
-    secrets:
-      - github_oauth_client_secret
-      - google_oauth_client_secret
-    expose:
-      - 3000
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy tinyauth tinyauth:3000
 
 secrets:
   duckdns_token:

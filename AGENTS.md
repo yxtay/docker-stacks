@@ -49,7 +49,7 @@ submitting changes.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use `curl -fsSL` or `wget -qO-` for health check commands where
     appropriate.
-  - Use host bind mounts under `/data/<service-name>/` instead of named
+  - Use host bind mounts under `/apps/<service-name>/` instead of named
     volumes.
   - All stacks join the `public_default` external network for Caddy
     integration.

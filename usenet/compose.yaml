@@ -15,6 +15,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy nzbhydra2 nzbhydra2:5076
+      tinyauth.app.nzbhydra2.path.allow: \/(api|rss)
 
   streamnzb:
     image: ghcr.io/gaisberg/streamnzb:v4.7.0
@@ -31,6 +32,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy streamnzb streamnzb:7000
+      tinyauth.app.streamnzb.path.block: ^\/($|api)
 
   nzbdav:
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
@@ -48,6 +50,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy nzbdav nzbdav:3000
+      tinyauth.app.nzbdav.path.block: ^\/($|ws|api\/)
 
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:1.7.12
@@ -66,6 +69,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
+      tinyauth.app.usenetstreamer.path.block: \/admin
 
 networks:
   default:

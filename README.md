@@ -137,6 +137,14 @@ reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`) using Caddy Docker labels, sharing the `public_default` network
 with Caddy.
 
+#### Authentication
+
+[TinyAuth] provides forward authentication via OAuth (GitHub/Google). Services
+use the `reverse_proxy_auth` Caddy snippet to require login. Configuration is
+in `public/.env.example`.
+
+[TinyAuth]: https://tinyauth.app
+
 ### Docker Stack
 
 The `docker/` directory contains monitoring and maintenance services

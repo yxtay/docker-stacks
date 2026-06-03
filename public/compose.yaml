@@ -63,6 +63,9 @@ services:
       TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRETFILE: /run/secrets/github_oauth_client_secret
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRETFILE: /run/secrets/google_oauth_client_secret
+    secrets:
+      - github_oauth_client_secret
+      - google_oauth_client_secret
     expose:
       - 3000
     restart: unless-stopped

@@ -32,7 +32,7 @@ services:
     volumes:
       - /data/beszel/hub:/beszel_data
     ports:
-      - 8090:8090
+      - 127.0.0.1:8090:8090
     healthcheck:
       test: [CMD, /beszel, health, --url, "http://localhost:8090"]
     restart: unless-stopped

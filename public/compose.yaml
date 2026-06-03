@@ -39,6 +39,9 @@ services:
     secrets:
       - github_oauth_client_secret
       - google_oauth_client_secret
+    volumes:
+      - /data/tinyauth:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - 3000
     restart: unless-stopped

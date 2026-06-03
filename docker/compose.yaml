@@ -10,22 +10,22 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 
-  # dozzle:
-  #   image: ghcr.io/amir20/dozzle:v10.6.3
-  #   environment:
-  #     DOZZLE_ENABLE_ACTIONS: true
-  #     DOZZLE_ENABLE_SHELL: true
-  #   volumes:
-  #     - /data/dozzle:/data
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #   expose:
-  #     - 8080
-  #   healthcheck:
-  #     test: [CMD, /dozzle, healthcheck]
-  #   restart: unless-stopped
-  #   labels:
-  #     caddy: "*.{$$DOMAIN}"
-  #     caddy.import: reverse_proxy dozzle dozzle:8080
+  dozzle:
+    image: ghcr.io/amir20/dozzle:v10.6.3
+    environment:
+      DOZZLE_ENABLE_ACTIONS: true
+      DOZZLE_ENABLE_SHELL: true
+    volumes:
+      - /data/dozzle:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    expose:
+      - 8080
+    healthcheck:
+      test: [CMD, /dozzle, healthcheck]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth dozzle dozzle:8080
 
   beszel:
     image: ghcr.io/henrygd/beszel/beszel:0.18.7
@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy beszel beszel:8090
+      caddy.import: reverse_proxy_auth beszel beszel:8090
 
   beszel_agent:
     image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7

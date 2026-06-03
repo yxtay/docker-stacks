@@ -32,7 +32,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy streamnzb streamnzb:7000
-      tinyauth.app.streamnzb.path.block: ^\/($|api)
+      tinyauth.app.streamnzb.path.block: ^\/api
 
   nzbdav:
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
@@ -50,7 +50,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy nzbdav nzbdav:3000
-      tinyauth.app.nzbdav.path.block: ^\/($|ws|api\/)
+      tinyauth.app.nzbdav.path.block: ^\/api\/
 
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:1.7.12

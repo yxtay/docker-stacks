@@ -17,7 +17,7 @@ services:
       DOZZLE_ENABLE_SHELL: true
       DOZZLE_AUTH_PROVIDER: forward-proxy
     volumes:
-      - /data/dozzle:/data
+      - /apps/dozzle:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - 8080
@@ -31,7 +31,7 @@ services:
   beszel:
     image: ghcr.io/henrygd/beszel/beszel:0.18.7
     volumes:
-      - /data/beszel/hub:/beszel_data
+      - /apps/beszel/hub:/beszel_data
     ports:
       - 127.0.0.1:8090:8090
     healthcheck:
@@ -48,7 +48,7 @@ services:
       KEY: ${BESZEL_AGENT_KEY}
       TOKEN: ${BESZEL_AGENT_TOKEN}
     volumes:
-      - /data/beszel/agent:/var/lib/beszel-agent
+      - /apps/beszel/agent:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
     network_mode: host

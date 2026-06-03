@@ -163,6 +163,8 @@ Use `bin/portainer-up.sh` in cron to setup GitOps.
 ### Usenet Stack
 
 The `usenet/` directory contains a Usenet streaming and indexing stack.
+Services requiring authentication (nzbhydra2, nzbdav) use TinyAuth forward
+auth via the `reverse_proxy_auth` Caddy snippet.
 
 ## Security
 

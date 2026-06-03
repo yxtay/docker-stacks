@@ -15,6 +15,7 @@ services:
     environment:
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_ENABLE_SHELL: true
+      DOZZLE_AUTH_PROVIDER: forward-proxy
     volumes:
       - /data/dozzle:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro

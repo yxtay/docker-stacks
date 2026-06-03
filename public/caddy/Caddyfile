@@ -55,19 +55,19 @@
 	}
 }
 
-(tinyauth) {
-	forward_auth tinyauth:3000 {
-		uri /api/auth/caddy
-		copy_headers Remote-User Remote-Name Remote-Email Remote-Groups
-	}
-}
-
 (reverse_proxy) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
 		reverse_proxy {args[1]} {
 			fail_duration 30s
 		}
+	}
+}
+
+(tinyauth) {
+	forward_auth tinyauth:3000 {
+		uri /api/auth/caddy
+		copy_headers Remote-User Remote-Name Remote-Email Remote-Groups
 	}
 }
 

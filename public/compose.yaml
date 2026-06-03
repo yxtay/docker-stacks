@@ -54,6 +54,22 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy librespeed librespeed:8080
 
+  tinyauth:
+    image: ghcr.io/steveiliop56/tinyauth:v5.0.7
+    environment:
+      TINYAUTH_APPURL: https://tinyauth.${DOMAIN}
+      TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:-}
+      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID:-}
+      TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRET: ${TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRET:-}
+      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
+      TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRET: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRET:-}
+    expose:
+      - 3000
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy tinyauth tinyauth:3000
+
 secrets:
   duckdns_token:
     environment: DUCKDNS_TOKEN

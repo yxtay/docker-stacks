@@ -74,7 +74,12 @@
 (reverse_proxy_auth) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
+		request_header -Remote-User
+		request_header -Remote-Name
+		request_header -Remote-Email
+		request_header -Remote-Groups
 		import tinyauth
+
 		reverse_proxy {args[1]} {
 			fail_duration 30s
 		}

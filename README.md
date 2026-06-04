@@ -15,6 +15,7 @@ This project uses several tools to ensure code quality and consistency:
 - **Yamlfmt**: Specifically handles YAML file formatting.
 - **GitHub Actions**: Workflows for CI, security scans (OSSF Scorecard,
   Semgrep, etc.), and automerge.
+- **PR-Agent**: AI-powered code reviews on-demand via PR comments.
 
 ## OCI Resource Manager — ARM Free Tier VPS
 

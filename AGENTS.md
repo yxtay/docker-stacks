@@ -14,6 +14,15 @@ submitting changes.
 - Install: `pre-commit install`
 - Run on all files: `pre-commit run --all-files`
 
+### PR-Agent
+
+Agents can trigger AI-powered reviews and suggestions by commenting on Pull Requests:
+
+- `/review`: Trigger a full review of the PR.
+- `/describe`: Update the PR description.
+- `/improve`: Suggest code improvements.
+- `/ask <question>`: Ask a question about the PR.
+
 ### CI & Linting
 
 - **MegaLinter**: If MegaLinter fails in CI, check the `megalinter-reports/`

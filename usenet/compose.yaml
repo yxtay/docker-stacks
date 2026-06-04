@@ -21,6 +21,7 @@ services:
     environment: *envs
     volumes:
       - /apps/nzbdav:/config
+      - /mnt/usenet:/mnt/usenet:rslave
     expose:
       - 3000
     healthcheck:
@@ -53,6 +54,10 @@ services:
         --no-checksum \
         --no-modtime \
         --log-format json
+    depends_on:
+      nzbdav:
+        condition: service_healthy
+        restart: true
     cap_add:
       - SYS_ADMIN
     security_opt:

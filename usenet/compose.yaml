@@ -108,7 +108,7 @@ services:
   profilarr:
     image: ghcr.io/dictionarry-hub/profilarr:2.0.7
     environment:
-      <<: *envs
+      !!merge <<: *envs
       ORIGIN: https://profilarr.${DOMAIN:?}
     volumes:
       - /apps/profilarr:/config

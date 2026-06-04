@@ -33,8 +33,8 @@ STACK_ID=<stack-ocid> bash bin/oci-rm-stack-update.sh
 
 ### Apply via cron (out-of-capacity retry)
 
-`bin/oci-rm-stack-apply.sh` retries the apply job idempotently — skips if
-already succeeded or in progress, exits 0 on capacity errors.
+`bin/oci-rm-stack-apply.sh` retries apply idempotently — skips when already
+succeeded or in progress, and only retries after capacity-related failures.
 
 ```bash
 # Cron example (every 10 minutes)
@@ -56,7 +56,7 @@ Core infrastructure: Caddy reverse proxy, DuckDNS DDNS, TinyAuth, and
 utility services.
 
 | Service    | Description              | Auth |
-|------------|--------------------------|------|
+| ---------- | ------------------------ | ---- |
 | caddy      | Reverse proxy, HTTPS     | —    |
 | duckdns    | Dynamic DNS              | —    |
 | tinyauth   | OAuth forward auth       | —    |
@@ -72,7 +72,7 @@ token, domain, and OAuth credentials.
 Monitoring and container maintenance.
 
 | Service      | Description                     | Auth |
-|--------------|---------------------------------|------|
+| ------------ | ------------------------------- | ---- |
 | autoheal     | Restart unhealthy containers    | —    |
 | dozzle       | Real-time container log viewer  | yes  |
 | beszel       | Server monitoring hub           | yes  |
@@ -92,7 +92,7 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 Usenet streaming and indexing.
 
 | Service        | Description        | Auth |
-|----------------|--------------------|------|
+| -------------- | ------------------ | ---- |
 | nzbhydra2      | NZB indexer search | —    |
 | nzbdav         | NZB WebDAV server  | —    |
 | streamnzb      | Usenet streamer    | —    |

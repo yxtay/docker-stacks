@@ -60,6 +60,7 @@ services:
       nzbdav:
         condition: service_healthy
         restart: true
+    environment: *envs
     cap_add:
       - SYS_ADMIN
     security_opt:

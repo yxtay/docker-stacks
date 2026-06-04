@@ -1,33 +1,33 @@
 version: 2
 updates:
-  - package-ecosystem: docker
+  - package-ecosystem: docker-compose
     directory: /portainer
     schedule:
       interval: daily
     commit-message:
-      prefix: "chore(docker)"
+      prefix: "chore(docker-compose)"
     groups:
-      docker:
+      docker-compose:
         patterns: ["*"]
 
-  - package-ecosystem: docker
+  - package-ecosystem: docker-compose
     directory: /public
     schedule:
       interval: daily
     commit-message:
-      prefix: "chore(docker)"
+      prefix: "chore(docker-compose)"
     groups:
-      docker:
+      docker-compose:
         patterns: ["*"]
 
-  - package-ecosystem: docker
+  - package-ecosystem: docker-compose
     directory: /usenet
     schedule:
       interval: daily
     commit-message:
-      prefix: "chore(docker)"
+      prefix: "chore(docker-compose)"
     groups:
-      docker:
+      docker-compose:
         patterns: ["*"]
 
   - package-ecosystem: github-actions

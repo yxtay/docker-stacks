@@ -59,7 +59,7 @@ services:
       caddy.import: reverse_proxy_auth whoami whoami:80
 
   httpbin:
-    image: ghcr.io/mccutchen/go-httpbin:2.21.0
+    image: ghcr.io/mccutchen/go-httpbin:2.23.0
     expose:
       - 8080
     restart: unless-stopped

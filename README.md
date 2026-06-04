@@ -59,15 +59,6 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 */5 * * * * /path/to/bin/portainer-up.sh
 ```
 
-### Docker Stack (`docker/`)
-
-Monitoring and container maintenance.
-
-- **autoheal** — Restart unhealthy containers
-- **dozzle** — Real-time container log viewer
-- **beszel** — Server monitoring hub
-- **beszel_agent** — Monitoring agent (host network)
-
 ### Public Stack (`public/`)
 
 Core infrastructure and utility services.
@@ -78,6 +69,15 @@ Core infrastructure and utility services.
 - **whoami** — Request echo (debugging)
 - **httpbin** — HTTP testing
 - **librespeed** — Speed test
+
+### Docker Stack (`docker/`)
+
+Monitoring and container maintenance.
+
+- **autoheal** — Restart unhealthy containers
+- **dozzle** — Real-time container log viewer
+- **beszel** — Server monitoring hub
+- **beszel_agent** — Monitoring agent (host network)
 
 ### Usenet Stack (`usenet/`)
 

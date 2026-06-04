@@ -43,38 +43,57 @@ already succeeded or in progress, exits 0 on capacity errors.
 
 ## Docker Stacks
 
-### Public Stack
-
-The `public/` directory contains public-facing utility services behind a Caddy
-reverse proxy with automatic HTTPS. Services are exposed via wildcard subdomains
-(`*.DOMAIN`) using Caddy Docker labels, sharing the `public_default` network
-with Caddy.
-
-#### Authentication
-
-[TinyAuth] provides forward authentication via OAuth (GitHub/Google). Services
-use the `reverse_proxy_auth` Caddy snippet to require login. Configuration is
-in `public/.env.example`.
+All stacks join the `public_default` external network and use Caddy for
+reverse proxy with automatic HTTPS via DuckDNS. Services are exposed via
+wildcard subdomains (`*.DOMAIN`). [TinyAuth] provides forward authentication
+via OAuth (GitHub/Google) for protected services.
 
 [TinyAuth]: https://tinyauth.app
 
-### Docker Stack
+### Public Stack (`public/`)
 
-The `docker/` directory contains monitoring and maintenance services
-for docker containers.
+Core infrastructure: Caddy reverse proxy, DuckDNS DDNS, TinyAuth, and
+utility services.
 
-### Portainer Stack
+| Service     | Description              | Auth |
+|-------------|--------------------------|------|
+| caddy       | Reverse proxy, HTTPS     | —    |
+| duckdns     | Dynamic DNS              | —    |
+| tinyauth    | OAuth forward auth       | —    |
+| whoami      | Request echo (debugging) | yes  |
+| httpbin     | HTTP testing             | yes  |
+| librespeed  | Speed test               | yes  |
 
-The `portainer/` directory contains the Portainer CE container management UI.
-Use `bin/portainer-up.sh` in cron to setup GitOps.
+Configuration: copy `public/.env.example` to `.env` and fill in DuckDNS
+token, domain, and OAuth credentials.
+
+### Docker Stack (`docker/`)
+
+Monitoring and container maintenance.
+
+| Service      | Description                     | Auth |
+|--------------|---------------------------------|------|
+| autoheal     | Restart unhealthy containers    | —    |
+| dozzle       | Real-time container log viewer  | yes  |
+| beszel       | Server monitoring hub           | yes  |
+| beszel_agent | Monitoring agent (host network) | —    |
+
+### Portainer Stack (`portainer/`)
+
+Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 
 ```bash
 # Cron example (every 5 minutes)
 */5 * * * * /path/to/bin/portainer-up.sh
 ```
 
-### Usenet Stack
+### Usenet Stack (`usenet/`)
 
-The `usenet/` directory contains a Usenet streaming and indexing stack.
-Services requiring authentication (nzbhydra2, nzbdav) use TinyAuth forward
-auth via the `reverse_proxy_auth` Caddy snippet.
+Usenet streaming and indexing.
+
+| Service         | Description        | Auth |
+|-----------------|--------------------|------|
+| nzbhydra2       | NZB indexer search | —    |
+| nzbdav          | NZB WebDAV server  | —    |
+| streamnzb       | Usenet streamer    | —    |
+| usenetstreamer  | Stremio addon      | —    |

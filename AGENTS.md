@@ -55,7 +55,8 @@ submitting changes.
   - Use `depends_on` with `condition: service_healthy` or
     `condition: service_started` when a service requires another to be ready.
   - Images must support `linux/arm64`. Pin to semantic version tags
-    (e.g., `v1.2.3`), not `latest`/`lts`/digests — Renovate manages updates.
+    (e.g., `v1.2.3`), not `latest`/`lts`/digests.
+
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):

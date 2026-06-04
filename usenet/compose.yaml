@@ -113,7 +113,7 @@ services:
     expose:
       - 6868
     healthcheck:
-      test: [CMD, bash, -c, ":> /dev/tcp/localhost/6868"]
+      test: [CMD, nc, -z, localhost, "6868"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

@@ -37,7 +37,7 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/usenet/nzbdav 2> /dev/null || true;
-      rclone mount nzbdav: /mnt/usenet/nzbdav
+      exec rclone mount nzbdav: /mnt/usenet/nzbdav
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}
       --allow-other

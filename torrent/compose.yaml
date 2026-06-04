@@ -98,6 +98,8 @@ services:
         --buffer-size=0M \
         --dir-cache-time=1m \
         --attr-timeout=10m \
+        --no-checksum \
+        --no-modtime \
         --log-format json
       "
     cap_add:

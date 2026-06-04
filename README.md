@@ -50,19 +50,14 @@ via OAuth (GitHub/Google) for protected services.
 
 [TinyAuth]: https://tinyauth.app
 
-### Public Stack (`public/`)
+### Portainer Stack (`portainer/`)
 
-Core infrastructure and utility services.
+Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 
-- **caddy** — Reverse proxy, automatic HTTPS
-- **duckdns** — Dynamic DNS
-- **tinyauth** — OAuth forward auth
-- **whoami** — Request echo (debugging)
-- **httpbin** — HTTP testing
-- **librespeed** — Speed test
-
-Configuration: copy `public/.env.example` to `.env` and fill in DuckDNS
-token, domain, and OAuth credentials.
+```bash
+# Cron example (every 5 minutes)
+*/5 * * * * /path/to/bin/portainer-up.sh
+```
 
 ### Docker Stack (`docker/`)
 
@@ -73,14 +68,16 @@ Monitoring and container maintenance.
 - **beszel** — Server monitoring hub
 - **beszel_agent** — Monitoring agent (host network)
 
-### Portainer Stack (`portainer/`)
+### Public Stack (`public/`)
 
-Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
+Core infrastructure and utility services.
 
-```bash
-# Cron example (every 5 minutes)
-*/5 * * * * /path/to/bin/portainer-up.sh
-```
+- **caddy** — Reverse proxy, automatic HTTPS
+- **duckdns** — Dynamic DNS
+- **tinyauth** — OAuth forward auth
+- **whoami** — Request echo (debugging)
+- **httpbin** — HTTP testing
+- **librespeed** — Speed test
 
 ### Usenet Stack (`usenet/`)
 

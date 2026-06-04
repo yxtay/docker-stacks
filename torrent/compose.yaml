@@ -110,7 +110,7 @@ services:
       - /apps/rclone:/config/rclone
       - /mount/torrent:/mount/torrent:rshared
     healthcheck:
-      test: [CMD-SHELL, "grep -q ' /mount/torrent/debrid ' /proc/mounts"]
+      test: [CMD, grep, -q, " /mount/torrent/debrid ", /proc/mounts]
     restart: unless-stopped
 
 networks:

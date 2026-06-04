@@ -19,16 +19,7 @@ git reset --hard "${REMOTE}"
 
 # Generate .env if missing
 if [ ! -f .env ]; then
-  TZ=$(timedatectl show -p Timezone --value 2>/dev/null ||
-    cat /etc/timezone 2>/dev/null ||
-    readlink /etc/localtime | sed 's|.*/zoneinfo/||' ||
-    echo "UTC")
-  cat >.env <<EOF
-PUID=$(id -u)
-PGID=$(id -g)
-TZ=${TZ}
-PORTAINER_DATA=${PORTAINER_DATA}
-EOF
+  echo PORTAINER_DATA=${PORTAINER_DATA} >.env
 fi
 
 cat .env

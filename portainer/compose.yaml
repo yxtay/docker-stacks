@@ -1,12 +1,7 @@
 services:
   portainer:
     image: portainer/portainer-ce:2.42.0
-    command: --data ${PORTAINER_DATA} --log-mode JSON
-    environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
-      - PORTAINER_DATA=${PORTAINER_DATA:?}
+    command: --data ${PORTAINER_DATA:?} --log-mode JSON
     volumes:
       - ${PORTAINER_DATA}:/data
       - ${PORTAINER_DATA}:${PORTAINER_DATA}

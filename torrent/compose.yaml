@@ -68,7 +68,6 @@ services:
     depends_on:
       rclone:
         condition: service_healthy
-    environment: *envs
     volumes:
       - /apps/rdtclient:/data/db
       - /mount/torrent:/mount/torrent:rslave
@@ -82,8 +81,25 @@ services:
   rclone:
     image: ghcr.io/rclone/rclone:latest
     entrypoint: [sh]
-    command: >-
-      -c " fusermount3 -uz /mount/torrent/torbox 2> /dev/null || true; rclone mount torbox: /mount/torrent/torbox --uid=${PUID:-1000} --gid=${PGID:-1000} --allow-other --links --use-cookies --vfs-cache-mode=full --vfs-cache-max-size=20G --vfs-cache-max-age=24h --buffer-size=0M --vfs-read-ahead=512M --log-format json "
+    command: |-
+      -c "
+      fusermount3 -uz /mount/torrent/debrid 2> /dev/null || true;
+      rclone mount debrid: /mount/torrent/debrid \
+        --uid=${PUID:-1000} \
+        --gid=${PGID:-1000} \
+        --allow-other \
+        --links \
+        --use-cookies \
+        --vfs-cache-mode=full \
+        --vfs-cache-max-size=20G \
+        --vfs-cache-max-age=1d \
+        --vfs-fast-fingerprint \
+        --vfs-read-ahead=1G \
+        --buffer-size=0M \
+        --dir-cache-time=1m \
+        --attr-timeout=10m \
+        --log-format json
+      "
     cap_add:
       - SYS_ADMIN
     security_opt:
@@ -94,7 +110,7 @@ services:
       - /apps/rclone:/config/rclone
       - /mount/torrent:/mount/torrent:rshared
     healthcheck:
-      test: ls /mount/torrent/torbox > /dev/null || exit 1
+      test: ls /mount/torrent/debrid > /dev/null || exit 1
     restart: unless-stopped
 
 networks:

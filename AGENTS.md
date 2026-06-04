@@ -37,9 +37,9 @@ submitting changes.
   - Every service must have a `healthcheck`. Specify only the `test` command,
     leaving `interval`, `timeout`, `retries` as defaults.
   - Prefer the service's built-in health check command when available
-    (e.g., `/dozzle healthcheck`, `/beszel health`). Fall back to
-    `curl -fsSL` or `wget -qO-` for HTTP checks, or native CLI tools
-    for non-HTTP services (e.g., `redis-cli ping`, `pg_isready`).
+    (e.g., `redis-cli ping`, `pg_isready`, `/dozzle healthcheck`,
+    `/beszel health`). Fall back to `curl -fsSL` or `wget -qO-` for
+    HTTP checks.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use host bind mounts under `/apps/<service-name>/` instead of named
     volumes.

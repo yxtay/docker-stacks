@@ -56,7 +56,6 @@ services:
         --no-modtime \
         --log-format json
       "
-    user: ${PUID:-1000}:${PGID:-1000}
     depends_on:
       nzbdav:
         condition: service_healthy

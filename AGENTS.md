@@ -54,6 +54,8 @@ submitting changes.
 
   - Use `depends_on` with `condition: service_healthy` or
     `condition: service_started` when a service requires another to be ready.
+  - Images must support `linux/arm64`. Pin to semantic version tags
+    (e.g., `v1.2.3`), not `latest`/`lts`/digests — Renovate manages updates.
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):
@@ -67,13 +69,3 @@ submitting changes.
     7. Lifecycle: `healthcheck`, `restart`, `deploy`,
         `stop_grace_period`, `stop_signal`
     8. Metadata: `labels`, `annotations`, `logging`
-
-### Image Pinning & Architecture
-
-- **ARM64 Compatibility**: When running on OCI Ampere A1 (ARM64), ensure all
-  pinned images support the `linux/arm64` architecture.
-- **Tagging Strategy**: Prefer specific semantic version tags (e.g., `v1.2.3`)
-  over generic tags like `latest` or `lts`.
-- **Renovate Compatibility**: Renovate is configured to keep these versioned
-  tags updated. Avoid pinning via digests unless explicitly required, to keep
-  configuration readable.

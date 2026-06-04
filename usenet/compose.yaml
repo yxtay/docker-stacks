@@ -1,7 +1,7 @@
 services:
   nzbhydra2:
     image: lscr.io/linuxserver/nzbhydra2:8.8.1
-    environment:
+    environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
@@ -18,10 +18,7 @@ services:
 
   nzbdav:
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
-    environment:
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
-      TZ: ${TZ:-UTC}
+    environment: *envs
     volumes:
       - /apps/nzbdav:/config
     expose:
@@ -35,8 +32,6 @@ services:
 
   streamnzb:
     image: ghcr.io/gaisberg/streamnzb:v4.7.0
-    environment:
-      TZ: ${TZ:-UTC}
     volumes:
       - /apps/streamnzb:/app/data
     expose:

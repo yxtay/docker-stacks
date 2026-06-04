@@ -52,17 +52,14 @@ via OAuth (GitHub/Google) for protected services.
 
 ### Public Stack (`public/`)
 
-Core infrastructure: Caddy reverse proxy, DuckDNS DDNS, TinyAuth, and
-utility services.
+Core infrastructure and utility services.
 
-| Service    | Description              | Auth |
-| ---------- | ------------------------ | ---- |
-| caddy      | Reverse proxy, HTTPS     | —    |
-| duckdns    | Dynamic DNS              | —    |
-| tinyauth   | OAuth forward auth       | —    |
-| whoami     | Request echo (debugging) | yes  |
-| httpbin    | HTTP testing             | yes  |
-| librespeed | Speed test               | yes  |
+- **caddy** — Reverse proxy, automatic HTTPS
+- **duckdns** — Dynamic DNS
+- **tinyauth** — OAuth forward auth
+- **whoami** — Request echo (debugging)
+- **httpbin** — HTTP testing
+- **librespeed** — Speed test
 
 Configuration: copy `public/.env.example` to `.env` and fill in DuckDNS
 token, domain, and OAuth credentials.
@@ -71,12 +68,10 @@ token, domain, and OAuth credentials.
 
 Monitoring and container maintenance.
 
-| Service      | Description                     | Auth |
-| ------------ | ------------------------------- | ---- |
-| autoheal     | Restart unhealthy containers    | —    |
-| dozzle       | Real-time container log viewer  | yes  |
-| beszel       | Server monitoring hub           | yes  |
-| beszel_agent | Monitoring agent (host network) | —    |
+- **autoheal** — Restart unhealthy containers
+- **dozzle** — Real-time container log viewer
+- **beszel** — Server monitoring hub
+- **beszel_agent** — Monitoring agent (host network)
 
 ### Portainer Stack (`portainer/`)
 
@@ -91,9 +86,7 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 
 Usenet streaming and indexing.
 
-| Service        | Description        | Auth |
-| -------------- | ------------------ | ---- |
-| nzbhydra2      | NZB indexer search | —    |
-| nzbdav         | NZB WebDAV server  | —    |
-| streamnzb      | Usenet streamer    | —    |
-| usenetstreamer | Stremio addon      | —    |
+- **nzbhydra2** — NZB indexer search
+- **nzbdav** — NZB WebDAV server
+- **streamnzb** — Usenet streamer
+- **usenetstreamer** — Stremio addon

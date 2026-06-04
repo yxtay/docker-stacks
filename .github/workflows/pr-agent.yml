@@ -4,6 +4,8 @@ on:
   issue_comment:
     types: [created]
 
+permissions: {}
+
 jobs:
   pr_agent_job:
     if: ${{ github.event.issue.pull_request && github.event.sender.type != 'Bot' }}
@@ -11,10 +13,9 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
-      contents: write
     steps:
       - name: PR Agent action step
-        uses: the-pr-agent/pr-agent@main
+        uses: the-pr-agent/pr-agent@923dd67baeaca7dd9220df6913d663cc7e781fc7 # main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           config.model: "gemini/gemini-flash-latest"

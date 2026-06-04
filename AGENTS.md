@@ -27,16 +27,6 @@ submitting changes.
 - Formatting is enforced via pre-commit hooks for YAML, Shell scripts (shfmt),
   and Markdown.
 
-## Infrastructure Initialization
-
-- **Cloud-init**: The instance initialization is handled via
-  `oci-rm/templates/cloud-init.yaml`.
-- **Terraform Fallback**: `oci-rm/compute.tf` is configured to automatically
-  use the `cloud-init.yaml` template if the `user_data` variable is left
-  empty.
-- **Networking**: `iptables` is used for port management instead of `ufw` to
-  ensure compatibility with Docker networking.
-
 ## Docker Stacks & Portainer
 
 - For Docker Compose files (managed via Portainer):
@@ -44,11 +34,13 @@ submitting changes.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when
     strictly required (e.g., URLs with colons).
-  - Health checks should specify only the `test` command, leaving other options
-    as default.
+  - Every service must have a `healthcheck`. Specify only the `test` command,
+    leaving `interval`, `timeout`, `retries` as defaults.
+  - Prefer the service's built-in health check command when available
+    (e.g., `redis-cli ping`, `pg_isready`, `/dozzle healthcheck`,
+    `/beszel health`). Fall back to `curl -fsSL` or `wget -qO-` for
+    HTTP checks.
   - Prefer `ghcr.io` over `docker.io` registry.
-  - Use `curl -fsSL` or `wget -qO-` for health check commands where
-    appropriate.
   - Use host bind mounts under `/apps/<service-name>/` instead of named
     volumes.
   - All stacks join the `public_default` external network for Caddy
@@ -63,6 +55,9 @@ submitting changes.
 
   - Use `depends_on` with `condition: service_healthy` or
     `condition: service_started` when a service requires another to be ready.
+  - Images must support `linux/arm64`. Pin to semantic version tags
+    (e.g., `v1.2.3`), not `latest`/`lts`/digests.
+
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):
@@ -76,13 +71,3 @@ submitting changes.
     7. Lifecycle: `healthcheck`, `restart`, `deploy`,
         `stop_grace_period`, `stop_signal`
     8. Metadata: `labels`, `annotations`, `logging`
-
-### Image Pinning & Architecture
-
-- **ARM64 Compatibility**: When running on OCI Ampere A1 (ARM64), ensure all
-  pinned images support the `linux/arm64` architecture.
-- **Tagging Strategy**: Prefer specific semantic version tags (e.g., `v1.2.3`)
-  over generic tags like `latest` or `lts`.
-- **Renovate Compatibility**: Renovate is configured to keep these versioned
-  tags updated. Avoid pinning via digests unless explicitly required, to keep
-  configuration readable.

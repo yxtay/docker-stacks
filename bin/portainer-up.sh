@@ -19,7 +19,7 @@ git reset --hard "${REMOTE}"
 
 # Generate .env if missing
 if [ ! -f .env ]; then
-  echo PORTAINER_DATA=${PORTAINER_DATA} >.env
+  echo "PORTAINER_DATA=${PORTAINER_DATA}" >.env
 fi
 
 cat .env

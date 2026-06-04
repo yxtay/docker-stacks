@@ -111,7 +111,7 @@ services:
     expose:
       - 6868
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:6868/"]
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/6868"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

@@ -55,14 +55,14 @@ via OAuth (GitHub/Google) for protected services.
 Core infrastructure: Caddy reverse proxy, DuckDNS DDNS, TinyAuth, and
 utility services.
 
-| Service     | Description              | Auth |
-|-------------|--------------------------|------|
-| caddy       | Reverse proxy, HTTPS     | —    |
-| duckdns     | Dynamic DNS              | —    |
-| tinyauth    | OAuth forward auth       | —    |
-| whoami      | Request echo (debugging) | yes  |
-| httpbin     | HTTP testing             | yes  |
-| librespeed  | Speed test               | yes  |
+| Service    | Description              | Auth |
+|------------|--------------------------|------|
+| caddy      | Reverse proxy, HTTPS     | —    |
+| duckdns    | Dynamic DNS              | —    |
+| tinyauth   | OAuth forward auth       | —    |
+| whoami     | Request echo (debugging) | yes  |
+| httpbin    | HTTP testing             | yes  |
+| librespeed | Speed test               | yes  |
 
 Configuration: copy `public/.env.example` to `.env` and fill in DuckDNS
 token, domain, and OAuth credentials.
@@ -91,9 +91,9 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 
 Usenet streaming and indexing.
 
-| Service         | Description        | Auth |
-|-----------------|--------------------|------|
-| nzbhydra2       | NZB indexer search | —    |
-| nzbdav          | NZB WebDAV server  | —    |
-| streamnzb       | Usenet streamer    | —    |
-| usenetstreamer  | Stremio addon      | —    |
+| Service        | Description        | Auth |
+|----------------|--------------------|------|
+| nzbhydra2      | NZB indexer search | —    |
+| nzbdav         | NZB WebDAV server  | —    |
+| streamnzb      | Usenet streamer    | —    |
+| usenetstreamer | Stremio addon      | —    |

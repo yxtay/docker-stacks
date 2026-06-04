@@ -77,7 +77,7 @@ services:
     volumes:
       - /apps/usenet_radarr:/config
       - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data
+      - /mnt/usenet:/data:rslave
     expose:
       - 7878
     healthcheck:
@@ -93,7 +93,7 @@ services:
     volumes:
       - /apps/usenet_sonarr:/config
       - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data
+      - /mnt/usenet:/data:rslave
     expose:
       - 8989
     healthcheck:

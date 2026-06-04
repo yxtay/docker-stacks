@@ -57,7 +57,7 @@ services:
     expose:
       - 6868
     healthcheck:
-      test: [CMD, bash, -c, ":> /dev/tcp/localhost/6868"]
+      test: [CMD, wget, -qO-, "http://localhost:6868/"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -80,11 +80,10 @@ services:
 
   rclone:
     image: ghcr.io/rclone/rclone:latest
-    entrypoint: [sh]
+    entrypoint: [/bin/sh, -c]
     command: |-
-      -c "
-      fusermount3 -uz /mount/torrent/debrid 2> /dev/null || true;
-      rclone mount debrid: /mount/torrent/debrid \
+      fusermount3 -uz /mount/torrent/debrid 2> /dev/null || true
+      exec rclone mount debrid: /mount/torrent/debrid \
         --uid=${PUID:-1000} \
         --gid=${PGID:-1000} \
         --allow-other \
@@ -101,7 +100,6 @@ services:
         --no-checksum \
         --no-modtime \
         --log-format json
-      "
     cap_add:
       - SYS_ADMIN
     security_opt:
@@ -112,7 +110,7 @@ services:
       - /apps/rclone:/config/rclone
       - /mount/torrent:/mount/torrent:rshared
     healthcheck:
-      test: ls /mount/torrent/debrid > /dev/null || exit 1
+      test: [CMD-SHELL, "grep -q ' /mount/torrent/debrid ' /proc/mounts"]
     restart: unless-stopped
 
 networks:

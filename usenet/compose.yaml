@@ -141,7 +141,7 @@ services:
     environment:
       <<: *envs
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
-      COOKIE_DOMAIN: ${DOMAIN:?}
+      COOKIE_DOMAIN: altmount.${DOMAIN:?}
     cap_add:
       - SYS_ADMIN
     security_opt:

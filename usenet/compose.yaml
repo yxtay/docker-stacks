@@ -41,7 +41,7 @@ services:
       chown -R ${PUID:-1000}:${PGID:-1000} /mnt/usenet &&
       exec rclone mount nzbdav: /mnt/usenet/nzbdav
       --uid ${PUID:-1000}
-      --gid ${PGID:-1000}
+      --gid ${PUID:-1000}
       --allow-other
       --links
       --use-cookies
@@ -135,21 +135,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
-
-  prowlarr_usenet:
-    image: ghcr.io/linuxserver/prowlarr:2.3.5
-    environment: *envs
-    volumes:
-      - /apps/prowlarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet:rslave
-    expose:
-      - 9696
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:9696/ping"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth prowlarr_usenet prowlarr_usenet:9696
 
   altmount:
     image: ghcr.io/javi11/altmount:v0.2.0

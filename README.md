@@ -88,4 +88,13 @@ Usenet streaming and indexing.
 - **streamnzb** — Usenet streamer
 - **usenetstreamer** — Stremio addon
 - **altmount** — Usenet WebDAV mount
-- **prowlarr_usenet** — NZB indexer manager
+
+### Torrent Stack (`torrent/`)
+
+Torrent streaming and indexing.
+
+- **prowlarr** — Indexer manager (Usenet + Torrents)
+- **rdtclient** — Real-Debrid download client
+- **radarr_torrent** — Movie manager (Torrents)
+- **sonarr_torrent** — TV show manager (Torrents)
+- **profilarr** — ARR profile manager

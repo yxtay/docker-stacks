@@ -1,12 +1,12 @@
 services:
-  prowlarr_torrent:
+  prowlarr:
     image: ghcr.io/linuxserver/prowlarr:2.3.5
     environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
     volumes:
-      - /apps/prowlarr_torrent:/config
+      - /apps/prowlarr:/config
       - /mnt/torrent:/mnt/torrent:rslave
     expose:
       - 9696
@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth prowlarr_torrent prowlarr_torrent:9696
+      caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.2

@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   dozzle:
-    image: ghcr.io/amir20/dozzle:v10.6.3
+    image: ghcr.io/amir20/dozzle:v10.6.5
     environment:
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_ENABLE_SHELL: true

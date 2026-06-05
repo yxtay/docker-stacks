@@ -158,7 +158,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy altmount altmount:8080
+      caddy.import: reverse_proxy_auth altmount altmount:8080
 
   streamnzb:
     image: ghcr.io/gaisberg/streamnzb:v4.7.0

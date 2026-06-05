@@ -37,7 +37,8 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/usenet/nzbdav 2> /dev/null || true &&
-      mkdir -p /mnt/usenet/nzbdav &&
+      mkdir -p /mnt/usenet/{nzbdav,movies,shows} &&
+      chown -R ${PUID:-1000}:${PGID:-1000} /mnt/usenet/{nzbdav,movies,shows} &&
       exec rclone mount nzbdav: /mnt/usenet/nzbdav
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}

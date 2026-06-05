@@ -87,3 +87,5 @@ Usenet streaming and indexing.
 - **nzbdav** — NZB WebDAV server
 - **streamnzb** — Usenet streamer
 - **usenetstreamer** — Stremio addon
+- **altmount** — Usenet WebDAV mount
+- **prowlarr_usenet** — NZB indexer manager

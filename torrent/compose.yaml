@@ -22,6 +22,7 @@ services:
     entrypoint: [/bin/sh]
     command: >-
       -c "
+      mkdir -p /mount/torrent/debrid &&
       fusermount3 -uz /mnt/torrent/debrid 2> /dev/null || true &&
       exec rclone mount debrid: /mnt/torrent/debrid
       --uid ${PUID:-1000}

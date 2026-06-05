@@ -85,5 +85,20 @@ Usenet streaming and indexing.
 
 - **nzbhydra2** — NZB indexer search
 - **nzbdav** — NZB WebDAV server
-- **streamnzb** — Usenet streamer
+- **rclone** — WebDAV FUSE mount
+- **radarr_usenet** — Movie manager (Usenet)
+- **sonarr_usenet** — TV show manager (Usenet)
 - **usenetstreamer** — Stremio addon
+- **streamnzb** — Usenet streamer
+- **altmount** — Usenet WebDAV mount
+
+### Torrent Stack (`torrent/`)
+
+Torrent streaming and indexing.
+
+- **prowlarr** — Indexer manager (Usenet + Torrents)
+- **rclone** — Debrid FUSE mount
+- **rdtclient** — Real-Debrid download client
+- **radarr_torrent** — Movie manager (Torrents)
+- **sonarr_torrent** — TV show manager (Torrents)
+- **profilarr** — ARR profile manager

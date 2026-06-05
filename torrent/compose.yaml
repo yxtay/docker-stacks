@@ -1,13 +1,12 @@
 services:
-  prowlarr_torrent:
+  prowlarr:
     image: ghcr.io/linuxserver/prowlarr:2.3.5
     environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
     volumes:
-      - /apps/prowlarr_torrent:/config
-      - /mnt/torrent:/mnt/torrent:rslave
+      - /apps/prowlarr:/config
     expose:
       - 9696
     healthcheck:
@@ -15,7 +14,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth prowlarr_torrent prowlarr_torrent:9696
+      caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.2
@@ -23,8 +22,8 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/torrent/debrid 2> /dev/null || true &&
-      mkdir -p /mnt/torrent/debrid /mnt/torrent/movies /mnt/torrent/shows &&
-      chown -R ${PUID:-1000}:${PGID:-1000} /mnt/torrent &&
+      mkdir -p /mnt/torrent/debrid &&
+      chown ${PUID:-1000}:${PGID:-1000} /mnt/torrent &&
       exec rclone mount debrid: /mnt/torrent/debrid
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}

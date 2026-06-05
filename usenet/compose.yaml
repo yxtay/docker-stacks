@@ -75,6 +75,10 @@ services:
 
   radarr_usenet:
     image: ghcr.io/linuxserver/radarr:6.1.1
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
     environment: *envs
     volumes:
       - /apps/radarr_usenet:/config
@@ -91,6 +95,10 @@ services:
 
   sonarr_usenet:
     image: ghcr.io/linuxserver/sonarr:4.0.17
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
     environment: *envs
     volumes:
       - /apps/sonarr_usenet:/config

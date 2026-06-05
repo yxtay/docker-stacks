@@ -23,8 +23,8 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/torrent/debrid 2> /dev/null || true &&
-      mkdir -p /mnt/torrent/{debrid,movies,shows} &&
-      chown -R ${PUID:-1000}:${PGID:-1000} /mnt/torrent/{debrid,movies,shows} &&
+      mkdir -p /mnt/torrent/debrid /mnt/torrent/movies /mnt/torrent/shows &&
+      chown -R ${PUID:-1000}:${PGID:-1000} /mnt/torrent &&
       exec rclone mount debrid: /mnt/torrent/debrid
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}

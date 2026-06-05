@@ -19,7 +19,7 @@ services:
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.2
-    entrypoint: [/bin/sh]
+    entrypoint: [sh]
     command: >-
       -c "
       mkdir -p /mount/torrent/debrid &&
@@ -125,7 +125,7 @@ services:
     expose:
       - 6868
     healthcheck:
-      test: [CMD, bash, -c, ":> /dev/tcp/localhost/6868"]
+      test: [CMD, curl, -fsSL, "http://localhost:6868"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

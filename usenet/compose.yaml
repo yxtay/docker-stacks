@@ -33,7 +33,7 @@ services:
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.2
-    entrypoint: [/bin/sh]
+    entrypoint: [sh]
     command: >-
       -c "
       mkdir -p /mnt/usenet/nzbdav &&

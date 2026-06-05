@@ -164,6 +164,7 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/altmount:/config
+      - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet:rshared
     expose:
       - 8080

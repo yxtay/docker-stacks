@@ -41,7 +41,7 @@ services:
       chown ${PUID:-1000}:${PGID:-1000} /mnt/usenet &&
       exec rclone mount nzbdav: /mnt/usenet/nzbdav
       --uid ${PUID:-1000}
-      --gid ${PUID:-1000}
+      --gid ${PGID:-1000}
       --allow-other
       --links
       --use-cookies

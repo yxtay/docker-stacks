@@ -11,63 +11,58 @@ services:
     expose:
       - 9696
     healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:9696/ping"]
+      test: [CMD, curl, -fsSL, "http://localhost:9696/ping"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy prowlarr prowlarr:9696
+      caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
-  radarr:
+  radarr_torrent:
     image: ghcr.io/linuxserver/radarr:latest
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
     environment: *envs
     volumes:
-      - /apps/radarr:/config
+      - /apps/radarr_torrent:/config
       - /mount/torrent:/mount/torrent:rslave
       - /data:/data
     expose:
       - 7878
     healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:7878/ping"]
+      test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy radarr radarr:7878
+      caddy.import: reverse_proxy_auth radarr_torrent radarr_torrent:7878
 
-  sonarr:
+  sonarr_torrent:
     image: ghcr.io/linuxserver/sonarr:latest
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
     environment: *envs
     volumes:
-      - /apps/sonarr:/config
+      - /apps/sonarr_torrent:/config
       - /mount/torrent:/mount/torrent:rslave
       - /data:/data
     expose:
       - 8989
     healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:8989/ping"]
+      test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy sonarr sonarr:8989
-
-  profilarr:
-    image: santiagosayshey/profilarr:latest
-    environment: *envs
-    volumes:
-      - /apps/profilarr:/config
-    expose:
-      - 6868
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:6868/"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy profilarr profilarr:6868
+      caddy.import: reverse_proxy_auth sonarr_torrent sonarr_torrent:8989
 
   rdtclient:
     image: ghcr.io/rogerfar/rdtclient:latest
     depends_on:
       rclone:
         condition: service_healthy
+        restart: true
     volumes:
       - /apps/rdtclient:/data/db
       - /mount/torrent:/mount/torrent:rslave
@@ -76,30 +71,36 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy rdtclient rdtclient:6500
+      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
 
   rclone:
-    image: ghcr.io/rclone/rclone:latest
-    entrypoint: [/bin/sh, -c]
-    command: |-
-      fusermount3 -uz /mount/torrent/debrid 2> /dev/null || true
-      exec rclone mount debrid: /mount/torrent/debrid \
-        --uid=${PUID:-1000} \
-        --gid=${PGID:-1000} \
-        --allow-other \
-        --links \
-        --use-cookies \
-        --vfs-cache-mode=full \
-        --vfs-cache-max-size=20G \
-        --vfs-cache-max-age=1d \
-        --vfs-fast-fingerprint \
-        --vfs-read-ahead=1G \
-        --buffer-size=0M \
-        --dir-cache-time=1m \
-        --attr-timeout=10m \
-        --no-checksum \
-        --no-modtime \
-        --log-format json
+    image: ghcr.io/rclone/rclone:1.74.2
+    entrypoint: [/bin/sh]
+    command: >-
+      -c "
+      fusermount3 -uz /mount/torrent/debrid 2> /dev/null || true &&
+      exec rclone mount debrid: /mount/torrent/debrid
+      --uid ${PUID:-1000}
+      --gid ${PGID:-1000}
+      --allow-other
+      --links
+      --use-cookies
+      --vfs-cache-mode full
+      --vfs-cache-max-size 20G
+      --vfs-cache-max-age 1d
+      --vfs-cache-min-free-space 1G
+      --vfs-fast-fingerprint
+      --buffer-size 0
+      --vfs-read-ahead 1G
+      --vfs-read-chunk-streams 4
+      --vfs-read-chunk-size-limit 1G
+      --dir-cache-time 1m
+      --attr-timeout 10m
+      --no-checksum
+      --no-modtime
+      --log-format json
+      "
+    environment: *envs
     cap_add:
       - SYS_ADMIN
     security_opt:

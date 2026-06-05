@@ -1,29 +1,12 @@
 version: 2
 updates:
   - package-ecosystem: docker-compose
-    directory: /portainer
+    directories:
+      - "*"
     schedule:
-      interval: daily
-    commit-message:
-      prefix: "chore(docker-compose)"
-    groups:
-      docker-compose:
-        update-types: [minor, patch]
-
-  - package-ecosystem: docker-compose
-    directory: /public
-    schedule:
-      interval: daily
-    commit-message:
-      prefix: "chore(docker-compose)"
-    groups:
-      docker-compose:
-        update-types: [minor, patch]
-
-  - package-ecosystem: docker-compose
-    directory: /usenet
-    schedule:
-      interval: daily
+      interval: weekly
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(docker-compose)"
     groups:
@@ -33,7 +16,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: ci(github-actions)
     groups:
@@ -43,7 +28,9 @@ updates:
   - package-ecosystem: terraform
     directory: /oci-rm
     schedule:
-      interval: daily
+      interval: weekly
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(terraform)"
     groups:

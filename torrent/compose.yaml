@@ -17,22 +17,6 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
-  rdtclient:
-    image: ghcr.io/rogerfar/rdtclient:2.0.136
-    depends_on:
-      rclone:
-        condition: service_healthy
-        restart: true
-    volumes:
-      - /apps/rdtclient:/data/db
-      - /mount/torrent:/mount/torrent:rslave
-    expose:
-      - 6500
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
-
   rclone:
     image: ghcr.io/rclone/rclone:1.74.2
     entrypoint: [/bin/sh]
@@ -73,6 +57,22 @@ services:
     healthcheck:
       test: [CMD, grep, -q, " /mount/torrent/debrid ", /proc/mounts]
     restart: unless-stopped
+
+  rdtclient:
+    image: ghcr.io/rogerfar/rdtclient:2.0.136
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
+    volumes:
+      - /apps/rdtclient:/data/db
+      - /mount/torrent:/mount/torrent:rslave
+    expose:
+      - 6500
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
 
   radarr_torrent:
     image: ghcr.io/linuxserver/radarr:6.1.1

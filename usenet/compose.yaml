@@ -136,6 +136,20 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
 
+  streamnzb:
+    image: ghcr.io/gaisberg/streamnzb:v4.7.0
+    volumes:
+      - /apps/streamnzb:/app/data
+    expose:
+      - 7000
+      - 119
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:7000/"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy streamnzb streamnzb:7000
+
   altmount:
     image: ghcr.io/javi11/altmount:v0.2.0
     environment:
@@ -153,26 +167,10 @@ services:
       - /mnt/usenet:/mnt/usenet:rshared
     expose:
       - 8080
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy altmount altmount:8080
-
-  streamnzb:
-    image: ghcr.io/gaisberg/streamnzb:v4.7.0
-    volumes:
-      - /apps/streamnzb:/app/data
-    expose:
-      - 7000
-      - 119
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:7000/"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy streamnzb streamnzb:7000
 
 networks:
   default:

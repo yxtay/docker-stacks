@@ -7,7 +7,6 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - /apps/prowlarr:/config
-      - /mnt/torrent:/mnt/torrent:rslave
     expose:
       - 9696
     healthcheck:

@@ -46,9 +46,12 @@ services:
       --vfs-cache-mode full
       --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
+      --vfs-cache-min-free-space 1G
       --vfs-fast-fingerprint
+      --buffer-size 0
       --vfs-read-ahead 1G
-      --buffer-size 0M
+      --vfs-read-chunk-streams 4
+      --vfs-read-chunk-size-limit 1G
       --dir-cache-time 1m
       --attr-timeout 10m
       --no-checksum

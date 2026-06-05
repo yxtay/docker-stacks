@@ -62,12 +62,16 @@ submitting changes.
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):
     1. Identity: `image`, `build`, `pull_policy`, `platform`, `profiles`
-    2. Execution: `command`, `entrypoint`, `working_dir`, `user`
+    2. Execution: `entrypoint`, `command`, `working_dir`, `user`,
+        `init`, `tty`, `stdin_open`
     3. Dependencies: `depends_on`, `extends`
     4. Configuration: `environment`, `env_file`, `secrets`, `configs`
-    5. Storage: `volumes`, `tmpfs`
-    6. Networking: `ports`, `expose`, `hostname`, `networks`,
+    5. Runtime: `cap_add`, `cap_drop`, `security_opt`, `devices`,
+        `privileged`, `read_only`, `shm_size`, `ulimits`, `gpus`,
+        `group_add`, `sysctls`, `pid`, `ipc`, `userns_mode`
+    6. Storage: `volumes`, `tmpfs`
+    7. Networking: `ports`, `expose`, `hostname`, `networks`,
         `network_mode`, `extra_hosts`, `dns`
-    7. Lifecycle: `healthcheck`, `restart`, `deploy`,
-        `stop_grace_period`, `stop_signal`
-    8. Metadata: `labels`, `annotations`, `logging`
+    8. Lifecycle: `healthcheck`, `restart`, `deploy`,
+        `stop_grace_period`, `stop_signal`, `post_start`, `pre_stop`
+    9. Metadata: `labels`, `annotations`, `logging`

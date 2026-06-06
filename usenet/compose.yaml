@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy nzbhydra2 nzbhydra2:5076
+      caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
 
   nzbdav:
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
@@ -29,94 +29,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy nzbdav nzbdav:3000
-
-  rclone:
-    image: ghcr.io/rclone/rclone:1.74.2
-    entrypoint: [sh]
-    command: >-
-      -c "
-      fusermount3 -uz /mnt/usenet/nzbdav 2> /dev/null || true &&
-      mkdir -p /mnt/usenet/nzbdav &&
-      chown ${PUID:-1000}:${PGID:-1000} /mnt/usenet &&
-      exec rclone mount nzbdav: /mnt/usenet/nzbdav
-      --uid ${PUID:-1000}
-      --gid ${PGID:-1000}
-      --allow-other
-      --links
-      --use-cookies
-      --vfs-cache-mode full
-      --vfs-cache-max-size 20G
-      --vfs-cache-max-age 1d
-      --vfs-cache-min-free-space 1G
-      --vfs-fast-fingerprint
-      --buffer-size 0
-      --vfs-read-ahead 1G
-      --vfs-read-chunk-streams 4
-      --vfs-read-chunk-size-limit 1G
-      --dir-cache-time 1m
-      --attr-timeout 10m
-      --no-checksum
-      --no-modtime
-      --log-format json
-      "
-    depends_on:
-      nzbdav:
-        condition: service_healthy
-        restart: true
-    environment: *envs
-    cap_add:
-      - SYS_ADMIN
-    security_opt:
-      - apparmor:unconfined
-    devices:
-      - /dev/fuse:/dev/fuse:rwm
-    volumes:
-      - /apps/rclone:/config/rclone
-      - /mnt/usenet:/mnt/usenet:rshared
-    healthcheck:
-      test: [CMD, grep, -q, " /mnt/usenet/nzbdav ", /proc/mounts]
-    restart: unless-stopped
-
-  radarr_usenet:
-    image: ghcr.io/linuxserver/radarr:6.1.1
-    depends_on:
-      rclone:
-        condition: service_healthy
-        restart: true
-    environment: *envs
-    volumes:
-      - /apps/radarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data:rslave
-    expose:
-      - 7878
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth radarr_usenet radarr_usenet:7878
-
-  sonarr_usenet:
-    image: ghcr.io/linuxserver/sonarr:4.0.17
-    depends_on:
-      rclone:
-        condition: service_healthy
-        restart: true
-    environment: *envs
-    volumes:
-      - /apps/sonarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data:rslave
-    expose:
-      - 8989
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sonarr_usenet sonarr_usenet:8989
+      caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
 
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:1.7.12
@@ -172,6 +85,46 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy altmount altmount:8080
+
+  radarr_usenet:
+    image: ghcr.io/linuxserver/radarr:6.1.1
+    depends_on:
+      altmount:
+        condition: service_healthy
+        restart: true
+    environment: *envs
+    volumes:
+      - /apps/radarr_usenet:/config
+      - /mnt/usenet:/mnt/usenet:rslave
+      - /mnt/usenet:/data:rslave
+    expose:
+      - 7878
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth radarr_usenet radarr_usenet:7878
+
+  sonarr_usenet:
+    image: ghcr.io/linuxserver/sonarr:4.0.17
+    depends_on:
+      altmount:
+        condition: service_healthy
+        restart: true
+    environment: *envs
+    volumes:
+      - /apps/sonarr_usenet:/config
+      - /mnt/usenet:/mnt/usenet:rslave
+      - /mnt/usenet:/data:rslave
+    expose:
+      - 8989
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth sonarr_usenet sonarr_usenet:8989
 
 networks:
   default:

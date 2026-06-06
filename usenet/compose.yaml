@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy nzbhydra2 nzbhydra2:5076
+      caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
 
   nzbdav:
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy nzbdav nzbdav:3000
+      caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
 
   usenetstreamer:
     image: ghcr.io/sanket9225/usenetstreamer:1.7.12

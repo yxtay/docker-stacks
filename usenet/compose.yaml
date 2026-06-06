@@ -21,7 +21,7 @@ services:
     environment: *envs
     volumes:
       - /apps/nzbdav:/config
-      - /mnt/usenet:/mnt/usenet:rslave
+      - /mnt/usenet:/mnt/usenet
     expose:
       - 3000
     healthcheck:
@@ -78,7 +78,8 @@ services:
     volumes:
       - /apps/altmount:/config
       - /apps/altmount/metadata:/metadata
-      - /mnt/usenet:/mnt/usenet:rshared
+      - /mnt/usenet:/mnt/usenet
+      - /mnt/remote:/mnt/remote:rshared
     expose:
       - 8080
     restart: unless-stopped
@@ -95,8 +96,8 @@ services:
     environment: *envs
     volumes:
       - /apps/radarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data:rslave
+      - /mnt/usenet:/mnt/usenet
+      - /mnt/usenet:/data
     expose:
       - 7878
     healthcheck:
@@ -115,8 +116,8 @@ services:
     environment: *envs
     volumes:
       - /apps/sonarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet:rslave
-      - /mnt/usenet:/data:rslave
+      - /mnt/usenet:/mnt/usenet
+      - /mnt/usenet:/data
     expose:
       - 8989
     healthcheck:

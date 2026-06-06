@@ -21,10 +21,10 @@ services:
     entrypoint: [sh]
     command: >-
       -c "
-      fusermount3 -uz /mnt/torrent/debrid 2> /dev/null || true &&
-      mkdir -p /mnt/torrent/debrid &&
-      chown ${PUID:-1000}:${PGID:-1000} /mnt/torrent &&
-      exec rclone mount debrid: /mnt/torrent/debrid
+      fusermount3 -uz /mnt/remote/debrid 2> /dev/null || true &&
+      mkdir -p /mnt/remote/debrid &&
+      chown ${PUID:-1000}:${PGID:-1000} /mnt/remote &&
+      exec rclone mount debrid: /mnt/remote/debrid
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}
       --allow-other
@@ -54,9 +54,9 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/rclone:/config/rclone
-      - /mnt/torrent:/mnt/torrent:rshared
+      - /mnt/remote:/mnt/remote:rshared
     healthcheck:
-      test: [CMD, grep, -q, " /mnt/torrent/debrid ", /proc/mounts]
+      test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]
     restart: unless-stopped
 
   rdtclient:
@@ -68,7 +68,8 @@ services:
     environment: *envs
     volumes:
       - /apps/rdtclient:/data/db
-      - /mnt/torrent:/mnt/torrent:rslave
+      - /mnt/torrent:/mnt/torrent
+      - /mnt/remote:/mnt/remote:rslave
     expose:
       - 6500
     restart: unless-stopped
@@ -85,8 +86,8 @@ services:
     environment: *envs
     volumes:
       - /apps/radarr_torrent:/config
-      - /mnt/torrent:/mnt/torrent:rslave
-      - /data:/data
+      - /mnt/torrent:/mnt/torrent
+      - /mnt/torrent:/data
     expose:
       - 7878
     healthcheck:
@@ -105,8 +106,8 @@ services:
     environment: *envs
     volumes:
       - /apps/sonarr_torrent:/config
-      - /mnt/torrent:/mnt/torrent:rslave
-      - /data:/data
+      - /mnt/torrent:/mnt/torrent
+      - /mnt/torrent:/data
     expose:
       - 8989
     healthcheck:

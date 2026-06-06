@@ -88,6 +88,7 @@ services:
       - /apps/radarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
+      - /mnt/remote:/mnt/remote:rslave
     expose:
       - 7878
     healthcheck:
@@ -108,6 +109,7 @@ services:
       - /apps/sonarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
+      - /mnt/remote:/mnt/remote:rslave
     expose:
       - 8989
     healthcheck:

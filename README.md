@@ -85,12 +85,11 @@ Usenet streaming and indexing.
 
 - **nzbhydra2** — NZB indexer search
 - **nzbdav** — NZB WebDAV server
-- **rclone** — WebDAV FUSE mount
-- **radarr_usenet** — Movie manager (Usenet)
-- **sonarr_usenet** — TV show manager (Usenet)
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
 - **altmount** — Usenet WebDAV mount
+- **radarr_usenet** — Movie manager (Usenet)
+- **sonarr_usenet** — TV show manager (Usenet)
 
 ### Torrent Stack (`torrent/`)
 

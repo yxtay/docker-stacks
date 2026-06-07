@@ -19,8 +19,28 @@ services:
       - /apps/resticprofile/cache:/var/cache/restic
     restart: unless-stopped
 
+  kopia:
+    image: kopia/kopia:0.19
+    entrypoint: [/bin/sh, /app/entrypoint.sh]
+    environment:
+      GDRIVE_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
+    secrets:
+      - google_service_account
+      - kopia_password
+    volumes:
+      - ./kopia/entrypoint.sh:/app/entrypoint.sh:ro
+      - /apps:/apps:ro
+      - /apps/kopia/cache:/app/cache
+      - /apps/kopia/config:/app/config
+      - /apps/kopia/logs:/app/logs
+    ports:
+      - "51515:51515"
+    restart: unless-stopped
+
 secrets:
   google_service_account:
     environment: GOOGLE_SERVICE_ACCOUNT_JSON
   restic_password:
     environment: RESTIC_PASSWORD
+  kopia_password:
+    environment: KOPIA_PASSWORD

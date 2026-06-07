@@ -16,7 +16,7 @@ iexclude = [
   "/prowlarr/Definitions",
 ]
 
-[default.forget]
+[default.retention]
 keep-daily = 7
 keep-weekly = 4
 keep-monthly = 3

@@ -1,5 +1,8 @@
 version: "2"
 
+global:
+  default-command: snapshots
+
 profiles:
   default:
     repository: rclone:gdrive:backups/apps
@@ -14,11 +17,8 @@ profiles:
       iexclude:
         - "**/__pycache__"
         - "**/.*.pyc"
-        - "**/*.zip"
         - "**/cache"
         - "**/MediaCover"
-        - "**/logs"
-        - "**/Backups"
         - profilarr/data/databases
         - prowlarr/Definitions
       exclude-caches: true
@@ -34,3 +34,9 @@ profiles:
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+    check:
+      schedule: weekly
+
+    snapshots:
+      group-by: host,paths

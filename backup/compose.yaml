@@ -1,10 +1,7 @@
 services:
   autorestic:
     image: cupcakearmy/autorestic:2.1.3
-    entrypoint: [sh, -c]
-    command:
-      - |
-        autorestic install && exec crond -f -l 2
+    command: [--ci, cron]
     environment:
       AUTORESTIC_CONFIG: /config/.autorestic.yml
       AUTORESTIC_GDRIVE_RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
@@ -15,7 +12,7 @@ services:
     secrets:
       - google_service_account
     volumes:
-      - ./config:/config:ro
+      - ./autorestic:/config:ro
       - /apps:/apps:ro
       - /apps/autorestic/cache:/cache
     restart: unless-stopped

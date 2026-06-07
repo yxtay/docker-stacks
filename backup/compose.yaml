@@ -5,6 +5,7 @@ services:
     command: >-
       -c "resticprofile schedule --all && crond -f"
     environment:
+      RESTIC_FROM_PASSWORD_FILE: /run/secrets/restic_password
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
       RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE: /run/secrets/google_service_account

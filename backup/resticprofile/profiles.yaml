@@ -3,7 +3,6 @@ version: "2"
 profiles:
   default:
     repository: rclone:gdrive:backups/apps
-    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true

@@ -1,42 +1,50 @@
 version: "2"
 
-global:
-  default-command: snapshots
-
 profiles:
   default:
     repository: rclone:gdrive:backups/apps
     password-file: /run/secrets/restic_password
-    cache-dir: /var/cache/restic
     initialize: true
+    cache-dir: /var/cache/restic
+    cleanup-cache: true
 
     backup:
       source:
         - /apps
       schedule: daily
-      iexclude:
-        - __pycache__
-        - "*.pyc"
-        - cache
-        - MediaCover
-        - profilarr/data/databases
-        - prowlarr/Definitions
+      check-after: true
+      one-file-system: true
+      no-error-on-warning: true
       exclude-caches: true
       exclude-if-present:
         - .git
         - .nobackup
-      no-error-on-warning: true
-      one-file-system: true
+      iexclude:
+        # Temp and runtime files
+        - "*.tmp"
+        - "*.pid"
+        - "*.lock"
+        - tmp
+        - temp
+        - cache
+        # Database temp files
+        - "*-wal"
+        - "*-shm"
+        # Build artifacts
+        - __pycache__
+        - "*.pyc"
+        # App-generated regenerable data
+        - MediaCover
+        - .updater
+        # App-specific paths
+        - profilarr/data/databases
+        - prowlarr/Definitions
 
     retention:
-      after-backup: true
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3
       prune: true
 
-    check:
-      schedule: weekly
-
-    snapshots:
-      group-by: host,paths
+    restore:
+      target: /apps

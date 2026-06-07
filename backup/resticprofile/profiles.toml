@@ -6,7 +6,6 @@ cache-dir = "/var/cache/restic"
 [default.backup]
 source = ["/apps"]
 schedule = "@daily"
-forget = true
 iexclude = [
   "**/*.zip",
   "**/cache",

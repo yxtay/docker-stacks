@@ -4,8 +4,7 @@ services:
     entrypoint: [sh, -c]
     command:
       - |
-        autorestic check
-        exec crond -f -l 2
+        autorestic install && exec crond -f -l 2
     environment:
       AUTORESTIC_CONFIG: /config/.autorestic.yml
       AUTORESTIC_GDRIVE_RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}

@@ -30,6 +30,7 @@ services:
       --allow-other
       --links
       --use-cookies
+      --cache-dir /cache
       --vfs-cache-mode full
       --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
@@ -59,6 +60,7 @@ services:
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
+      - /apps/rclone/cache:/cache
       - /mnt/remote:/mnt/remote:rshared
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]

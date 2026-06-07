@@ -45,7 +45,13 @@ services:
       --no-modtime
       --log-format json
       "
-    environment: *envs
+    environment:
+      <<: *envs
+      RCLONE_CONFIG_DEBRID_TYPE: webdav
+      RCLONE_CONFIG_DEBRID_VENDOR: other
+      RCLONE_CONFIG_DEBRID_URL: ${RCLONE_CONFIG_DEBRID_URL:?}
+      RCLONE_CONFIG_DEBRID_USER: ${RCLONE_CONFIG_DEBRID_USER:?}
+      RCLONE_CONFIG_DEBRID_PASS: ${RCLONE_CONFIG_DEBRID_PASS:?}
     cap_add:
       - SYS_ADMIN
     security_opt:

@@ -2,7 +2,8 @@ services:
   resticprofile:
     image: creativeprojects/resticprofile:0.29.0
     entrypoint: [sh]
-    command: [resticprofile schedule --all && crond -f]
+    command: >-
+      -c "resticprofile schedule --all && crond -f"
     environment:
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive

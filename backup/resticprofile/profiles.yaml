@@ -15,10 +15,10 @@ profiles:
         - /apps
       schedule: daily
       iexclude:
-        - "**/__pycache__"
-        - "**/.*.pyc"
-        - "**/cache"
-        - "**/MediaCover"
+        - __pycache__
+        - "*.pyc"
+        - cache
+        - MediaCover
         - profilarr/data/databases
         - prowlarr/Definitions
       exclude-caches: true

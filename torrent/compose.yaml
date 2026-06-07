@@ -59,7 +59,6 @@ services:
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
-      - /apps/rclone:/config/rclone
       - /mnt/remote:/mnt/remote:rshared
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]

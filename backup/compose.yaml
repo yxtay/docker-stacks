@@ -1,32 +1,26 @@
 services:
   autorestic:
     image: cupcakearmy/autorestic:2.1.3
-    entrypoint: [/bin/sh, -c]
+    entrypoint: [sh, -c]
     command:
       - |
         autorestic check
         exec crond -f -l 2
     environment:
       AUTORESTIC_CONFIG: /config/.autorestic.yml
-      RESTIC_CACHE_DIR: /cache
+      AUTORESTIC_GDRIVE_RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
       RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE: /run/secrets/google_service_account
-      RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_ROOT_FOLDER_ID:-}
+      RESTIC_CACHE_DIR: /cache
     secrets:
       - google_service_account
-      - restic_password
     volumes:
       - ./config:/config:ro
       - /apps:/apps:ro
-      - autorestic_cache:/cache
+      - /apps/autorestic/cache:/cache
     restart: unless-stopped
-
-volumes:
-  autorestic_cache:
 
 secrets:
   google_service_account:
     environment: GOOGLE_SERVICE_ACCOUNT_JSON
-  restic_password:
-    environment: RESTIC_PASSWORD

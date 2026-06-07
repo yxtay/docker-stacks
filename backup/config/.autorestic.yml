@@ -5,24 +5,23 @@ global:
     keep-daily: 7
     keep-weekly: 4
     keep-monthly: 3
+    prune: true
 
 backends:
   gdrive:
     type: rclone
-    path: "gdrive:backups/apps"
-    key: /run/secrets/restic_password
+    path: gdrive:backups/apps
+    requireKey: true
 
 locations:
   apps:
     from: /apps
-    to:
-      - gdrive
+    to: gdrive
     cron: "@daily"
-    forget: prune
     options:
       backup:
         iexclude:
           - "**/cache"
           - "**/MediaCover"
-          - "profilarr/data/databases"
-          - "prowlarr/Definitions"
+          - profilarr/data/databases
+          - prowlarr/Definitions

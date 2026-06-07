@@ -9,7 +9,7 @@ services:
     secrets:
       - duckdns_token
     volumes:
-      - ./caddy:/srv
+      - ./caddy:/srv:ro
       - /apps/caddy:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:

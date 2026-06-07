@@ -1,0 +1,36 @@
+version: "2"
+
+profiles:
+  default:
+    repository: rclone:gdrive:backups/apps
+    password-file: /run/secrets/restic_password
+    cache-dir: /var/cache/restic
+    initialize: true
+
+    backup:
+      source:
+        - /apps
+      schedule: daily
+      iexclude:
+        - "**/__pycache__"
+        - "**/.*.pyc"
+        - "**/*.zip"
+        - "**/cache"
+        - "**/MediaCover"
+        - "**/logs"
+        - "**/Backups"
+        - profilarr/data/databases
+        - prowlarr/Definitions
+      exclude-caches: true
+      exclude-if-present:
+        - .git
+        - .nobackup
+      no-error-on-warning: true
+      one-file-system: true
+
+    retention:
+      after-backup: true
+      keep-daily: 7
+      keep-weekly: 4
+      keep-monthly: 3
+      prune: true

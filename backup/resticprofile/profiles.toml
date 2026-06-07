@@ -6,7 +6,7 @@ cache-dir = "/var/cache/restic"
 [default.backup]
 source = ["/apps"]
 schedule = "@daily"
-run-after = ["resticprofile forget"]
+forget = true
 iexclude = [
   "**/*.zip",
   "**/cache",

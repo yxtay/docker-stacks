@@ -1,0 +1,20 @@
+[default]
+  repository = "rclone:gdrive:backups/apps"
+  password-file = "/run/secrets/restic_password"
+  cache-dir = "/var/cache/restic"
+
+[default.backup]
+  source = ["/apps"]
+  schedule = "@daily"
+  iexclude = [
+    "**/cache",
+    "**/MediaCover",
+    "profilarr/data/databases",
+    "prowlarr/Definitions",
+  ]
+
+[default.forget]
+  keep-daily = 7
+  keep-weekly = 4
+  keep-monthly = 3
+  prune = true

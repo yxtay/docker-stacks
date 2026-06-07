@@ -1,22 +1,22 @@
 services:
-  autorestic:
-    image: cupcakearmy/autorestic:2.1.3
-    command: [--ci, cron]
+  resticprofile:
+    image: creativeprojects/resticprofile:latest
+    command: [schedule, --all]
     environment:
-      AUTORESTIC_CONFIG: /config/.autorestic.yml
-      AUTORESTIC_GDRIVE_RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
       RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE: /run/secrets/google_service_account
-      RESTIC_CACHE_DIR: /cache
     secrets:
       - google_service_account
+      - restic_password
     volumes:
-      - ./autorestic:/config:ro
+      - ./resticprofile:/etc/resticprofile:ro
       - /apps:/apps:ro
-      - /apps/autorestic/cache:/cache
+      - /apps/resticprofile/cache:/var/cache/restic
     restart: unless-stopped
 
 secrets:
   google_service_account:
     environment: GOOGLE_SERVICE_ACCOUNT_JSON
+  restic_password:
+    environment: RESTIC_PASSWORD

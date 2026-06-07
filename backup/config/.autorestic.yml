@@ -1,0 +1,28 @@
+version: 2
+
+global:
+  forget:
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+
+backends:
+  gdrive:
+    type: rclone
+    path: "gdrive:backups/apps"
+    key: /run/secrets/restic_password
+
+locations:
+  apps:
+    from: /apps
+    to:
+      - gdrive
+    cron: "@daily"
+    forget: prune
+    options:
+      backup:
+        iexclude:
+          - "**/cache"
+          - "**/MediaCover"
+          - "profilarr/data/databases"
+          - "prowlarr/Definitions"

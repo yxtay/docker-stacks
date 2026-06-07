@@ -30,19 +30,20 @@ services:
       --allow-other
       --links
       --use-cookies
+      --no-checksum
+      --no-modtime
+      --dir-cache-time 1m
+      --attr-timeout 10m
+      --cache-dir /var/cache/rclone
       --vfs-cache-mode full
       --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
       --vfs-cache-min-free-space 1G
       --vfs-fast-fingerprint
-      --buffer-size 0
       --vfs-read-ahead 1G
       --vfs-read-chunk-streams 4
       --vfs-read-chunk-size-limit 1G
-      --dir-cache-time 1m
-      --attr-timeout 10m
-      --no-checksum
-      --no-modtime
+      --buffer-size 0
       --log-format json
       "
     environment:
@@ -59,6 +60,7 @@ services:
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
+      - /apps/rclone/cache:/var/cache/rclone
       - /mnt/remote:/mnt/remote:rshared
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]

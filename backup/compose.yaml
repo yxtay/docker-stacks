@@ -3,7 +3,7 @@ services:
     image: creativeprojects/resticprofile:0.29.0
     entrypoint: [sh]
     command: >-
-      -c "resticprofile schedule --all && crond -f"
+      -c "resticprofile schedule --all && crond -f -L /dev/stdout"
     environment:
       RESTIC_FROM_PASSWORD_FILE: /run/secrets/restic_password
       RCLONE_CONFIG_GDRIVE_TYPE: drive

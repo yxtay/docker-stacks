@@ -45,5 +45,5 @@ terraform.rc
 
 .env
 *.log
-megalinter-reports/
+megalinter-reports
 settings.local.json

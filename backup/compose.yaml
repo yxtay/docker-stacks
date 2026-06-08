@@ -21,6 +21,6 @@ services:
 
 secrets:
   google_service_account:
-    environment: GOOGLE_SERVICE_ACCOUNT_JSON
+    environment: GDRIVE_SERVICE_ACCOUNT_JSON
   restic_password:
     environment: RESTIC_PASSWORD

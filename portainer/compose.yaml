@@ -1,7 +1,7 @@
 services:
   portainer:
     # nosemgrep
-    image: portainer/portainer-ce:2.42.0@sha256:8135a23abf1cac4f6cb077526bc01fac920301b6a184e54e471ab8f9e1dffc4d
+    image: portainer/portainer-ce:lts@sha256:d27f76194b719bfe2a34779d51798a7adf02510cfba69ebcb538267f75aa4f47
     command: --data ${PORTAINER_DATA:?} --log-mode JSON
     volumes:
       - ${PORTAINER_DATA}:/data

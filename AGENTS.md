@@ -56,7 +56,9 @@ submitting changes.
   - Use `depends_on` with `condition: service_healthy` or
     `condition: service_started` when a service requires another to be ready.
   - Images must support `linux/arm64`. Pin to semantic version tags
-    (e.g., `v1.2.3`), not `latest`/`lts`/digests.
+    (e.g., `v1.2.3`) and digests.
+    Use the `latest` tag if the version tag is more than 3 months older than
+    the update date of the `latest` tag.
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

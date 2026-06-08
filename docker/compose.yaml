@@ -47,7 +47,7 @@ services:
 
   beszel_agent:
     # nosemgrep
-    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7@sha256:41252f7c7adf0b53ee1d72cbe2e3ea7adc7fffd357ff54bf2bd0c59d166e30c9
+    image: ghcr.io/henrygd/beszel/beszel-agent:latest@sha256:df297c2fd53958c0dd15261c5a12501a70e42c630772603b0eaa5027cb32cbb4
     environment:
       HUB_URL: http://localhost:8090
       KEY: ${BESZEL_AGENT_KEY}

@@ -127,3 +127,4 @@ networks:
     name: public_default
     external: true
   socket_proxy:
+    name: socket_proxy

@@ -44,6 +44,3 @@ profiles:
       keep-weekly: 4
       keep-monthly: 3
       prune: true
-
-    restore:
-      target: /apps

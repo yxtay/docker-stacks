@@ -67,9 +67,6 @@ services:
 
   socket_proxy:
     image: ghcr.io/linuxserver/socket-proxy:3.2.19
-    container_name: socket_proxy
-    networks:
-      - socket_proxy
     environment:
       TZ: ${TZ:-UTC}
       POST: 0
@@ -118,6 +115,8 @@ services:
       - /run
     expose:
       - 2375
+    networks:
+      - socket_proxy
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped

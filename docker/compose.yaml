@@ -5,22 +5,26 @@ services:
       AUTOHEAL_CONTAINER_LABEL: all
       AUTOHEAL_INTERVAL: 60
       AUTOHEAL_ONLY_MONITOR_RUNNING: true
+      DOCKER_HOST: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      socket_proxy:
+        condition: service_healthy
     restart: unless-stopped
 
   dozzle:
     image: ghcr.io/amir20/dozzle:v10.6.5
     environment:
+      DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
-      DOZZLE_ENABLE_SHELL: true
       DOZZLE_AUTH_PROVIDER: forward-proxy
     volumes:
       - /apps/dozzle:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - 8080
+    depends_on:
+      socket_proxy:
+        condition: service_healthy
     healthcheck:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped
@@ -54,6 +58,56 @@ services:
     network_mode: host
     healthcheck:
       test: [CMD, /agent, health]
+    restart: unless-stopped
+
+  socket_proxy:
+    image: ghcr.io/linuxserver/socket-proxy:latest
+    environment:
+      CONTAINERS: 1
+      EXEC: 0
+      # post only
+      ALLOW_START: 1 # dozzle
+      ALLOW_STOP: 1 # dozzle
+      ALLOW_RESTARTS: 1 # autoheal
+
+      IMAGES: 0
+      # get only
+      DISTRIBUTION: 0
+      # post only
+      BUILD: 0
+      COMMIT: 0
+
+      NETWORKS: 1 # caddy
+      PLUGINS: 0
+      VOLUMES: 0
+
+      CONFIGS: 1 # caddy
+      NODES: 0
+      SECRETS: 0
+      SERVICES: 1 # caddy
+      SWARM: 0
+      # get only
+      TASKS: 0
+
+      # get only
+      EVENTS: 1
+      INFO: 1 # caddy
+      PING: 1
+      SYSTEM: 0
+      VERSION: 1
+      # post only
+      AUTH: 0
+      SESSION: 0
+
+      POST: 0
+      TZ: ${TZ:-UTC}
+    read_only: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /run
+    healthcheck:
+      test: [CMD, wget, -qO-, 'http://localhost:2375/_ping']
     restart: unless-stopped
 
 networks:

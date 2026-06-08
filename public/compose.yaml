@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.3
+    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.3@sha256:b50897671b3b07d41f0d32eee2d8952d23fa80acb081d18681ee4c5db50bf1dd
     healthcheck:
       test: [CMD, wget, -qO, /dev/null, "http://127.0.0.1:2019/config"]
     environment:
@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
 
   duckdns:
-    image: lscr.io/linuxserver/duckdns:version-d67e71cc
+    image: lscr.io/linuxserver/duckdns:version-d67e71cc@sha256:424dbc5a5db5388ad4c197882eac475c5bfad2be1e02a761692946d406591b17
     environment:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS:?}
       - FILE__TOKEN=/run/secrets/duckdns_token
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
 
   tinyauth:
-    image: ghcr.io/steveiliop56/tinyauth:v5.0.7
+    image: ghcr.io/steveiliop56/tinyauth:v5.0.7@sha256:0793c71c49906e079d90c7e693cded9df569217a92d717dc9b171f2116fcd1c6
     environment:
       TINYAUTH_APPURL: https://tinyauth.${DOMAIN:?}
       TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:?}
@@ -50,7 +50,7 @@ services:
       caddy.import: reverse_proxy tinyauth tinyauth:3000
 
   whoami:
-    image: ghcr.io/traefik/whoami:v1.11.0
+    image: ghcr.io/traefik/whoami:v1.11.0@sha256:200689790a0a0ea48ca45992e0450bc26ccab5307375b41c84dfc4f2475937ab
     expose:
       - 80
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
       caddy.import: reverse_proxy_auth whoami whoami:80
 
   httpbin:
-    image: ghcr.io/mccutchen/go-httpbin:2.23.0
+    image: ghcr.io/mccutchen/go-httpbin:2.23.0@sha256:b5d2ef3378e61138998cb4e60edf117000594f33b9be504825921190a7109e69
     expose:
       - 8080
     restart: unless-stopped
@@ -68,7 +68,7 @@ services:
       caddy.import: reverse_proxy_auth httpbin httpbin:8080
 
   librespeed:
-    image: ghcr.io/librespeed/speedtest:6.1.0
+    image: ghcr.io/librespeed/speedtest:6.1.0@sha256:b6b0890047e833158370d59ed5ef289b3e67a58f4a363cd37ef5c09d170d8543
     expose:
       - 8080
     restart: unless-stopped

@@ -1,5 +1,6 @@
 services:
   nzbhydra2:
+    # nosemgrep
     image: lscr.io/linuxserver/nzbhydra2:8.8.3@sha256:364c59f0a3b87e3491d0ee6b7493b414b65757fcda00241d24c69a1ca494a9de
     environment: &envs
       PUID: ${PUID:-1000}
@@ -17,7 +18,8 @@ services:
       caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
 
   nzbdav:
-    image: ghcr.io/nzbdav-dev/nzbdav:0.6.4
+    # nosemgrep
+    image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
     environment: *envs
     volumes:
       - /apps/nzbdav:/config
@@ -32,6 +34,7 @@ services:
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
 
   usenetstreamer:
+    # nosemgrep
     image: ghcr.io/sanket9225/usenetstreamer:1.7.13@sha256:0e4fe3c313aa2e38727d59648b83a9f2bced9a6e5f4fc4ecd3632bbe37e6b00c
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
@@ -50,7 +53,8 @@ services:
       caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
 
   streamnzb:
-    image: ghcr.io/gaisberg/streamnzb:v4.7.0
+    # nosemgrep
+    image: ghcr.io/gaisberg/streamnzb:v4.7.0@sha256:744fa988038af6b376335c74a44225603148a7c2bad218188bbef876ab5f974c
     volumes:
       - /apps/streamnzb:/app/data
     expose:
@@ -64,7 +68,8 @@ services:
       caddy.import: reverse_proxy streamnzb streamnzb:7000
 
   altmount:
-    image: ghcr.io/javi11/altmount:v0.2.0
+    # nosemgrep
+    image: ghcr.io/javi11/altmount:v0.2.0@sha256:2592723a519248340e43fa5a564cff01f3faf24f680ba4d8a1ae84f2e87c2cd2
     environment:
       <<: *envs
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
@@ -88,7 +93,8 @@ services:
       caddy.import: reverse_proxy altmount altmount:8080
 
   radarr_usenet:
-    image: ghcr.io/linuxserver/radarr:6.1.1
+    # nosemgrep
+    image: ghcr.io/linuxserver/radarr:6.1.1@sha256:c0a4335d4249b46102f64cf6fa27ffc3bddfd9138fac1e4ddf238afd37f02d1f
     depends_on:
       altmount:
         condition: service_healthy
@@ -109,7 +115,8 @@ services:
       caddy.import: reverse_proxy_auth radarr_usenet radarr_usenet:7878
 
   sonarr_usenet:
-    image: ghcr.io/linuxserver/sonarr:4.0.17
+    # nosemgrep
+    image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:0b3f344388bd7bed4f2f770058de795e76447e4a481b83c8d5f8fed489371fde
     depends_on:
       altmount:
         condition: service_healthy

@@ -17,7 +17,7 @@ services:
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
-    image: ghcr.io/rclone/rclone:1.74.2
+    image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
     entrypoint: [sh]
     command: >-
       -c "
@@ -67,7 +67,7 @@ services:
     restart: unless-stopped
 
   rdtclient:
-    image: ghcr.io/rogerfar/rdtclient:2.0.136
+    image: ghcr.io/rogerfar/rdtclient:2.0.138@sha256:8232cb0ddcf56805109872466c1f934843e72291513ee0b967367927645ec0d1
     depends_on:
       rclone:
         condition: service_healthy
@@ -127,7 +127,7 @@ services:
       caddy.import: reverse_proxy_auth sonarr_torrent sonarr_torrent:8989
 
   profilarr:
-    image: ghcr.io/dictionarry-hub/profilarr:2.0.7
+    image: ghcr.io/dictionarry-hub/profilarr:2.0.8@sha256:bcec9c579358163004145105c2747d3513ae75a56cd8b6c3ac759a0166d5b4af
     environment:
       <<: *envs
       ORIGIN: https://profilarr.${DOMAIN:?}

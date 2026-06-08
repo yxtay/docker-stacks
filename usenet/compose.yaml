@@ -1,6 +1,6 @@
 services:
   nzbhydra2:
-    image: lscr.io/linuxserver/nzbhydra2:8.8.1
+    image: lscr.io/linuxserver/nzbhydra2:8.8.3@sha256:364c59f0a3b87e3491d0ee6b7493b414b65757fcda00241d24c69a1ca494a9de
     environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -32,7 +32,7 @@ services:
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
 
   usenetstreamer:
-    image: ghcr.io/sanket9225/usenetstreamer:1.7.12
+    image: ghcr.io/sanket9225/usenetstreamer:1.7.13@sha256:0e4fe3c313aa2e38727d59648b83a9f2bced9a6e5f4fc4ecd3632bbe37e6b00c
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000

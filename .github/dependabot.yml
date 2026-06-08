@@ -8,7 +8,7 @@ updates:
     cooldown:
       default-days: 7
     commit-message:
-      prefix: "chore(docker-compose)"
+      prefix: chore(docker-compose)
     groups:
       docker-compose:
         update-types: [minor, patch]
@@ -32,7 +32,7 @@ updates:
     cooldown:
       default-days: 7
     commit-message:
-      prefix: "chore(terraform)"
+      prefix: chore(terraform)
     groups:
       terraform:
         update-types: [minor, patch]

@@ -8,10 +8,10 @@ services:
       RESTIC_FROM_PASSWORD_FILE: /run/secrets/restic_password
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
-      RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE: /run/secrets/google_service_account
+      RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE: /run/secrets/gdrive_service_account
       RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
     secrets:
-      - google_service_account
+      - gdrive_service_account
       - restic_password
     volumes:
       - ./resticprofile:/resticprofile:ro
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
 secrets:
-  google_service_account:
+  gdrive_service_account:
     environment: GDRIVE_SERVICE_ACCOUNT_JSON
   restic_password:
     environment: RESTIC_PASSWORD

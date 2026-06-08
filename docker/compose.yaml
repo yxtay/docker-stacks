@@ -10,9 +10,6 @@ services:
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
     networks:
       - socket_proxy
-    depends_on:
-      socket_proxy:
-        condition: service_healthy
     restart: unless-stopped
 
   dozzle:
@@ -29,9 +26,6 @@ services:
     networks:
       - default
       - socket_proxy
-    depends_on:
-      socket_proxy:
-        condition: service_healthy
     healthcheck:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped

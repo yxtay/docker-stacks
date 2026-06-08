@@ -19,6 +19,7 @@ profiles:
         - .git
         - .nobackup
       iexclude:
+        - "*.bak"
         # Temp and runtime files
         - "*.tmp"
         - "*.pid"
@@ -34,7 +35,6 @@ profiles:
         - "*.pyc"
         # App-generated regenerable data
         - MediaCover
-        - .updater
         # App-specific paths
         - profilarr/data/databases
         - prowlarr/Definitions

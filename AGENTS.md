@@ -55,11 +55,9 @@ submitting changes.
 
   - Use `depends_on` with `condition: service_healthy` or
     `condition: service_started` when a service requires another to be ready.
-  - Images must support `linux/arm64`. Pin to semantic version tags
-    (e.g., `v1.2.3`) with digests (e.g., `v1.2.3@sha256:...`).
-    Use `lts` tag with digest for images that provide long-term support tags
-    (e.g., portainer-ce). Use `latest` or other non-version tags with digest
-    only when version tags are no longer maintained (e.g., autoheal).
+  - Images must support `linux/arm64`. Prefer version tags if they are
+    still maintained (release within 3 months compared to `latest` tag).
+    Otherwise, use `latest` tag. Digests will be added by Renovate bot.
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

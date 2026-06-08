@@ -7,6 +7,8 @@ services:
       AUTOHEAL_ONLY_MONITOR_RUNNING: true
       DOCKER_HOST: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
+    networks:
+      - socket_proxy
     depends_on:
       socket_proxy:
         condition: service_healthy
@@ -22,6 +24,9 @@ services:
       - /apps/dozzle:/data
     expose:
       - 8080
+    networks:
+      - default
+      - socket_proxy
     depends_on:
       socket_proxy:
         condition: service_healthy
@@ -62,6 +67,9 @@ services:
 
   socket_proxy:
     image: ghcr.io/linuxserver/socket-proxy:3.2.19
+    container_name: socket_proxy
+    networks:
+      - socket_proxy
     environment:
       TZ: ${TZ:-UTC}
       POST: 0
@@ -108,6 +116,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
       - /run
+    expose:
+      - 2375
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped
@@ -117,3 +127,4 @@ networks:
   default:
     name: public_default
     external: true
+  socket_proxy:

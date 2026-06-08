@@ -55,6 +55,63 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy tinyauth tinyauth:3000
 
+  socket_proxy:
+    image: ghcr.io/linuxserver/socket-proxy:3.2.19
+    environment:
+      TZ: ${TZ:-UTC}
+      POST: 0
+
+      # containers
+      CONTAINERS: 1
+      EXEC: 0
+      # post only
+      ALLOW_START: 1 # dozzle
+      ALLOW_STOP: 1 # dozzle
+      ALLOW_RESTARTS: 1 # autoheal
+
+      # images
+      IMAGES: 0
+      # post only
+      BUILD: 0
+      COMMIT: 0
+
+      # networks / volumes / plugins
+      NETWORKS: 1 # caddy
+      VOLUMES: 0
+      PLUGINS: 0
+
+      # swarm
+      CONFIGS: 1 # caddy
+      NODES: 0
+      SECRETS: 0
+      SERVICES: 1 # caddy
+      SWARM: 0
+      TASKS: 0
+
+      # system
+      # get only
+      DISTRIBUTION: 0
+      EVENTS: 1
+      INFO: 1 # caddy
+      PING: 1
+      SYSTEM: 0
+      VERSION: 1
+      # post only
+      AUTH: 0
+      SESSION: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /run
+    expose:
+      - 2375
+    networks:
+      - socket_proxy
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
+    restart: unless-stopped
+    read_only: true
+
   whoami:
     image: ghcr.io/traefik/whoami:v1.11.0
     expose:
@@ -85,7 +142,6 @@ services:
 networks:
   socket_proxy:
     name: socket_proxy
-    external: true
 
 secrets:
   duckdns_token:

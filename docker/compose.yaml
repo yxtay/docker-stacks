@@ -6,6 +6,7 @@ services:
       AUTOHEAL_CONTAINER_LABEL: all
       AUTOHEAL_INTERVAL: 60
       AUTOHEAL_ONLY_MONITOR_RUNNING: true
+      DOCKER_HOST: tcp://socket_proxy:2375
       DOCKER_SOCK: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
     networks:

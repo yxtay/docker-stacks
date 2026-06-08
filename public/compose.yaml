@@ -4,14 +4,14 @@ services:
     healthcheck:
       test: [CMD, wget, -qO, /dev/null, "http://127.0.0.1:2019/config"]
     environment:
-      DOMAIN: ${DOMAIN:?}
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
+      DOCKER_HOST: tcp://socket_proxy:2375
+      DOMAIN: ${DOMAIN:?}
     secrets:
       - duckdns_token
     volumes:
       - ./caddy:/srv
       - /apps/caddy:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 80:80
       - 443:443
@@ -30,18 +30,18 @@ services:
   tinyauth:
     image: ghcr.io/steveiliop56/tinyauth:v5.0.7
     environment:
+      DOCKER_HOST: tcp://socket_proxy:2375
       TINYAUTH_APPURL: https://tinyauth.${DOMAIN:?}
-      TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:?}
       TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTID:-}
       TINYAUTH_OAUTH_PROVIDERS_GITHUB_CLIENTSECRETFILE: /run/secrets/github_oauth_client_secret
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRETFILE: /run/secrets/google_oauth_client_secret
+      TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:?}
     secrets:
       - github_oauth_client_secret
       - google_oauth_client_secret
     volumes:
       - /apps/tinyauth:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - 3000
     restart: unless-stopped

@@ -63,6 +63,10 @@ services:
   socket_proxy:
     image: ghcr.io/linuxserver/socket-proxy:latest
     environment:
+      TZ: ${TZ:-UTC}
+      POST: 0
+
+      # containers
       CONTAINERS: 1
       EXEC: 0
       # post only
@@ -70,26 +74,28 @@ services:
       ALLOW_STOP: 1 # dozzle
       ALLOW_RESTARTS: 1 # autoheal
 
+      # images
       IMAGES: 0
-      # get only
-      DISTRIBUTION: 0
       # post only
       BUILD: 0
       COMMIT: 0
 
+      # networks / volumes / plugins
       NETWORKS: 1 # caddy
-      PLUGINS: 0
       VOLUMES: 0
+      PLUGINS: 0
 
+      # swarm
       CONFIGS: 1 # caddy
       NODES: 0
       SECRETS: 0
       SERVICES: 1 # caddy
       SWARM: 0
-      # get only
       TASKS: 0
 
+      # system
       # get only
+      DISTRIBUTION: 0
       EVENTS: 1
       INFO: 1 # caddy
       PING: 1
@@ -98,10 +104,6 @@ services:
       # post only
       AUTH: 0
       SESSION: 0
-
-      POST: 0
-      TZ: ${TZ:-UTC}
-    read_only: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
@@ -109,6 +111,7 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, 'http://localhost:2375/_ping']
     restart: unless-stopped
+    read_only: true
 
 networks:
   default:

@@ -109,7 +109,7 @@ services:
     tmpfs:
       - /run
     healthcheck:
-      test: [CMD, wget, -qO-, 'http://localhost:2375/_ping']
+      test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped
     read_only: true
 

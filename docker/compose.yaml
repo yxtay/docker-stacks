@@ -1,6 +1,7 @@
 services:
   autoheal:
-    image: willfarrell/autoheal:1.2.0
+    # nosemgrep
+    image: willfarrell/autoheal:1.2.0@sha256:31f580ef0279eaced5b38d631b08c474d70d8403c1c2fdd6ddcf2e879d5f3f7c
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       AUTOHEAL_INTERVAL: 60
@@ -11,7 +12,8 @@ services:
     restart: unless-stopped
 
   dozzle:
-    image: ghcr.io/amir20/dozzle:v10.6.5
+    # nosemgrep
+    image: ghcr.io/amir20/dozzle:v10.6.5@sha256:fa12525776bf665147d82bf031ff262ee89a0a12454122558a353ec38ada4aaf
     environment:
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_ENABLE_SHELL: true
@@ -29,7 +31,8 @@ services:
       caddy.import: reverse_proxy_auth dozzle dozzle:8080
 
   beszel:
-    image: ghcr.io/henrygd/beszel/beszel:0.18.7
+    # nosemgrep
+    image: ghcr.io/henrygd/beszel/beszel:0.18.7@sha256:5b583633750cae65a9c1ab399c4c0eed229666ad74e103801724e3bc465338b8
     volumes:
       - /apps/beszel/hub:/beszel_data
     ports:
@@ -42,7 +45,8 @@ services:
       caddy.import: reverse_proxy_auth beszel beszel:8090
 
   beszel_agent:
-    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7
+    # nosemgrep
+    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7@sha256:41252f7c7adf0b53ee1d72cbe2e3ea7adc7fffd357ff54bf2bd0c59d166e30c9
     environment:
       HUB_URL: http://localhost:8090
       KEY: ${BESZEL_AGENT_KEY}

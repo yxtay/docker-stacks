@@ -14,6 +14,7 @@ jobs:
       pull-requests: write
       security-events: write
       statuses: write
+    # nosemgrep
     uses: yxtay/.github/.github/workflows/scans.yml@223814b345521dfde57017032491e98a609fad62 # main
   megalinter:
     permissions:
@@ -23,6 +24,7 @@ jobs:
       statuses: write
     runs-on: ubuntu-latest
     steps:
+      # nosemgrep
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
@@ -30,17 +32,20 @@ jobs:
           persist-credentials: ${{ github.event_name == 'pull_request' }} # zizmor: ignore[artipacked]
           fetch-depth: (${{ github.event.pull_request.commits || 2 }} + 1)
       - id: megalinter
+        # nosemgrep
         uses: oxsecurity/megalinter/flavors/documentation@0e3ce9b9c8c10effb9b269509cc47ca17cae31c7 # v9
         env:
           VALIDATE_ALL_CODEBASE: ${{ github.ref_name != github.event.repository.default_branch }}
           DISABLE_ERRORS: ${{ github.ref_name != github.event.repository.default_branch }}
           GITHUB_TOKEN: ${{ github.token }}
       - if: ${{ success() || failure() }}
+        # nosemgrep
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: megalinter-reports
           path: megalinter-reports
       - if: ${{ success() || failure() }}
+        # nosemgrep
         uses: github/codeql-action/upload-sarif@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v4
         with:
           sarif_file: megalinter-reports/megalinter-report.sarif

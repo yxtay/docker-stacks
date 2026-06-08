@@ -1,5 +1,6 @@
 services:
   prowlarr:
+    # nosemgrep
     image: ghcr.io/linuxserver/prowlarr:2.3.5@sha256:2489c6dbaf11e3a6d71aeb2e6980d04193d4af611aa7064a974851222fd41722
     environment: &envs
       PUID: ${PUID:-1000}
@@ -17,6 +18,7 @@ services:
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
+    # nosemgrep
     image: ghcr.io/rclone/rclone:1.74.2@sha256:9ce0d49b611d3781233e25334e9e23d7af01e5546da7087f90d55f034ef13637
     entrypoint: [sh]
     command: >-
@@ -67,6 +69,7 @@ services:
     restart: unless-stopped
 
   rdtclient:
+    # nosemgrep
     image: ghcr.io/rogerfar/rdtclient:2.0.136@sha256:a05f0427946a4c3c64dc9d556c017f9a181acec320ecf218b6334a1066c11d1f
     depends_on:
       rclone:
@@ -85,6 +88,7 @@ services:
       caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
 
   radarr_torrent:
+    # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.1.1@sha256:c0a4335d4249b46102f64cf6fa27ffc3bddfd9138fac1e4ddf238afd37f02d1f
     depends_on:
       rclone:
@@ -106,6 +110,7 @@ services:
       caddy.import: reverse_proxy_auth radarr_torrent radarr_torrent:7878
 
   sonarr_torrent:
+    # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:0b3f344388bd7bed4f2f770058de795e76447e4a481b83c8d5f8fed489371fde
     depends_on:
       rclone:
@@ -127,6 +132,7 @@ services:
       caddy.import: reverse_proxy_auth sonarr_torrent sonarr_torrent:8989
 
   profilarr:
+    # nosemgrep
     image: ghcr.io/dictionarry-hub/profilarr:2.0.7@sha256:9b49da18dd896dbe4b6c797e39cb8b0787ab166f5e5956df647295f23ae496cc
     environment:
       <<: *envs

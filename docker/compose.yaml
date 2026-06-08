@@ -61,7 +61,7 @@ services:
     restart: unless-stopped
 
   socket_proxy:
-    image: ghcr.io/linuxserver/socket-proxy:latest
+    image: ghcr.io/linuxserver/socket-proxy:3.2.19
     environment:
       TZ: ${TZ:-UTC}
       POST: 0

@@ -4,9 +4,6 @@ services:
     image: willfarrell/autoheal:1.2.0@sha256:31f580ef0279eaced5b38d631b08c474d70d8403c1c2fdd6ddcf2e879d5f3f7c
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
-      AUTOHEAL_INTERVAL: 60
-      AUTOHEAL_ONLY_MONITOR_RUNNING: true
-      DOCKER_SOCK: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro

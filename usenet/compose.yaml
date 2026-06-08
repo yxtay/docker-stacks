@@ -1,7 +1,7 @@
 services:
   nzbhydra2:
     # nosemgrep
-    image: lscr.io/linuxserver/nzbhydra2:8.8.1@sha256:4ff03448e36fd653842b81b398ba686da4bd9fcd9edf1f78fc5a07eef64a2caa
+    image: lscr.io/linuxserver/nzbhydra2:8.8.3@sha256:364c59f0a3b87e3491d0ee6b7493b414b65757fcda00241d24c69a1ca494a9de
     environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -35,7 +35,7 @@ services:
 
   usenetstreamer:
     # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.7.12@sha256:765f74a09559471a17c05fe58da092359f9e62c6b2303fe59dbe479d71181b22
+    image: ghcr.io/sanket9225/usenetstreamer:1.7.13@sha256:0e4fe3c313aa2e38727d59648b83a9f2bced9a6e5f4fc4ecd3632bbe37e6b00c
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000

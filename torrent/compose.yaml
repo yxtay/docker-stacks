@@ -19,7 +19,7 @@ services:
 
   rclone:
     # nosemgrep
-    image: ghcr.io/rclone/rclone:1.74.2@sha256:9ce0d49b611d3781233e25334e9e23d7af01e5546da7087f90d55f034ef13637
+    image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
     entrypoint: [sh]
     command: >-
       -c "
@@ -70,7 +70,7 @@ services:
 
   rdtclient:
     # nosemgrep
-    image: ghcr.io/rogerfar/rdtclient:2.0.136@sha256:a05f0427946a4c3c64dc9d556c017f9a181acec320ecf218b6334a1066c11d1f
+    image: ghcr.io/rogerfar/rdtclient:2.0.138@sha256:8232cb0ddcf56805109872466c1f934843e72291513ee0b967367927645ec0d1
     depends_on:
       rclone:
         condition: service_healthy
@@ -133,7 +133,7 @@ services:
 
   profilarr:
     # nosemgrep
-    image: ghcr.io/dictionarry-hub/profilarr:2.0.7@sha256:9b49da18dd896dbe4b6c797e39cb8b0787ab166f5e5956df647295f23ae496cc
+    image: ghcr.io/dictionarry-hub/profilarr:2.0.8@sha256:bcec9c579358163004145105c2747d3513ae75a56cd8b6c3ac759a0166d5b4af
     environment:
       <<: *envs
       ORIGIN: https://profilarr.${DOMAIN:?}

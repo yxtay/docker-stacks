@@ -1,0 +1,50 @@
+version: "2"
+
+global:
+  scheduler: crond
+
+profiles:
+  default:
+    repository: "rclone:gdrive:restic"
+    initialize: true
+    cache-dir: /var/cache/restic
+    cleanup-cache: true
+
+    backup:
+      source:
+        - /apps
+      schedule: daily
+      check-after: true
+      one-file-system: true
+      no-error-on-warning: true
+      exclude-caches: true
+      exclude-if-present:
+        - .git
+        - .github
+        - .gitignore
+        - .nobackup
+      iexclude:
+        # Temp and runtime files
+        - "*.pid"
+        - "*.lock"
+        - .cache
+        - cache
+        # Database temp files
+        - "*-wal"
+        - "*-shm"
+        # Build artifacts
+        - __pycache__
+        - "*.pyc"
+        # App-specific paths
+        - MediaCover
+        - altmount/.nzbs
+        - altmount/metadata
+        - nzbdav/blobs
+        - profilarr/data/databases
+        - prowlarr/Definitions
+
+    retention:
+      keep-daily: 7
+      keep-weekly: 4
+      keep-monthly: 3
+      prune: true

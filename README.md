@@ -74,3 +74,11 @@ Torrent streaming and indexing.
 - **radarr_torrent** — Movie manager (Torrents)
 - **sonarr_torrent** — TV show manager (Torrents)
 - **profilarr** — ARR profile manager
+
+### Backup Stack (`backup/`)
+
+Daily backups of `/apps` to Google Drive using restic with rclone backend.
+Retention: 7 daily, 4 weekly, 3 monthly snapshots.
+
+- **resticprofile** — Scheduled restic backups via crond
+  with Google Drive (rclone) backend

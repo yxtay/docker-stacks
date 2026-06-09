@@ -131,16 +131,6 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth whoami whoami:80
 
-  httpbin:
-    # nosemgrep
-    image: ghcr.io/mccutchen/go-httpbin:2.23.1@sha256:90ac1702685468aa592938e65b2ba1b4757e0c006934a962ef7271a8717aaa3b
-    expose:
-      - 8080
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth httpbin httpbin:8080
-
   librespeed:
     # nosemgrep
     image: ghcr.io/librespeed/speedtest:6.1.0@sha256:b6b0890047e833158370d59ed5ef289b3e67a58f4a363cd37ef5c09d170d8543

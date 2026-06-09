@@ -29,7 +29,6 @@ profiles:
         - "*.lock"
         - .cache
         - cache
-        - .cache
         # Database temp files
         - "*-wal"
         - "*-shm"
@@ -41,7 +40,6 @@ profiles:
         - altmount/.nzbs
         - altmount/metadata
         - nzbdav/blobs
-        - portainer/compose/*/*
         - profilarr/data/databases
         - prowlarr/Definitions
 

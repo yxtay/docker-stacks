@@ -4,7 +4,7 @@ global:
   scheduler: crond
 
 profiles:
-  apps:
+  default:
     repository: "rclone:gdrive:restic"
     initialize: true
     cache-dir: /var/cache/restic

@@ -6,7 +6,6 @@
 
 - name: Configure LXC
   hosts: lxc
-  become: true
   pre_tasks:
     - name: Wait for container to be ready
       ansible.builtin.wait_for_connection:

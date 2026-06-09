@@ -1,3 +1,13 @@
+- name: Preseed iptables-persistent answers
+  ansible.builtin.debconf:
+    name: iptables-persistent
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: boolean
+  loop:
+    - {question: iptables-persistent/autosave_v4, value: "true"}
+    - {question: iptables-persistent/autosave_v6, value: "true",}
+
 - name: Install iptables-persistent
   ansible.builtin.package:
     name: iptables-persistent

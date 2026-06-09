@@ -38,16 +38,24 @@
     state: present
 
 - name: Configure ID mapping in LXC config
-  ansible.builtin.blockinfile:
+  ansible.builtin.lineinfile:
     path: "/etc/pve/lxc/{{ lxc_vmid }}.conf"
-    marker: "# {mark} ANSIBLE ID MAPPING"
-    block: |
-      lxc.idmap: u 0 100000 {{ lxc_idmap_start | int }}
-      lxc.idmap: g 0 100000 {{ lxc_idmap_start | int }}
-      lxc.idmap: u {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}
-      lxc.idmap: g {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}
-      lxc.idmap: u {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}
-      lxc.idmap: g {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}
+    line: "{{ item.line }}"
+    regexp: "{{ item.regexp }}"
+    state: present
+  loop:
+    - line: "lxc.idmap: u 0 100000 {{ lxc_idmap_start | int }}"
+      regexp: '^lxc\.idmap:\s+u\s+0\s+'
+    - line: "lxc.idmap: g 0 100000 {{ lxc_idmap_start | int }}"
+      regexp: '^lxc\.idmap:\s+g\s+0\s+'
+    - line: "lxc.idmap: u {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}"
+      regexp: '^lxc\.idmap:\s+u\s+{{ lxc_idmap_start | int }}\s+'
+    - line: "lxc.idmap: g {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}"
+      regexp: '^lxc\.idmap:\s+g\s+{{ lxc_idmap_start | int }}\s+'
+    - line: "lxc.idmap: u {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}"
+      regexp: '^lxc\.idmap:\s+u\s+{{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }}\s+'
+    - line: "lxc.idmap: g {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}"
+      regexp: '^lxc\.idmap:\s+g\s+{{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }}\s+'
   register: idmap_config
 
 - name: Stop LXC container for ID mapping change
@@ -58,7 +66,7 @@
     vmid: "{{ lxc_vmid }}"
     state: stopped
     force: true
-  when: idmap_config.changed
+  when: idmap_config is changed
 
 - name: Start LXC container
   community.general.proxmox:

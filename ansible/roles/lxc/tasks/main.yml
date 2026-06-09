@@ -1,3 +1,17 @@
+- name: Configure subuid for ID mapping
+  ansible.builtin.lineinfile:
+    path: /etc/subuid
+    line: "root:{{ lxc_idmap_start }}:{{ lxc_idmap_count }}"
+    create: true
+    mode: "0644"
+
+- name: Configure subgid for ID mapping
+  ansible.builtin.lineinfile:
+    path: /etc/subgid
+    line: "root:{{ lxc_idmap_start }}:{{ lxc_idmap_count }}"
+    create: true
+    mode: "0644"
+
 - name: Download LXC template
   ansible.builtin.command:
     cmd: pveam download {{ lxc_template_storage }} {{ lxc_template }}
@@ -14,12 +28,31 @@
     cores: "{{ lxc_cores }}"
     memory: "{{ lxc_memory }}"
     swap: "{{ lxc_swap }}"
-    netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }}"}'
-    features:
-      - "{{ lxc_features }}"
+    netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"}'
+    features: "{{ lxc_features }}"
     unprivileged: true
     onboot: true
     state: present
+
+- name: Configure ID mapping in LXC config
+  ansible.builtin.blockinfile:
+    path: "/etc/pve/lxc/{{ lxc_vmid }}.conf"
+    marker: "# {mark} ANSIBLE ID MAPPING"
+    block: |
+      lxc.idmap: u 0 100000 {{ lxc_idmap_start }}
+      lxc.idmap: g 0 100000 {{ lxc_idmap_start }}
+      lxc.idmap: u {{ lxc_idmap_start }} {{ lxc_idmap_start }} {{ lxc_idmap_count }}
+      lxc.idmap: g {{ lxc_idmap_start }} {{ lxc_idmap_start }} {{ lxc_idmap_count }}
+      lxc.idmap: u {{ lxc_idmap_start + lxc_idmap_count }} {{ 100000 + lxc_idmap_start + lxc_idmap_count }} {{ 65536 - lxc_idmap_start - lxc_idmap_count }}
+      lxc.idmap: g {{ lxc_idmap_start + lxc_idmap_count }} {{ 100000 + lxc_idmap_start + lxc_idmap_count }} {{ 65536 - lxc_idmap_start - lxc_idmap_count }}
+  register: idmap_config
+
+- name: Stop LXC container for ID mapping change
+  community.general.proxmox:
+    vmid: "{{ lxc_vmid }}"
+    state: stopped
+    force: true
+  when: idmap_config.changed
 
 - name: Start LXC container
   community.general.proxmox:

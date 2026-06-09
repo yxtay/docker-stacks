@@ -4,10 +4,11 @@ Provisions and hardens Docker hosts across Proxmox LXC and OCI VPS targets.
 
 ## Community Roles
 
+- `robertdebock.bootstrap` — install Python, sudo, and basic packages for Ansible
+- `robertdebock.update` — dist-upgrade + reboot-if-needed
 - `lae.proxmox` — Proxmox post-install (no-sub repo, disable enterprise)
 - `geerlingguy.security` — SSH hardening, fail2ban, unattended-upgrades
 - `geerlingguy.docker` — Docker CE + Compose plugin
-- `robertdebock.update` — dist-upgrade + reboot-if-needed
 
 ## Custom Roles
 

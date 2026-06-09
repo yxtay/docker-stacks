@@ -13,7 +13,6 @@ services:
       RCLONE_CONFIG_GDRIVE_TOKEN: ${GDRIVE_TOKEN:?}
       RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
     secrets:
-      - gdrive_service_account
       - restic_password
     volumes:
       - ./resticprofile:/resticprofile:ro

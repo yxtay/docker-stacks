@@ -5,7 +5,8 @@ collections:
     version: ">=1.6.0"
 
 roles:
-  - name: geerlingguy.docker
-  - name: geerlingguy.security
-  - name: lae.proxmox
+  - name: robertdebock.bootstrap
   - name: robertdebock.update
+  - name: lae.proxmox
+  - name: geerlingguy.security
+  - name: geerlingguy.docker

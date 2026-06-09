@@ -76,12 +76,3 @@
     api_password: "{{ pve_api_password }}"
     vmid: "{{ lxc_vmid }}"
     state: started
-
-- name: Wait for container to be running
-  ansible.builtin.command:
-    cmd: pct status {{ lxc_vmid }}
-  register: pct_status
-  until: "'running' in pct_status.stdout"
-  retries: 10
-  delay: 3
-  changed_when: false

@@ -2,6 +2,7 @@
   hosts: oci
   become: true
   roles:
+    - robertdebock.bootstrap
     - robertdebock.update
     - oci_firewall
     - geerlingguy.security

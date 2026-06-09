@@ -1,9 +1,3 @@
-- name: Install sudo
-  ansible.builtin.apt:
-    name: sudo
-    state: present
-    cache_valid_time: 3600
-
 - name: Set timezone
   community.general.timezone:
     name: "{{ timezone }}"

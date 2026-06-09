@@ -6,11 +6,9 @@
 
 - name: Configure LXC
   hosts: lxc
-  pre_tasks:
-    - name: Wait for container to be ready
-      ansible.builtin.wait_for_connection:
-        timeout: 60
+  gather_facts: false
   roles:
+    - robertdebock.bootstrap
     - robertdebock.update
     - bootstrap
     - geerlingguy.security

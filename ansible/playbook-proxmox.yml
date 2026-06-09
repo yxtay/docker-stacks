@@ -2,5 +2,6 @@
   hosts: proxmox
   become: true
   roles:
+    - robertdebock.bootstrap
     - lae.proxmox
     - robertdebock.update

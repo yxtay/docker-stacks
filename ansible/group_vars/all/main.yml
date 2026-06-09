@@ -1,3 +1,5 @@
+default_user: ubuntu
+
 ssh_public_key_path: "{{ lookup('env', 'SSH_PUBLIC_KEY_PATH') | default('~/.ssh/id_ed25519.pub', true) }}"
 ssh_public_key: "{{ lookup('file', ssh_public_key_path | expanduser) }}"
 timezone: Asia/Singapore
@@ -7,13 +9,13 @@ update_autoremove: true
 update_cache_valid_time: 3600
 
 # geerlingguy.security vars
-security_ssh_allowed_users: [ubuntu]
-security_sudoers_passwordless: [ubuntu]
+security_ssh_allowed_users: ["{{ default_user }}"]
+security_sudoers_passwordless: ["{{ default_user }}"]
 security_autoupdate_additional_origins:
   - "origin=Docker,codename=${distro_codename}"
 security_autoupdate_reboot: true
 
 # geerlingguy.docker vars
-docker_users: [ubuntu]
+docker_users: ["{{ default_user }}"]
 docker_daemon_options:
   log-driver: journald

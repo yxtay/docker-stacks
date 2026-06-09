@@ -12,6 +12,6 @@
         timeout: 60
   roles:
     - robertdebock.update
-    - init
+    - bootstrap
     - geerlingguy.security
     - geerlingguy.docker

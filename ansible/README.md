@@ -11,8 +11,9 @@ Provisions and hardens Docker hosts across Proxmox LXC and OCI VPS targets.
 
 ## Custom Roles
 
-- `init` — timezone, ubuntu user, SSH keys (root + ubuntu)
-- `lxc` — create Proxmox LXC container (unprivileged, nesting, ID mapping)
+- `bootstrap` — timezone, default user, SSH key for user
+- `lxc` — create Proxmox LXC container (unprivileged, nesting, ID mapping,
+  root SSH key)
 - `oci_firewall` — iptables rules (insert, preserves OCI defaults)
 
 ## Prerequisites

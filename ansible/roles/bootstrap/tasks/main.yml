@@ -2,24 +2,21 @@
   ansible.builtin.apt:
     name: sudo
     state: present
-    update_cache: true
+    cache_valid_time: 3600
 
 - name: Set timezone
   community.general.timezone:
     name: "{{ timezone }}"
 
-- name: Create ubuntu user
+- name: Create default user
   ansible.builtin.user:
-    name: ubuntu
+    name: "{{ default_user }}"
     shell: /bin/bash
     groups: sudo
     append: true
     create_home: true
 
-- name: Set authorized keys
+- name: Set authorized key for default user
   ansible.posix.authorized_key:
-    user: "{{ item }}"
+    user: "{{ default_user }}"
     key: "{{ ssh_public_key }}"
-  loop:
-    - root
-    - ubuntu

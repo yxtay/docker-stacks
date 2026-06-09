@@ -2,6 +2,7 @@
   ansible.builtin.apt:
     name: iptables-persistent
     state: present
+    cache_valid_time: 3600
   environment:
     DEBIAN_FRONTEND: noninteractive
 

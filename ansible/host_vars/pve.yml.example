@@ -1,6 +1,6 @@
 ansible_host: 192.168.1.100
 
 # Proxmox API credentials (for community.general.proxmox module)
-pve_api_host: 192.168.0.100
+pve_api_host: "{{ ansible_host }}"
 pve_api_user: root@pam
 pve_api_password: changeme

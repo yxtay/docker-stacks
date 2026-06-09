@@ -1,0 +1,13 @@
+ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+timezone: Asia/Singapore
+
+# geerlingguy.security vars
+security_ssh_allowed_users: [ubuntu]
+security_sudoers_passwordless: [ubuntu]
+security_autoupdate_additional_origins:
+  - "origin=Docker,codename=${distro_codename}"
+
+# geerlingguy.docker vars
+docker_users: [ubuntu]
+docker_daemon_options:
+  log-driver: journald

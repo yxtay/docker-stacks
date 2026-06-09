@@ -1,0 +1,14 @@
+- name: Create LXC container on Proxmox
+  hosts: proxmox
+  gather_facts: false
+  roles:
+    - lxc
+
+- name: Configure LXC
+  hosts: lxc
+  become: true
+  roles:
+    - init
+    - robertdebock.update
+    - geerlingguy.security
+    - geerlingguy.docker

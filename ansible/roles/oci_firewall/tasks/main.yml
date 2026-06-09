@@ -1,0 +1,22 @@
+- name: Allow TCP ports
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    action: insert
+  loop: "{{ oci_firewall_tcp_ports }}"
+
+- name: Allow UDP ports
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: udp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    action: insert
+  loop: "{{ oci_firewall_udp_ports }}"
+
+- name: Save iptables rules
+  community.general.iptables_state:
+    path: /etc/iptables/rules.v4
+    state: saved

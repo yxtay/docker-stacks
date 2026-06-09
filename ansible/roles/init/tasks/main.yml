@@ -1,0 +1,20 @@
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ timezone }}"
+
+- name: Create ubuntu user
+  ansible.builtin.user:
+    name: ubuntu
+    shell: /bin/bash
+    groups: sudo
+    append: true
+    create_home: true
+
+- name: Set authorized keys
+  ansible.posix.authorized_key:
+    user: "{{ item }}"
+    key: "{{ ssh_public_key }}"
+    exclusive: true
+  loop:
+    - root
+    - ubuntu

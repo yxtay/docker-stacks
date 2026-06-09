@@ -1,0 +1,16 @@
+all:
+  children:
+    proxmox:
+      hosts:
+        pve:
+          ansible_user: root
+    lxc:
+      hosts:
+        docker-lxc:
+          ansible_connection: community.general.proxmox
+          ansible_proxmox_node: pve
+          ansible_proxmox_vmid: "{{ lxc_vmid }}"
+    oci:
+      hosts:
+        oci-vps:
+          ansible_user: ubuntu

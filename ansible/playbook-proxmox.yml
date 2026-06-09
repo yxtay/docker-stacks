@@ -1,0 +1,6 @@
+- name: Configure Proxmox host
+  hosts: proxmox
+  become: true
+  roles:
+    - lae.proxmox
+    - robertdebock.update

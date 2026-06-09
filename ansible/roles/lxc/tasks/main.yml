@@ -1,0 +1,36 @@
+- name: Download LXC template
+  ansible.builtin.command:
+    cmd: pveam download {{ lxc_template_storage }} {{ lxc_template }}
+    creates: /var/lib/vz/template/cache/{{ lxc_template }}
+
+- name: Create LXC container
+  community.general.proxmox:
+    vmid: "{{ lxc_vmid }}"
+    hostname: "{{ lxc_hostname }}"
+    node: "{{ inventory_hostname }}"
+    ostemplate: "{{ lxc_template_storage }}:vztmpl/{{ lxc_template }}"
+    storage: "{{ lxc_storage }}"
+    disk: "{{ lxc_disk }}"
+    cores: "{{ lxc_cores }}"
+    memory: "{{ lxc_memory }}"
+    swap: "{{ lxc_swap }}"
+    netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }}"}'
+    features:
+      - "{{ lxc_features }}"
+    unprivileged: true
+    onboot: true
+    state: present
+
+- name: Start LXC container
+  community.general.proxmox:
+    vmid: "{{ lxc_vmid }}"
+    state: started
+
+- name: Wait for container to be running
+  ansible.builtin.command:
+    cmd: pct status {{ lxc_vmid }}
+  register: pct_status
+  until: "'running' in pct_status.stdout"
+  retries: 10
+  delay: 3
+  changed_when: false

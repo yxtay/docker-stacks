@@ -47,3 +47,8 @@ terraform.rc
 *.log
 megalinter-reports
 settings.local.json
+
+# Ansible
+*.vault.yml
+ansible/host_vars/*
+!ansible/host_vars/*.example

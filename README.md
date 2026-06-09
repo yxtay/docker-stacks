@@ -41,6 +41,62 @@ succeeded or in progress, and only retries after capacity-related failures.
 */10 * * * * STACK_ID=<stack-ocid> /path/to/bin/oci-rm-stack-apply.sh
 ```
 
+## Ansible Provisioning
+
+The `ansible/` directory provisions and hardens Docker hosts across Proxmox LXC
+and OCI VPS targets.
+
+**Community roles:**
+
+- `lae.proxmox` — Proxmox post-install (no-sub repo, disable enterprise)
+- `geerlingguy.security` — SSH hardening, fail2ban, unattended-upgrades
+- `geerlingguy.docker` — Docker CE + Compose plugin
+- `robertdebock.update` — dist-upgrade + reboot-if-needed
+
+**Custom roles:**
+
+- `init` — timezone, ubuntu user, SSH keys (root + ubuntu)
+- `lxc` — create Proxmox LXC container (unprivileged, nesting)
+- `oci_firewall` — iptables rules (insert, preserves OCI defaults)
+
+### Prerequisites
+
+```bash
+pip install ansible
+ansible-galaxy install -r ansible/requirements.yml
+```
+
+### Configure
+
+Copy example host vars and fill in IPs:
+
+```bash
+cp ansible/host_vars/pve.yml.example ansible/host_vars/pve.yml
+cp ansible/host_vars/oci-vps.yml.example ansible/host_vars/oci-vps.yml
+```
+
+Adjust group vars:
+
+- `ansible/group_vars/all/main.yml` — shared settings
+- `ansible/group_vars/lxc/main.yml` — LXC specs (cores, memory, disk)
+- `ansible/group_vars/oci/main.yml` — firewall ports
+
+### Run
+
+```bash
+# Configure Proxmox host (post-install)
+ansible-playbook ansible/playbook-proxmox.yml
+
+# Provision Proxmox LXC + Docker
+ansible-playbook ansible/playbook-lxc.yml
+
+# Provision OCI VPS (replaces cloud-init)
+ansible-playbook ansible/playbook-oci.yml
+
+# Dist-upgrade all hosts
+ansible-playbook ansible/upgrade.yml
+```
+
 ## Docker Stacks
 
 All stacks join the `public_default` external network and use Caddy for

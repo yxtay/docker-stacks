@@ -1,0 +1,7 @@
+- name: Configure OCI VPS
+  hosts: oci
+  become: true
+  roles:
+    - robertdebock.update
+    - oci_firewall
+    - geerlingguy.docker

@@ -8,7 +8,7 @@
   hosts: lxc
   become: true
   roles:
-    - init
     - robertdebock.update
+    - init
     - geerlingguy.security
     - geerlingguy.docker

@@ -1,11 +1,16 @@
 ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
 timezone: Asia/Singapore
 
+# robertdebock.update vars
+update_autoremove: true
+update_cache_valid_time: 3600
+
 # geerlingguy.security vars
 security_ssh_allowed_users: [ubuntu]
 security_sudoers_passwordless: [ubuntu]
 security_autoupdate_additional_origins:
   - "origin=Docker,codename=${distro_codename}"
+security_autoupdate_reboot: true
 
 # geerlingguy.docker vars
 docker_users: [ubuntu]

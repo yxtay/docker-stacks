@@ -3,5 +3,6 @@
   become: true
   roles:
     - robertdebock.update
+    - geerlingguy.security
     - oci_firewall
     - geerlingguy.docker

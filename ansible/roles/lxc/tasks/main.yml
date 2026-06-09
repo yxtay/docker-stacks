@@ -29,7 +29,7 @@
     memory: "{{ lxc_memory }}"
     swap: "{{ lxc_swap }}"
     netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"}'
-    features: "{{ lxc_features }}"
+    features: "{{ lxc_features | join(',') }}"
     unprivileged: true
     onboot: true
     state: present
@@ -39,12 +39,12 @@
     path: "/etc/pve/lxc/{{ lxc_vmid }}.conf"
     marker: "# {mark} ANSIBLE ID MAPPING"
     block: |
-      lxc.idmap: u 0 100000 {{ lxc_idmap_start }}
-      lxc.idmap: g 0 100000 {{ lxc_idmap_start }}
-      lxc.idmap: u {{ lxc_idmap_start }} {{ lxc_idmap_start }} {{ lxc_idmap_count }}
-      lxc.idmap: g {{ lxc_idmap_start }} {{ lxc_idmap_start }} {{ lxc_idmap_count }}
-      lxc.idmap: u {{ lxc_idmap_start + lxc_idmap_count }} {{ 100000 + lxc_idmap_start + lxc_idmap_count }} {{ 65536 - lxc_idmap_start - lxc_idmap_count }}
-      lxc.idmap: g {{ lxc_idmap_start + lxc_idmap_count }} {{ 100000 + lxc_idmap_start + lxc_idmap_count }} {{ 65536 - lxc_idmap_start - lxc_idmap_count }}
+      lxc.idmap: u 0 100000 {{ lxc_idmap_start | int }}
+      lxc.idmap: g 0 100000 {{ lxc_idmap_start | int }}
+      lxc.idmap: u {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}
+      lxc.idmap: g {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}
+      lxc.idmap: u {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}
+      lxc.idmap: g {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}
   register: idmap_config
 
 - name: Stop LXC container for ID mapping change

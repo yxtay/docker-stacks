@@ -1,3 +1,9 @@
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: present
+    update_cache: true
+
 - name: Set timezone
   community.general.timezone:
     name: "{{ timezone }}"

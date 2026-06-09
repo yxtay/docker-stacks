@@ -1,7 +1,7 @@
 lxc_vmid: 100
 lxc_hostname: docker
 lxc_cores: 4
-lxc_memory: 8196
+lxc_memory: 8192
 lxc_swap: 1024
 lxc_disk: 32
 lxc_storage: local-lvm
@@ -10,10 +10,7 @@ lxc_ip: 192.168.0.2/24
 lxc_gateway: 192.168.0.1
 lxc_template: debian-13-standard_13.0-1_amd64.tar.zst
 lxc_template_storage: local
-lxc_features:
-  - fuse=1
-  - keyctl=1
-  - nesting=1
+lxc_features: fuse=1,keyctl=1,nesting=1
 
 # ID mapping for bind mount sharing (UIDs 1000-1009 pass through)
 lxc_idmap_start: 1000

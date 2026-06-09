@@ -19,6 +19,9 @@
 
 - name: Create LXC container
   community.general.proxmox:
+    api_host: "{{ pve_api_host }}"
+    api_user: "{{ pve_api_user }}"
+    api_password: "{{ pve_api_password }}"
     vmid: "{{ lxc_vmid }}"
     hostname: "{{ lxc_hostname }}"
     node: "{{ inventory_hostname }}"
@@ -29,7 +32,7 @@
     memory: "{{ lxc_memory }}"
     swap: "{{ lxc_swap }}"
     netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"}'
-    features: "{{ lxc_features | join(',') }}"
+    features: "{{ lxc_features }}"
     unprivileged: true
     onboot: true
     state: present
@@ -49,6 +52,9 @@
 
 - name: Stop LXC container for ID mapping change
   community.general.proxmox:
+    api_host: "{{ pve_api_host }}"
+    api_user: "{{ pve_api_user }}"
+    api_password: "{{ pve_api_password }}"
     vmid: "{{ lxc_vmid }}"
     state: stopped
     force: true
@@ -56,6 +62,9 @@
 
 - name: Start LXC container
   community.general.proxmox:
+    api_host: "{{ pve_api_host }}"
+    api_user: "{{ pve_api_user }}"
+    api_password: "{{ pve_api_password }}"
     vmid: "{{ lxc_vmid }}"
     state: started
 

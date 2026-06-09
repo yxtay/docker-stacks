@@ -1,4 +1,5 @@
-ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+ssh_public_key_path: "{{ lookup('env', 'SSH_PUBLIC_KEY_PATH') | default('~/.ssh/id_ed25519.pub', true) }}"
+ssh_public_key: "{{ lookup('file', ssh_public_key_path) }}"
 timezone: Asia/Singapore
 
 # robertdebock.update vars

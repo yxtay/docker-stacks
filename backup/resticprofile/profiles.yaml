@@ -19,13 +19,9 @@ profiles:
         - .git
         - .nobackup
       iexclude:
-        - "*.bak"
         # Temp and runtime files
-        - "*.tmp"
         - "*.pid"
         - "*.lock"
-        - tmp
-        - temp
         - cache
         # Database temp files
         - "*-wal"
@@ -33,9 +29,8 @@ profiles:
         # Build artifacts
         - __pycache__
         - "*.pyc"
-        # App-generated regenerable data
-        - MediaCover
         # App-specific paths
+        - MediaCover
         - altmount/metadata
         - nzbdav/blobs
         - profilarr/data/databases

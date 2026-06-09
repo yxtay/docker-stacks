@@ -104,6 +104,8 @@ Torrent streaming and indexing.
 
 ### Backup Stack (`backup/`)
 
-Daily backups of `/apps` to Google Drive via rclone.
+Daily backups of `/apps` to Google Drive using restic with rclone backend.
+Retention: 7 daily, 4 weekly, 3 monthly snapshots.
 
-- **resticprofile** — Scheduled restic backups with retention policies
+- **resticprofile** — Scheduled restic backups via crond
+  with Google Drive (rclone) backend

@@ -20,12 +20,16 @@ profiles:
       exclude-caches: true
       exclude-if-present:
         - .git
+        - .github
+        - .gitignore
         - .nobackup
       iexclude:
         # Temp and runtime files
         - "*.pid"
         - "*.lock"
+        - .cache
         - cache
+        - .cache
         # Database temp files
         - "*-wal"
         - "*-shm"
@@ -34,8 +38,10 @@ profiles:
         - "*.pyc"
         # App-specific paths
         - MediaCover
+        - altmount/.nzb
         - altmount/metadata
         - nzbdav/blobs
+        - portainer/compose/*
         - profilarr/data/databases
         - prowlarr/Definitions
 

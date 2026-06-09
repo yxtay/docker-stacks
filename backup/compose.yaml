@@ -25,7 +25,5 @@ services:
     restart: unless-stopped
 
 secrets:
-  gdrive_service_account:
-    environment: GDRIVE_SERVICE_ACCOUNT_JSON
   restic_password:
     environment: RESTIC_PASSWORD

@@ -1,5 +1,8 @@
 version: "2"
 
+global:
+  scheduler: crond
+
 profiles:
   apps:
     repository: "rclone:gdrive:restic"

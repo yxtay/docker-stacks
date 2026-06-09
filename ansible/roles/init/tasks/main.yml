@@ -20,7 +20,6 @@
   ansible.posix.authorized_key:
     user: "{{ item }}"
     key: "{{ ssh_public_key }}"
-    exclusive: true
   loop:
     - root
     - ubuntu

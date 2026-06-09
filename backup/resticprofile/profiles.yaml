@@ -38,10 +38,10 @@ profiles:
         - "*.pyc"
         # App-specific paths
         - MediaCover
-        - altmount/.nzb
+        - altmount/.nzbs
         - altmount/metadata
         - nzbdav/blobs
-        - portainer/compose/*
+        - portainer/compose/*/*
         - profilarr/data/databases
         - prowlarr/Definitions
 

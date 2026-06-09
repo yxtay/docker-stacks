@@ -17,6 +17,8 @@ services:
       - ./resticprofile:/resticprofile:ro
       - /apps:/apps:ro
       - /apps/resticprofile/cache:/var/cache/restic
+    healthcheck:
+      test: [CMD, resticprofile, --dry-run, backup]
     restart: unless-stopped
 
 secrets:

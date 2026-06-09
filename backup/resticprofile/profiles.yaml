@@ -2,7 +2,7 @@ version: "2"
 
 profiles:
   apps:
-    repository: rclone:gdrive:backups/apps
+    repository: "rclone:gdrive:restic"
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true

@@ -1,28 +1,29 @@
 services:
   autoheal:
     # nosemgrep
-    image: willfarrell/autoheal:1.2.0@sha256:31f580ef0279eaced5b38d631b08c474d70d8403c1c2fdd6ddcf2e879d5f3f7c
+    image: willfarrell/autoheal:latest@sha256:602fe408fdf08ee421b00fc1c063333cbec9b38ce9d0a73779c05e2469d2319d
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
-      AUTOHEAL_INTERVAL: 60
-      AUTOHEAL_ONLY_MONITOR_RUNNING: true
+      DOCKER_SOCK: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket_proxy
     restart: unless-stopped
 
   dozzle:
     # nosemgrep
     image: ghcr.io/amir20/dozzle:v10.6.5@sha256:fa12525776bf665147d82bf031ff262ee89a0a12454122558a353ec38ada4aaf
     environment:
+      DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
-      DOZZLE_ENABLE_SHELL: true
       DOZZLE_AUTH_PROVIDER: forward-proxy
     volumes:
       - /apps/dozzle:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - 8080
+    networks:
+      - default
+      - socket_proxy
     healthcheck:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped
@@ -63,4 +64,7 @@ services:
 networks:
   default:
     name: public_default
+    external: true
+  socket_proxy:
+    name: socket_proxy
     external: true

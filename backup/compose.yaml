@@ -21,8 +21,13 @@ services:
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host
     healthcheck:
-      test: [CMD, resticprofile, --dry-run, backup]
+      test: [CMD, resticprofile, stats]
     restart: unless-stopped
+
+networks:
+  default:
+    name: public_default
+    external: true
 
 secrets:
   restic_password:

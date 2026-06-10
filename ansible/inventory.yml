@@ -16,3 +16,4 @@ all:
       hosts:
         oci-vps:
           ansible_user: "{{ default_user }}"
+          ansible_become: true

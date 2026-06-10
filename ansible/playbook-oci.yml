@@ -1,6 +1,5 @@
 - name: Configure OCI VPS
   hosts: oci
-  become: true
   roles:
     - robertdebock.bootstrap
     - robertdebock.update

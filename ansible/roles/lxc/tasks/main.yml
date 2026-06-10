@@ -35,7 +35,6 @@
     hostname: "{{ lxc_hostname }}"
     node: "{{ inventory_hostname }}"
     ostemplate: "{{ lxc_template_storage }}:vztmpl/{{ lxc_template }}"
-    storage: "{{ lxc_storage }}"
     disk: "{{ lxc_disk }}"
     cores: "{{ lxc_cores }}"
     memory: "{{ lxc_memory }}"
@@ -45,6 +44,7 @@
     pubkey: "{{ ssh_public_key }}"
     unprivileged: true
     onboot: true
+    cmode: tty
     state: present
   delegate_to: localhost
 

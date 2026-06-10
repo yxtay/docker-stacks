@@ -10,7 +10,7 @@ added per job.
 ## Units
 
 | Timer                    | Schedule    | Description                  |
-| ------------------------ | ----------- | ---------------------------- |
+|--------------------------|-------------|------------------------------|
 | `portainer-up.timer`     | Every 5 min | GitOps: sync Portainer stack |
 | `logrotate.timer`        | Hourly      | Custom log rotation          |
 | `cleanup-symlinks.timer` | Daily       | Remove broken symlinks       |

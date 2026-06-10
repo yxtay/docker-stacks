@@ -14,6 +14,7 @@ profiles:
       schedule: "02:00"
       source:
         - /apps
+      check-after: true
       one-file-system: true
       no-error-on-warning: true
       exclude-caches: true

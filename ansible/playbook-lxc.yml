@@ -7,9 +7,12 @@
   hosts: lxc
   become: true
   gather_facts: false
+  pre_tasks:
+    - ansible.builtin.import_role:
+        name: robertdebock.bootstrap
+    - ansible.builtin.setup:
   roles:
-    - robertdebock.bootstrap
-    - robertdebock.update
     - bootstrap
     - geerlingguy.security
     - geerlingguy.docker
+    - robertdebock.update

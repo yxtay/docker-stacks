@@ -1,11 +1,8 @@
-lxc_vmid: 100
-lxc_hostname: docker
 lxc_cores: 3
 lxc_memory: 12288
 lxc_swap: 1024
 lxc_disk: local-lvm:32
 lxc_bridge: vmbr0
-lxc_ip: 192.168.1.2/24
 lxc_gateway: 192.168.1.1
 lxc_template: debian-13-standard_13.1-2_amd64.tar.zst
 lxc_template_storage: local

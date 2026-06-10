@@ -6,6 +6,7 @@ global:
 profiles:
   default:
     repository: local:/backups/restic
+    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
@@ -48,13 +49,14 @@ profiles:
 
     copy:
       schedule: Sun 04:00
-      initialize: true
       repository: "rclone:gdrive:"
       password-file: /run/secrets/restic_password
+      initialize: true
       snapshot: latest
 
   remote:
     repository: "rclone:gdrive:"
+    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true

@@ -11,7 +11,7 @@ services:
     secrets:
       - duckdns_token
     volumes:
-      - ./caddy:/srv
+      - ./caddy:/srv:ro
       - /apps/caddy:/data
     ports:
       - 80:80

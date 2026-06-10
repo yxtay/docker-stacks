@@ -5,7 +5,7 @@ global:
 
 profiles:
   default:
-    repository: "rclone:gdrive:restic"
+    repository: "rclone:gdrive:"
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true

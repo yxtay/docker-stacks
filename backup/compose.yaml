@@ -6,16 +6,17 @@ services:
       -c "resticprofile schedule --all && crond -f -L /dev/stdout"
     environment:
       RESTIC_PASSWORD_FILE: /run/secrets/restic_password
+      RCLONE_CONFIG: /config/rclone/rclone.conf
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
       RCLONE_CONFIG_GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID:?}
       RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:?}
-      RCLONE_CONFIG_GDRIVE_TOKEN: ${GDRIVE_TOKEN:?}
       RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
     secrets:
       - restic_password
     volumes:
       - ./resticprofile:/resticprofile:ro
+      - /apps/rclone:/config/rclone
       - /apps:/apps:ro
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host

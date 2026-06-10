@@ -3,13 +3,12 @@ set -euo pipefail
 
 REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
 SYSTEMD_DIR=${REPO_DIR}/systemd
-BIN_DIR=${REPO_DIR}/bin
 SYSTEMD_USER_DIR=${HOME}/.config/systemd/user
 mapfile -t TIMERS < <(basename -a "${SYSTEMD_DIR}"/*.timer)
 
 mkdir -p "${SYSTEMD_USER_DIR}"
 
-sed "s|@BIN_DIR@|${BIN_DIR}|g" "${SYSTEMD_DIR}/run-script@.service" \
+sed "s|%h/docker-stacks|${REPO_DIR}|g" "${SYSTEMD_DIR}/run-script@.service" \
   >"${SYSTEMD_USER_DIR}/run-script@.service"
 ln -sf "${SYSTEMD_DIR}"/*.timer "${SYSTEMD_USER_DIR}/"
 

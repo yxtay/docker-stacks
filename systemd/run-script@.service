@@ -3,4 +3,4 @@ Description=Run script: %i
 
 [Service]
 Type=oneshot
-ExecStart=@BIN_DIR@/%i
+ExecStart=%h/docker-stacks/bin/%i

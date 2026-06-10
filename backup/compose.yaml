@@ -1,6 +1,6 @@
 services:
   resticprofile:
-    image: creativeprojects/resticprofile:0.29.0
+    image: creativeprojects/resticprofile:0.29.0@sha256:327305899f0f4cdd8c8846551876a95e01af6f990775db60f61784224845f770
     entrypoint: [sh]
     command: >-
       -c "resticprofile schedule --all && crond -f -L /dev/stdout"

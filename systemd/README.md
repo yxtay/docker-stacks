@@ -9,17 +9,17 @@ added per job.
 
 ## Units
 
-| Timer                    | Schedule    | Description                 |
-|--------------------------|-------------|-----------------------------|
-| `portainer-up.timer`     | Every 5 min | Ensure Portainer is running |
-| `logrotate.timer`        | Hourly      | Custom log rotation         |
-| `cleanup-symlinks.timer` | Daily       | Remove broken symlinks      |
+| Timer                    | Schedule    | Description                  |
+| ------------------------ | ----------- | ---------------------------- |
+| `portainer-up.timer`     | Every 5 min | GitOps: sync Portainer stack |
+| `logrotate.timer`        | Hourly      | Custom log rotation          |
+| `cleanup-symlinks.timer` | Daily       | Remove broken symlinks       |
 
 ## Adding a New Job
 
 1. Place script in `bin/` (must be executable).
 2. Create a `.timer` file with
-  `Unit=run-script@<script-name>.service`.
+   `Unit=run-script@<script-name>.service`.
 
 ## Install
 

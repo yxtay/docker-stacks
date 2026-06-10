@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-find /mnt/usenet /mnt/torrent -xtype l -delete
+find /mnt/{usenet,torrent} -xtype l -delete

@@ -5,7 +5,6 @@
 
 - name: Configure LXC
   hosts: lxc
-  become: true
   gather_facts: false
   pre_tasks:
     - ansible.builtin.import_role:

@@ -23,7 +23,7 @@
     storage: "{{ lxc_template_storage }}"
     template: "{{ lxc_template }}"
     content_type: vztmpl
-    validate_certs: false
+    validate_certs: "{{ pve_api_validate_certs | default(false) }}"
     state: present
   delegate_to: localhost
 
@@ -32,7 +32,7 @@
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
-    validate_certs: false
+    validate_certs: "{{ pve_api_validate_certs | default(false) }}"
     vmid: "{{ lxc_vmid }}"
     hostname: "{{ lxc_hostname }}"
     node: "{{ inventory_hostname }}"
@@ -77,7 +77,7 @@
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
-    validate_certs: false
+    validate_certs: "{{ pve_api_validate_certs | default(false) }}"
     vmid: "{{ lxc_vmid }}"
     state: stopped
     force: true
@@ -89,7 +89,7 @@
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
-    validate_certs: false
+    validate_certs: "{{ pve_api_validate_certs | default(false) }}"
     vmid: "{{ lxc_vmid }}"
     state: started
   delegate_to: localhost

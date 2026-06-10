@@ -30,9 +30,24 @@ added per job.
 This symlinks unit files to `~/.config/systemd/user/`,
 enables timers, and sets up lingering.
 
+## Test Ad Hoc
+
+```bash
+# Run a service manually
+systemctl --user start run-script@portainer-up.sh
+
+# Trigger a timer immediately
+systemctl --user start portainer-up.timer
+
+# Check service status/result
+systemctl --user status run-script@portainer-up.sh
+
+# View logs
+journalctl --user -u run-script@portainer-up.sh
+```
+
 ## Verify
 
 ```bash
 systemctl --user list-timers --all
-journalctl --user -u run-script@portainer-up.sh
 ```

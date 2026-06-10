@@ -19,7 +19,7 @@ added per job.
 
 1. Place script in `bin/` (must be executable).
 2. Create a `.timer` file with
-   `Unit=run-script@<script-name>.service`.
+  `Unit=run-script@<script-name>.service`.
 
 ## Install
 

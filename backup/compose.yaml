@@ -15,7 +15,7 @@ services:
     secrets:
       - restic_password
     volumes:
-      - ./resticprofile:/resticprofile
+      - ./resticprofile:/resticprofile:ro
       - /apps/rclone:/config/rclone
       - /apps:/apps:ro
       - /apps/resticprofile/cache:/var/cache/restic

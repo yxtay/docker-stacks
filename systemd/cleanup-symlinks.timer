@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily broken symlink cleanup
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=3600
+Persistent=true
+Unit=run-script@cleanup-symlinks.sh.service
+
+[Install]
+WantedBy=timers.target

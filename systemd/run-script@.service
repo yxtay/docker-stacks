@@ -1,0 +1,6 @@
+[Unit]
+Description=Run script: %i
+
+[Service]
+Type=oneshot
+ExecStart=%h/docker-stacks/bin/%i

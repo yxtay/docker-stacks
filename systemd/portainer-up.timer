@@ -1,0 +1,9 @@
+[Unit]
+Description=Run portainer-up every 5 minutes
+
+[Timer]
+OnCalendar=*:0/5
+Unit=run-script@portainer-up.sh.service
+
+[Install]
+WantedBy=timers.target

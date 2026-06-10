@@ -1,0 +1,10 @@
+[Unit]
+Description=Run logrotate hourly
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=300
+Unit=run-script@logrotate.sh.service
+
+[Install]
+WantedBy=timers.target

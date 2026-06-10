@@ -30,13 +30,14 @@ Copy example host vars and fill in IPs:
 
 ```bash
 cp host_vars/pve.yml.example host_vars/pve.yml
+cp host_vars/docker-lxc.yml.example host_vars/docker-lxc.yml
 cp host_vars/oci-vps.yml.example host_vars/oci-vps.yml
 ```
 
 Adjust group vars:
 
 - `group_vars/all/main.yml` — shared settings
-- `group_vars/lxc/main.yml` — LXC specs (cores, memory, disk)
+- `group_vars/proxmox/lxc.yml` — LXC specs (cores, memory, disk)
 - `group_vars/oci/main.yml` — firewall ports
 
 ## Run
@@ -52,5 +53,5 @@ ansible-playbook playbook-lxc.yml
 ansible-playbook playbook-oci.yml
 
 # Dist-upgrade specific hosts
-ansible-playbook upgrade.yml -e hosts=proxmox,lxc,oci
+ansible-playbook upgrade.yml -e target_hosts=proxmox,lxc,oci
 ```

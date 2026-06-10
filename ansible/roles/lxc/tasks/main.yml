@@ -41,7 +41,8 @@
     cores: "{{ lxc_cores }}"
     memory: "{{ lxc_memory }}"
     swap: "{{ lxc_swap }}"
-    netif: '{"net0":"name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"}'
+    netif:
+      net0: "name=eth0,bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"
     features: "{{ lxc_features }}"
     pubkey: "{{ ssh_public_key }}"
     unprivileged: true

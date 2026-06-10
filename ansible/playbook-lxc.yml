@@ -1,11 +1,11 @@
 - name: Create LXC container on Proxmox
   hosts: proxmox
-  gather_facts: false
   roles:
     - lxc
 
 - name: Configure LXC
   hosts: lxc
+  become: true
   gather_facts: false
   roles:
     - robertdebock.bootstrap

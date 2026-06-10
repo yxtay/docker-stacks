@@ -13,15 +13,24 @@
     mode: "0644"
 
 - name: Download LXC template
-  ansible.builtin.command:
-    cmd: pveam download {{ lxc_template_storage }} {{ lxc_template }}
-    creates: /var/lib/vz/template/cache/{{ lxc_template }}
-
-- name: Create LXC container
-  community.general.proxmox:
+  community.proxmox.proxmox_template:
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
+    node: "{{ inventory_hostname }}"
+    storage: "{{ lxc_template_storage }}"
+    template: "{{ lxc_template }}"
+    content_type: vztmpl
+    validate_certs: false
+    state: present
+  delegate_to: localhost
+
+- name: Create LXC container
+  community.proxmox.proxmox:
+    api_host: "{{ pve_api_host }}"
+    api_user: "{{ pve_api_user }}"
+    api_password: "{{ pve_api_password }}"
+    validate_certs: false
     vmid: "{{ lxc_vmid }}"
     hostname: "{{ lxc_hostname }}"
     node: "{{ inventory_hostname }}"
@@ -37,6 +46,7 @@
     unprivileged: true
     onboot: true
     state: present
+  delegate_to: localhost
 
 - name: Configure ID mapping in LXC config
   ansible.builtin.lineinfile:
@@ -60,19 +70,23 @@
   register: idmap_config
 
 - name: Stop LXC container for ID mapping change
-  community.general.proxmox:
+  community.proxmox.proxmox:
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
+    validate_certs: false
     vmid: "{{ lxc_vmid }}"
     state: stopped
     force: true
+  delegate_to: localhost
   when: idmap_config is changed
 
 - name: Start LXC container
-  community.general.proxmox:
+  community.proxmox.proxmox:
     api_host: "{{ pve_api_host }}"
     api_user: "{{ pve_api_user }}"
     api_password: "{{ pve_api_password }}"
+    validate_certs: false
     vmid: "{{ lxc_vmid }}"
     state: started
+  delegate_to: localhost

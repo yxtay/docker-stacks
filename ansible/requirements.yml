@@ -1,6 +1,8 @@
 collections:
   - name: community.general
     version: ">=9.0.0"
+  - name: community.proxmox
+    version: ">=1.0.0"
   - name: ansible.posix
     version: ">=1.6.0"
 

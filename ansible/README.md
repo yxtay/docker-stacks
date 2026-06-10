@@ -43,7 +43,7 @@ Adjust group vars:
 
 ```bash
 # Configure Proxmox host (post-install)
-ansible-playbook playbook-proxmox.yml
+ansible-playbook playbook-proxmox.yml -e ansible_user=root
 
 # Provision Proxmox LXC + Docker
 ansible-playbook playbook-lxc.yml

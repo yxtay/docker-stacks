@@ -1,7 +1,8 @@
 - name: Configure Proxmox host
   hosts: proxmox
-  become: true
   roles:
     - robertdebock.bootstrap
     - lae.proxmox
     - robertdebock.update
+    - bootstrap
+    - geerlingguy.security

@@ -3,14 +3,16 @@ all:
     proxmox:
       hosts:
         pve:
-          ansible_user: root
+          ansible_user: "{{ default_user }}"
+          ansible_become: true
     lxc:
       hosts:
         docker-lxc:
-          ansible_connection: community.general.proxmox
-          ansible_proxmox_node: pve
-          ansible_proxmox_vmid: "{{ lxc_vmid }}"
+          ansible_connection: community.proxmox.proxmox_pct_remote
+          ansible_host: "{{ pve_api_host }}"
+          ansible_user: "{{ default_user }}"
+          proxmox_vmid: "{{ lxc_vmid }}"
     oci:
       hosts:
         oci-vps:
-          ansible_user: ubuntu
+          ansible_user: "{{ default_user }}"

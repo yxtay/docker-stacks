@@ -1,0 +1,12 @@
+- name: Configure Proxmox host
+  hosts: proxmox
+  gather_facts: false
+  pre_tasks:
+    - ansible.builtin.import_role:
+        name: robertdebock.bootstrap
+    - ansible.builtin.setup:
+  roles:
+    - lae.proxmox
+    - bootstrap
+    - geerlingguy.security
+    - robertdebock.update

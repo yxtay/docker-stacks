@@ -1,0 +1,13 @@
+ansible_host: 192.168.1.100
+
+# Proxmox API credentials (for community.proxmox.proxmox module)
+pve_api_host: "{{ ansible_host }}"
+pve_api_user: root@pam
+pve_api_password: changeme
+pve_api_validate_certs: false
+
+# LXC overrides
+lxc_vmid: 100
+lxc_hostname: docker
+lxc_ip: 192.168.1.2/24
+lxc_gateway: 192.168.1.1

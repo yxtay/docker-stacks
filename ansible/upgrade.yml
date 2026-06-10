@@ -1,0 +1,6 @@
+- name: Dist-upgrade hosts
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+  serial: 1
+  roles:
+    - robertdebock.update

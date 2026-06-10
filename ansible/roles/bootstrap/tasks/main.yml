@@ -1,0 +1,16 @@
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ timezone }}"
+
+- name: Create default user
+  ansible.builtin.user:
+    name: "{{ default_user }}"
+    shell: /bin/bash
+    groups: sudo
+    append: true
+    create_home: true
+
+- name: Set authorized key for default user
+  ansible.posix.authorized_key:
+    user: "{{ default_user }}"
+    key: "{{ ssh_public_key }}"

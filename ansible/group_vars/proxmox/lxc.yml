@@ -1,0 +1,13 @@
+lxc_cores: 3
+lxc_memory: 12288
+lxc_swap: 1024
+lxc_disk: local-lvm:32
+lxc_bridge: vmbr0
+lxc_gateway: 192.168.1.1
+lxc_template: debian-13-standard_13.1-2_amd64.tar.zst
+lxc_template_storage: local
+lxc_features: fuse=1,keyctl=1,nesting=1
+
+# ID mapping for bind mount sharing (UIDs 1000-1009 pass through)
+lxc_idmap_start: 1000
+lxc_idmap_count: 1

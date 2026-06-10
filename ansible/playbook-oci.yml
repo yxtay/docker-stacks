@@ -1,0 +1,13 @@
+- name: Configure OCI VPS
+  hosts: oci
+  gather_facts: false
+  pre_tasks:
+    - ansible.builtin.import_role:
+        name: robertdebock.bootstrap
+    - ansible.builtin.setup:
+  roles:
+    - bootstrap
+    - oci_firewall
+    - geerlingguy.security
+    - geerlingguy.docker
+    - robertdebock.update

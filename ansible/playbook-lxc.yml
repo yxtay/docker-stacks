@@ -1,0 +1,17 @@
+- name: Create LXC container on Proxmox
+  hosts: proxmox
+  roles:
+    - lxc
+
+- name: Configure LXC
+  hosts: lxc
+  gather_facts: false
+  pre_tasks:
+    - ansible.builtin.import_role:
+        name: robertdebock.bootstrap
+    - ansible.builtin.setup:
+  roles:
+    - bootstrap
+    - geerlingguy.security
+    - geerlingguy.docker
+    - robertdebock.update

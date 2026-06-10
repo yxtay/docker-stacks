@@ -4,6 +4,7 @@
   roles:
     - robertdebock.bootstrap
     - robertdebock.update
+    - bootstrap
     - oci_firewall
     - geerlingguy.security
     - geerlingguy.docker

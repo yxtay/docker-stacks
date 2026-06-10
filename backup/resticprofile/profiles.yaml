@@ -5,15 +5,16 @@ global:
 
 profiles:
   default:
-    repository: "rclone:gdrive:"
+    repository: local:/backups/restic
+    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
 
     backup:
+      schedule: "02:00"
       source:
         - /apps
-      schedule: daily
       check-after: true
       one-file-system: true
       no-error-on-warning: true
@@ -29,9 +30,6 @@ profiles:
         - "*.lock"
         - .cache
         - cache
-        # Database temp files
-        - "*-wal"
-        - "*-shm"
         # Build artifacts
         - __pycache__
         - "*.pyc"
@@ -48,3 +46,26 @@ profiles:
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+    copy:
+      schedule: Sun 04:00
+      repository: "rclone:gdrive:"
+      password-file: /run/secrets/restic_password
+      initialize: true
+      snapshot: latest
+
+  remote:
+    repository: "rclone:gdrive:"
+    password-file: /run/secrets/restic_password
+    initialize: true
+    cache-dir: /var/cache/restic
+    cleanup-cache: true
+
+    forget:
+      schedule: Sun 05:00
+      keep-weekly: 4
+      keep-monthly: 3
+      prune: true
+
+    check:
+      schedule: Sun 06:00

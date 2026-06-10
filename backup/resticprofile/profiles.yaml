@@ -14,7 +14,6 @@ profiles:
       source:
         - /apps
       schedule: daily
-      check-after: true
       one-file-system: true
       no-error-on-warning: true
       exclude-caches: true
@@ -29,9 +28,6 @@ profiles:
         - "*.lock"
         - .cache
         - cache
-        # Database temp files
-        - "*-wal"
-        - "*-shm"
         # Build artifacts
         - __pycache__
         - "*.pyc"
@@ -43,8 +39,12 @@ profiles:
         - profilarr/data/databases
         - prowlarr/Definitions
 
-    retention:
+    forget:
+      schedule: weekly
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+    check:
+      schedule: weekly

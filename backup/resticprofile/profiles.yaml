@@ -7,12 +7,6 @@ base:
   cache-dir: /var/cache/restic
   cleanup-cache: true
 
-  retention:
-    keep-daily: 7
-    keep-weekly: 4
-    keep-monthly: 3
-    prune: true
-
 default:
   inherit: base
   repository: "local:/backups/restic"
@@ -63,6 +57,10 @@ remote:
 
   forget:
     schedule: Sun 03:00
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+    prune: true
 
   check:
     schedule: Sun 04:00

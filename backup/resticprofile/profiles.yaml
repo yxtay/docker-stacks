@@ -44,7 +44,7 @@ profiles:
         - profilarr/data/databases
         - prowlarr/Definitions
 
-    forget: &retention
+    retention: &retention
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3
@@ -63,7 +63,7 @@ profiles:
       from-repository: "local:/backups/restic"
       from-password-file: /run/secrets/restic_password
 
-    forget:
+    retention:
       <<: *retention
       schedule: Sun 03:00
 

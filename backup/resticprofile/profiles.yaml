@@ -10,12 +10,6 @@ profiles:
     cache-dir: /var/cache/restic
     cleanup-cache: true
 
-    retention:
-      keep-daily: 7
-      keep-weekly: 4
-      keep-monthly: 3
-      prune: true
-
   default:
     inherit: base
     repository: "local:/backups/restic"
@@ -50,15 +44,22 @@ profiles:
         - profilarr/data/databases
         - prowlarr/Definitions
 
-    copy:
-      schedule: Sun 02:00
-      profile: remote
+    retention: &retention
+      keep-daily: 7
+      keep-weekly: 4
+      keep-monthly: 3
+      prune: true
 
   remote:
     inherit: base
     repository: "rclone:gdrive:"
 
+    copy:
+      schedule: Sun 02:00
+      from-repo: default
+
     forget:
+      <<: *retention
       schedule: Sun 03:00
 
     check:

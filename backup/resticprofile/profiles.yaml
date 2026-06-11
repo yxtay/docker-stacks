@@ -1,71 +1,68 @@
-version: "2"
-
 global:
   scheduler: crond
 
-profiles:
-  default:
-    repository: local:/backups/restic
-    password-file: /run/secrets/restic_password
-    initialize: true
-    cache-dir: /var/cache/restic
-    cleanup-cache: true
+base:
+  password-file: /run/secrets/restic_password
+  initialize: true
+  cache-dir: /var/cache/restic
+  cleanup-cache: true
 
-    backup:
-      schedule: "02:00"
-      source:
-        - /apps
-      check-after: true
-      one-file-system: true
-      no-error-on-warning: true
-      exclude-caches: true
-      exclude-if-present:
-        - .git
-        - .github
-        - .gitignore
-        - .nobackup
-      iexclude:
-        # Temp and runtime files
-        - "*.pid"
-        - "*.lock"
-        - .cache
-        - cache
-        # Build artifacts
-        - __pycache__
-        - "*.pyc"
-        # App-specific paths
-        - MediaCover
-        - altmount/.nzbs
-        - altmount/metadata
-        - nzbdav/blobs
-        - profilarr/data/databases
-        - prowlarr/Definitions
+default:
+  inherit: base
+  repository: local:/backups/restic
 
-    retention:
-      keep-daily: 7
-      keep-weekly: 4
-      keep-monthly: 3
-      prune: true
+  backup:
+    schedule: "00:00"
+    source:
+      - /apps
+    check-after: true
+    one-file-system: true
+    no-error-on-warning: true
+    exclude-caches: true
+    exclude-if-present:
+      - .git
+      - .github
+      - .gitignore
+      - .nobackup
+    iexclude:
+      # Temp and runtime files
+      - "*.pid"
+      - "*.lock"
+      - .cache
+      - cache
+      # Build artifacts
+      - __pycache__
+      - "*.pyc"
+      # App-specific paths
+      - MediaCover
+      - altmount/.nzbs
+      - altmount/metadata
+      - nzbdav/blobs
+      - profilarr/data/databases
+      - prowlarr/Definitions
 
-    copy:
-      schedule: Sun 04:00
-      repository: "rclone:gdrive:"
-      password-file: /run/secrets/restic_password
-      initialize: true
+  retention:
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+    prune: true
 
-  remote:
+  copy:
+    schedule: Sun 04:00
     repository: "rclone:gdrive:"
     password-file: /run/secrets/restic_password
     initialize: true
-    cache-dir: /var/cache/restic
-    cleanup-cache: true
 
-    forget:
-      schedule: Sun 05:00
-      keep-daily: 7
-      keep-weekly: 4
-      keep-monthly: 3
-      prune: true
+remote:
+  inherit: base
+  repository: "rclone:gdrive:"
 
-    check:
-      schedule: Sun 06:00
+  forget:
+    schedule: Sun 05:00
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+    prune: true
+
+  check:
+    schedule: Sun 06:00

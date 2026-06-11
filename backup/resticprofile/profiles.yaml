@@ -9,7 +9,7 @@ base:
 
 default:
   inherit: base
-  repository: local:/backups/restic
+  repository: "local:/backups/restic"
 
   backup:
     schedule: "00:00"

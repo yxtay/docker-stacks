@@ -47,6 +47,12 @@ default:
       - profilarr/data/databases
       - prowlarr/Definitions
 
+  retention:
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+    prune: true
+
   copy:
     schedule: Sun 02:00
     profile: remote

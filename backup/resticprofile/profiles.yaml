@@ -42,6 +42,7 @@ profiles:
 
     forget: &forget
       host: true
+      path: true
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3

@@ -11,6 +11,7 @@ profiles:
     cleanup-cache: true
 
     backup:
+      host: true
       source:
         - /apps
       check-after: true
@@ -40,6 +41,7 @@ profiles:
         - prowlarr/Definitions
 
     forget: &forget
+      host: true
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3

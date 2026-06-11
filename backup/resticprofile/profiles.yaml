@@ -5,7 +5,6 @@ global:
 
 profiles:
   base:
-    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
@@ -49,6 +48,9 @@ profiles:
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+    copy:
+      repository: remote
 
   remote:
     inherit: base

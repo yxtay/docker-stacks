@@ -1,11 +1,15 @@
 version: "2"
 
+# {{ $local_repo := "local:/backup" }}
+# {{ $remote_repo := "rclone:gdrive:" }}
+# {{ $password_file := "/run/secrets/restic_password" }}
+
 global:
   scheduler: crond
 
 profiles:
   base:
-    password-file: /run/secrets/restic_password
+    password-file: "{{ $password_file }}"
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
@@ -50,7 +54,7 @@ profiles:
 
   default:
     inherit: base
-    repository: "local:/backup"
+    repository: "{{ $local_repo }}"
 
     backup:
       schedule: "00:00"
@@ -58,17 +62,17 @@ profiles:
     retention: *forget
 
     copy:
-      repository: "rclone:gdrive:"
-      password-file: /run/secrets/restic_password
+      repository: "{{ $remote_repo }}"
+      password-file: "{{ $password_file }}"
 
   remote:
     inherit: base
-    repository: "rclone:gdrive:"
+    repository: "{{ $remote_repo }}"
 
     copy:
       schedule: Sun 02:00
-      from-repository: "local:/backup"
-      from-password-file: /run/secrets/restic_password
+      from-repository: "{{ $local_repo }}"
+      from-password-file: "{{ $password_file }}"
 
     forget:
       schedule: Sun 03:00

@@ -1,7 +1,7 @@
 services:
   nzbhydra2:
     # nosemgrep
-    image: lscr.io/linuxserver/nzbhydra2:8.8.3@sha256:364c59f0a3b87e3491d0ee6b7493b414b65757fcda00241d24c69a1ca494a9de
+    image: lscr.io/linuxserver/nzbhydra2:8.8.3@sha256:b18c5da3ca23470ecb5974276e0f961624b8de193ed6943b243f04b46b6692f7
     environment: &envs
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}

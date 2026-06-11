@@ -17,6 +17,7 @@ services:
       - ./resticprofile:/resticprofile:ro
       - /apps/rclone:/config/rclone
       - /apps:/apps:ro
+      - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host
     healthcheck:

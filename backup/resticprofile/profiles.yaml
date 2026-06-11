@@ -1,18 +1,21 @@
 version: "2"
 
+# {{ $local_repo := "local:/backup" }}
+# {{ $remote_repo := "rclone:gdrive:" }}
+# {{ $password_file := "/run/secrets/restic_password" }}
+
 global:
   scheduler: crond
 
 profiles:
-  default:
-    repository: local:/backups/restic
-    password-file: /run/secrets/restic_password
+  base:
+    password-file: "{{ $password_file }}"
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
 
     backup:
-      schedule: "02:00"
+      host: true
       source:
         - /apps
       check-after: true
@@ -41,31 +44,38 @@ profiles:
         - profilarr/data/databases
         - prowlarr/Definitions
 
-    retention:
+    forget: &forget
+      host: true
+      path: true
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+  default:
+    inherit: base
+    repository: "{{ $local_repo }}"
+
+    backup:
+      schedule: "00:00"
+
+    retention: *forget
 
     copy:
-      schedule: Sun 04:00
-      repository: "rclone:gdrive:"
-      password-file: /run/secrets/restic_password
-      initialize: true
+      repository: "{{ $remote_repo }}"
+      password-file: "{{ $password_file }}"
 
   remote:
-    repository: "rclone:gdrive:"
-    password-file: /run/secrets/restic_password
-    initialize: true
-    cache-dir: /var/cache/restic
-    cleanup-cache: true
+    inherit: base
+    repository: "{{ $remote_repo }}"
+
+    copy:
+      schedule: Sun 02:00
+      from-repository: "{{ $local_repo }}"
+      from-password-file: "{{ $password_file }}"
 
     forget:
-      schedule: Sun 05:00
-      keep-daily: 7
-      keep-weekly: 4
-      keep-monthly: 3
-      prune: true
+      schedule: Sun 03:00
 
     check:
-      schedule: Sun 06:00
+      schedule: Sun 04:00

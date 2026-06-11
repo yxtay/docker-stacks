@@ -50,7 +50,7 @@ profiles:
       prune: true
 
     copy:
-      repository: remote
+      repository: "rclone:gdrive:"
 
   remote:
     inherit: base
@@ -58,7 +58,7 @@ profiles:
 
     copy:
       schedule: Sun 02:00
-      from-repository: default
+      from-repository: "local:/backups/restic"
 
     forget:
       <<: *retention

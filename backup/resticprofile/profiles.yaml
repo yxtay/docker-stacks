@@ -44,7 +44,7 @@ profiles:
         - profilarr/data/databases
         - prowlarr/Definitions
 
-    retention: &retention
+    forget: &retention
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3

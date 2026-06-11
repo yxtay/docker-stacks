@@ -11,7 +11,7 @@ profiles:
 
   default:
     inherit: base
-    repository: "local:/backups/restic"
+    repository: "local:/backup"
 
     backup:
       schedule: "00:00"

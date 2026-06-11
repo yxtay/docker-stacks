@@ -17,6 +17,7 @@ services:
     volumes:
       - ./resticprofile:/resticprofile:ro
       - /apps/rclone:/config/rclone
+      - /backups/restic:/backup
       - /apps:/apps:ro
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host

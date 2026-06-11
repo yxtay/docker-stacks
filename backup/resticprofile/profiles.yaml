@@ -5,6 +5,7 @@ global:
 
 profiles:
   base:
+    password-file: /run/secrets/restic_password
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
@@ -51,6 +52,7 @@ profiles:
 
     copy:
       repository: "rclone:gdrive:"
+      password-file: /run/secrets/restic_password
 
   remote:
     inherit: base
@@ -59,6 +61,7 @@ profiles:
     copy:
       schedule: Sun 02:00
       from-repository: "local:/backups/restic"
+      from-password-file: /run/secrets/restic_password
 
     forget:
       <<: *retention

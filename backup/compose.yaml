@@ -5,7 +5,6 @@ services:
     command: >-
       -c "resticprofile schedule --all && crond -f -L /dev/stdout"
     environment:
-      RESTIC_PASSWORD_FILE: /run/secrets/restic_password
       RCLONE_CONFIG: /config/rclone/rclone.conf
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive

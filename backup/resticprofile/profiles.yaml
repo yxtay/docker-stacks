@@ -67,7 +67,7 @@ profiles:
 
     copy:
       schedule: Sun 02:00
-      from-repository: "local:/backups/restic"
+      from-repository: "local:/backup"
       from-password-file: /run/secrets/restic_password
 
     forget:

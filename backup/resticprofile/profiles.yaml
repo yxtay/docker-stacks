@@ -56,7 +56,7 @@ profiles:
 
     copy:
       schedule: Sun 02:00
-      from-repo: default
+      from-repository: default
 
     forget:
       <<: *retention

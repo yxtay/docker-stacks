@@ -1,66 +1,63 @@
 global:
   scheduler: crond
 
-base:
-  password-file: /run/secrets/restic_password
-  initialize: true
-  cache-dir: /var/cache/restic
-  cleanup-cache: true
+profiles:
+  base:
+    password-file: /run/secrets/restic_password
+    initialize: true
+    cache-dir: /var/cache/restic
+    cleanup-cache: true
 
-default:
-  inherit: base
-  repository: "local:/backups/restic"
+    retention:
+      keep-daily: 7
+      keep-weekly: 4
+      keep-monthly: 3
+      prune: true
 
-  backup:
-    schedule: "00:00"
-    source:
-      - /apps
-    check-after: true
-    one-file-system: true
-    no-error-on-warning: true
-    exclude-caches: true
-    exclude-if-present:
-      - .git
-      - .github
-      - .gitignore
-      - .nobackup
-    iexclude:
-      # Temp and runtime files
-      - "*.pid"
-      - "*.lock"
-      - .cache
-      - cache
-      # Build artifacts
-      - __pycache__
-      - "*.pyc"
-      # App-specific paths
-      - MediaCover
-      - altmount/.nzbs
-      - altmount/metadata
-      - nzbdav/blobs
-      - profilarr/data/databases
-      - prowlarr/Definitions
+  default:
+    inherit: base
+    repository: "local:/backups/restic"
 
-  retention:
-    keep-daily: 7
-    keep-weekly: 4
-    keep-monthly: 3
-    prune: true
+    backup:
+      schedule: "00:00"
+      source:
+        - /apps
+      check-after: true
+      one-file-system: true
+      no-error-on-warning: true
+      exclude-caches: true
+      exclude-if-present:
+        - .git
+        - .github
+        - .gitignore
+        - .nobackup
+      iexclude:
+        # Temp and runtime files
+        - "*.pid"
+        - "*.lock"
+        - .cache
+        - cache
+        # Build artifacts
+        - __pycache__
+        - "*.pyc"
+        # App-specific paths
+        - MediaCover
+        - altmount/.nzbs
+        - altmount/metadata
+        - nzbdav/blobs
+        - profilarr/data/databases
+        - prowlarr/Definitions
 
-  copy:
-    schedule: Sun 02:00
-    profile: remote
+    copy:
+      schedule: Sun 02:00
+      profile: remote
 
-remote:
-  inherit: base
-  repository: "rclone:gdrive:"
+  remote:
+    inherit: base
+    repository: "rclone:gdrive:"
 
-  forget:
-    schedule: Sun 03:00
-    keep-daily: 7
-    keep-weekly: 4
-    keep-monthly: 3
-    prune: true
+    forget:
+      schedule: Sun 03:00
 
-  check:
-    schedule: Sun 04:00
+    check:
+      schedule: Sun 04:00

@@ -7,6 +7,12 @@ base:
   cache-dir: /var/cache/restic
   cleanup-cache: true
 
+  retention:
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 3
+    prune: true
+
 default:
   inherit: base
   repository: "local:/backups/restic"
@@ -41,17 +47,9 @@ default:
       - profilarr/data/databases
       - prowlarr/Definitions
 
-  retention:
-    keep-daily: 7
-    keep-weekly: 4
-    keep-monthly: 3
-    prune: true
-
   copy:
     schedule: Sun 02:00
-    repository: "rclone:gdrive:"
-    password-file: /run/secrets/restic_password
-    initialize: true
+    profile: remote
 
 remote:
   inherit: base
@@ -59,10 +57,6 @@ remote:
 
   forget:
     schedule: Sun 03:00
-    keep-daily: 7
-    keep-weekly: 4
-    keep-monthly: 3
-    prune: true
 
   check:
     schedule: Sun 04:00

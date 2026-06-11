@@ -41,15 +41,14 @@ default:
       - profilarr/data/databases
       - prowlarr/Definitions
 
-  forget:
-    schedule: "02:00"
+  retention:
     keep-daily: 7
     keep-weekly: 4
     keep-monthly: 3
     prune: true
 
   copy:
-    schedule: Sun 03:00
+    schedule: Sun 02:00
     repository: "rclone:gdrive:"
     password-file: /run/secrets/restic_password
     initialize: true
@@ -59,11 +58,11 @@ remote:
   repository: "rclone:gdrive:"
 
   forget:
-    schedule: Sun 04:00
+    schedule: Sun 03:00
     keep-daily: 7
     keep-weekly: 4
     keep-monthly: 3
     prune: true
 
   check:
-    schedule: Sun 05:00
+    schedule: Sun 04:00

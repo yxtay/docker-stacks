@@ -127,6 +127,7 @@ services:
     image: ghcr.io/tailscale/tailscale:v1.98.4
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY:?}
+      TS_AUTH_ONCE: true
       TS_STATE_DIR: /var/lib/tailscale
       TS_ROUTES: ${TS_ROUTES:-}
       TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}

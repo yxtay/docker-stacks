@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy homeassistant ${IP_ADDRESS}:8123
+      caddy.import: reverse_proxy homeassistant ${IP_ADDRESS:?}:8123
 
   music_assistant:
     # nosemgrep
@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy music_assistant ${IP_ADDRESS}:8095
+      caddy.import: reverse_proxy music_assistant ${IP_ADDRESS:?}:8095
 
   esphome:
     # nosemgrep
@@ -44,16 +44,17 @@ services:
       test: [CMD, curl, -fSs, "http://localhost:6052"]
     environment:
       TZ: ${TZ:-UTC}
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
-      - /dev/ttyACM0:/dev/ttyACM0
+    # privileged: true
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
     network_mode: host
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy esphome ${IP_ADDRESS}:6052
+      caddy.import: reverse_proxy esphome ${IP_ADDRESS:?}:6052
 
   trmnl_ha:
     # nosemgrep
@@ -61,7 +62,7 @@ services:
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
-      HOME_ASSISTANT_URL: http://${IP_ADDRESS}:8123
+      HOME_ASSISTANT_URL: http://${IP_ADDRESS:?}:8123
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}

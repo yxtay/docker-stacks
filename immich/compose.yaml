@@ -1,7 +1,7 @@
 services:
   immich_server:
     # nosemgrep
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-server:v2
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
@@ -13,7 +13,7 @@ services:
       - .env
     volumes:
       - ${UPLOAD_LOCATION:?}:/data
-      - ${LIBRARY_LOCATION}:/data/library
+      - ${LIBRARY_LOCATION:?}:/data/library
     expose:
       - 2283
     networks:
@@ -32,7 +32,7 @@ services:
   immich_machine_learning:
     # nosemgrep
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-machine-learning:v2
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
@@ -92,7 +92,7 @@ services:
 
   immich_kiosk:
     # nosemgrep
-    image: ghcr.io/damongolding/immich-kiosk:v0.39.3
+    image: ghcr.io/damongolding/immich-kiosk:0.39.3
     tty: true
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:3000/health"]

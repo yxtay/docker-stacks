@@ -58,7 +58,7 @@ services:
 
   trmnl_ha:
     # nosemgrep
-    image: ghcr.io/usetrmnl/trmnl-ha-amd64:v0.8.1
+    image: ghcr.io/usetrmnl/trmnl-ha-${ARCH:-amd64}:0.8.1
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:

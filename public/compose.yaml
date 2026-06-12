@@ -122,6 +122,26 @@ services:
     restart: unless-stopped
     read_only: true
 
+  tailscale:
+    # nosemgrep
+    image: ghcr.io/tailscale/tailscale:v1.98.4
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_ROUTES: ${TS_ROUTES:-}
+      TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}
+      TS_ENABLE_HEALTH_CHECK: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - /apps/tailscale:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    uts: host
+    healthcheck:
+      test: [CMD, wget, -nv, -O-, 'http://localhost:9002/healthz']
+    restart: unless-stopped
+
   whoami:
     # nosemgrep
     image: ghcr.io/traefik/whoami:v1.11.0@sha256:200689790a0a0ea48ca45992e0450bc26ccab5307375b41c84dfc4f2475937ab

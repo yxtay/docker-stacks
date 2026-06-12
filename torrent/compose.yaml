@@ -28,16 +28,6 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
-  flaresolverr:
-    image: ghcr.io/flaresolverr/flaresolverr:v3.5.0
-    environment:
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-    expose:
-      - 8191
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8191/health"]
-    restart: unless-stopped
-
   rclone:
     # nosemgrep
     image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb

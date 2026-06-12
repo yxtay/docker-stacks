@@ -50,7 +50,7 @@ services:
 
   redis:
     # nosemgrep
-    image: ghcr.io/valkey-io/valkey:9
+    image: ghcr.io/valkey-io/valkey:9.1.0
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped

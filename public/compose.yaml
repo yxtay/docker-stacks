@@ -65,6 +65,7 @@ services:
       caddy.import: reverse_proxy tinyauth tinyauth:3000
 
   socket_proxy:
+    # nosemgrep
     image: ghcr.io/linuxserver/socket-proxy:3.2.19@sha256:de8215f99a9ce4bbff5d8853d7a5ae4bbe6baa0ed868046a0251320a4fb05aa2
     environment:
       TZ: ${TZ:-UTC}

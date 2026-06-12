@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: ghcr.io/home-assistant/home-assistant:2026.6.2
+    image: ghcr.io/home-assistant/home-assistant:2026.6.2@sha256:b82fab7973fa1ba5eb69a8aaab3a830d56d986d495d894faf0ee969ad27839a6
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:8123"]
     environment:
@@ -21,7 +21,7 @@ services:
 
   music_assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:2.9.0
+    image: ghcr.io/music-assistant/server:2.9.0@sha256:7e7269b20bafd7fabd1567bc0991fd30e894b05d205dacdaba8a2a3893982722
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     # privileged caps (and security-opt) needed to mount smb folders within the container
@@ -39,7 +39,7 @@ services:
 
   esphome:
     # nosemgrep
-    image: ghcr.io/esphome/esphome:2026.5.3
+    image: ghcr.io/esphome/esphome:2026.5.3@sha256:c1a2a042e351ed07d7e8e703f3b51dec9f836921cdfc867a5fd5472bad36b9fb
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:6052"]
     environment:

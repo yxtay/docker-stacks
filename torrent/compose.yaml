@@ -1,13 +1,9 @@
 services:
-  flaresolverr:
+  byparr:
     # nosemgrep
-    image: ghcr.io/flaresolverr/flaresolverr:v3.5.0@sha256:139dfee1c6f89249c8d665d1333a42e8ec74ec0a86bc6bb1c8461e10d3a66a47
-    environment:
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    image: ghcr.io/thephaseless/byparr:main
     expose:
       - 8191
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8191/health"]
     restart: unless-stopped
 
   prowlarr:

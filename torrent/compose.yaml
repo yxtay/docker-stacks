@@ -1,7 +1,7 @@
 services:
   byparr:
     # nosemgrep
-    image: ghcr.io/thephaseless/byparr:main@sha256:0717e60fb7ea7b033c51d14f84c3161bdf8c1a821dadf0fba45f55282605eba2
+    image: ghcr.io/thephaseless/byparr:main
     expose:
       - 8191
     restart: unless-stopped

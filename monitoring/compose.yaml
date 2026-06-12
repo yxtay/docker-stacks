@@ -63,7 +63,7 @@ services:
 
 networks:
   default:
-    name: public_default
+    name: caddy
     external: true
   socket_proxy:
     name: socket_proxy

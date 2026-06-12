@@ -43,7 +43,7 @@ submitting changes.
   - Prefer `ghcr.io` over `docker.io` registry.
   - Use host bind mounts under `/apps/<service-name>/` instead of named
     volumes.
-  - All stacks join the `public_default` external network for Caddy
+  - All stacks join the `caddy` external network for Caddy
     integration.
   - Caddy reverse proxy labels follow this pattern:
 
@@ -64,15 +64,15 @@ submitting changes.
   - Service-level (grouped by concern):
     1. Identity: `image`, `build`, `pull_policy`, `platform`, `profiles`
     2. Execution: `entrypoint`, `command`, `working_dir`, `user`,
-        `init`, `tty`, `stdin_open`
+       `init`, `tty`, `stdin_open`
     3. Dependencies: `depends_on`, `extends`
     4. Configuration: `environment`, `env_file`, `secrets`, `configs`
     5. Runtime: `cap_add`, `cap_drop`, `security_opt`, `devices`,
-        `privileged`, `read_only`, `shm_size`, `ulimits`, `gpus`,
-        `group_add`, `sysctls`, `pid`, `ipc`, `userns_mode`
+       `privileged`, `read_only`, `shm_size`, `ulimits`, `gpus`,
+       `group_add`, `sysctls`, `pid`, `ipc`, `userns_mode`
     6. Storage: `volumes`, `tmpfs`
     7. Networking: `ports`, `expose`, `hostname`, `networks`,
-        `network_mode`, `extra_hosts`, `dns`
+       `network_mode`, `extra_hosts`, `dns`
     8. Lifecycle: `healthcheck`, `restart`, `deploy`,
-        `stop_grace_period`, `stop_signal`, `post_start`, `pre_stop`
+       `stop_grace_period`, `stop_signal`, `post_start`, `pre_stop`
     9. Metadata: `labels`, `annotations`, `logging`

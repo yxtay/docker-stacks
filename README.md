@@ -16,10 +16,10 @@ for setup and usage.
 
 ## Docker Stacks
 
-All stacks join the `public_default` external network and use Caddy for
-reverse proxy with automatic HTTPS via DuckDNS. Services are exposed via
-wildcard subdomains (`*.DOMAIN`). [TinyAuth] provides forward authentication
-via OAuth (GitHub/Google) for protected services.
+All stacks join the `caddy` external network and use Caddy for reverse proxy
+with automatic HTTPS via DuckDNS. Services are exposed via wildcard subdomains
+(`*.DOMAIN`). [TinyAuth] provides forward authentication via OAuth
+(GitHub/Google) for protected services.
 
 [TinyAuth]: https://tinyauth.app
 
@@ -32,18 +32,24 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 */5 * * * * /path/to/bin/portainer-up.sh
 ```
 
-### Public Stack (`public/`)
+### Infra Stack (`infra/`)
 
 Core infrastructure and utility services.
 
 - **caddy** — Reverse proxy, automatic HTTPS
-- **duckdns** — Dynamic DNS
 - **tinyauth** — OAuth forward auth
+- **socket_proxy** — Docker socket proxy
+- **tailscale** — Mesh VPN
 - **whoami** — Request echo (debugging)
-- **httpbin** — HTTP testing
 - **librespeed** — Speed test
 
-### Docker Stack (`docker/`)
+### DDNS Stack (`ddns/`)
+
+Dynamic DNS updates.
+
+- **duckdns** — DuckDNS dynamic DNS client
+
+### Monitoring Stack (`monitoring/`)
 
 Monitoring and container maintenance.
 

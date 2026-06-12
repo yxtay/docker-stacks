@@ -2,11 +2,14 @@ services:
   homeassistant:
     # nosemgrep
     image: ghcr.io/home-assistant/home-assistant:2026.6.2
-    # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:8123']
     environment:
       TZ: ${TZ:-UTC}
+    # privileged: true
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
@@ -37,11 +40,13 @@ services:
   esphome:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.5.3
-    # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:6052']
     environment:
       TZ: ${TZ:-UTC}
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
     network_mode: host

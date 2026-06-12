@@ -11,5 +11,5 @@ dirs=(
 )
 for dir in "${dirs[@]}"; do
   mkdir -p "${dir}"
-  chown ubuntu:ubuntu "${dir}"
+  chown "${TARGET_USER}:${TARGET_USER}" "${dir}"
 done

@@ -139,7 +139,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     uts: host
     healthcheck:
-      test: [CMD, wget, -nv, -O-, 'http://localhost:9002/healthz']
+      test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped
 
   whoami:

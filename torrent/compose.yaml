@@ -19,7 +19,6 @@ services:
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:v3.5.0
-    container_name: flaresolverr
     environment:
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
     expose:

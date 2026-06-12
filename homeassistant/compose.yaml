@@ -3,7 +3,7 @@ services:
     # nosemgrep
     image: ghcr.io/home-assistant/home-assistant:2026.6.2
     healthcheck:
-      test: [CMD, curl, -fSs, 'http://localhost:8123']
+      test: [CMD, curl, -fSs, "http://localhost:8123"]
     environment:
       TZ: ${TZ:-UTC}
     # privileged: true
@@ -41,7 +41,7 @@ services:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.5.3
     healthcheck:
-      test: [CMD, curl, -fSs, 'http://localhost:6052']
+      test: [CMD, curl, -fSs, "http://localhost:6052"]
     environment:
       TZ: ${TZ:-UTC}
     devices:

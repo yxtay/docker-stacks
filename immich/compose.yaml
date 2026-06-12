@@ -18,7 +18,7 @@ services:
       - 2283
     networks:
       - default
-      - local
+      - caddy
     depends_on:
       redis:
         condition: service_healthy
@@ -86,7 +86,7 @@ services:
     expose:
       - 8080
     networks:
-      - local
+      - caddy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -106,7 +106,7 @@ services:
     expose:
       - 3000
     networks:
-      - local
+      - caddy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -114,6 +114,6 @@ services:
 
 networks:
   default:
-  local:
+  caddy:
     name: caddy
     external: true

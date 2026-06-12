@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: ghcr.io/home-assistant/home-assistant:latest
+    image: ghcr.io/home-assistant/home-assistant:2026.6.2
     # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:8123']
@@ -18,7 +18,7 @@ services:
 
   music_assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:latest # <<< Desired release version here (or use beta to get the latest beta version)
+    image: ghcr.io/music-assistant/server:2.9.0
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     # privileged caps (and security-opt) needed to mount smb folders within the container
@@ -36,7 +36,7 @@ services:
 
   esphome:
     # nosemgrep
-    image: ghcr.io/esphome/esphome:latest
+    image: ghcr.io/esphome/esphome:2026.5.3
     # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:6052']
@@ -52,11 +52,10 @@ services:
 
   trmnl_ha:
     # nosemgrep
-    image: ghcr.io/usetrmnl/trmnl-ha-amd64:latest
+    image: ghcr.io/usetrmnl/trmnl-ha-amd64:v0.8.1
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
-      # Use your host's IP since HA uses network_mode: host (see note below)
       HOME_ASSISTANT_URL: http://${IP_ADDRESS}:8123
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"

@@ -72,7 +72,7 @@ services:
 
   gphotos2immich:
     # nosemgrep
-    image: ghcr.io/warreth/gphotos2immich:latest
+    image: ghcr.io/warreth/gphotos2immich:v1.6.1
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:8080/"]
     environment:
@@ -92,7 +92,7 @@ services:
 
   immich_kiosk:
     # nosemgrep
-    image: ghcr.io/damongolding/immich-kiosk:latest
+    image: ghcr.io/damongolding/immich-kiosk:v0.39.3
     tty: true
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:3000/health"]

@@ -1,0 +1,134 @@
+services:
+  immich_server:
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    # extends:
+    #   file: hwaccel.transcoding.yml
+    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
+    volumes:
+      # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
+      - ${UPLOAD_LOCATION}:/data
+      - /data/media/photos:/data/library
+    env_file:
+      - .env
+    ports:
+      - 2283:2283
+    networks:
+      - default
+      - local
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy immich immich_server:2283
+      wud.tag.include: ${IMMICH_VERSION:-release}
+      wud.watch.digest: true
+
+  immich_machine_learning:
+    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    # extends: # uncomment this section for hardware acceleration - see https://docs.immich.app/features/ml-hardware-acceleration
+    #   file: hwaccel.ml.yml
+    #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
+    volumes:
+      - /apps/immich/cache:/cache
+    env_file:
+      - .env
+    networks:
+      default:
+        aliases:
+          - immich-machine-learning
+    labels:
+      wud.tag.include: ${IMMICH_VERSION:-release}
+      wud.watch.digest: true
+
+  redis:
+    image: ghcr.io/valkey-io/valkey:9
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+    labels:
+      wud.tag.include: 9
+      wud.watch.digest: true
+
+  database:
+    image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, pg_isready]
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: --data-checksums
+      # Uncomment the DB_STORAGE_TYPE: 'HDD' var if your database isn't stored on SSDs
+      # DB_STORAGE_TYPE: 'HDD'
+    volumes:
+      # Do not edit the next line. If you want to change the database storage location on your system, edit the value of DB_DATA_LOCATION in the .env file
+      - ${DB_DATA_LOCATION}:/var/lib/postgresql
+    shm_size: 128mb
+    labels:
+      wud.tag.include: postgres:18-vectorchord0.5.3
+      wud.watch.digest: true
+
+  gphotos2immich:
+    image: ghcr.io/warreth/gphotos2immich:latest
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, wget, -nv, -O-, 'http://localhost:8080/']
+    environment:
+      - PORT=8080 # Port for the Web UI
+      - DISABLE_WEBUI=false # Set to true to fully disable the Web UI
+    volumes:
+      - /apps/gphotos2immich/config.json:/app/config.json
+      - /apps/gphotos2immich/data:/app/data
+    ports:
+      - 8080:8080
+    networks:
+      - local
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
+      wud.tag.include: latest
+      wud.watch.digest: true
+
+  immich_kiosk:
+    image: ghcr.io/damongolding/immich-kiosk:latest
+    tty: true
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, curl, -fSs, 'http://localhost:3000/health']
+    environment:
+      LANG: en_US
+      TZ: Asia/Singapore
+    volumes:
+      - /apps/immich_kiosk:/config
+    ports:
+      - 3000:3000
+    networks:
+      - local
+
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000
+      wud.tag.include: latest
+      wud.watch.digest: true
+
+volumes:
+  model-cache:
+
+networks:
+  default:
+  local:
+    name: caddy
+    external: true

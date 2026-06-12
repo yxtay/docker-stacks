@@ -124,7 +124,7 @@ services:
 
   tailscale:
     # nosemgrep
-    image: ghcr.io/tailscale/tailscale:v1.98.4
+    image: ghcr.io/tailscale/tailscale:v1.98.4@sha256:25cde9ad76020b0e29229136d0c38b5962e9a0e1774ffac9b0df68e4a37d6cf0
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY:?}
       TS_AUTH_ONCE: true

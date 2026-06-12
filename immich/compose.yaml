@@ -12,8 +12,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ${UPLOAD_LOCATION}:/data
-      - /data/media/photos:/data/library
+      - ${UPLOAD_LOCATION:?}:/data
+      - ${LIBRARY_LOCATION}:/data/library
     expose:
       - 2283
     networks:
@@ -52,21 +52,21 @@ services:
     # nosemgrep
     image: ghcr.io/valkey-io/valkey:9
     healthcheck:
-      test: [CMD, redis-cli, ping]
+      test: [CMD, valkey-cli, ping]
     restart: unless-stopped
 
   database:
     # nosemgrep
     image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3
     healthcheck:
-      test: [CMD-SHELL, pg_isready]
+      test: [CMD, pg_isready]
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?}
+      POSTGRES_USER: ${DB_USERNAME:?}
+      POSTGRES_DB: ${DB_DATABASE_NAME:?}
       POSTGRES_INITDB_ARGS: --data-checksums
     volumes:
-      - ${DB_DATA_LOCATION}:/var/lib/postgresql
+      - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
     shm_size: 128mb
     restart: unless-stopped
 
@@ -74,7 +74,7 @@ services:
     # nosemgrep
     image: ghcr.io/warreth/gphotos2immich:v1.6.1
     healthcheck:
-      test: [CMD, wget, -nv, -O-, "http://localhost:8080/"]
+      test: [CMD, wget, -qO-, "http://localhost:8080/"]
     environment:
       PORT: "8080"
       DISABLE_WEBUI: "false"
@@ -95,7 +95,7 @@ services:
     image: ghcr.io/damongolding/immich-kiosk:v0.39.3
     tty: true
     healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:3000/health"]
+      test: [CMD, curl, -fsSL, "http://localhost:3000/health"]
     environment:
       LANG: en_US
       TZ: ${TZ:-UTC}

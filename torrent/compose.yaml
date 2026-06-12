@@ -49,7 +49,6 @@ services:
       --no-modtime
       --dir-cache-time 1m
       --attr-timeout 10m
-      --cache-dir /var/cache/rclone
       --vfs-cache-mode full
       --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
@@ -60,6 +59,7 @@ services:
       --vfs-read-chunk-size-limit 1G
       --buffer-size 0
       --log-format json
+      # --cache-dir /var/cache/rclone
       "
     environment:
       <<: *envs
@@ -76,7 +76,7 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/rclone:/config/rclone
-      - /apps/rclone/cache:/var/cache/rclone
+      # - /apps/rclone/cache:/var/cache/rclone
       - /mnt/remote:/mnt/remote:rshared
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]

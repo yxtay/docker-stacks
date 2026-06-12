@@ -63,7 +63,9 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:?}
       POSTGRES_USER: ${DB_USERNAME:-postgres}
+      PGUSER: ${DB_USERNAME:-postgres}
       POSTGRES_DB: ${DB_DATABASE_NAME:-immich}
+      PGDATABASE: ${DB_DATABASE_NAME:-immich}
       POSTGRES_INITDB_ARGS: --data-checksums
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql

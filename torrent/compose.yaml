@@ -162,5 +162,5 @@ services:
 
 networks:
   default:
-    name: public_default
+    name: caddy
     external: true

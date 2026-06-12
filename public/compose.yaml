@@ -134,7 +134,7 @@ services:
       TS_ENABLE_HEALTH_CHECK: true
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
+      - NET_RAW
     volumes:
       - /apps/tailscale:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun

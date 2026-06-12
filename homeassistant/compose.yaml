@@ -18,7 +18,10 @@ services:
 
   music_assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:latest
+    image: ghcr.io/music-assistant/server:latest # <<< Desired release version here (or use beta to get the latest beta version)
+    # Network mode must be set to host for MA to work correctly
+    network_mode: host
+    # privileged caps (and security-opt) needed to mount smb folders within the container
     cap_add:
       - SYS_ADMIN
       - DAC_READ_SEARCH
@@ -26,7 +29,6 @@ services:
       - apparmor:unconfined
     volumes:
       - /apps/music_assistant:/data
-    network_mode: host
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -54,6 +56,7 @@ services:
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
+      # Use your host's IP since HA uses network_mode: host (see note below)
       HOME_ASSISTANT_URL: http://${IP_ADDRESS}:8123
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"

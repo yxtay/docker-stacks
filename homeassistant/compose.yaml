@@ -1,82 +1,71 @@
 services:
   homeassistant:
+    # nosemgrep
     image: ghcr.io/home-assistant/home-assistant:latest
-    restart: unless-stopped
+    # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:8123']
-    # privileged: true
     environment:
-      TZ: Asia/Singapore
+      TZ: ${TZ:-UTC}
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
     network_mode: host
-
+    restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy homeassistant ${IP_ADDRESS}:8123
-      wud.tag.include: latest
-      wud.watch.digest: true
 
   music_assistant:
-    image: ghcr.io/music-assistant/server:latest # <<< Desired release version here (or use beta to get the latest beta version)
-    restart: unless-stopped
-    # Network mode must be set to host for MA to work correctly
-    network_mode: host
-    # privileged caps (and security-opt) needed to mount smb folders within the container
+    # nosemgrep
+    image: ghcr.io/music-assistant/server:latest
     cap_add:
       - SYS_ADMIN
       - DAC_READ_SEARCH
     security_opt:
       - apparmor:unconfined
     volumes:
-      - /apps/music_assistant/:/data/
-
+      - /apps/music_assistant:/data
+    network_mode: host
+    restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy music_assistant ${IP_ADDRESS}:8095
-      wud.tag.include: latest
-      wud.watch.digest: true
 
   esphome:
+    # nosemgrep
     image: ghcr.io/esphome/esphome:latest
-    restart: unless-stopped
+    # privileged: true
     healthcheck:
       test: [CMD, curl, -fSs, 'http://localhost:6052']
-    # privileged: true
     environment:
-      TZ: Asia/Singapore
+      TZ: ${TZ:-UTC}
     volumes:
       - /apps/esphome:/config
     network_mode: host
-
+    restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy esphome ${IP_ADDRESS}:6052
-      wud.tag.include: latest
-      wud.watch.digest: true
 
   trmnl_ha:
+    # nosemgrep
     image: ghcr.io/usetrmnl/trmnl-ha-amd64:latest
-    restart: unless-stopped
     healthcheck:
-      test: [CMD, curl, -fSs, 'http://localhost:10000/health']
+      test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
-      # Use your host's IP since HA uses network_mode: host (see note below)
-      - HOME_ASSISTANT_URL=http://${IP_ADDRESS}:8123
-      - ACCESS_TOKEN=${HOME_ASSISTANT_TOKEN}
-      - KEEP_BROWSER_OPEN=true
-      - TZ=Asia/Singapore
+      HOME_ASSISTANT_URL: http://${IP_ADDRESS}:8123
+      ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
+      KEEP_BROWSER_OPEN: "true"
+      TZ: ${TZ:-UTC}
     volumes:
       - /apps/trmnl-ha:/data
     ports:
       - 10000:10000
-
+    restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy trmnl_ha trmnl_ha:10000
-      wud.tag.include: latest
-      wud.watch.digest: true
 
 networks:
   default:

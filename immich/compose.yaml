@@ -1,0 +1,119 @@
+services:
+  immich_server:
+    # nosemgrep
+    image: ghcr.io/immich-app/immich-server:v2.7.5
+    # extends:
+    #   file: hwaccel.transcoding.yml
+    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
+    environment:
+      TZ: ${TZ:-UTC}
+    env_file:
+      - .env
+    volumes:
+      - ${UPLOAD_LOCATION:?}:/data
+      - ${LIBRARY_LOCATION:?}:/data/library
+    expose:
+      - 2283
+    networks:
+      - default
+      - local
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy immich immich_server:2283
+
+  immich_machine_learning:
+    # nosemgrep
+    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
+    image: ghcr.io/immich-app/immich-machine-learning:v2.7.5
+    # extends:
+    #   file: hwaccel.ml.yml
+    #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
+    env_file:
+      - .env
+    volumes:
+      - /apps/immich/cache:/cache
+    networks:
+      default:
+        aliases:
+          - immich-machine-learning
+    restart: unless-stopped
+
+  redis:
+    # nosemgrep
+    image: ghcr.io/valkey-io/valkey:9.1.0
+    healthcheck:
+      test: [CMD, valkey-cli, ping]
+    restart: unless-stopped
+
+  database:
+    # nosemgrep
+    image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3
+    healthcheck:
+      test: [CMD, pg_isready]
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      PGUSER: ${DB_USERNAME:-postgres}
+      POSTGRES_DB: ${DB_DATABASE_NAME:-immich}
+      PGDATABASE: ${DB_DATABASE_NAME:-immich}
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
+    shm_size: 128mb
+    restart: unless-stopped
+
+  gphotos2immich:
+    # nosemgrep
+    image: ghcr.io/warreth/gphotos2immich:v1.6.1
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:8080/"]
+    environment:
+      PORT: "8080"
+      DISABLE_WEBUI: "false"
+    volumes:
+      - /apps/gphotos2immich/config.json:/app/config.json
+      - /apps/gphotos2immich/data:/app/data
+    expose:
+      - 8080
+    networks:
+      - local
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
+
+  immich_kiosk:
+    # nosemgrep
+    image: ghcr.io/damongolding/immich-kiosk:0.39.3
+    tty: true
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:3000/health"]
+    environment:
+      LANG: en_US
+      TZ: ${TZ:-UTC}
+    volumes:
+      - /apps/immich_kiosk:/config
+    expose:
+      - 3000
+    networks:
+      - local
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000
+
+networks:
+  default:
+  local:
+    name: caddy
+    external: true

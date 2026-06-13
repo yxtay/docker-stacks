@@ -31,6 +31,7 @@ variableGroups:
 
   - title: "Networking Setup"
     variables:
+      - use_reserved_public_ip
       - vcn_display_name
       - vcn_cidr_block
       - subnet_cidr_block
@@ -129,6 +130,14 @@ variables:
     description: "Cloud-init configuration in YAML format (defaults to templates/cloud-init.yaml)."
     required: false
     default: ""
+
+  use_reserved_public_ip:
+    type: boolean
+    title: "Use Reserved Public IP"
+    description: "Assign a reserved (static) public IP that persists across instance recreations. Free when attached to an instance."
+    default: false
+    required: false
+
   vcn_display_name:
     type: string
     title: "VCN Name"

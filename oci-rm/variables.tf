@@ -118,6 +118,12 @@ variable "user_data" {
   default     = ""
 }
 
+variable "use_reserved_public_ip" {
+  type        = bool
+  description = "Use a reserved public IP that persists across instance recreations (1 free per tenancy when attached)"
+  default     = false
+}
+
 variable "vcn_display_name" {
   type        = string
   description = "VCN display name"

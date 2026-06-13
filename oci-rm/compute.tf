@@ -35,7 +35,7 @@ resource "oci_core_instance" "instance" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.subnet.id
     display_name     = "${var.instance_display_name}-vnic"
-    assign_public_ip = true
+    assign_public_ip = !var.use_reserved_public_ip
   }
 
   source_details {
@@ -48,4 +48,23 @@ resource "oci_core_instance" "instance" {
     ssh_authorized_keys = var.ssh_public_key
     user_data           = base64encode(var.user_data != "" ? var.user_data : file("${path.module}/templates/cloud-init.yaml"))
   }
+}
+
+data "oci_core_vnic_attachments" "instance_vnics" {
+  count          = var.use_reserved_public_ip ? 1 : 0
+  compartment_id = var.compartment_ocid
+  instance_id    = oci_core_instance.instance.id
+}
+
+data "oci_core_vnic" "instance_vnic" {
+  count   = var.use_reserved_public_ip ? 1 : 0
+  vnic_id = data.oci_core_vnic_attachments.instance_vnics[0].vnic_attachments[0].vnic_id
+}
+
+resource "oci_core_public_ip" "reserved" {
+  count          = var.use_reserved_public_ip ? 1 : 0
+  compartment_id = var.compartment_ocid
+  lifetime       = "RESERVED"
+  display_name   = "${var.instance_display_name}-public-ip"
+  private_ip_id  = data.oci_core_vnic.instance_vnic[0].private_ip_id
 }

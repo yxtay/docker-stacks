@@ -5,7 +5,7 @@ output "instance_id" {
 
 output "instance_public_ip" {
   description = "Public IP address of the instance"
-  value       = oci_core_instance.instance.public_ip
+  value       = var.use_reserved_public_ip ? oci_core_public_ip.reserved[0].ip_address : oci_core_instance.instance.public_ip
 }
 
 output "instance_private_ip" {
@@ -25,5 +25,5 @@ output "ssh_username" {
 
 output "ssh_command" {
   description = "SSH command to connect to the instance"
-  value       = "ssh ${local.ssh_username}@${oci_core_instance.instance.public_ip}"
+  value       = "ssh ${local.ssh_username}@${var.use_reserved_public_ip ? oci_core_public_ip.reserved[0].ip_address : oci_core_instance.instance.public_ip}"
 }

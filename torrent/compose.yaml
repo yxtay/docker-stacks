@@ -55,7 +55,7 @@ services:
       --vfs-fast-fingerprint
       --buffer-size 64M
       --vfs-read-ahead 64M
-      --vfs-read-chunk-size 4M
+      --vfs-read-chunk-size 1M
       --vfs-read-chunk-size-limit 32M
       --log-format json
       "

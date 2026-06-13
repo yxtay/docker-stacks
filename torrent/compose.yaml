@@ -43,23 +43,21 @@ services:
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}
       --allow-other
-      --links
-      --use-cookies
       --no-checksum
       --no-modtime
-      --dir-cache-time 1m
-      --attr-timeout 10m
+      --dir-cache-time 5m
+      --attr-timeout 1y
+      --cache-dir /config/rclone/cache
       --vfs-cache-mode full
       --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
       --vfs-cache-min-free-space 1G
       --vfs-fast-fingerprint
-      --vfs-read-ahead 1G
-      --vfs-read-chunk-streams 4
-      --vfs-read-chunk-size-limit 1G
-      --buffer-size 0
+      --buffer-size 64M
+      --vfs-read-ahead 64M
+      --vfs-read-chunk-size 4M
+      --vfs-read-chunk-size-limit 32M
       --log-format json
-      # --cache-dir /var/cache/rclone
       "
     environment:
       <<: *envs
@@ -76,7 +74,6 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/rclone:/config/rclone
-      # - /apps/rclone/cache:/var/cache/rclone
       - /mnt/remote:/mnt/remote:rshared
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]

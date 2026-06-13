@@ -43,20 +43,21 @@ services:
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}
       --allow-other
-      --no-checksum
-      --no-modtime
+      --attr-timeout 1m
       --dir-cache-time 5m
-      --attr-timeout 1y
+      --poll-interval 1m
+      --buffer-size 64M
       --cache-dir /config/rclone/cache
       --vfs-cache-mode full
-      --vfs-cache-max-size 20G
       --vfs-cache-max-age 1d
-      --vfs-cache-min-free-space 1G
+      --vfs-cache-max-size 20G
       --vfs-fast-fingerprint
-      --buffer-size 64M
       --vfs-read-ahead 64M
       --vfs-read-chunk-size 1M
       --vfs-read-chunk-size-limit 32M
+      --no-checksum
+      --no-modtime
+      --read-only
       --log-format json
       "
     environment:

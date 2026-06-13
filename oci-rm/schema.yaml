@@ -75,19 +75,19 @@ variables:
   instance_ocpus:
     type: integer
     title: "OCPUs"
-    description: "Number of OCPUs. Always Free limit is 4 total across all A1 instances."
+    description: "Number of OCPUs. Always Free limit is 2 total across all A1 instances."
     minimum: 1
-    maximum: 4
-    default: 4
+    maximum: 2
+    default: 2
     required: true
 
   instance_memory_in_gbs:
     type: integer
     title: "Memory (GB)"
-    description: "Memory in GB. Always Free limit is 24 GB total. Recommended ratio 1:6 (OCPU:GB)."
+    description: "Memory in GB. Always Free limit is 12 GB total. Recommended ratio 1:6 (OCPU:GB)."
     minimum: 1
-    maximum: 24
-    default: 24
+    maximum: 12
+    default: 12
     required: true
 
   boot_volume_size_in_gbs:

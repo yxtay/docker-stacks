@@ -1,7 +1,7 @@
 # OCI Resource Manager — ARM Free Tier VPS
 
 Modular Terraform stack for OCI Resource Manager that provisions an Ampere A1
-(ARM) Always Free VPS (4 OCPU / 24 GB RAM / 200 GB boot volume).
+(ARM) Always Free VPS (2 OCPU / 12 GB RAM / 200 GB boot volume).
 
 The cloud-init template (`templates/cloud-init.yaml`) configures iptables
 (ports 80, 443, 9443), installs Docker, and adds the `ubuntu` user to the

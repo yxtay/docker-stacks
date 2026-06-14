@@ -118,6 +118,12 @@ variable "user_data" {
   default     = ""
 }
 
+variable "enable_boot_volume_backup" {
+  type        = bool
+  description = "Enable weekly boot volume backup policy (retains 4 weeks; fits within Always Free 5-backup limit)"
+  default     = false
+}
+
 variable "use_reserved_public_ip" {
   type        = bool
   description = "Use a reserved public IP that persists across instance recreations (1 free per tenancy when attached)"

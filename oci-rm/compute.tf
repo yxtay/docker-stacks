@@ -50,6 +50,28 @@ resource "oci_core_instance" "instance" {
   }
 }
 
+resource "oci_core_volume_backup_policy" "weekly" {
+  count          = var.enable_boot_volume_backup ? 1 : 0
+  compartment_id = var.compartment_ocid
+  display_name   = "${var.instance_display_name}-weekly-backup"
+
+  schedules {
+    backup_type       = "INCREMENTAL"
+    period            = "ONE_WEEK"
+    day_of_week       = "SUNDAY"
+    hour_of_day       = 3
+    offset_type       = "STRUCTURED"
+    retention_seconds = 2419200 # 4 weeks
+    time_zone         = "UTC"
+  }
+}
+
+resource "oci_core_volume_backup_policy_assignment" "boot_backup" {
+  count     = var.enable_boot_volume_backup ? 1 : 0
+  asset_id  = oci_core_instance.instance.boot_volume_id
+  policy_id = oci_core_volume_backup_policy.weekly[0].id
+}
+
 data "oci_core_vnic_attachments" "instance_vnics" {
   count          = var.use_reserved_public_ip ? 1 : 0
   compartment_id = var.compartment_ocid

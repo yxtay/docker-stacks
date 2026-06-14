@@ -18,6 +18,7 @@ variableGroups:
       - instance_ocpus
       - instance_memory_in_gbs
       - boot_volume_size_in_gbs
+      - enable_boot_volume_backup
 
   - title: "Operating System"
     variables:
@@ -99,6 +100,13 @@ variables:
     maximum: 200
     default: 200
     required: true
+
+  enable_boot_volume_backup:
+    type: boolean
+    title: "Enable Boot Volume Backup"
+    description: "Weekly incremental backup every Sunday, retaining 4 weeks. Fits within Always Free 5-backup limit."
+    default: false
+    required: false
 
   instance_image_os_version:
     type: enum

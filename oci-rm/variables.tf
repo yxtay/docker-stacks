@@ -32,23 +32,23 @@ variable "instance_display_name" {
 
 variable "instance_ocpus" {
   type        = number
-  description = "Number of OCPUs (max 4 total across all A1 Always Free instances)"
-  default     = 4
+  description = "Number of OCPUs (max 2 total across all A1 Always Free instances)"
+  default     = 2
 
   validation {
-    condition     = var.instance_ocpus >= 1 && var.instance_ocpus <= 4
-    error_message = "instance_ocpus must be between 1 and 4 (Always Free limit)."
+    condition     = var.instance_ocpus >= 1 && var.instance_ocpus <= 2
+    error_message = "instance_ocpus must be between 1 and 2 (Always Free limit)."
   }
 }
 
 variable "instance_memory_in_gbs" {
   type        = number
-  description = "Memory in GB (max 24 total across all A1 Always Free instances; ratio 1:1 to 1:8 OCPU:GB)"
-  default     = 24
+  description = "Memory in GB (max 12 total across all A1 Always Free instances; ratio 1:1 to 1:8 OCPU:GB)"
+  default     = 12
 
   validation {
-    condition     = var.instance_memory_in_gbs >= 1 && var.instance_memory_in_gbs <= 24
-    error_message = "instance_memory_in_gbs must be between 1 and 24 (Always Free limit)."
+    condition     = var.instance_memory_in_gbs >= 1 && var.instance_memory_in_gbs <= 12
+    error_message = "instance_memory_in_gbs must be between 1 and 12 (Always Free limit)."
   }
 }
 
@@ -116,6 +116,18 @@ variable "user_data" {
   type        = string
   description = "Cloud-init configuration to run on first boot (defaults to templates/cloud-init.yaml)"
   default     = ""
+}
+
+variable "enable_boot_volume_backup" {
+  type        = bool
+  description = "Enable weekly boot volume backup policy (retains 4 weeks; fits within Always Free 5-backup limit)"
+  default     = false
+}
+
+variable "use_reserved_public_ip" {
+  type        = bool
+  description = "Use a reserved public IP that persists across instance recreations (1 free per tenancy when attached)"
+  default     = false
 }
 
 variable "vcn_display_name" {

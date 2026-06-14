@@ -18,6 +18,7 @@ variableGroups:
       - instance_ocpus
       - instance_memory_in_gbs
       - boot_volume_size_in_gbs
+      - enable_boot_volume_backup
 
   - title: "Operating System"
     variables:
@@ -31,6 +32,7 @@ variableGroups:
 
   - title: "Networking Setup"
     variables:
+      - use_reserved_public_ip
       - vcn_display_name
       - vcn_cidr_block
       - subnet_cidr_block
@@ -75,19 +77,19 @@ variables:
   instance_ocpus:
     type: integer
     title: "OCPUs"
-    description: "Number of OCPUs. Always Free limit is 4 total across all A1 instances."
+    description: "Number of OCPUs. Always Free limit is 2 total across all A1 instances."
     minimum: 1
-    maximum: 4
-    default: 4
+    maximum: 2
+    default: 2
     required: true
 
   instance_memory_in_gbs:
     type: integer
     title: "Memory (GB)"
-    description: "Memory in GB. Always Free limit is 24 GB total. Recommended ratio 1:6 (OCPU:GB)."
+    description: "Memory in GB. Always Free limit is 12 GB total. Recommended ratio 1:6 (OCPU:GB)."
     minimum: 1
-    maximum: 24
-    default: 24
+    maximum: 12
+    default: 12
     required: true
 
   boot_volume_size_in_gbs:
@@ -98,6 +100,13 @@ variables:
     maximum: 200
     default: 200
     required: true
+
+  enable_boot_volume_backup:
+    type: boolean
+    title: "Enable Boot Volume Backup"
+    description: "Weekly incremental backup every Sunday, retaining 4 weeks. Fits within Always Free 5-backup limit."
+    default: false
+    required: false
 
   instance_image_os_version:
     type: enum
@@ -129,6 +138,14 @@ variables:
     description: "Cloud-init configuration in YAML format (defaults to templates/cloud-init.yaml)."
     required: false
     default: ""
+
+  use_reserved_public_ip:
+    type: boolean
+    title: "Use Reserved Public IP"
+    description: "Assign a reserved (static) public IP that persists across instance recreations. Free when attached to an instance."
+    default: false
+    required: false
+
   vcn_display_name:
     type: string
     title: "VCN Name"

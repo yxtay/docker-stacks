@@ -95,10 +95,6 @@ services:
   radarr_usenet:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:4c490ccd44d31feb49dc4cc542f2148a420fc1ae0c1ba94e59b39ba4bf112716
-    depends_on:
-      altmount:
-        condition: service_healthy
-        restart: true
     environment: *envs
     volumes:
       - /apps/radarr_usenet:/config
@@ -117,10 +113,6 @@ services:
   sonarr_usenet:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
-    depends_on:
-      altmount:
-        condition: service_healthy
-        restart: true
     environment: *envs
     volumes:
       - /apps/sonarr_usenet:/config

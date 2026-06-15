@@ -2,7 +2,6 @@
   ansible.builtin.lineinfile:
     path: /etc/subuid
     line: "root:{{ item }}:1"
-    regexp: "^root:{{ item }}:"
     create: true
     mode: "0644"
   loop: "{{ lxc_idmap_uids }}"
@@ -11,7 +10,6 @@
   ansible.builtin.lineinfile:
     path: /etc/subgid
     line: "root:{{ item }}:1"
-    regexp: "^root:{{ item }}:"
     create: true
     mode: "0644"
   loop: "{{ lxc_idmap_gids }}"
@@ -52,12 +50,6 @@
     cmode: tty
     state: present
   delegate_to: localhost
-
-- name: Remove existing ID mapping from LXC config
-  ansible.builtin.lineinfile:
-    path: "/etc/pve/lxc/{{ lxc_vmid }}.conf"
-    regexp: '^lxc\.idmap:'
-    state: absent
 
 - name: Configure ID mapping in LXC config
   vars:

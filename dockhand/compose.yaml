@@ -9,6 +9,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     # network_mode: host  # required for initial setup
     restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth dockerhand dockerhand:3000
 
 networks:
   default:

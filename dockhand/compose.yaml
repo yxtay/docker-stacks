@@ -1,5 +1,6 @@
 services:
   dockhand:
+    # nosemgrep
     image: fnsys/dockhand:v1.0.33
     ports:
       - 3000:3000

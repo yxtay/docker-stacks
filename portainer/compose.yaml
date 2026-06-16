@@ -12,6 +12,7 @@ services:
     expose:
       - 8000
       - 9000
+    # network_mode: host  # required for initial setup
     healthcheck:
       test: [CMD, /portainer, --version]
     restart: unless-stopped

@@ -2,6 +2,7 @@
   ansible.builtin.lineinfile:
     path: /etc/subuid
     line: "root:{{ item }}:1"
+    regex: "^root:{{ item }}:"
     create: true
     mode: "0644"
   loop: "{{ lxc_idmap_uids }}"
@@ -10,6 +11,7 @@
   ansible.builtin.lineinfile:
     path: /etc/subgid
     line: "root:{{ item }}:1"
+    regex: "^root:{{ item }}:"
     create: true
     mode: "0644"
   loop: "{{ lxc_idmap_gids }}"

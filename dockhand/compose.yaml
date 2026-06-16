@@ -1,6 +1,6 @@
 services:
   dockhand:
-    image: fnsys/dockhand:latest
+    image: fnsys/dockhand:v1.0.33
     ports:
       - 3000:3000
     volumes:

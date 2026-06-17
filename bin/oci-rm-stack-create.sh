@@ -22,6 +22,13 @@ TENANCY_OCID=$(oci iam availability-domain list --query 'data[0]."compartment-id
 COMPARTMENT_ID=${COMPARTMENT_ID:-$(oci iam compartment list --compartment-id-in-subtree true --query 'data[0].id' --raw-output)}
 COMPARTMENT_ID=${COMPARTMENT_ID:-${TENANCY_OCID}}
 
+VARIABLES=$(jq -n \
+  --arg tenancy_ocid "${TENANCY_OCID}" \
+  --arg compartment_ocid "${COMPARTMENT_ID}" \
+  --arg region "${REGION}" \
+  --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
+  '$ARGS.named')
+
 REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
@@ -29,13 +36,6 @@ STACK_ZIP="${WORK_DIR}/stack.zip"
 trap 'rm -rf "${WORK_DIR}"' EXIT
 echo "Zipping OCI RM stack..."
 (cd "${REPO_DIR}/oci-rm" && zip -r "${STACK_ZIP}" .)
-
-VARIABLES=$(jq -n \
-  --arg tenancy_ocid "${TENANCY_OCID}" \
-  --arg compartment_ocid "${COMPARTMENT_ID}" \
-  --arg region "${REGION}" \
-  --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
-  '$ARGS.named')
 
 echo "Creating stack ${STACK_NAME} in ${REGION}..."
 oci resource-manager stack create \

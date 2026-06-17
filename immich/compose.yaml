@@ -5,8 +5,7 @@ services:
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    healthcheck:
-      test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
+    user: ${PUID:-1000}:${PGID:-1000}
     environment:
       TZ: ${TZ:-UTC}
     volumes:
@@ -22,6 +21,8 @@ services:
         condition: service_healthy
       database:
         condition: service_healthy
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -34,14 +35,15 @@ services:
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
-    healthcheck:
-      test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
+    user: ${PUID:-1000}:${PGID:-1000}
     volumes:
       - /apps/immich/model/cache:/cache
     networks:
       default:
         aliases:
           - immich-machine-learning
+    healthcheck:
+      test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped
 
   redis:

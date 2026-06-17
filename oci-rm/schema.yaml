@@ -170,8 +170,8 @@ variables:
   tcp_ingress_ports:
     type: string
     title: "TCP Ingress Ports"
-    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443,9443)."
-    default: "80,443,9443"
+    description: "Comma-separated list of TCP ports to allow ingress (e.g., 80,443)."
+    default: "80,443"
     required: false
 
   udp_ingress_ports:

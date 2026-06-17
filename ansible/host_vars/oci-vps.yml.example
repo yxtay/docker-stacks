@@ -1,1 +1,8 @@
 ansible_host: 203.0.113.10
+
+# oci_firewall vars
+oci_firewall_tcp_ports:
+  - "80"
+  - "443"
+oci_firewall_udp_ports:
+  - "443"

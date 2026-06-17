@@ -93,7 +93,7 @@ variable "ssh_source_cidr" {
 variable "tcp_ingress_ports" {
   type        = string
   description = "Comma-separated list of TCP ports to allow ingress"
-  default     = "80,443,9443"
+  default     = "80,443"
 
   validation {
     condition     = alltrue([for p in compact(split(",", replace(var.tcp_ingress_ports, " ", ""))) : can(tonumber(p)) && tonumber(p) >= 1 && tonumber(p) <= 65535])

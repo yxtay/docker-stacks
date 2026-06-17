@@ -37,8 +37,8 @@ services:
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
     user: ${PUID:-1000}:${PGID:-1000}
     volumes:
-      - /apps/immich/model/config:/.config
-      - /apps/immich/model/cache:/.cache
+      - /apps/immich/model/.config:/.config
+      - /apps/immich/model/.cache:/.cache
       - /apps/immich/model/cache:/cache
     networks:
       default:

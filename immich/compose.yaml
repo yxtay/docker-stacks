@@ -99,6 +99,7 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - /apps/immich_kiosk:/config
+      - /usr/bin/curl:/usr/bin/curl
     expose:
       - 3000
     networks:

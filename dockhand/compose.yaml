@@ -2,13 +2,19 @@ services:
   dockhand:
     # nosemgrep
     image: fnsys/dockhand:v1.0.33@sha256:c211d101f22cf82518f1642843290a8f8ecac235d685c9b6c54696b464c12f0c
+    environment:
+      DATA_DIR: ${DOCKHAND_DATA:?}
     ports:
       - 3000:3000
     volumes:
-      - /apps/dockhand:/app/data
+      - ../:/home/dockhand/
+      - ${DOCKHAND_DATA}:${DOCKHAND_DATA}
       - /var/run/docker.sock:/var/run/docker.sock:ro
     # network_mode: host  # required for initial setup
     restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth dockhand dockhand:3000
 
 networks:
   default:

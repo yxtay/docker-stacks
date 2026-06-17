@@ -13,11 +13,7 @@ REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 
-cleanup() {
-  rm -rf "${WORK_DIR}"
-}
-trap cleanup EXIT
-
+trap 'rm -rf "${WORK_DIR}"' EXIT
 echo "Zipping OCI RM stack..."
 (cd "${REPO_DIR}/oci-rm" && zip -r "${STACK_ZIP}" .)
 

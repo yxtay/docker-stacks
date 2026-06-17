@@ -1,8 +1,0 @@
-# oci_firewall vars
-oci_firewall_tcp_ports:
-  - "80"
-  - "443"
-  - "3000"
-  - "9443"
-oci_firewall_udp_ports:
-  - "443"

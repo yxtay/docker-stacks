@@ -30,12 +30,19 @@ trap 'rm -rf "${WORK_DIR}"' EXIT
 echo "Zipping OCI RM stack..."
 (cd "${REPO_DIR}/oci-rm" && zip -r "${STACK_ZIP}" .)
 
+VARIABLES=$(jq -n \
+  --arg tenancy_ocid "${TENANCY_OCID}" \
+  --arg compartment_ocid "${COMPARTMENT_ID}" \
+  --arg region "${REGION}" \
+  --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
+  '$ARGS.named')
+
 echo "Creating stack ${STACK_NAME} in ${REGION}..."
 oci resource-manager stack create \
   --compartment-id "${COMPARTMENT_ID}" \
   --config-source "${STACK_ZIP}" \
   --display-name "${STACK_NAME}" \
   --description "${STACK_DESCRIPTION}" \
-  --variables "{\"tenancy_ocid\":\"${TENANCY_OCID}\",\"compartment_ocid\":\"${COMPARTMENT_ID}\",\"region\":\"${REGION}\",\"ssh_public_key\":\"${SSH_PUBLIC_KEY}\"}"
+  --variables "${VARIABLES}"
 
 echo "Stack created."

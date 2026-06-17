@@ -4,7 +4,7 @@ Modular Terraform stack for OCI Resource Manager that provisions an Ampere A1
 (ARM) Always Free VPS (2 OCPU / 12 GB RAM / 200 GB boot volume).
 
 The cloud-init template (`templates/cloud-init.yaml`) configures iptables
-(ports 80, 443, 9443), installs Docker, and adds the `ubuntu` user to the
+(ports 80, 443, 3000, 9443), installs Docker, and adds the `ubuntu` user to the
 docker group. The Terraform stack uses it automatically.
 
 Required inputs: **Compartment**, **SSH Public Key**, and optionally

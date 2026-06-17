@@ -32,6 +32,12 @@ Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
 */5 * * * * /path/to/bin/portainer-up.sh
 ```
 
+### Dockhand Stack (`dockhand/`)
+
+Container management UI.
+
+- **dockhand** — Docker container management dashboard
+
 ### Infra Stack (`infra/`)
 
 Core infrastructure and utility services.

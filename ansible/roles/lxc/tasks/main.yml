@@ -1,18 +1,20 @@
 - name: Configure subuid for ID mapping
   ansible.builtin.lineinfile:
     path: /etc/subuid
-    line: "root:{{ lxc_idmap_start }}:{{ lxc_idmap_count }}"
-    regexp: "^root:{{ lxc_idmap_start }}:"
+    line: "root:{{ item }}:1"
+    regex: "^root:{{ item }}:"
     create: true
     mode: "0644"
+  loop: "{{ lxc_idmap_uids }}"
 
 - name: Configure subgid for ID mapping
   ansible.builtin.lineinfile:
     path: /etc/subgid
-    line: "root:{{ lxc_idmap_start }}:{{ lxc_idmap_count }}"
-    regexp: "^root:{{ lxc_idmap_start }}:"
+    line: "root:{{ item }}:1"
+    regex: "^root:{{ item }}:"
     create: true
     mode: "0644"
+  loop: "{{ lxc_idmap_gids }}"
 
 - name: Download LXC template
   community.proxmox.proxmox_template:
@@ -52,24 +54,42 @@
   delegate_to: localhost
 
 - name: Configure ID mapping in LXC config
+  vars:
+    _uids: "{{ lxc_idmap_uids | map('int') | sort | list }}"
+    _gids: "{{ lxc_idmap_gids | map('int') | sort | list }}"
+    _uid_lines: >-
+      {% set lines = [] %}
+      {% for uid in _uids %}
+      {% set prev_end = 0 if loop.index0 == 0 else _uids[loop.index0 - 1] + 1 %}
+      {% if uid > prev_end %}
+      {% if lines.append('lxc.idmap: u ' ~ prev_end ~ ' ' ~ (100000 + prev_end) ~ ' ' ~ (uid - prev_end)) %}{% endif %}
+      {% endif %}
+      {% if lines.append('lxc.idmap: u ' ~ uid ~ ' ' ~ uid ~ ' 1') %}{% endif %}
+      {% endfor %}
+      {% set tail_start = _uids[-1] + 1 if _uids else 0 %}
+      {% if tail_start < 65536 %}
+      {% if lines.append('lxc.idmap: u ' ~ tail_start ~ ' ' ~ (100000 + tail_start) ~ ' ' ~ (65536 - tail_start)) %}{% endif %}
+      {% endif %}
+      {{ lines | to_json }}
+    _gid_lines: >-
+      {% set lines = [] %}
+      {% for gid in _gids %}
+      {% set prev_end = 0 if loop.index0 == 0 else _gids[loop.index0 - 1] + 1 %}
+      {% if gid > prev_end %}
+      {% if lines.append('lxc.idmap: g ' ~ prev_end ~ ' ' ~ (100000 + prev_end) ~ ' ' ~ (gid - prev_end)) %}{% endif %}
+      {% endif %}
+      {% if lines.append('lxc.idmap: g ' ~ gid ~ ' ' ~ gid ~ ' 1') %}{% endif %}
+      {% endfor %}
+      {% set tail_start = _gids[-1] + 1 if _gids else 0 %}
+      {% if tail_start < 65536 %}
+      {% if lines.append('lxc.idmap: g ' ~ tail_start ~ ' ' ~ (100000 + tail_start) ~ ' ' ~ (65536 - tail_start)) %}{% endif %}
+      {% endif %}
+      {{ lines | to_json }}
   ansible.builtin.lineinfile:
     path: "/etc/pve/lxc/{{ lxc_vmid }}.conf"
-    line: "{{ item.line }}"
-    regexp: "{{ item.regexp }}"
+    line: "{{ item }}"
     state: present
-  loop:
-    - line: "lxc.idmap: u 0 100000 {{ lxc_idmap_start | int }}"
-      regexp: '^lxc\.idmap:\s+u\s+0\s+'
-    - line: "lxc.idmap: g 0 100000 {{ lxc_idmap_start | int }}"
-      regexp: '^lxc\.idmap:\s+g\s+0\s+'
-    - line: "lxc.idmap: u {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}"
-      regexp: '^lxc\.idmap:\s+u\s+{{ lxc_idmap_start | int }}\s+'
-    - line: "lxc.idmap: g {{ lxc_idmap_start | int }} {{ lxc_idmap_start | int }} {{ lxc_idmap_count | int }}"
-      regexp: '^lxc\.idmap:\s+g\s+{{ lxc_idmap_start | int }}\s+'
-    - line: "lxc.idmap: u {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}"
-      regexp: '^lxc\.idmap:\s+u\s+{{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }}\s+'
-    - line: "lxc.idmap: g {{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 100000 + (lxc_idmap_start | int) + (lxc_idmap_count | int) }} {{ 65536 - (lxc_idmap_start | int) - (lxc_idmap_count | int) }}"
-      regexp: '^lxc\.idmap:\s+g\s+{{ (lxc_idmap_start | int) + (lxc_idmap_count | int) }}\s+'
+  loop: "{{ (_uid_lines | from_json) + (_gid_lines | from_json) }}"
   register: idmap_config
 
 - name: Stop LXC container for ID mapping change

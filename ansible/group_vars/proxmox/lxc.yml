@@ -8,6 +8,8 @@ lxc_template: debian-13-standard_13.1-2_amd64.tar.zst
 lxc_template_storage: local
 lxc_features: fuse=1,keyctl=1,nesting=1
 
-# ID mapping for bind mount sharing (UIDs 1000-1009 pass through)
-lxc_idmap_start: 1000
-lxc_idmap_count: 1
+# ID mapping for bind mount sharing (pass through specific UIDs/GIDs)
+lxc_idmap_uids:
+  - 1000
+lxc_idmap_gids:
+  - 1000

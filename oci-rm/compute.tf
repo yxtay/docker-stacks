@@ -48,6 +48,10 @@ resource "oci_core_instance" "instance" {
     ssh_authorized_keys = var.ssh_public_key
     user_data           = base64encode(var.user_data != "" ? var.user_data : file("${path.module}/templates/cloud-init.yaml"))
   }
+
+  lifecycle {
+    ignore_changes = [metadata]
+  }
 }
 
 resource "oci_core_volume_backup_policy" "weekly" {
@@ -78,7 +82,7 @@ data "oci_core_vnic_attachments" "instance_vnics" {
   instance_id    = oci_core_instance.instance.id
 }
 
-data "oci_core_vnic" "instance_vnic" {
+data "oci_core_private_ips" "instance_vnic_primary" {
   count   = var.use_reserved_public_ip ? 1 : 0
   vnic_id = data.oci_core_vnic_attachments.instance_vnics[0].vnic_attachments[0].vnic_id
 }
@@ -88,5 +92,5 @@ resource "oci_core_public_ip" "reserved" {
   compartment_id = var.compartment_ocid
   lifetime       = "RESERVED"
   display_name   = "${var.instance_display_name}-public-ip"
-  private_ip_id  = data.oci_core_vnic.instance_vnic[0].private_ip_id
+  private_ip_id  = data.oci_core_private_ips.instance_vnic_primary[0].private_ips[0].id
 }

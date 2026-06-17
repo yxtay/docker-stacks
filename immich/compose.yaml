@@ -83,6 +83,9 @@ services:
       - 8080
     networks:
       - caddy
+    depends_on:
+      immich_server:
+        condition: service_healthy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -103,6 +106,9 @@ services:
       - 3000
     networks:
       - caddy
+    depends_on:
+      immich_server:
+        condition: service_healthy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

@@ -3,28 +3,27 @@ batch = true
 confirmbigdel = true
 fastcheck = true
 links = false
+log = false
 maxerrors = 10
 times = true
-log = false
 
 dontchmod = true
 group = false
 owner = false
 perms = 0
 
-ignore = Name {.DS_Store,.git,__pycache__}
-ignore = Name *.{pid,pyc,lock}
-ignore = Name {,.,*.}[Cc]ache{,s}
-ignore = Name {,.,*.}{temp,tmp}{,.*}
-ignore = Name {,.,*.}[Tt]rash{,es,-*}
-ignore = Name *-{shm,wal}
-ignorenot = Name {*.conf,*.ini,*.json,*.prf,*.txt,*.yaml,*.yml}
+ignorenot = Name *.{conf,ini,json,prf,txt,yaml,yml}
+ignore = Name __pycache__
+ignore = Name *.{bak,git,pid,pyc,lock}
+ignore = Name {,*.}{cache,tmp}
 
 ignore = Name MediaCover
+ignore = BelowPath altmount/{.nzbs,metadata}
 ignore = BelowPath esphome/.esphome
 ignore = BelowPath homeassistant/{deps,tts}
 ignore = BelowPath immich/data/{encoded-video,library,thumbs,upload}
+ignore = BelowPath nzbdav/blobs
 ignore = BelowPath portainer/compose
-ignore = BelowPath profilarr/{data/databases,db}
+ignore = BelowPath profilarr/data/databases
 ignore = BelowPath prowlarr/Definitions
 ignore = Path unison/{ar,fp,lk,sc,tm}*

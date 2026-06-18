@@ -1,10 +1,10 @@
 [Unit]
-Description=Run unison apps sync hourly
+Description=Run rclone apps sync hourly
 
 [Timer]
 OnCalendar=hourly
 RandomizedDelaySec=300
-Unit=run-script@unison-apps.sh.service
+Unit=run-script@rclone-apps.sh.service
 
 [Install]
 WantedBy=timers.target

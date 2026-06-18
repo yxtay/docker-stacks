@@ -25,6 +25,37 @@ services:
       test: [CMD, resticprofile, --dry-run, backup]
     restart: unless-stopped
 
+  rclone-sync:
+    image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
+    command:
+      - sync
+      - /apps/
+      - /data/apps/
+      - --filter-from
+      - /config/filter.txt
+      - --exclude-if-present
+      - .nobackup
+      - --exclude-if-present
+      - .git
+      - --exclude-if-present
+      - .github
+      - --exclude-if-present
+      - .gitignore
+      - --exclude-if-present
+      - CACHEDIR.TAG
+      - --ignore-case
+      - --checksum
+      - --one-file-system
+      - --skip-links
+      - --track-renames
+    volumes:
+      - ./rclone:/config
+      - /apps:/apps:ro
+      - /data/apps:/data/apps
+    restart: no
+    profiles:
+      - sync
+
 networks:
   default:
     name: caddy

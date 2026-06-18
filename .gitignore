@@ -52,3 +52,7 @@ settings.local.json
 *.vault.yml
 ansible/host_vars/*
 !ansible/host_vars/*.example
+
+/apps
+unison/ar*
+unison/fp*

@@ -131,12 +131,12 @@ Self-hosted photo and video management.
 Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
-| Timer | Schedule | Purpose |
-| --- | --- | --- |
-| `portainer-up` | Every 5 min | GitOps stack sync |
-| `rsync-apps` | Hourly | Local /apps → /data/apps sync |
-| `logrotate` | Hourly | App log rotation |
-| `cleanup-symlinks` | Daily | Remove broken symlinks from mounts |
+| Timer              | Schedule    | Purpose                            |
+|--------------------|-------------|------------------------------------|
+| `portainer-up`     | Every 5 min | GitOps stack sync                  |
+| `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
+| `logrotate`        | Hourly      | App log rotation                   |
+| `cleanup-symlinks` | Daily       | Remove broken symlinks from mounts |
 
 ## Unison
 

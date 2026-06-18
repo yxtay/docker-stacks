@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy homeassistant ${IP_ADDRESS:?}:8123
+      caddy.import: reverse_proxy homeassistant ${HA_IP_ADDRESS:?}:8123
 
   music_assistant:
     # nosemgrep
@@ -25,17 +25,17 @@ services:
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     # privileged caps (and security-opt) needed to mount smb folders within the container
-    cap_add:
-      - SYS_ADMIN
-      - DAC_READ_SEARCH
-    security_opt:
-      - apparmor:unconfined
+    # cap_add:
+    #   - SYS_ADMIN
+    #   - DAC_READ_SEARCH
+    # security_opt:
+    #   - apparmor:unconfined
     volumes:
       - /apps/music_assistant:/data
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy music_assistant ${IP_ADDRESS:?}:8095
+      caddy.import: reverse_proxy music_assistant ${HA_IP_ADDRESS:?}:8095
 
   esphome:
     # nosemgrep
@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy esphome ${IP_ADDRESS:?}:6052
+      caddy.import: reverse_proxy esphome ${HA_IP_ADDRESS:?}:6052
 
   trmnl_ha:
     # nosemgrep
@@ -62,7 +62,7 @@ services:
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
-      HOME_ASSISTANT_URL: http://${IP_ADDRESS:?}:8123
+      HOME_ASSISTANT_URL: http://${HA_IP_ADDRESS:?}:8123
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}

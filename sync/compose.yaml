@@ -18,7 +18,6 @@ services:
       - --exclude-if-present
       - CACHEDIR.TAG
       - --ignore-case
-      - --checksum
       - --one-file-system
       - --skip-links
       - --track-renames

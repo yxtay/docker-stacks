@@ -1,0 +1,5 @@
+include common
+
+root = /apps/
+root = /data/apps/
+prefer /apps/

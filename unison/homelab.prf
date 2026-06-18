@@ -1,0 +1,10 @@
+include common
+
+root = /Users/yuxuantay/git/docker-stacks/apps/
+root = ssh://pve//apps/
+prefer = ssh://pve//apps/
+
+contactquietly = true
+maxthreads = 4
+servercmd = sudo unison
+sshargs = -C

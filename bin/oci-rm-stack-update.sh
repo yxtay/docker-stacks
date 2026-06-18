@@ -9,13 +9,13 @@ set -euo pipefail
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
 
-REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
+OCI_RM_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/oci-rm
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 
 trap 'rm -rf "${WORK_DIR}"' EXIT
 echo "Zipping OCI RM stack..."
-(cd "${REPO_DIR}/oci-rm" && zip -r "${STACK_ZIP}" .)
+(cd "${OCI_RM_DIR}" && zip -r "${STACK_ZIP}" .)
 
 echo "Updating stack ${STACK_ID}..."
 oci resource-manager stack update \

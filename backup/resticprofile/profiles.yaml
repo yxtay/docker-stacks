@@ -29,10 +29,13 @@ profiles:
         - .nobackup
       iexclude:
         # Temp and runtime files
+        - "*.bak"
         - "*.pid"
         - "*.lock"
+        - "*.tmp"
         - .cache
         - cache
+        - tmp
         # Build artifacts
         - __pycache__
         - "*.pyc"
@@ -40,7 +43,15 @@ profiles:
         - MediaCover
         - altmount/.nzbs
         - altmount/metadata
+        - esphome/.esphome
+        - homeassistant/deps
+        - homeassistant/tts
+        - immich/data/encoded-video
+        - immich/data/library
+        - immich/data/thumbs
+        - immich/data/upload
         - nzbdav/blobs
+        - portainer/compose
         - profilarr/data/databases
         - prowlarr/Definitions
 

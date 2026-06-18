@@ -79,6 +79,8 @@ profiles:
 
     check:
       send-after-fail: *send-after-fail
+      read-data: true
+      read-data-subset: "10%"
 
     copy:
       send-after-fail: *send-after-fail
@@ -94,8 +96,6 @@ profiles:
 
     check:
       schedule: Sun 01:00
-      read-data: true
-      read-data-subset: "25%"
 
     copy:
       repository: "{{ $remote_repo }}"

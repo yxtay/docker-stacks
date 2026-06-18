@@ -52,6 +52,7 @@ services:
     environment:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
+      XDG_CACHE_HOME: /config/cache
     # privileged: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0

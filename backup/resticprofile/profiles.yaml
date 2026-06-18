@@ -15,6 +15,19 @@ profiles:
     cleanup-cache: true
 
     backup:
+      send-after-fail: &send-after-fail
+        method: POST
+        url: "https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-resticprofile"
+        headers:
+          - name: Title
+            value: "resticprofile failed: {{ .ProfileName }}.{{ .ProfileCommand }}"
+          - name: Priority
+            value: high
+        body: |
+          Host: {{ .Hostname }}
+          Profile: {{ .ProfileName }}
+          Command: {{ .ProfileCommand }}
+          Error: {{ .Error.Message }}
       host: true
       source:
         - /apps
@@ -56,12 +69,19 @@ profiles:
         - prowlarr/Definitions
 
     forget: &forget
+      send-after-fail: *send-after-fail
       host: true
       path: true
       keep-daily: 7
       keep-weekly: 4
       keep-monthly: 3
       prune: true
+
+    check:
+      send-after-fail: *send-after-fail
+
+    copy:
+      send-after-fail: *send-after-fail
 
   default:
     inherit: base
@@ -71,6 +91,11 @@ profiles:
       schedule: "00:00"
 
     retention: *forget
+
+    check:
+      schedule: Sun 01:00
+      read-data: true
+      read-data-subset: "25%"
 
     copy:
       repository: "{{ $remote_repo }}"

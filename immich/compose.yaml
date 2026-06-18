@@ -13,7 +13,7 @@ services:
         condition: service_healthy
     environment:
       TZ: ${TZ:-UTC}
-      DB_PASSWORD: ${DB_PASSWORD:?-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_USER: ${DB_USER:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
     volumes:

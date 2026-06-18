@@ -1,0 +1,27 @@
+# General patterns
+*.bak
+*.lock
+*.pid
+*.pyc
+*.tmp
+.git
+__pycache__
+cache/
+.cache/
+tmp/
+
+# App-specific paths
+MediaCover
+esphome/.esphome/
+homeassistant/deps/
+homeassistant/tts/
+immich/data/encoded-video/
+immich/data/library/
+immich/data/thumbs/
+immich/data/upload/
+altmount/.nzbs/
+altmount/metadata/
+nzbdav/blobs/
+portainer/compose/
+profilarr/data/databases/
+prowlarr/Definitions/

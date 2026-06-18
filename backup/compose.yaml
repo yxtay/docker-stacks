@@ -31,8 +31,8 @@ services:
       - sync
       - /apps/
       - /data/apps/
-      - --filter-from
-      - /config/filter.txt
+      - --exclude-from
+      - /config/exclude.txt
       - --exclude-if-present
       - .nobackup
       - --exclude-if-present

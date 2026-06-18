@@ -39,7 +39,7 @@ services:
 
   esphome:
     # nosemgrep
-    image: ghcr.io/esphome/esphome:2026.5.3@sha256:c1a2a042e351ed07d7e8e703f3b51dec9f836921cdfc867a5fd5472bad36b9fb
+    image: ghcr.io/esphome/esphome:2026.6.0@sha256:867e8db67c73974ba3a9d117c36611d02f03ba3cabc5cb8b21a6e6f9a3047ab8
     healthcheck:
       test: [CMD, curl, -fSs, "http://localhost:6052"]
     environment:

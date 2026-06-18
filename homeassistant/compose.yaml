@@ -1,12 +1,15 @@
 services:
   homeassistant:
     # nosemgrep
-    image: ghcr.io/home-assistant/home-assistant:2026.6.3@sha256:aed891b8f801072302815b4b0fab5adb714182967e9d2e2d4a2be558241c73ad
-    healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:8123"]
+    image: ghcr.io/linuxserver/homeassistant:2026.6.3
     environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
     # privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    #   - NET_RAW
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
@@ -14,36 +17,42 @@ services:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
     network_mode: host
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8123"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy homeassistant ${IP_ADDRESS:?}:8123
+      caddy.import: reverse_proxy homeassistant ${HA_IP_ADDRESS:?}:8123
 
   music_assistant:
     # nosemgrep
     image: ghcr.io/music-assistant/server:2.9.2@sha256:5278740e2ea119a72c6819b36ccfdab7df160d7a3a886dad0b58c3980e153012
-    # Network mode must be set to host for MA to work correctly
-    network_mode: host
+    user: "${PUID:-1000}:${PGID:-1000}"
     # privileged caps (and security-opt) needed to mount smb folders within the container
-    cap_add:
-      - SYS_ADMIN
-      - DAC_READ_SEARCH
-    security_opt:
-      - apparmor:unconfined
+    # cap_add:
+    #   - SYS_ADMIN
+    #   - DAC_READ_SEARCH
+    # security_opt:
+    #   - apparmor:unconfined
     volumes:
       - /apps/music_assistant:/data
+    # Network mode must be set to host for MA to work correctly
+    network_mode: host
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:8095"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy music_assistant ${IP_ADDRESS:?}:8095
+      caddy.import: reverse_proxy music_assistant ${HA_IP_ADDRESS:?}:8095
 
   esphome:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.6.0@sha256:867e8db67c73974ba3a9d117c36611d02f03ba3cabc5cb8b21a6e6f9a3047ab8
-    healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:6052"]
+    user: "${PUID:-1000}:${PGID:-1000}"
     environment:
       TZ: ${TZ:-UTC}
+      PLATFORMIO_CORE_DIR: /config/.esphome/platformio
+      XDG_CACHE_HOME: /config/.esphome/platformio/.cache
     # privileged: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
@@ -51,18 +60,18 @@ services:
     volumes:
       - /apps/esphome:/config
     network_mode: host
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy esphome ${IP_ADDRESS:?}:6052
+      caddy.import: reverse_proxy esphome ${HA_IP_ADDRESS:?}:6052
 
   trmnl_ha:
     # nosemgrep
     image: ghcr.io/usetrmnl/trmnl-ha-${ARCH:-amd64}:0.8.1
-    healthcheck:
-      test: [CMD, curl, -fSs, "http://localhost:10000/health"]
     environment:
-      HOME_ASSISTANT_URL: http://${IP_ADDRESS:?}:8123
+      HOME_ASSISTANT_URL: "http://${HA_IP_ADDRESS:?}:8123"
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}
@@ -70,6 +79,8 @@ services:
       - /apps/trmnl-ha:/data
     ports:
       - 10000:10000
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:10000/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

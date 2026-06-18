@@ -25,12 +25,7 @@ with automatic HTTPS via DuckDNS. Services are exposed via wildcard subdomains
 
 ### Portainer Stack (`portainer/`)
 
-Container management UI. Use `bin/portainer-up.sh` in cron for GitOps:
-
-```bash
-# Cron example (every 5 minutes)
-*/5 * * * * /path/to/bin/portainer-up.sh
-```
+Container management UI. GitOps via systemd timer (every 5 minutes).
 
 ### Dockhand Stack (`dockhand/`)
 
@@ -66,11 +61,18 @@ Monitoring and container maintenance.
 
 ### Backup Stack (`backup/`)
 
-Daily backups of `/apps` to Google Drive using restic with rclone backend.
+Encrypted backups of `/apps` using restic with resticprofile orchestration.
+Local repository copied to Google Drive via rclone backend.
 Retention: 7 daily, 4 weekly, 3 monthly snapshots.
+Failure notifications sent to ntfy.sh.
 
 - **resticprofile** — Scheduled restic backups via crond
-  with Google Drive (rclone) backend
+
+### Sync Stack (`sync/`)
+
+One-way sync of `/apps` to `/data/apps` for local redundancy using rsync.
+
+- **rsync** — Archive copy with hardlinks, ACLs, xattrs
 
 ### Usenet Stack (`usenet/`)
 
@@ -115,3 +117,22 @@ Self-hosted photo and video management.
 - **database** — PostgreSQL with pgvecto.rs
 - **gphotos2immich** — Google Photos import bridge
 - **immich_kiosk** — Photo slideshow display
+
+## Systemd Timers
+
+Scheduled tasks via systemd user timers (`systemd/`). Install with
+`bin/setup-systemd.sh`.
+
+| Timer              | Schedule    | Purpose                            |
+|--------------------|-------------|------------------------------------|
+| `portainer-up`     | Every 5 min | GitOps stack sync                  |
+| `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
+| `logrotate`        | Hourly      | App log rotation                   |
+| `cleanup-symlinks` | Daily       | Remove broken symlinks from mounts |
+
+## Unison
+
+Bidirectional file sync (`unison/`). Profiles:
+
+- **apps.prf** — Local /apps ↔ /data/apps (prefers /apps)
+- **homelab.prf** — Remote sync to primary server via SSH

@@ -11,8 +11,6 @@ services:
     volumes:
       - ${UPLOAD_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
-    ports:
-      - 2283:2283
     expose:
       - 2283
     networks:
@@ -106,8 +104,6 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - /apps/immich_kiosk:/config
-    ports:
-      - 3000:3000
     expose:
       - 3000
     networks:

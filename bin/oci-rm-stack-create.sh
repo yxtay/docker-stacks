@@ -29,13 +29,13 @@ VARIABLES=$(jq -n \
   --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
   '$ARGS.named')
 
-REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+OCI_RM_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/oci-rm
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 
 trap 'rm -rf "${WORK_DIR}"' EXIT
 echo "Zipping OCI RM stack..."
-(cd "${REPO_DIR}/oci-rm" && zip -r "${STACK_ZIP}" .)
+(cd "${OCI_RM_DIR}" && zip -r "${STACK_ZIP}" .)
 
 echo "Creating stack ${STACK_NAME} in ${REGION}..."
 oci resource-manager stack create \

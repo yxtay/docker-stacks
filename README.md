@@ -68,14 +68,6 @@ Failure notifications sent to ntfy.sh.
 
 - **resticprofile** — Scheduled restic backups via crond
 
-Schedule:
-
-- Daily 00:00 — backup to local repo
-- Sunday 01:00 — integrity check (`read-data` 25% subset)
-- Sunday 02:00 — copy to Google Drive
-- Sunday 03:00 — forget/prune remote
-- Sunday 04:00 — remote integrity check
-
 ### Sync Stack (`sync/`)
 
 One-way sync of `/apps` to `/data/apps` for local redundancy using rsync.
@@ -132,7 +124,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

@@ -47,6 +47,7 @@ services:
   esphome:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.6.0@sha256:867e8db67c73974ba3a9d117c36611d02f03ba3cabc5cb8b21a6e6f9a3047ab8
+    user: "${PUID:-1000}:${PGID:-1000}"
     environment:
       TZ: ${TZ:-UTC}
     # privileged: true

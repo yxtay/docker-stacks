@@ -12,7 +12,9 @@
 	header {
 		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
 
-		# Restrictive baseline CSP ('unsafe-inline' needed for proxied apps like LibreSpeed)
+		# Restrictive baseline CSP
+		# 'unsafe-inline' needed for LibreSpeed
+		# 'unsafe-eval' needed for Immich and Immich Kiosk
 		?Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' wss: ws:; frame-ancestors 'self'; form-action 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
 
 		# Process-Isolate documents to prevent others from access in pop-up window

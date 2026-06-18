@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 SYSTEMD_DIR=${REPO_DIR}/systemd
 SYSTEMD_USER_DIR=${HOME}/.config/systemd/user
 mapfile -t TIMERS < <(basename -a "${SYSTEMD_DIR}"/*.timer)

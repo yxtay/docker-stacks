@@ -9,7 +9,7 @@ set -euo pipefail
 
 STACK_ID=${STACK_ID:?'STACK_ID is required'}
 
-REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 

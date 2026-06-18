@@ -29,7 +29,7 @@ VARIABLES=$(jq -n \
   --arg ssh_public_key "${SSH_PUBLIC_KEY}" \
   '$ARGS.named')
 
-REPO_DIR=$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}/oci-rm.XXXXXX")
 STACK_ZIP="${WORK_DIR}/stack.zip"
 

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PORTAINER_DATA=${PORTAINER_DATA:-/apps/portainer}
-cd "$(git -C "$(dirname "${0}")" rev-parse --show-toplevel)/portainer"
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/portainer"
 
 # Check remote HEAD without fetching objects
 LOCAL=$(git rev-parse HEAD)

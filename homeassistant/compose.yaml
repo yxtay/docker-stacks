@@ -39,7 +39,7 @@ services:
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8095"]
+      test: [CMD, wget, -qO-, "http://localhost:8095"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

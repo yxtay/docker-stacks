@@ -37,10 +37,6 @@ services:
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
     volumes:
       - /apps/immich/model/cache:/cache
-    networks:
-      default:
-        aliases:
-          - immich-machine-learning
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped

@@ -17,7 +17,7 @@ services:
       DB_USER: ${DB_USER:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
     volumes:
-      - ${UPLOAD_LOCATION:?}:/data
+      - ${DATA_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
     expose:
       - 2283

@@ -75,9 +75,6 @@ services:
     depends_on:
       immich_server:
         condition: service_healthy
-    environment:
-      PORT: "8080"
-      DISABLE_WEBUI: "false"
     volumes:
       - /apps/gphotos2immich/config.json:/app/config.json
       - /apps/gphotos2immich/data:/app/data
@@ -100,7 +97,6 @@ services:
       immich_server:
         condition: service_healthy
     environment:
-      LANG: en_US
       TZ: ${TZ:-UTC}
     volumes:
       - /apps/immich_kiosk:/config

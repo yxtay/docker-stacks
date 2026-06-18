@@ -1,6 +1,7 @@
 services:
   rsync:
     image: instrumentisto/rsync-ssh:alpine3.23
+    tty: false
     command:
       - rsync
       - --archive
@@ -24,6 +25,7 @@ services:
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
+    tty: false
     command:
       - sync
       - /apps/

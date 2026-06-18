@@ -56,3 +56,6 @@ ansible/host_vars/*
 /apps
 unison/ar*
 unison/fp*
+unison/lk*
+unison/sc*
+unison/tm*

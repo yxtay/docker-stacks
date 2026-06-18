@@ -4,7 +4,6 @@
 *.pid
 *.pyc
 *.tmp
-.git
 __pycache__
 cache/
 .cache/

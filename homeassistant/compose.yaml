@@ -18,7 +18,7 @@ services:
       - /run/dbus:/run/dbus:ro
     network_mode: host
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8123"]
+      test: [CMD, curl, -fsSL, "http://localhost:8123/api/"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -61,7 +61,7 @@ services:
       - /apps/esphome:/config
     network_mode: host
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:6052"]
+      test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

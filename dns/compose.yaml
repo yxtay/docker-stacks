@@ -6,12 +6,7 @@ services:
     volumes:
       - /apps/adguard/conf:/opt/adguardhome/conf
       - /apps/adguard/work:/opt/adguardhome/work
-
     ports:
-      # web service
-      # - "80:80/tcp"
-      - "3000:3000/tcp"
-
       # dns
       - target: 53
         published: 53
@@ -21,41 +16,38 @@ services:
         published: 53
         protocol: udp
         mode: host # for client ip addresses to show up correctly
-
-    # dns over https
-    # - target: 443
-    #   published: 443
-    #   protocol: tcp
-    #   mode: host
-
-    # dns over tls
-    # - target: 853
-    #   published: 853
-    #   protocol: tcp
-    #   mode: host
-
-    # dns over quic
-    # - target: 853
-    #   published: 853
-    #   protocol: udp
-    #   mode: host
-
-    # dnscrypt
-    # - target: 5443
-    #   published: 5443
-    #   protocol: tcp
-    #   mode: host
-    # - target: 5443
-    #   published: 5443
-    #   protocol: udp
-    #   mode: host
-
-    # dhcp
-    # - 67:67/udp
-    # - 68:68/tcp
-    # - 68:68/udp
+        # dns over https
+        # - target: 443
+        #   published: 443
+        #   protocol: tcp
+        #   mode: host
+        # dns over tls
+        # - target: 853
+        #   published: 853
+        #   protocol: tcp
+        #   mode: host
+        # dns over quic
+        # - target: 853
+        #   published: 853
+        #   protocol: udp
+        #   mode: host
+        # dnscrypt
+        # - target: 5443
+        #   published: 5443
+        #   protocol: tcp
+        #   mode: host
+        # - target: 5443
+        #   published: 5443
+        #   protocol: udp
+        #   mode: host
+        # dhcp
+        # - 67:67/udp
+        # - 68:68/tcp
+        # - 68:68/udp
+    expose:
+      - 3000/tcp
     healthcheck:
-      test: ["CMD", "nslookup", "localhost", "localhost"]
+      test: [CMD, nslookup, localhost, localhost]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

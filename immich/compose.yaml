@@ -5,7 +5,7 @@ services:
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    # user: ${PUID:-1000}:${PGID:-1000}
+    user: ${PUID:-1000}:${PGID:-1000}
     environment:
       TZ: ${TZ:-UTC}
     volumes:

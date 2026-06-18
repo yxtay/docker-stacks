@@ -7,9 +7,9 @@ services:
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
     # privileged: true
-    cap_add:
-      - NET_ADMIN
-      - NET_RAW
+    # cap_add:
+    #   - NET_ADMIN
+    #   - NET_RAW
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0

@@ -1,10 +1,10 @@
 [Unit]
-Description=Run rclone sync apps hourly
+Description=Run rsync apps backup hourly
 
 [Timer]
 OnCalendar=hourly
 RandomizedDelaySec=300
-Unit=run-script@rclone-sync.sh.service
+Unit=run-script@rsync-apps.sh.service
 
 [Install]
 WantedBy=timers.target

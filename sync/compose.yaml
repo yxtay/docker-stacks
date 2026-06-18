@@ -1,4 +1,27 @@
 services:
+  rsync:
+    image: instrumentisto/rsync-ssh:alpine3.23
+    command:
+      - rsync
+      - --archive
+      - --hard-links
+      - --acls
+      - --xattrs
+      - --one-file-system
+      - --delete-after
+      - --no-links
+      - --numeric-ids
+      - --partial
+      - --sparse
+      - --exclude-from=/config/exclude.txt
+      - /apps/
+      - /data/apps/
+    volumes:
+      - ./rsync:/config:ro
+      - /apps:/apps:ro
+      - /data/apps:/data/apps
+    restart: no
+
   rclone:
     image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
     command:
@@ -20,7 +43,7 @@ services:
       - --skip-links
       - --track-renames
     volumes:
-      - ./rclone:/config:ro
+      - ./rsync:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
     restart: no

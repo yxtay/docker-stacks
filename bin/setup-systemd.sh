@@ -15,6 +15,6 @@ ln -sf "${SYSTEMD_DIR}"/*.timer "${SYSTEMD_USER_DIR}/"
 systemctl --user daemon-reload
 systemctl --user enable --now "${TIMERS[@]}"
 
-loginctl enable-linger
+sudo loginctl enable-linger ${USER}
 
 echo "Systemd user timers installed and enabled: ${TIMERS[*]}"

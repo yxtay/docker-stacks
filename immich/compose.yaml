@@ -11,6 +11,8 @@ services:
     volumes:
       - ${UPLOAD_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
+    ports:
+      - 2283:2283
     expose:
       - 2283
     networks:

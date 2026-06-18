@@ -106,6 +106,8 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - /apps/immich_kiosk:/config
+    ports:
+      - 3000:3000
     expose:
       - 3000
     networks:

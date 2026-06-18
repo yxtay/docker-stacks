@@ -6,6 +6,11 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     user: ${PUID:-1000}:${PGID:-1000}
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
     environment:
       TZ: ${TZ:-UTC}
     volumes:
@@ -16,11 +21,6 @@ services:
     networks:
       - default
       - caddy
-    depends_on:
-      redis:
-        condition: service_healthy
-      database:
-        condition: service_healthy
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
     restart: unless-stopped
@@ -63,9 +63,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-immich}
       PGDATABASE: ${POSTGRES_DB:-immich}
       POSTGRES_INITDB_ARGS: --data-checksums
+    shm_size: 128mb
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
-    shm_size: 128mb
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped
@@ -73,8 +73,9 @@ services:
   gphotos2immich:
     # nosemgrep
     image: ghcr.io/warreth/gphotos2immich:v1.6.1@sha256:cf748ba1c1ddfe291bb03ba101c0c44a426ee1a6d66133420a2db18130714529
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:8080/"]
+    depends_on:
+      immich_server:
+        condition: service_healthy
     environment:
       PORT: "8080"
       DISABLE_WEBUI: "false"
@@ -85,9 +86,8 @@ services:
       - 8080
     networks:
       - caddy
-    depends_on:
-      immich_server:
-        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:8080/"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -97,8 +97,9 @@ services:
     # nosemgrep
     image: ghcr.io/damongolding/immich-kiosk:0.39.3@sha256:b65371b9fbe93cde8355c06ba095fb4801bbb5d7c8c51065a5bfa02183536771
     tty: true
-    # healthcheck:
-    #   test: [CMD, curl, -fsS, "http://localhost:3000/health"]
+    depends_on:
+      immich_server:
+        condition: service_healthy
     environment:
       LANG: en_US
       TZ: ${TZ:-UTC}
@@ -108,9 +109,8 @@ services:
       - 3000
     networks:
       - caddy
-    depends_on:
-      immich_server:
-        condition: service_healthy
+    # healthcheck:
+    #   test: [CMD, curl, -fsS, "http://localhost:3000/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

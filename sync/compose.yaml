@@ -1,6 +1,7 @@
 services:
   rclone:
     image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
+    user: "0:0"
     command:
       - sync
       - /apps/
@@ -8,13 +9,11 @@ services:
       - --exclude-from
       - /config/exclude.txt
       - --exclude-if-present
-      - .nobackup
-      - --exclude-if-present
-      - .git
-      - --exclude-if-present
       - .github
       - --exclude-if-present
       - .gitignore
+      - --exclude-if-present
+      - .nobackup
       - --exclude-if-present
       - CACHEDIR.TAG
       - --ignore-case

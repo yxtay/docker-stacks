@@ -14,7 +14,7 @@ services:
     environment:
       TZ: ${TZ:-UTC}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
-      DB_USER: ${DB_USER:-postgres}
+      DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
     volumes:
       - ${DATA_LOCATION:?}:/data
@@ -57,8 +57,8 @@ services:
     user: ${PUID:-1000}:${PGID:-1000}
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-      POSTGRES_USER: ${DB_USER:-postgres}
-      PGUSER: ${DB_USER:-postgres}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      PGUSER: ${DB_USERNAME:-postgres}
       POSTGRES_DB: ${DB_DATABASE_NAME:-immich}
       PGDATABASE: ${DB_DATABASE_NAME:-immich}
       POSTGRES_INITDB_ARGS: --data-checksums

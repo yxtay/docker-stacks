@@ -5,6 +5,8 @@
 *.pyc
 *.tmp
 .git
+.github
+.gitignore
 __pycache__
 cache/
 .cache/

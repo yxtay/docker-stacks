@@ -47,7 +47,7 @@ services:
     expose:
       - 3000/tcp
     healthcheck:
-      test: [CMD, nslookup, localhost, localhost]
+      test: [CMD, nslookup, localhost, 127.0.0.1]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

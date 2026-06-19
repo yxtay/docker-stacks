@@ -23,7 +23,7 @@ services:
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host
     healthcheck:
-      test: [CMD, resticprofile, --dry-run, backup]
+      test: [CMD, resticprofile, snapshots]
     restart: unless-stopped
 
 networks:

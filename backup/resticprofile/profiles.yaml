@@ -83,6 +83,12 @@ profiles:
 
     copy:
       send-after-fail: *send-after-fail
+      host: true
+      path: true
+
+    snapshots:
+      host: true
+      path: true
 
     stats:
       host: true

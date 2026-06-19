@@ -95,7 +95,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth altmount altmount:8080
-      # tinyauth.apps.altmount.path.block: ^\/(config|files|health|log|queue|$)
       tinyauth.apps.altmount.path.allow: \/(stream|stremio|webdav)
 
   radarr_usenet:

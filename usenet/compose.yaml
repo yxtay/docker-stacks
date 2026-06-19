@@ -62,7 +62,7 @@ services:
       - 7000
       - 119
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://localhost:7000/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

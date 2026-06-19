@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: ghcr.io/linuxserver/homeassistant:2026.6.3@sha256:af007f8c7115eec85f6cc63cab9946faefde7139557faa868076bbb455d0085f
+    image: ghcr.io/linuxserver/homeassistant:2026.6.4@sha256:27b5661081d676755bf2851aca9ad9a78ca0bb1fafcb138280524b28e8d06ffd
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}

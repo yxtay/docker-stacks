@@ -4,7 +4,7 @@ services:
     image: creativeprojects/resticprofile:0.33.1@sha256:2dd6820c345794cd8ea6b736e02070e85940c67de3a9f5002f57c47052080616
     entrypoint: [sh]
     command: >-
-      -c "resticprofile schedule --all && crond -f -L /dev/stdout"
+      -c "resticprofile schedule --all && exec crond -f -L /dev/stdout"
     environment:
       RCLONE_CONFIG: /config/rclone/rclone.conf
       RCLONE_CONFIG_GDRIVE_TYPE: drive
@@ -23,7 +23,7 @@ services:
       - /apps/resticprofile/cache:/var/cache/restic
     uts: host
     healthcheck:
-      test: [CMD, resticprofile, --dry-run, backup]
+      test: [CMD, resticprofile, snapshots]
     restart: unless-stopped
 
 networks:

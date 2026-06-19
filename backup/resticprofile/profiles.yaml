@@ -20,14 +20,14 @@ profiles:
         url: "https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-resticprofile"
         headers:
           - name: Title
-            value: "resticprofile failed: ${PROFILE_NAME}.${PROFILE_COMMAND}"
+            value: "resticprofile failed"
           - name: Priority
             value: high
         body: |
-          Host: {{ .Hostname }}
-          Profile: ${PROFILE_NAME}
-          Command: ${PROFILE_COMMAND}
-          Error: ${ERROR}
+          host: {{ .Hostname }}
+          message: ${ERROR}
+          command: ${ERROR_COMMANDLINE}
+          stderr: ${ERROR_STDERR}
       host: true
       source:
         - /apps
@@ -79,11 +79,20 @@ profiles:
 
     check:
       send-after-fail: *send-after-fail
-      read-data: true
       read-data-subset: "100M"
 
     copy:
       send-after-fail: *send-after-fail
+      host: true
+      path: true
+
+    snapshots:
+      host: true
+      path: true
+
+    stats:
+      host: true
+      path: true
 
   default:
     inherit: base

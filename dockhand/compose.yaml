@@ -1,7 +1,7 @@
 services:
   dockhand:
     # nosemgrep
-    image: fnsys/dockhand:v1.0.34@sha256:6460c53982b825d6ffe298b53c5e985143ef0480ce58e8bb5999660f79302557
+    image: fnsys/dockhand:v1.0.35@sha256:1b9473bd11cb60fed23bad8d335acb03f032b369230cd0a3dc3c0a1cbb8cb47c
     environment:
       DATA_DIR: ${DOCKHAND_DATA:?}
     ports:

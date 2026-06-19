@@ -20,14 +20,16 @@ profiles:
         url: "https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-resticprofile"
         headers:
           - name: Title
-            value: "resticprofile failed: ${PROFILE_NAME}.${PROFILE_COMMAND}"
+            value: "resticprofile failed"
           - name: Priority
             value: high
         body: |
-          Host: {{ .Hostname }}
-          Profile: ${PROFILE_NAME}
-          Command: ${PROFILE_COMMAND}
-          Error: ${ERROR}
+          name: {{ .Hostname }}
+          profile: ${PROFILE_NAME}
+          command: ${PROFILE_COMMAND}
+          command_line: ${ERROR_COMMANDLINE}
+          message: ${ERROR}
+          stderr: ${ERROR_STDERR}
       host: true
       source:
         - /apps

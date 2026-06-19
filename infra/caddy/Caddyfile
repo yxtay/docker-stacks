@@ -73,7 +73,7 @@
 
 (tinyauth) {
 	@remote not client_ip private_ranges
-	forward_auth tinyauth:3000 {
+	forward_auth @remote tinyauth:3000 {
 		uri /api/auth/caddy
 		copy_headers Remote-User Remote-Name Remote-Email Remote-Groups
 	}

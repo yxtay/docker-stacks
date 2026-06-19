@@ -16,6 +16,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
+      tinyauth.apps.nzbhydra2.path.allow: \/api
 
   nzbdav:
     # nosemgrep
@@ -32,6 +33,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
+      tinyauth.apps.nzbdav.path.allow: \/(api$|content)
 
   usenetstreamer:
     # nosemgrep
@@ -50,7 +52,8 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
+      caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
+      tinyauth.apps.usenetstreamer.path.block: \/admin
 
   streamnzb:
     # nosemgrep
@@ -61,11 +64,12 @@ services:
       - 7000
       - 119
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:7000/"]
+      test: [CMD, wget, -qO-, "http://localhost:7000/health"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy streamnzb streamnzb:7000
+      caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
+      tinyauth.apps.streamnzb.path.block: ^\/(api|$)
 
   altmount:
     # nosemgrep
@@ -90,7 +94,8 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy altmount altmount:8080
+      caddy.import: reverse_proxy_auth altmount altmount:8080
+      tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
 
   radarr_usenet:
     # nosemgrep

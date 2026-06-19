@@ -16,7 +16,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
-      tinyauth.apps.nzbhydra2.path.allow: ^\/api
+      tinyauth.apps.nzbhydra2.path.allow: \/api
 
   nzbdav:
     # nosemgrep
@@ -33,7 +33,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
-      tinyauth.apps.nzbdav.path.allow: ^\/(api$|content)
+      tinyauth.apps.nzbdav.path.allow: \/(api$|content)
 
   usenetstreamer:
     # nosemgrep

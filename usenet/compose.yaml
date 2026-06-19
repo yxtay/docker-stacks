@@ -96,7 +96,7 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth altmount altmount:8080
       # tinyauth.apps.altmount.path.block: ^\/(config|files|health|log|queue|$)
-      tinyauth.apps.altmount.path.allow: ^\/(nzb|stremio|webdav)
+      tinyauth.apps.altmount.path.allow: ^\/(arrs\/webhook|import\/file|nzb|stremio|webdav)
 
   radarr_usenet:
     # nosemgrep

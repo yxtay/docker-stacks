@@ -80,7 +80,6 @@ profiles:
 
     check:
       send-after-fail: *send-after-fail
-      read-data: true
       read-data-subset: "100M"
 
     copy:

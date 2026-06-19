@@ -24,7 +24,7 @@ profiles:
           - name: Priority
             value: high
         body: |
-          name: {{ .Hostname }}
+          host: {{ .Hostname }}
           message: ${ERROR}
           command: ${ERROR_COMMANDLINE}
           stderr: ${ERROR_STDERR}

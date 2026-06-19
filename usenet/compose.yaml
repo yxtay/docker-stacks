@@ -16,6 +16,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
+      tinyauth.apps.nzbhydra2.path.allow: ^\/(api|rss|torznab)
 
   nzbdav:
     # nosemgrep
@@ -93,7 +94,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy altmount altmount:8080
+      caddy.import: reverse_proxy_auth altmount altmount:8080
       tinyauth.apps.altmount.path.allow: ^\/(stremio|webdav)
 
   radarr_usenet:

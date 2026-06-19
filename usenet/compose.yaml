@@ -50,7 +50,8 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy usenetstreamer usenetstreamer:7000
+      caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
+      tinyauth.apps.usenetstreamer.path.block: \/admin\/
 
   streamnzb:
     # nosemgrep

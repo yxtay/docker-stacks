@@ -6,6 +6,11 @@
 		}
 	}
 	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
+
+	servers {
+		trusted_proxies static private_ranges
+		trusted_proxies_strict
+	}
 }
 
 (security_headers) {
@@ -67,6 +72,7 @@
 }
 
 (tinyauth) {
+	@remote not client_ip private_ranges
 	forward_auth tinyauth:3000 {
 		uri /api/auth/caddy
 		copy_headers Remote-User Remote-Name Remote-Email Remote-Groups

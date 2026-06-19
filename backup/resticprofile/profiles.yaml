@@ -25,9 +25,8 @@ profiles:
             value: high
         body: |
           name: {{ .Hostname }}
-          profile: ${PROFILE_NAME}
-          command: ${ERROR_COMMANDLINE}
           message: ${ERROR}
+          command: ${ERROR_COMMANDLINE}
           stderr: ${ERROR_STDERR}
       host: true
       source:

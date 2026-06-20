@@ -53,7 +53,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
-      tinyauth.apps.usenetstreamer.path.block: \/admin
+      tinyauth.apps.usenetstreamer.path.allow: \/(manifest|nzb|stream)
 
   streamnzb:
     # nosemgrep
@@ -69,7 +69,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
-      tinyauth.apps.streamnzb.path.block: ^\/(api|$)
+      tinyauth.apps.streamnzb.path.allow: \/(manifest|play|stream)
 
   altmount:
     # nosemgrep

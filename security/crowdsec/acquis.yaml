@@ -1,0 +1,13 @@
+source: docker
+container_name:
+  - caddy
+labels:
+  type: caddy
+---
+source: journalctl
+journalctl_filter:
+  - SYSLOG_FACILITY=0
+  - SYSLOG_FACILITY=4
+  - SYSLOG_FACILITY=10
+labels:
+  type: syslog

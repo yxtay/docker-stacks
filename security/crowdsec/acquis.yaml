@@ -4,10 +4,9 @@ container_name:
 labels:
   type: caddy
 ---
-source: journalctl
-journalctl_filter:
-  - SYSLOG_FACILITY=0
-  - SYSLOG_FACILITY=4
-  - SYSLOG_FACILITY=10
+source: file
+filenames:
+  - /var/log/auth.log
+  - /var/log/syslog
 labels:
   type: syslog

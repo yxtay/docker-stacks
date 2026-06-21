@@ -10,8 +10,7 @@ services:
       - /apps/crowdsec/config:/etc/crowdsec
       - /apps/crowdsec/data:/var/lib/crowdsec/data
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
-      - /var/log/journal:/var/log/journal:ro
-      - /run/systemd:/run/systemd:ro
+      - /var/log:/var/log:ro
     ports:
       - 127.0.0.1:8080:8080
     networks:

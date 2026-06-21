@@ -3,7 +3,7 @@ services:
     # nosemgrep
     image: ghcr.io/crowdsecurity/crowdsec:v1.7.8
     environment:
-      COLLECTIONS: "crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux"
+      COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     volumes:

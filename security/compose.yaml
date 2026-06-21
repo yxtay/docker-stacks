@@ -1,7 +1,7 @@
 services:
   crowdsec:
     # nosemgrep
-    image: ghcr.io/crowdsecurity/crowdsec:v1.7.8
+    image: ghcr.io/crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9bb8b367120eb08b82890aa912ce96bfa1ada93dda0721700e4b4e0dde
     environment:
       COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
       DOCKER_HOST: tcp://socket_proxy:2375
@@ -22,7 +22,7 @@ services:
 
   crowdsec-firewall-bouncer:
     # nosemgrep
-    image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34-patch1
+    image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34-patch1@sha256:c33bae81fdade1e1c243946bedfcdb5b22a25c4fbd1ef166ce32935334d7575c
     # Optional non-root mode:
     # user: 1000:1000
     depends_on:

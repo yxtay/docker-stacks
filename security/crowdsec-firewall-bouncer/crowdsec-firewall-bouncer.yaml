@@ -1,4 +1,4 @@
-mode: nftables
+mode: ${BACKEND:-nftables}
 update_frequency: 10s
 log_mode: stdout
 log_level: info

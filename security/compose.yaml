@@ -27,6 +27,8 @@ services:
     environment:
       API_URL: http://localhost:8080
       API_KEY: ${CROWDSEC_FIREWALL_BOUNCER_KEY:-}
+    volumes:
+      - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
     network_mode: host
     cap_add:
       - NET_ADMIN
@@ -34,8 +36,8 @@ services:
     depends_on:
       crowdsec:
         condition: service_healthy
-    # healthcheck:
-    #   test: [CMD, pgrep, crowdsec-firewall-bouncer]
+    healthcheck:
+      test: [CMD, pidof, crowdsec-firewall-bouncer]
     restart: unless-stopped
 
 networks:

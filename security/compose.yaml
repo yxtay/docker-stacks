@@ -13,9 +13,9 @@ services:
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     volumes:
-      - ./crowdsec:/etc/crowdsec/acquis.d:ro
       - /apps/crowdsec/config:/etc/crowdsec
       - /apps/crowdsec/data:/var/lib/crowdsec/data
+      - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
       - /var/log/journal:/var/log/journal:ro
       - /run/systemd:/run/systemd:ro
     expose:
@@ -27,7 +27,7 @@ services:
       socket_proxy:
         condition: service_healthy
     healthcheck:
-      test: [CMD, cscli, version]
+      test: [CMD, wget, -qO, /dev/null, "http://127.0.0.1:8080/v1/health"]
     restart: unless-stopped
 
   crowdsec-firewall-bouncer:
@@ -43,6 +43,8 @@ services:
     depends_on:
       crowdsec:
         condition: service_healthy
+    healthcheck:
+      test: [CMD, pgrep, crowdsec-firewall-bouncer]
     restart: unless-stopped
 
 networks:

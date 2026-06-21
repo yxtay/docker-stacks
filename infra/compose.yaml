@@ -48,6 +48,9 @@ services:
     networks:
       - default
       - socket_proxy
+    depends_on:
+      socket_proxy:
+        condition: service_healthy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

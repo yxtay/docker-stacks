@@ -3,13 +3,7 @@ services:
     # nosemgrep
     image: ghcr.io/crowdsecurity/crowdsec:v1.7.8
     environment:
-      COLLECTIONS: >-
-        crowdsecurity/base-http-scenarios
-        crowdsecurity/caddy
-        crowdsecurity/http-cve
-        crowdsecurity/iptables
-        crowdsecurity/linux
-        crowdsecurity/whitelist-good-actors
+      COLLECTIONS: "crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux"
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     volumes:
@@ -18,8 +12,8 @@ services:
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
       - /var/log/journal:/var/log/journal:ro
       - /run/systemd:/run/systemd:ro
-    expose:
-      - 8080
+    ports:
+      - 127.0.0.1:8080:8080
     networks:
       - default
       - socket_proxy
@@ -34,7 +28,7 @@ services:
     # nosemgrep
     image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34-patch1
     environment:
-      API_URL: http://crowdsec:8080
+      API_URL: http://localhost:8080
       API_KEY: ${CROWDSEC_FIREWALL_BOUNCER_KEY:?}
     network_mode: host
     cap_add:

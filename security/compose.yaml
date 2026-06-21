@@ -34,8 +34,8 @@ services:
     depends_on:
       crowdsec:
         condition: service_healthy
-    healthcheck:
-      test: [CMD, pgrep, crowdsec-firewall-bouncer]
+    # healthcheck:
+    #   test: [CMD, pgrep, crowdsec-firewall-bouncer]
     restart: unless-stopped
 
 networks:

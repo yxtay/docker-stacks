@@ -1,8 +1,8 @@
-mode: ${BACKEND:-nftables}
+mode: nftables
 update_frequency: 10s
 log_mode: stdout
 log_level: info
-api_url: ${API_URL:-http://localhost:8080}
+api_url: ${API_URL}
 api_key: ${API_KEY}
 insecure_skip_verify: false
 disable_ipv6: false

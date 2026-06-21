@@ -1,11 +1,18 @@
 {
 	# debug
+	order crowdsec first
+
 	log {
 		format json {
 			time_format rfc3339
 		}
 	}
 	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
+
+	crowdsec {
+		api_url http://crowdsec:8080
+		api_key {env.CROWDSEC_API_KEY}
+	}
 
 	servers {
 		trusted_proxies static private_ranges
@@ -62,6 +69,12 @@
 	}
 }
 
+(defaults) {
+	crowdsec
+	import security_headers
+	encode zstd gzip
+}
+
 (reverse_proxy) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
@@ -94,7 +107,7 @@
 }
 
 *.{$DOMAIN} {
-	import security_headers
+	import defaults
 
 	@www host www.{env.DOMAIN}
 	handle @www {

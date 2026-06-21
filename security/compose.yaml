@@ -1,0 +1,52 @@
+services:
+  crowdsec:
+    # nosemgrep
+    image: ghcr.io/crowdsecurity/crowdsec:v1.7.8
+    environment:
+      COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
+      DOCKER_HOST: tcp://socket_proxy:2375
+      TZ: ${TZ:-UTC}
+    volumes:
+      - /apps/crowdsec/config:/etc/crowdsec
+      - /apps/crowdsec/data:/var/lib/crowdsec/data
+      - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - /var/log:/var/log:ro
+    ports:
+      - 127.0.0.1:8080:8080
+    networks:
+      - default
+      - socket_proxy
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:8080/health"]
+    restart: unless-stopped
+
+  crowdsec-firewall-bouncer:
+    # nosemgrep
+    image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34-patch1
+    # Optional non-root mode:
+    # user: 1000:1000
+    depends_on:
+      crowdsec:
+        condition: service_healthy
+    environment:
+      API_URL: http://localhost:8080
+      API_KEY: ${CROWDSEC_FIREWALL_BOUNCER_KEY:-}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt: # In non-root mode, remove this block.
+      - no-new-privileges:true
+    volumes:
+      - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
+    network_mode: host
+    healthcheck:
+      test: [CMD, pidof, crowdsec-firewall-bouncer]
+    restart: unless-stopped
+
+networks:
+  default:
+    name: caddy
+    external: true
+  socket_proxy:
+    name: socket_proxy
+    external: true

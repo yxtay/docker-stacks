@@ -24,18 +24,22 @@ services:
   crowdsec-firewall-bouncer:
     # nosemgrep
     image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34-patch1
-    environment:
-      API_URL: http://localhost:8080
-      API_KEY: ${CROWDSEC_FIREWALL_BOUNCER_KEY:-}
-    volumes:
-      - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
-    network_mode: host
-    cap_add:
-      - NET_ADMIN
-      - NET_RAW
+    # Optional non-root mode:
+    # user: 1000:1000
     depends_on:
       crowdsec:
         condition: service_healthy
+    environment:
+      API_URL: http://localhost:8080
+      API_KEY: ${CROWDSEC_FIREWALL_BOUNCER_KEY:-}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt: # In non-root mode, remove this block.
+      - no-new-privileges:true
+    volumes:
+      - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
+    network_mode: host
     healthcheck:
       test: [CMD, pidof, crowdsec-firewall-bouncer]
     restart: unless-stopped

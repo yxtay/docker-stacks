@@ -11,7 +11,7 @@ services:
       - /apps/flaresolverr:/config
     tmpfs:
       - /tmp
-      - /dev/shm
+      - /root
     expose:
       - 8191
     healthcheck:

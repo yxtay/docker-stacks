@@ -50,8 +50,8 @@ services:
     read_only: true
     volumes:
       - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
-    # tmpfs:
-    #   - /tmp
+    tmpfs:
+      - /tmp
     #   - /var/run
     network_mode: host
     healthcheck:

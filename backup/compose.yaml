@@ -16,11 +16,8 @@ services:
     secrets:
       - restic_password
     cap_add:
-      - CHOWN
       - DAC_OVERRIDE
       - FOWNER
-      - SETGID
-      - SETUID
     cap_drop:
       - ALL
     security_opt:

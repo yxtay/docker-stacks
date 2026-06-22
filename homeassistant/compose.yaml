@@ -6,10 +6,18 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
-    # privileged: true
-    # cap_add:
-    #   - NET_ADMIN
-    #   - NET_RAW
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - NET_RAW
+      - SETGID
+      - SETUID
+      # - NET_ADMIN # dhcp/advanced networking
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
@@ -27,12 +35,15 @@ services:
   music_assistant:
     # nosemgrep
     image: ghcr.io/music-assistant/server:2.9.3@sha256:fa04f9187e65362d489034d5b4072e94a7bef741c29c47e2b9a36325730605f2
-    # privileged caps (and security-opt) needed to mount smb folders within the container
-    # cap_add:
-    #   - SYS_ADMIN
-    #   - DAC_READ_SEARCH
-    # security_opt:
-    #   - apparmor:unconfined
+    # Additional caps needed to mount smb folders within the container:
+    # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
+    # security_opt: [apparmor:unconfined]
+    cap_add:
+      - NET_RAW
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/music_assistant:/data
     # Network mode must be set to host for MA to work correctly
@@ -51,7 +62,12 @@ services:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       XDG_CACHE_HOME: /config/.esphome/platformio/.cache
-    # privileged: true
+    cap_add:
+      - NET_RAW
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0

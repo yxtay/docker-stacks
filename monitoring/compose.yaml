@@ -11,8 +11,8 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     networks:
       - socket_proxy
     restart: unless-stopped
@@ -31,8 +31,8 @@ services:
     read_only: true
     volumes:
       - /apps/dozzle:/data
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     expose:
       - 8080
     networks:
@@ -82,8 +82,8 @@ services:
       - /apps/beszel/agent:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, /agent, health]

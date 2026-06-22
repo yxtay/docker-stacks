@@ -57,6 +57,7 @@ services:
       - /apps/immich/model/cache:/cache
     tmpfs:
       - /tmp
+      - /run
       - /root
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]

@@ -12,8 +12,6 @@ services:
       - ${PORTAINER_DATA}:/data
       - ${PORTAINER_DATA}:${PORTAINER_DATA}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    tmpfs:
-      - /tmp
     ports:
       - 9443:9443
     expose:

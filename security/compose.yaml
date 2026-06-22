@@ -17,8 +17,8 @@ services:
       - /apps/crowdsec/data:/var/lib/crowdsec/data
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
       - /var/log:/var/log:ro
-    # tmpfs:
-    #   - /tmp
+    tmpfs:
+      - /tmp
     #   - /var/run
     ports:
       - 127.0.0.1:8080:8080

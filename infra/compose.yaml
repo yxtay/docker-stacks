@@ -13,8 +13,8 @@ services:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOMAIN: ${DOMAIN:?}
       DUCKDNS_TOKEN: ${DUCKDNS_TOKEN:?}
-    secrets:
-      - duckdns_token
+    # secrets:
+    #   - duckdns_token
     cap_add:
       - NET_BIND_SERVICE
     cap_drop:
@@ -53,9 +53,9 @@ services:
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTID:-}
       TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRET: ${TINYAUTH_OAUTH_PROVIDERS_GOOGLE_CLIENTSECRET:-}
       TINYAUTH_OAUTH_WHITELIST: ${TINYAUTH_OAUTH_WHITELIST:?}
-    secrets:
-      - github_oauth_client_secret
-      - google_oauth_client_secret
+    # secrets:
+    #   - github_oauth_client_secret
+    #   - google_oauth_client_secret
     cap_drop:
       - ALL
     security_opt:

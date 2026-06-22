@@ -23,6 +23,11 @@ services:
     environment:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/dozzle:/data
     # tmpfs:

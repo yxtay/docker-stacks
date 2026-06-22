@@ -18,12 +18,16 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
+    tmpfs:
+      - /tmp
+      - /run
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8123"]
@@ -44,8 +48,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/music_assistant:/data
+    tmpfs:
+      - /tmp
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     healthcheck:
@@ -68,11 +75,14 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
+    tmpfs:
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
@@ -93,8 +103,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/trmnl-ha:/data
+    tmpfs:
+      - /tmp
+      - /dev/shm
     ports:
       - 10000:10000
     healthcheck:

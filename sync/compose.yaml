@@ -21,10 +21,13 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - ./rsync:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
+    tmpfs:
+      - /tmp
     restart: no
 
   rclone:
@@ -52,8 +55,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - ./rsync:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
+    tmpfs:
+      - /tmp
     restart: no

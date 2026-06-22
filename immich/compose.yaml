@@ -63,6 +63,8 @@ services:
     image: ghcr.io/valkey-io/valkey:9.1.0@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
     cap_add:
       - CHOWN
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

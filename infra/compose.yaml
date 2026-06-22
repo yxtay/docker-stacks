@@ -119,11 +119,6 @@ services:
       # post only
       AUTH: 0
       SESSION: 0
-    cap_add:
-      - DAC_OVERRIDE
-      - FOWNER
-      - SETGID
-      - SETUID
     cap_drop:
       - ALL
     security_opt:
@@ -152,7 +147,6 @@ services:
       TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}
       TS_ENABLE_HEALTH_CHECK: true
     cap_add:
-      - CHOWN
       - DAC_OVERRIDE
       - FOWNER
       - NET_ADMIN

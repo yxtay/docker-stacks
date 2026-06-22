@@ -89,11 +89,14 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
+    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/rclone:/config/rclone
       - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /tmp
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]
     restart: unless-stopped

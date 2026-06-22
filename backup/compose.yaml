@@ -23,6 +23,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro
@@ -30,6 +31,9 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
+    tmpfs:
+      - /tmp
+      - /var/run
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

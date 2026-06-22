@@ -112,6 +112,7 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
+    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
@@ -119,6 +120,8 @@ services:
       - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped

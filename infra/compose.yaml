@@ -185,17 +185,12 @@ services:
   librespeed:
     # nosemgrep
     image: ghcr.io/librespeed/speedtest:6.1.0@sha256:b6b0890047e833158370d59ed5ef289b3e67a58f4a363cd37ef5c09d170d8543
-    cap_add:
-      - CHOWN
+    # cap_add:
+    #   - CHOWN
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/librespeed:/etc/apache2
-    tmpfs:
-      - /var/www/html
     expose:
       - 8080
     restart: unless-stopped

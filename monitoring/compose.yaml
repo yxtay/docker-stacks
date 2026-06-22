@@ -16,7 +16,6 @@ services:
     environment:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
-      DOZZLE_AUTH_PROVIDER: forward-proxy
     volumes:
       - /apps/dozzle:/data
     expose:

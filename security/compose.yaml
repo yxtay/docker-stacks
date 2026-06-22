@@ -17,9 +17,9 @@ services:
       - /apps/crowdsec/data:/var/lib/crowdsec/data
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
       - /var/log:/var/log:ro
-    tmpfs:
-      - /tmp
-      - /var/run
+    # tmpfs:
+    #   - /tmp
+    #   - /var/run
     ports:
       - 127.0.0.1:8080:8080
     networks:
@@ -50,9 +50,9 @@ services:
     read_only: true
     volumes:
       - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
-    tmpfs:
-      - /tmp
-      - /var/run
+    # tmpfs:
+    #   - /tmp
+    #   - /var/run
     network_mode: host
     healthcheck:
       test: [CMD, pidof, crowdsec-firewall-bouncer]

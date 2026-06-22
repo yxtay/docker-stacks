@@ -119,6 +119,11 @@ services:
       # post only
       AUTH: 0
       SESSION: 0
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
@@ -127,11 +132,6 @@ services:
       - 2375
     networks:
       - socket_proxy
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped

@@ -15,6 +15,10 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
     cap_drop:
       - ALL
     security_opt:

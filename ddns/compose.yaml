@@ -7,6 +7,14 @@ services:
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped

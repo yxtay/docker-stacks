@@ -68,9 +68,10 @@ submitting changes.
     service writes PID files). Mount writable paths as volumes.
   - For PostgreSQL, use `cap_drop: ALL` with
     `cap_add: [CHOWN, FOWNER, SETGID, SETUID]`.
+  - For LinuxServer.io images, use `cap_drop: ALL` with
+    `cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]`.
   - Skip `cap_drop: ALL` and `read_only` for services that require
-    complex privilege escalation (e.g., LinuxServer.io s6-overlay images,
-    headless browsers).
+    complex privilege escalation (e.g., headless browsers).
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

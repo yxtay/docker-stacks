@@ -16,8 +16,6 @@ services:
       # - NET_ADMIN # dhcp/advanced networking
     cap_drop:
       - ALL
-    security_opt:
-      - no-new-privileges:true
     read_only: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
@@ -43,7 +41,7 @@ services:
     # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
     # security_opt: [apparmor:unconfined]
     cap_add:
-      - CHOWN
+      # - CHOWN
       - DAC_OVERRIDE
       - FOWNER
       - NET_RAW
@@ -73,7 +71,7 @@ services:
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       XDG_CACHE_HOME: /config/.esphome/platformio/.cache
     cap_add:
-      - CHOWN
+      # - CHOWN
       - DAC_OVERRIDE
       - FOWNER
       - NET_RAW

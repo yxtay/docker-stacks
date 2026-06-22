@@ -43,6 +43,9 @@ services:
     # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
     # security_opt: [apparmor:unconfined]
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
       - NET_RAW
     cap_drop:
       - ALL
@@ -70,6 +73,9 @@ services:
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       XDG_CACHE_HOME: /config/.esphome/platformio/.cache
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
       - NET_RAW
     cap_drop:
       - ALL

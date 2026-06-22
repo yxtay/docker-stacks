@@ -82,11 +82,22 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME:-immich}
       PGDATABASE: ${DB_DATABASE_NAME:-immich}
       POSTGRES_INITDB_ARGS: --data-checksums
+    cap_add:
+      - CHOWN
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     shm_size: 128mb
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped

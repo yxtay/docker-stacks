@@ -66,11 +66,11 @@ submitting changes.
     `NET_ADMIN`/`NET_RAW` for VPN/firewall, `SYS_ADMIN` for FUSE).
   - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
     service writes PID files). Mount writable paths as volumes.
+  - For PostgreSQL, use `cap_drop: ALL` with
+    `cap_add: [CHOWN, FOWNER, SETGID, SETUID]`.
   - Skip `cap_drop: ALL` and `read_only` for services that require
     complex privilege escalation (e.g., LinuxServer.io s6-overlay images,
-    headless browsers, PostgreSQL).
-  - Services with `network_mode: host` implicitly share the host UTS
-    namespace; do not add redundant `uts: host`.
+    headless browsers).
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

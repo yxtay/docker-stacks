@@ -47,8 +47,8 @@ services:
     read_only: true
     volumes:
       - /apps/music_assistant:/data
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     healthcheck:
@@ -77,8 +77,8 @@ services:
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
@@ -103,7 +103,7 @@ services:
     volumes:
       - /apps/trmnl-ha:/data
     tmpfs:
-      - /tmp
+      # - /tmp
       - /root
     ports:
       - 10000:10000

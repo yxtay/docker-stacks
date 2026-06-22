@@ -30,8 +30,6 @@ services:
       - ./rsync:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
-    tmpfs:
-      - /tmp
     restart: no
 
   rclone:
@@ -66,6 +64,4 @@ services:
       - ./rsync:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
-    tmpfs:
-      - /tmp
     restart: no

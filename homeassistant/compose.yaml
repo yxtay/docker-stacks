@@ -13,6 +13,7 @@ services:
       - NET_RAW
       - SETGID
       - SETUID
+      - SETFCAP
       # - NET_ADMIN # dhcp/advanced networking
     cap_drop:
       - ALL

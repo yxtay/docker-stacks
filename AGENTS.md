@@ -59,6 +59,19 @@ submitting changes.
     still maintained (release within 3 months compared to `latest` tag).
     Otherwise, use `latest` tag. Digests will be added by Renovate bot.
 
+- Security hardening (apply to all services where possible):
+  - Add `security_opt: [no-new-privileges:true]` to every service.
+  - Add `cap_drop: [ALL]` and explicitly `cap_add` only required
+    capabilities (e.g., `NET_BIND_SERVICE` for ports < 1024,
+    `NET_ADMIN`/`NET_RAW` for VPN/firewall, `SYS_ADMIN` for FUSE).
+  - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
+    service writes PID files). Mount writable paths as volumes.
+  - Skip `cap_drop: ALL` and `read_only` for services that require
+    complex privilege escalation (e.g., LinuxServer.io s6-overlay images,
+    headless browsers, PostgreSQL).
+  - Services with `network_mode: host` implicitly share the host UTS
+    namespace; do not add redundant `uts: host`.
+
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):

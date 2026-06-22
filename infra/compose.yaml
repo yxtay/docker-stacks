@@ -23,6 +23,7 @@ services:
     read_only: true
     volumes:
       - ./caddy:/srv:ro
+      - /apps/caddy:/config
       - /apps/caddy:/data
     tmpfs:
       - /tmp

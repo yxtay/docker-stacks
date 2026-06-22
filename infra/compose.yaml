@@ -149,8 +149,8 @@ services:
       TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}
       TS_ENABLE_HEALTH_CHECK: true
     cap_add:
-      - DAC_OVERRIDE
-      - FOWNER
+      # - DAC_OVERRIDE
+      # - FOWNER
       - NET_ADMIN
       - NET_RAW
     cap_drop:
@@ -192,9 +192,6 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /var/www/html
     expose:
       - 8080
     restart: unless-stopped

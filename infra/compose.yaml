@@ -192,6 +192,9 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /var/www/html
     expose:
       - 8080
     restart: unless-stopped

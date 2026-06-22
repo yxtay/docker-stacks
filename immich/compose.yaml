@@ -26,8 +26,6 @@ services:
     volumes:
       - ${DATA_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
-    # tmpfs:
-    #   - /tmp
     expose:
       - 2283
     networks:
@@ -47,7 +45,7 @@ services:
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
-    working_dir: /tmp
+    working_dir: /root
     cap_drop:
       - ALL
     security_opt:
@@ -56,7 +54,7 @@ services:
     volumes:
       - /apps/immich/model/cache:/cache
     tmpfs:
-      - /tmp
+      # - /tmp
       - /root
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
@@ -75,7 +73,6 @@ services:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      # - /tmp
       - /data
     healthcheck:
       test: [CMD, valkey-cli, ping]
@@ -106,7 +103,6 @@ services:
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
     tmpfs:
-      # - /tmp
       - /etc/postgresql
       - /var/run/postgresql
     healthcheck:
@@ -127,8 +123,6 @@ services:
     volumes:
       - /apps/gphotos2immich/config.json:/app/config.json
       - /apps/gphotos2immich/data:/app/data
-    # tmpfs:
-    #   - /tmp
     expose:
       - 8080
     networks:
@@ -155,8 +149,8 @@ services:
     read_only: true
     volumes:
       - /apps/immich_kiosk:/config
-    # tmpfs:
-    #   - /tmp
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     networks:

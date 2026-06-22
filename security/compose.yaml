@@ -19,7 +19,6 @@ services:
       - /var/log:/var/log:ro
     tmpfs:
       - /tmp
-    #   - /var/run
     ports:
       - 127.0.0.1:8080:8080
     networks:
@@ -52,7 +51,6 @@ services:
       - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
     tmpfs:
       - /tmp
-    #   - /var/run
     network_mode: host
     healthcheck:
       test: [CMD, pidof, crowdsec-firewall-bouncer]

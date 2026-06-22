@@ -3,8 +3,9 @@ services:
     # nosemgrep
     image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.4@sha256:d2486aeb3524ceb8412910c86f2f3e5f42fff2cbbfb9857f935a4006326e50b7
     container_name: caddy
-    healthcheck:
-      test: [CMD, wget, --spider, "http://127.0.0.1:2019/config/"]
+    depends_on:
+      socket_proxy:
+        condition: service_healthy
     environment:
       CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
       CADDY_DOCKER_EVENT_THROTTLE_INTERVAL: 2000 # for crowdset stream mode
@@ -13,6 +14,12 @@ services:
       DOMAIN: ${DOMAIN:?}
     secrets:
       - duckdns_token
+    cap_add:
+      - NET_BIND_SERVICE
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ./caddy:/srv:ro
       - /apps/caddy:/data
@@ -23,14 +30,16 @@ services:
     networks:
       - default
       - socket_proxy
-    depends_on:
-      socket_proxy:
-        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, --spider, "http://127.0.0.1:2019/config/"]
     restart: unless-stopped
 
   tinyauth:
     # nosemgrep
     image: ghcr.io/steveiliop56/tinyauth:v5.0.7@sha256:0793c71c49906e079d90c7e693cded9df569217a92d717dc9b171f2116fcd1c6
+    depends_on:
+      socket_proxy:
+        condition: service_healthy
     environment:
       DOCKER_HOST: tcp://socket_proxy:2375
       TINYAUTH_APPURL: https://tinyauth.${DOMAIN:?}
@@ -42,6 +51,10 @@ services:
     secrets:
       - github_oauth_client_secret
       - google_oauth_client_secret
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/tinyauth:/data
     expose:
@@ -49,9 +62,6 @@ services:
     networks:
       - default
       - socket_proxy
-    depends_on:
-      socket_proxy:
-        condition: service_healthy
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -110,10 +120,14 @@ services:
       - 2375
     networks:
       - socket_proxy
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped
-    read_only: true
 
   tailscale:
     # nosemgrep
@@ -128,10 +142,14 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    uts: host
     volumes:
       - /apps/tailscale:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
-    uts: host
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped
@@ -139,6 +157,10 @@ services:
   whoami:
     # nosemgrep
     image: ghcr.io/traefik/whoami:v1.11.0@sha256:200689790a0a0ea48ca45992e0450bc26ccab5307375b41c84dfc4f2475937ab
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     expose:
       - 80
     restart: unless-stopped
@@ -149,6 +171,10 @@ services:
   librespeed:
     # nosemgrep
     image: ghcr.io/librespeed/speedtest:6.1.0@sha256:b6b0890047e833158370d59ed5ef289b3e67a58f4a363cd37ef5c09d170d8543
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     expose:
       - 8080
     restart: unless-stopped

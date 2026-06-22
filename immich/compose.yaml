@@ -5,7 +5,6 @@ services:
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    # user: ${PUID:-1000}:${PGID:-1000}
     depends_on:
       redis:
         condition: service_healthy
@@ -16,6 +15,10 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ${DATA_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
@@ -38,6 +41,10 @@ services:
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/immich/model/cache:/cache
     healthcheck:
@@ -47,6 +54,10 @@ services:
   redis:
     # nosemgrep
     image: ghcr.io/valkey-io/valkey:9.1.0@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped
@@ -54,7 +65,6 @@ services:
   database:
     # nosemgrep
     image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3@sha256:65538806314b93e2a8efea4acd78d2b348606eb2bd921b1494ce5b241f6ffbdf
-    # user: ${PUID:-1000}:${PGID:-1000}
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_USER: ${DB_USERNAME:-postgres}
@@ -62,6 +72,8 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME:-immich}
       PGDATABASE: ${DB_DATABASE_NAME:-immich}
       POSTGRES_INITDB_ARGS: --data-checksums
+    security_opt:
+      - no-new-privileges:true
     shm_size: 128mb
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
@@ -75,6 +87,10 @@ services:
     depends_on:
       immich_server:
         condition: service_healthy
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/gphotos2immich/config.json:/app/config.json
       - /apps/gphotos2immich/data:/app/data
@@ -97,6 +113,10 @@ services:
         condition: service_healthy
     environment:
       TZ: ${TZ:-UTC}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/immich_kiosk:/config
     expose:

@@ -69,7 +69,7 @@ submitting changes.
     4. Configuration: `environment`, `env_file`, `secrets`, `configs`
     5. Runtime: `cap_add`, `cap_drop`, `security_opt`, `devices`,
        `privileged`, `read_only`, `shm_size`, `ulimits`, `gpus`,
-       `group_add`, `sysctls`, `pid`, `ipc`, `userns_mode`
+       `group_add`, `sysctls`, `pid`, `ipc`, `uts`, `userns_mode`
     6. Storage: `volumes`, `tmpfs`
     7. Networking: `ports`, `expose`, `hostname`, `networks`,
        `network_mode`, `extra_hosts`, `dns`

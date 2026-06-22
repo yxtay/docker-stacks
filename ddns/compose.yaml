@@ -7,6 +7,8 @@ services:
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
 
 networks:

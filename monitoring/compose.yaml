@@ -6,6 +6,10 @@ services:
       AUTOHEAL_CONTAINER_LABEL: all
       DOCKER_SOCK: tcp://socket_proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     networks:
       - socket_proxy
     restart: unless-stopped
@@ -17,6 +21,10 @@ services:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_AUTH_PROVIDER: forward-proxy
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/dozzle:/data
     expose:
@@ -34,6 +42,10 @@ services:
   beszel:
     # nosemgrep
     image: ghcr.io/henrygd/beszel/beszel:0.18.7@sha256:5b583633750cae65a9c1ab399c4c0eed229666ad74e103801724e3bc465338b8
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/beszel/hub:/beszel_data
     ports:

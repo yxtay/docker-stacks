@@ -15,13 +15,15 @@ services:
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     secrets:
       - restic_password
+    security_opt:
+      - no-new-privileges:true
+    uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro
       - /apps/rclone:/config/rclone
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    uts: host
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

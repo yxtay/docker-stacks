@@ -20,6 +20,17 @@
 	}
 }
 
+# rate_limit {
+#     zone per_client {
+#         key {http.request.client_ip}
+#         events 100
+#         window 1m
+
+#         ipv4_prefix 24
+#         ipv6_prefix 56
+#     }
+# }
+
 (security_headers) {
 	header {
 		# https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html

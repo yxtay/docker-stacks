@@ -6,6 +6,9 @@ services:
       COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
+    security_opt:
+      - no-new-privileges:true
+    uts: host
     volumes:
       - /apps/crowdsec/config:/etc/crowdsec
       - /apps/crowdsec/data:/var/lib/crowdsec/data
@@ -34,6 +37,8 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    cap_drop:
+      - ALL
     security_opt: # In non-root mode, remove this block.
       - no-new-privileges:true
     volumes:

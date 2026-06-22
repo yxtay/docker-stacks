@@ -32,6 +32,8 @@ services:
     # nosemgrep
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
     environment: *envs
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     volumes:

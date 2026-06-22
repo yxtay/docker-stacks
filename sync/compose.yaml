@@ -17,6 +17,8 @@ services:
       - --exclude-from=/config/exclude.txt
       - /apps/
       - /data/apps/
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     volumes:
@@ -46,6 +48,8 @@ services:
       - --one-file-system
       - --skip-links
       - --track-renames
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     volumes:

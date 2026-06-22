@@ -6,6 +6,14 @@ services:
       COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true

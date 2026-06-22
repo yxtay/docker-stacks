@@ -7,7 +7,7 @@
 			time_format rfc3339
 		}
 	}
-	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
+	acme_dns duckdns {env.DUCKDNS_TOKEN} # for DuckDNS
 
 	crowdsec {
 		api_url http://crowdsec:8080

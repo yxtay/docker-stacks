@@ -12,6 +12,7 @@ services:
       CROWDSEC_API_KEY: ${CROWDSEC_CADDY_BOUNCER_KEY:-}
       DOCKER_HOST: tcp://socket_proxy:2375
       DOMAIN: ${DOMAIN:?}
+      DUCKDNS_TOKEN: ${DUCKDNS_TOKEN:?}
     secrets:
       - duckdns_token
     cap_add:

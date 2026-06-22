@@ -192,8 +192,9 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    volumes:
+      - /apps/librespeed:/etc/apache2
     tmpfs:
-      - /etc/apache2
       - /var/www/html
     expose:
       - 8080

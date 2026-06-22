@@ -48,16 +48,16 @@ services:
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
+    working_dir: /tmp
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
-    # read_only: true
+    read_only: true
     volumes:
       - /apps/immich/model/cache:/cache
     tmpfs:
       - /tmp
-      - /run
       - /root
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]

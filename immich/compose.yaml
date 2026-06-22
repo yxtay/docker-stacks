@@ -53,7 +53,7 @@ services:
       - /apps/immich/model/cache:/cache
     tmpfs:
       - /tmp
-      - /root/.config
+      - /root/.cache
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped

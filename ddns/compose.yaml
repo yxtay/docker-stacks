@@ -20,6 +20,7 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      - /config
       - /run
     restart: unless-stopped
 

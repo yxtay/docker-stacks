@@ -88,6 +88,9 @@ services:
       RCLONE_CONFIG_DEBRID_USER: ${RCLONE_CONFIG_DEBRID_USER:?}
       RCLONE_CONFIG_DEBRID_PASS: ${RCLONE_CONFIG_DEBRID_PASS:?}
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
       - SYS_ADMIN
     cap_drop:
       - ALL

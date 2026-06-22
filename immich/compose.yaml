@@ -16,7 +16,7 @@ services:
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
     cap_add:
-      - CHOWN
+      # - CHOWN
       - DAC_OVERRIDE
       - FOWNER
     cap_drop:
@@ -94,8 +94,8 @@ services:
       POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
-      - DAC_OVERRIDE
-      - FOWNER
+      # - DAC_OVERRIDE
+      # - FOWNER
       - SETGID
       - SETUID
     cap_drop:

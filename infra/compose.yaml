@@ -20,9 +20,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - ./caddy:/srv:ro
       - /apps/caddy:/data
+    tmpfs:
+      - /tmp
     ports:
       - 80:80
       - 443:443
@@ -55,8 +58,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/tinyauth:/data
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     networks:
@@ -146,10 +152,14 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     uts: host
     volumes:
       - /apps/tailscale:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
+    tmpfs:
+      - /tmp
+      - /var/run
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped
@@ -161,6 +171,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     expose:
       - 80
     restart: unless-stopped
@@ -175,6 +186,9 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped

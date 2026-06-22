@@ -19,9 +19,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - ${DATA_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
+    tmpfs:
+      - /tmp
     expose:
       - 2283
     networks:
@@ -45,8 +48,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/immich/model/cache:/cache
+    tmpfs:
+      - /tmp
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped
@@ -58,6 +64,10 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /data
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped
@@ -91,9 +101,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/gphotos2immich/config.json:/app/config.json
       - /apps/gphotos2immich/data:/app/data
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     networks:
@@ -117,8 +130,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/immich_kiosk:/config
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     networks:

@@ -92,10 +92,13 @@ services:
     environment: *envs
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/rdtclient:/data/db
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
     expose:
       - 6500
     restart: unless-stopped
@@ -151,8 +154,11 @@ services:
       ORIGIN: https://profilarr.${DOMAIN:?}
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/profilarr:/config
+    tmpfs:
+      - /tmp
     expose:
       - 6868
     healthcheck:

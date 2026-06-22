@@ -51,8 +51,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/usenetstreamer:/data/config
+    tmpfs:
+      - /tmp
     expose:
       - 7000
     healthcheck:
@@ -70,8 +73,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/streamnzb:/app/data
+    tmpfs:
+      - /tmp
     expose:
       - 7000
       - 119

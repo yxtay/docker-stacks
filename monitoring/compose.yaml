@@ -10,6 +10,9 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
     networks:
       - socket_proxy
     restart: unless-stopped
@@ -25,8 +28,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/dozzle:/data
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     networks:
@@ -46,8 +52,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/beszel/hub:/beszel_data
+    tmpfs:
+      - /tmp
     ports:
       - 127.0.0.1:8090:8090
     healthcheck:

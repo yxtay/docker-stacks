@@ -9,9 +9,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/adguard/conf:/opt/adguardhome/conf
       - /apps/adguard/work:/opt/adguardhome/work
+    tmpfs:
+      - /tmp
     ports:
       # dns
       - target: 53

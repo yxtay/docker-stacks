@@ -3,11 +3,11 @@ services:
     # nosemgrep
     image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.4@sha256:d2486aeb3524ceb8412910c86f2f3e5f42fff2cbbfb9857f935a4006326e50b7
     container_name: caddy
+    working_dir: /etc/caddy
     depends_on:
       socket_proxy:
         condition: service_healthy
     environment:
-      CADDY_DOCKER_CADDYFILE_PATH: /srv/Caddyfile
       CADDY_DOCKER_EVENT_THROTTLE_INTERVAL: 2000 # for crowdset stream mode
       CROWDSEC_API_KEY: ${CROWDSEC_CADDY_BOUNCER_KEY:-}
       DOCKER_HOST: tcp://socket_proxy:2375
@@ -22,7 +22,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./caddy:/srv:ro
+      - ./caddy:/etc/caddy:ro
       - /apps/caddy:/config
       - /apps/caddy:/data
     tmpfs:

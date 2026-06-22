@@ -18,9 +18,10 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    volumes:
+      - /apps/duckdns:/config
     tmpfs:
       - /tmp
-      - /config
       - /run
     restart: unless-stopped
 

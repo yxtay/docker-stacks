@@ -53,6 +53,7 @@ services:
       - /apps/immich/model/cache:/cache
     tmpfs:
       - /tmp
+      - /root/.config
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped
@@ -97,6 +98,7 @@ services:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
     tmpfs:
       - /tmp
+      - /etc/postgresql
       - /var/run/postgresql
     healthcheck:
       test: [CMD, pg_isready]

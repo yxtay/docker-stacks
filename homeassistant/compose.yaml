@@ -14,17 +14,20 @@ services:
       - NET_RAW
       - SETGID
       - SETUID
-      - SETFCAP
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
+    tmpfs:
+      - /run:exec
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8123"]

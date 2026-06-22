@@ -104,7 +104,6 @@ services:
       - /apps/trmnl-ha:/data
     tmpfs:
       - /tmp
-      - /dev/shm
       - /root
     ports:
       - 10000:10000

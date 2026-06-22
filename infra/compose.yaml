@@ -26,6 +26,7 @@ services:
       - /apps/caddy:/data
     tmpfs:
       - /tmp
+      - /config
     ports:
       - 80:80
       - 443:443

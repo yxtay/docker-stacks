@@ -35,8 +35,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/prowlarr:/config
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 9696
     healthcheck:
@@ -137,11 +141,15 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/radarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 7878
     healthcheck:
@@ -165,11 +173,15 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/sonarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 8989
     healthcheck:

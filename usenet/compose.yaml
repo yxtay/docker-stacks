@@ -16,8 +16,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/nzbhydra2:/config
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 5076
     healthcheck:
@@ -36,9 +40,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     healthcheck:
@@ -144,11 +151,15 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/radarr_usenet:/config
       - /mnt/usenet:/mnt/usenet
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 7878
     healthcheck:
@@ -172,11 +183,15 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/sonarr_usenet:/config
       - /mnt/usenet:/mnt/usenet
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
+      - /run
     expose:
       - 8989
     healthcheck:

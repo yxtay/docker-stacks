@@ -94,8 +94,8 @@ services:
       POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
-      # - DAC_OVERRIDE
-      # - FOWNER
+      - DAC_OVERRIDE
+      - FOWNER
       - SETGID
       - SETUID
     cap_drop:

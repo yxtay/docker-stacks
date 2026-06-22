@@ -95,8 +95,8 @@ services:
       - CHOWN
       - DAC_OVERRIDE
       - FOWNER
-      - SETGID
-      - SETUID
+      # - SETGID
+      # - SETUID
     cap_drop:
       - ALL
     security_opt:

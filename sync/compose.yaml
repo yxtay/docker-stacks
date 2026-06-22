@@ -17,6 +17,10 @@ services:
       - --exclude-from=/config/exclude.txt
       - /apps/
       - /data/apps/
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
     cap_drop:
       - ALL
     security_opt:
@@ -51,6 +55,8 @@ services:
       - --one-file-system
       - --skip-links
       - --track-renames
+    cap_add:
+      - DAC_OVERRIDE
     cap_drop:
       - ALL
     security_opt:

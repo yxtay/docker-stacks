@@ -3,8 +3,8 @@ services:
     # nosemgrep
     image: lscr.io/linuxserver/homeassistant:2026.6.4@sha256:27b5661081d676755bf2851aca9ad9a78ca0bb1fafcb138280524b28e8d06ffd
     environment:
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
+      # PUID: ${PUID:-1000}
+      # PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
@@ -16,6 +16,8 @@ services:
       - SETUID
     cap_drop:
       - ALL
+    security_opt:
+      - no-new-privileges:true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0

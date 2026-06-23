@@ -203,8 +203,8 @@ services:
       - SETUID
     cap_drop:
       - ALL
-    security_opt:
-      - no-new-privileges:true
+    # security_opt:
+    #   - no-new-privileges:true
     read_only: true
     working_dir: /tmp
     volumes:

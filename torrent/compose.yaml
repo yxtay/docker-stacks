@@ -197,15 +197,10 @@ services:
       - SETUID
     cap_drop:
       - ALL
-    # security_opt:
-    #   - no-new-privileges:true
-    read_only: true
-    working_dir: /tmp
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/profilarr:/config
-    tmpfs:
-      - /run:exec
-      - /tmp
     expose:
       - 6868
     healthcheck:

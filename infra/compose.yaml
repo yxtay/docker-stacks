@@ -69,7 +69,7 @@ services:
 
   socket_proxy:
     # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.0@sha256:1a210e6688649c3c8217faa29172dbbb46d9f9a0afb62b1c4b9987a612057a4d
+    image: ghcr.io/linuxserver/socket-proxy:3.4.0@sha256:cb30b9c279443b461666dba087975e8efe0ad7af03b7c81c053cdcff9aacd531
     environment:
       TZ: ${TZ:-UTC}
       POST: 0

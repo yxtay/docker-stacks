@@ -212,7 +212,7 @@ services:
     volumes:
       - /apps/profilarr:/config
     tmpfs:
-      - /tmp:mode=1777
+      - /tmp:mode=1777,uid=${PUID:-1000},gid=${PGID:-1000}
     expose:
       - 6868
     healthcheck:

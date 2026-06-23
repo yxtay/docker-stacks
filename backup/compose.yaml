@@ -29,9 +29,10 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    # tmpfs:
-    #   - /tmp
-    #   - /var/run
+    tmpfs:
+      - /var/spool/cron
+      # - /tmp
+      # - /var/run
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

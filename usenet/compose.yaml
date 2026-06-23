@@ -44,9 +44,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     healthcheck:

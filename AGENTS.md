@@ -34,7 +34,7 @@ submitting changes.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when
     strictly required (e.g., URLs with colons).
-  - Every service must have a `healthcheck`. Specify only the `test` command,
+  - Every service should have a `healthcheck`. Specify only the `test` command,
     leaving `interval`, `timeout`, `retries` as defaults.
   - Prefer the service's built-in health check command when available
     (e.g., `redis-cli ping`, `pg_isready`, `/dozzle healthcheck`,
@@ -62,14 +62,45 @@ submitting changes.
 - Security hardening (apply to all services where possible):
   - Add `security_opt: [no-new-privileges:true]` to every service.
   - Add `cap_drop: [ALL]` and explicitly `cap_add` only required
-    capabilities (e.g., `NET_BIND_SERVICE` for ports < 1024,
-    `NET_ADMIN`/`NET_RAW` for VPN/firewall, `SYS_ADMIN` for FUSE).
-  - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
-    service writes PID files). Mount writable paths as volumes.
-  - For PostgreSQL, use `cap_drop: ALL` with
-    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
-  - For LinuxServer.io images, use `cap_drop: ALL` with
-    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
+    capabilities:
+    - LinuxServer.io images: `CHOWN, DAC_OVERRIDE, SETGID, SETUID`
+    - PostgreSQL/Redis: `CHOWN, DAC_OVERRIDE, SETGID, SETUID`
+    - Network services (ports < 1024): `NET_BIND_SERVICE`
+    - VPN/firewall: `NET_ADMIN, NET_RAW`
+    - FUSE mounts: `CHOWN, DAC_OVERRIDE, SYS_ADMIN` with
+      `security_opt: [apparmor:unconfined]` and
+      `devices: [/dev/fuse:/dev/fuse:rwm]`
+  - Add `read_only: true` with `tmpfs: [/run:exec]`. Only add `/tmp`
+    to tmpfs if the service actually writes temp files (test first).
+    Mount writable paths as volumes.
+  - LinuxServer.io images ignore `PUID`/`PGID` under `read_only: true`
+    (container runs as UID 911). Use host volume ownership or Docker
+    `user:` directive to control file permissions.
+
+- Environment variables:
+  - Use YAML anchors (`&envs`) for shared `PUID`/`PGID`/`TZ` in stacks
+    with multiple LinuxServer.io containers.
+  - Mark required variables with `${VAR:?}` (fail-fast if unset).
+  - Mark optional variables with `${VAR:-default}`.
+
+- Volume mount propagation:
+  - Use `rslave` for mounts that receive FUSE unmounts from host
+    (e.g., `/mnt/remote:/mnt/remote:rslave` in arr containers).
+  - Use `rshared` for mounts that propagate FUSE mounts to other
+    containers (e.g., rclone service mounting to `/mnt/remote:rshared`).
+
+- Caddy labels:
+  - Protected services: `caddy.import: reverse_proxy_auth <name> <name>:<port>`
+  - Public services: `caddy.import: reverse_proxy <name> <name>:<port>`
+  - API path bypass (tinyauth):
+    `tinyauth.apps.<name>.path.allow: \/api`
+
+- Network patterns:
+  - All web services join external `caddy` network.
+  - Services needing Docker API access use a dedicated `socket_proxy`
+    internal network (never mount docker.sock directly in app containers).
+  - Use `network_mode: host` only for services requiring host network
+    access (home automation, firewall bouncers, system monitors).
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

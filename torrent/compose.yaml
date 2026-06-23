@@ -35,7 +35,6 @@ services:
       - /apps/prowlarr:/config
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 9696
     healthcheck:
@@ -143,7 +142,6 @@ services:
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 7878
     healthcheck:
@@ -174,7 +172,6 @@ services:
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 8989
     healthcheck:

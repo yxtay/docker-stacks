@@ -152,8 +152,8 @@ services:
       - /apps/tailscale:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
     tmpfs:
+      - /run
       - /tmp
-      - /var/run
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped

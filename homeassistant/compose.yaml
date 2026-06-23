@@ -9,7 +9,7 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      # - NET_ADMIN # dhcp/advanced networking
+      - NET_ADMIN
       - NET_RAW
       - SETGID
       - SETUID
@@ -63,7 +63,7 @@ services:
     environment:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
-      XDG_CACHE_HOME: /config/.esphome/platformio/.cache
+      UV_CACHE_DIR: /config/.esphome/platformio/.cache/uv
     cap_add:
       - NET_RAW
     cap_drop:
@@ -76,8 +76,6 @@ services:
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
-    tmpfs:
-      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]

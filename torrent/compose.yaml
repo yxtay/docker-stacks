@@ -28,7 +28,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       - SETGID
       - SETUID
     cap_drop:
@@ -90,7 +89,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       - SYS_ADMIN
     cap_drop:
       - ALL
@@ -137,7 +135,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       - SETGID
       - SETUID
     cap_drop:
@@ -169,7 +166,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       - SETGID
       - SETUID
     cap_drop:

@@ -17,7 +17,6 @@ services:
       DB_DATABASE_NAME: ${DB_DATABASE_NAME:-immich}
     cap_add:
       - DAC_OVERRIDE
-      - FOWNER
     cap_drop:
       - ALL
     security_opt:
@@ -91,7 +90,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       - SETGID
       - SETUID
     cap_drop:

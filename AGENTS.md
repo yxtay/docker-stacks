@@ -67,9 +67,9 @@ submitting changes.
   - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
     service writes PID files). Mount writable paths as volumes.
   - For PostgreSQL, use `cap_drop: ALL` with
-    `cap_add: [CHOWN, FOWNER, SETGID, SETUID]`.
+    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
   - For LinuxServer.io images, use `cap_drop: ALL` with
-    `cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]`.
+    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
 
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.

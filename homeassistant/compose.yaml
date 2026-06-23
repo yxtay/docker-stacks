@@ -9,7 +9,6 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
       # - NET_ADMIN # dhcp/advanced networking
       - NET_RAW
       - SETGID

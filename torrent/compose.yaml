@@ -119,15 +119,10 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
     volumes:
       - /apps/rdtclient:/data/db
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
-    tmpfs:
-      - /app
-      - /data
-      - /run:exec
     expose:
       - 6500
     restart: unless-stopped

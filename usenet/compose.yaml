@@ -116,7 +116,6 @@ services:
   altmount:
     # nosemgrep
     image: ghcr.io/javi11/altmount:v0.2.0@sha256:2592723a519248340e43fa5a564cff01f3faf24f680ba4d8a1ae84f2e87c2cd2
-    user: ${PUID:-1000}:${PGID:-1000}
     environment:
       <<: *envs
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
@@ -131,7 +130,6 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
-    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
@@ -139,9 +137,6 @@ services:
       - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
-    tmpfs:
-      - /run:exec
-      - /tmp
     expose:
       - 8080
     restart: unless-stopped
@@ -153,7 +148,6 @@ services:
   radarr_usenet:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:1e95b5c13fe015361a9ae1c4d99fc2336816790aaea60fa74b2ffebe076a69e0
-    user: ${PUID:-1000}:${PGID:-1000}
     environment: *envs
     cap_add:
       - CHOWN
@@ -185,7 +179,6 @@ services:
   sonarr_usenet:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
-    user: ${PUID:-1000}:${PGID:-1000}
     environment: *envs
     cap_add:
       - CHOWN

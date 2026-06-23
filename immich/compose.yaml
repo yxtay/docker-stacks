@@ -25,6 +25,8 @@ services:
     volumes:
       - ${DATA_LOCATION:?}:/data
       - ${LIBRARY_LOCATION:?}:/data/library
+    tmpfs:
+      - /tmp
     expose:
       - 2283
     networks:

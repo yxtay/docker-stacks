@@ -58,8 +58,6 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/remote/debrid 2> /dev/null || true &&
-      mkdir -p /mnt/remote/debrid &&
-      chown ${PUID:-1000}:${PGID:-1000} /mnt/remote &&
       exec rclone mount debrid: /mnt/remote/debrid
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}

@@ -35,7 +35,7 @@ services:
     volumes:
       - /apps/prowlarr:/config
     tmpfs:
-      - /run:exec,uid=${PUID:-1000},gid=${PGID:-1000}
+      - /run:exec
       - /tmp
     expose:
       - 9696
@@ -144,7 +144,7 @@ services:
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /run:exec,uid=${PUID:-1000},gid=${PGID:-1000}
+      - /run:exec
       - /tmp
     expose:
       - 7878
@@ -176,7 +176,7 @@ services:
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /run:exec,uid=${PUID:-1000},gid=${PGID:-1000}
+      - /run:exec
       - /tmp
     expose:
       - 8989

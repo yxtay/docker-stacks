@@ -3,6 +3,7 @@ version: "2"
 # {{ $local_repo := "local:/backup" }}
 # {{ $remote_repo := "rclone:gdrive:" }}
 # {{ $password_file := "/run/secrets/restic_password" }}
+# {{ $password_cmd := "echo ${RESTIC_PASSWORD}" }}
 
 global:
   scheduler: crond

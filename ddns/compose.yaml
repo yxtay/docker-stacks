@@ -5,11 +5,11 @@ services:
     environment:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS:?}
       - TOKEN=${DUCKDNS_TOKEN:?}
-    # cap_add:
-    #   - CHOWN
-    #   - DAC_OVERRIDE
-    #   - SETGID
-    #   - SETUID
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

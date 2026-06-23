@@ -53,6 +53,8 @@ services:
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     healthcheck:
@@ -146,6 +148,7 @@ services:
       - /mnt/remote:/mnt/remote:rshared
     tmpfs:
       - /run:exec
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped

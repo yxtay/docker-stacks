@@ -7,6 +7,8 @@ dirs=(
   /apps
   /backups
   /mnt/remote
+  /mnt/remote/altmount
+  /mnt/remote/debrid
   /mnt/torrent
   /mnt/torrent/downloads
   /mnt/torrent/movies

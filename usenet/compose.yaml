@@ -34,6 +34,9 @@ services:
     # nosemgrep
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
     cap_drop:
       - ALL
     security_opt:
@@ -60,6 +63,9 @@ services:
       NZBDAV_URL: http://nzbdav:3000
       NZBDAV_WEBDAV_URL: http://nzbdav:3000
       CONFIG_DIR: /data/config
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
     cap_drop:
       - ALL
     security_opt:
@@ -111,6 +117,7 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
+      - no-new-privileges:true
     read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
@@ -119,6 +126,8 @@ services:
       - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /run:exec
     expose:
       - 8080
     restart: unless-stopped

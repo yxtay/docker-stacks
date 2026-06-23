@@ -2,8 +2,10 @@ services:
   flaresolverr:
     # nosemgrep
     image: ghcr.io/flaresolverr/flaresolverr:v3.5.0@sha256:139dfee1c6f89249c8d665d1333a42e8ec74ec0a86bc6bb1c8461e10d3a66a47
-    environment:
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/flaresolverr:/config
     expose:
@@ -19,8 +21,21 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/prowlarr:/config
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 9696
     healthcheck:
@@ -37,8 +52,6 @@ services:
     command: >-
       -c "
       fusermount3 -uz /mnt/remote/debrid 2> /dev/null || true &&
-      mkdir -p /mnt/remote/debrid &&
-      chown ${PUID:-1000}:${PGID:-1000} /mnt/remote &&
       exec rclone mount debrid: /mnt/remote/debrid
       --uid ${PUID:-1000}
       --gid ${PGID:-1000}
@@ -68,9 +81,14 @@ services:
       RCLONE_CONFIG_DEBRID_USER: ${RCLONE_CONFIG_DEBRID_USER:?}
       RCLONE_CONFIG_DEBRID_PASS: ${RCLONE_CONFIG_DEBRID_PASS:?}
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
       - SYS_ADMIN
+    cap_drop:
+      - ALL
     security_opt:
       - apparmor:unconfined
+    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
@@ -84,6 +102,15 @@ services:
     # nosemgrep
     image: ghcr.io/rogerfar/rdtclient:2.0.138@sha256:8232cb0ddcf56805109872466c1f934843e72291513ee0b967367927645ec0d1
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/rdtclient:/data/db
       - /mnt/torrent:/mnt/torrent
@@ -99,11 +126,24 @@ services:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:1e95b5c13fe015361a9ae1c4d99fc2336816790aaea60fa74b2ffebe076a69e0
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/radarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 7878
     healthcheck:
@@ -117,11 +157,24 @@ services:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/sonarr_torrent:/config
       - /mnt/torrent:/mnt/torrent
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 8989
     healthcheck:
@@ -137,6 +190,15 @@ services:
     environment:
       <<: *envs
       ORIGIN: https://profilarr.${DOMAIN:?}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/profilarr:/config
     expose:

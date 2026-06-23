@@ -59,6 +59,18 @@ submitting changes.
     still maintained (release within 3 months compared to `latest` tag).
     Otherwise, use `latest` tag. Digests will be added by Renovate bot.
 
+- Security hardening (apply to all services where possible):
+  - Add `security_opt: [no-new-privileges:true]` to every service.
+  - Add `cap_drop: [ALL]` and explicitly `cap_add` only required
+    capabilities (e.g., `NET_BIND_SERVICE` for ports < 1024,
+    `NET_ADMIN`/`NET_RAW` for VPN/firewall, `SYS_ADMIN` for FUSE).
+  - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
+    service writes PID files). Mount writable paths as volumes.
+  - For PostgreSQL, use `cap_drop: ALL` with
+    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
+  - For LinuxServer.io images, use `cap_drop: ALL` with
+    `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.
+
 - Key ordering in compose files:
   - Top-level: `services`, `volumes`, `networks`, `secrets`, `configs`.
   - Service-level (grouped by concern):
@@ -69,7 +81,7 @@ submitting changes.
     4. Configuration: `environment`, `env_file`, `secrets`, `configs`
     5. Runtime: `cap_add`, `cap_drop`, `security_opt`, `devices`,
        `privileged`, `read_only`, `shm_size`, `ulimits`, `gpus`,
-       `group_add`, `sysctls`, `pid`, `ipc`, `userns_mode`
+       `group_add`, `sysctls`, `pid`, `ipc`, `uts`, `userns_mode`
     6. Storage: `volumes`, `tmpfs`
     7. Networking: `ports`, `expose`, `hostname`, `networks`,
        `network_mode`, `extra_hosts`, `dns`

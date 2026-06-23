@@ -6,10 +6,17 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
-    # privileged: true
-    # cap_add:
-    #   - NET_ADMIN
-    #   - NET_RAW
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      # - NET_ADMIN # dhcp/advanced networking
+      - NET_RAW
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
@@ -27,15 +34,20 @@ services:
   music_assistant:
     # nosemgrep
     image: ghcr.io/music-assistant/server:2.9.3@sha256:fa04f9187e65362d489034d5b4072e94a7bef741c29c47e2b9a36325730605f2
-    # user: ${PUID:-1000}:${PGID:-1000}
-    # privileged caps (and security-opt) needed to mount smb folders within the container
-    # cap_add:
-    #   - SYS_ADMIN
-    #   - DAC_READ_SEARCH
-    # security_opt:
-    #   - apparmor:unconfined
+    # Additional caps needed to mount smb folders within the container:
+    # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
+    # security_opt: [apparmor:unconfined]
+    cap_add:
+      - NET_RAW
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/music_assistant:/data
+    tmpfs:
+      - /tmp
     # Network mode must be set to host for MA to work correctly
     network_mode: host
     healthcheck:
@@ -48,17 +60,24 @@ services:
   esphome:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.6.2@sha256:526a75c8d64a0d962a3b088c3af4fa7cf8ecf7161b995be57fc95b0726496a39
-    # user: ${PUID:-1000}:${PGID:-1000}
     environment:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       XDG_CACHE_HOME: /config/.esphome/platformio/.cache
-    # privileged: true
+    cap_add:
+      - NET_RAW
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
+    tmpfs:
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
@@ -75,8 +94,16 @@ services:
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/trmnl-ha:/data
+    tmpfs:
+      - /root
+      - /tmp
     ports:
       - 10000:10000
     healthcheck:

@@ -7,7 +7,7 @@
 			time_format rfc3339
 		}
 	}
-	acme_dns duckdns {file./run/secrets/duckdns_token} # for DuckDNS
+	acme_dns duckdns {env.DUCKDNS_TOKEN} # for DuckDNS
 
 	crowdsec {
 		api_url http://crowdsec:8080
@@ -19,6 +19,22 @@
 		trusted_proxies_strict
 	}
 }
+
+# rate_limit {
+# 	zone global {
+#         key static
+#         events 1000
+#         window 1m
+# 	}
+
+#     zone per_client {
+#         key {http.request.client_ip}
+#         events 100
+#         window 1m
+#         ipv4_prefix 24
+#         ipv6_prefix 56
+#     }
+# }
 
 (security_headers) {
 	header {

@@ -6,6 +6,8 @@ services:
     command: >-
       -c "resticprofile schedule --all && exec crond -f -L /dev/stdout"
     environment:
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
+      RESTIC_FROM_PASSWORD: ${RESTIC_PASSWORD:?}
       RCLONE_CONFIG: /config/rclone/rclone.conf
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive
@@ -13,15 +15,19 @@ services:
       RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:?}
       RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
-    secrets:
-      - restic_password
+    cap_add:
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro
       - /apps/rclone:/config/rclone
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    uts: host
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped
@@ -30,7 +36,3 @@ networks:
   default:
     name: caddy
     external: true
-
-secrets:
-  restic_password:
-    environment: RESTIC_PASSWORD

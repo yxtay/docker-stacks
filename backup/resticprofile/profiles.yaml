@@ -9,7 +9,7 @@ global:
 
 profiles:
   base:
-    password-file: "{{ $password_file }}"
+    # password-file: "{{ $password_file }}"
     initialize: true
     cache-dir: /var/cache/restic
     cleanup-cache: true
@@ -105,7 +105,7 @@ profiles:
 
     copy:
       repository: "{{ $remote_repo }}"
-      password-file: "{{ $password_file }}"
+      # password-file: "{{ $password_file }}"
 
   remote:
     inherit: base
@@ -114,7 +114,7 @@ profiles:
     copy:
       schedule: Sun 02:00
       from-repository: "{{ $local_repo }}"
-      from-password-file: "{{ $password_file }}"
+      # from-password-file: "{{ $password_file }}"
 
     forget:
       schedule: Sun 03:00

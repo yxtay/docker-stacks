@@ -6,8 +6,21 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       TZ: ${TZ:-UTC}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/nzbhydra2:/config
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 5076
     healthcheck:
@@ -22,6 +35,15 @@ services:
     # nosemgrep
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
@@ -43,8 +65,18 @@ services:
       NZBDAV_URL: http://nzbdav:3000
       NZBDAV_WEBDAV_URL: http://nzbdav:3000
       CONFIG_DIR: /data/config
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/usenetstreamer:/data/config
+    tmpfs:
+      - /usr/src/app/cache
     expose:
       - 7000
     healthcheck:
@@ -58,8 +90,18 @@ services:
   streamnzb:
     # nosemgrep
     image: ghcr.io/gaisberg/streamnzb:v4.7.0@sha256:744fa988038af6b376335c74a44225603148a7c2bad218188bbef876ab5f974c
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/streamnzb:/app/data
+    tmpfs:
+      - /tmp
     expose:
       - 7000
       - 119
@@ -79,7 +121,13 @@ services:
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
       COOKIE_DOMAIN: altmount.${DOMAIN:?}
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
       - SYS_ADMIN
+    cap_drop:
+      - ALL
     security_opt:
       - apparmor:unconfined
     devices:
@@ -101,11 +149,24 @@ services:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:1e95b5c13fe015361a9ae1c4d99fc2336816790aaea60fa74b2ffebe076a69e0
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/radarr_usenet:/config
       - /mnt/usenet:/mnt/usenet
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 7878
     healthcheck:
@@ -119,11 +180,24 @@ services:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/sonarr_usenet:/config
       - /mnt/usenet:/mnt/usenet
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 8989
     healthcheck:

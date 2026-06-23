@@ -4,12 +4,17 @@ services:
     image: fnsys/dockhand:v1.0.35@sha256:1b9473bd11cb60fed23bad8d335acb03f032b369230cd0a3dc3c0a1cbb8cb47c
     environment:
       DATA_DIR: ${DOCKHAND_DATA:?}
-    ports:
-      - 3000:3000
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     volumes:
       - ../:/home/dockhand/
       - ${DOCKHAND_DATA}:${DOCKHAND_DATA}
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3000:3000
     # network_mode: host  # required for initial setup
     restart: unless-stopped
     labels:

@@ -16,12 +16,11 @@ services:
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     cap_add:
       - DAC_OVERRIDE
-      - FOWNER
+      # - FOWNER
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
-    # read_only: true
     uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro
@@ -29,8 +28,6 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    # tmpfs:
-    #   - /var/spool/cron/crontabs
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

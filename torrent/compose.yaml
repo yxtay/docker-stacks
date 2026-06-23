@@ -126,6 +126,7 @@ services:
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /app
+      - /data
       - /run:exec
     expose:
       - 6500
@@ -203,8 +204,8 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-    #   - SETGID
-    #   - SETUID
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

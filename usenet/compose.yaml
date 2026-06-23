@@ -112,6 +112,10 @@ services:
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
       COOKIE_DOMAIN: altmount.${DOMAIN:?}
     cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
       - SYS_ADMIN
     cap_drop:
       - ALL

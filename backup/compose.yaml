@@ -21,7 +21,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro
@@ -30,7 +30,6 @@ services:
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
     tmpfs:
-      - /etc/crontab
       - /var/spool/cron/crontabs
       # - /tmp
       # - /var/run

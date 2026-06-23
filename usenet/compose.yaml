@@ -65,9 +65,9 @@ services:
       NZBDAV_URL: http://nzbdav:3000
       NZBDAV_WEBDAV_URL: http://nzbdav:3000
       CONFIG_DIR: /data/config
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
+    # cap_add:
+    #   - CHOWN
+    #   - DAC_OVERRIDE
     cap_drop:
       - ALL
     security_opt:

@@ -30,7 +30,7 @@ services:
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
     tmpfs:
-      - /var/spool/cron
+      - /var/spool/cron/crontabs
       # - /tmp
       # - /var/run
     healthcheck:

@@ -20,7 +20,6 @@ services:
       - /apps/nzbhydra2:/config
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 5076
     healthcheck:
@@ -146,7 +145,6 @@ services:
       - /mnt/remote:/mnt/remote:rshared
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 8080
     restart: unless-stopped
@@ -176,7 +174,6 @@ services:
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 7878
     healthcheck:
@@ -207,7 +204,6 @@ services:
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /run:exec
-      - /tmp
     expose:
       - 8989
     healthcheck:

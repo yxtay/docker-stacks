@@ -35,6 +35,7 @@ services:
       - /apps/prowlarr:/config
     tmpfs:
       - /run:exec
+      - /tmp
     expose:
       - 9696
     healthcheck:

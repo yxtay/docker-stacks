@@ -9,12 +9,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     volumes:
       - /apps/flaresolverr:/config
-    tmpfs:
-      - /app/.local:mode=1777
-      - /tmp:mode=1777
+    # tmpfs:
+    #   - /app/.local:mode=1777
+    #   - /tmp:mode=1777
     expose:
       - 8191
     healthcheck:
@@ -208,11 +208,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     volumes:
       - /apps/profilarr:/config
-    tmpfs:
-      - /tmp:mode=1777,uid=${PUID:-1000},gid=${PGID:-1000}
+    # tmpfs:
+    #   - /tmp:mode=1777,uid=${PUID:-1000},gid=${PGID:-1000}
     expose:
       - 6868
     healthcheck:

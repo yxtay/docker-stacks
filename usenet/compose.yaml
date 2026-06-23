@@ -44,9 +44,13 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    working_dir: /tmp
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     healthcheck:
@@ -130,6 +134,8 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
+    read_only: true
+    working_dir: /tmp
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
@@ -137,6 +143,8 @@ services:
       - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped

@@ -17,12 +17,16 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    working_dir: /tmp
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
+    tmpfs:
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8123"]

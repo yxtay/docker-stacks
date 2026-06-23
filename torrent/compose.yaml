@@ -6,8 +6,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    working_dir: /tmp
     volumes:
       - /apps/flaresolverr:/config
+    tmpfs:
+      - /tmp
     expose:
       - 8191
     healthcheck:
@@ -111,10 +115,14 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    working_dir: /tmp
     volumes:
       - /apps/rdtclient:/data/db
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
     expose:
       - 6500
     restart: unless-stopped
@@ -199,8 +207,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    working_dir: /tmp
     volumes:
       - /apps/profilarr:/config
+    tmpfs:
+      - /tmp
     expose:
       - 6868
     healthcheck:

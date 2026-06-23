@@ -13,8 +13,8 @@ services:
     volumes:
       - /apps/flaresolverr:/config
     tmpfs:
-      - /app/.local
-      - /tmp
+      - /app/.local:mode=1777
+      - /tmp:mode=1777
     expose:
       - 8191
     healthcheck:

@@ -12,6 +12,7 @@ services:
     volumes:
       - /apps/flaresolverr:/config
     tmpfs:
+      - /app/chromedriver
       - /tmp
     expose:
       - 8191
@@ -116,15 +117,10 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    working_dir: /tmp
     volumes:
       - /apps/rdtclient:/data/db
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
-    tmpfs:
-      - /run:exec
-      - /tmp
     expose:
       - 6500
     restart: unless-stopped

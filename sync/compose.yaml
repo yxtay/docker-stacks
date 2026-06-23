@@ -20,7 +20,7 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
-      # - FOWNER
+      - FOWNER
     cap_drop:
       - ALL
     security_opt:

@@ -64,7 +64,7 @@ submitting changes.
   - Add `cap_drop: [ALL]` and explicitly `cap_add` only required
     capabilities (e.g., `NET_BIND_SERVICE` for ports < 1024,
     `NET_ADMIN`/`NET_RAW` for VPN/firewall, `SYS_ADMIN` for FUSE).
-  - Add `read_only: true` with `tmpfs: [/tmp]` (and `/var/run` if the
+  - Add `read_only: true` with `tmpfs: [/tmp]` (and `/run` if the
     service writes PID files). Mount writable paths as volumes.
   - For PostgreSQL, use `cap_drop: ALL` with
     `cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]`.

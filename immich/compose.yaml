@@ -103,7 +103,7 @@ services:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
     tmpfs:
       - /etc/postgresql
-      - /var/run/postgresql
+      - /run
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped

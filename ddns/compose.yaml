@@ -19,6 +19,7 @@ services:
       - /apps/duckdns:/config
     tmpfs:
       - /run:exec
+      - /tmp
     restart: unless-stopped
 
 networks:

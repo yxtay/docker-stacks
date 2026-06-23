@@ -19,9 +19,9 @@ services:
       - FOWNER
     # cap_drop:
     #   - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
+    # security_opt:
+    #   - no-new-privileges:true
+    # read_only: true
     uts: host
     volumes:
       - ./resticprofile:/resticprofile:ro

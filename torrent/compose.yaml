@@ -212,7 +212,7 @@ services:
     volumes:
       - /apps/profilarr:/config
     tmpfs:
-      - /tmp
+      - /tmp:mode=1777
     expose:
       - 6868
     healthcheck:

@@ -26,6 +26,7 @@ services:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
     tmpfs:
+      - /run:exec
       - /tmp
     network_mode: host
     healthcheck:

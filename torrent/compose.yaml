@@ -11,6 +11,7 @@ services:
       - /apps/flaresolverr:/config
     tmpfs:
       - /app/.local
+      - /tmp
     expose:
       - 8191
     healthcheck:
@@ -207,6 +208,8 @@ services:
     read_only: true
     volumes:
       - /apps/profilarr:/config
+    tmpfs:
+      - /tmp
     expose:
       - 6868
     healthcheck:

@@ -13,8 +13,6 @@ services:
       - ../:/home/dockhand/
       - ${DOCKHAND_DATA}:${DOCKHAND_DATA}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    # tmpfs:
-    #   - /tmp
     ports:
       - 3000:3000
     # network_mode: host  # required for initial setup

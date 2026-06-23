@@ -38,8 +38,7 @@ services:
     volumes:
       - /apps/prowlarr:/config
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 9696
     healthcheck:
@@ -100,8 +99,6 @@ services:
     volumes:
       - /apps/rclone:/config/rclone
       - /mnt/remote:/mnt/remote:rshared
-    tmpfs:
-      - /tmp
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]
     restart: unless-stopped
@@ -120,7 +117,7 @@ services:
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /tmp
+      - /run
     expose:
       - 6500
     restart: unless-stopped
@@ -148,8 +145,7 @@ services:
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 7878
     healthcheck:
@@ -179,8 +175,7 @@ services:
       - /mnt/torrent:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 8989
     healthcheck:
@@ -203,8 +198,6 @@ services:
     read_only: true
     volumes:
       - /apps/profilarr:/config
-    tmpfs:
-      - /tmp
     expose:
       - 6868
     healthcheck:

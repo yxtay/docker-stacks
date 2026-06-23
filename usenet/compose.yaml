@@ -19,8 +19,7 @@ services:
     volumes:
       - /apps/nzbhydra2:/config
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 5076
     healthcheck:
@@ -43,8 +42,6 @@ services:
     volumes:
       - /apps/nzbdav:/config
       - /mnt/usenet:/mnt/usenet
-    tmpfs:
-      - /tmp
     expose:
       - 3000
     healthcheck:
@@ -70,8 +67,6 @@ services:
     read_only: true
     volumes:
       - /apps/usenetstreamer:/data/config
-    tmpfs:
-      - /tmp
     expose:
       - 7000
     healthcheck:
@@ -92,8 +87,6 @@ services:
     read_only: true
     volumes:
       - /apps/streamnzb:/app/data
-    tmpfs:
-      - /tmp
     expose:
       - 7000
       - 119
@@ -126,8 +119,6 @@ services:
       - /apps/altmount/metadata:/metadata
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
-    tmpfs:
-      - /tmp
     expose:
       - 8080
     restart: unless-stopped
@@ -156,8 +147,7 @@ services:
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 7878
     healthcheck:
@@ -187,8 +177,7 @@ services:
       - /mnt/usenet:/data
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
-      - /tmp
-      - /run
+      - /run:exec
     expose:
       - 8989
     healthcheck:

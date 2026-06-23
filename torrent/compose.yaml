@@ -10,8 +10,7 @@ services:
     volumes:
       - /apps/flaresolverr:/config
     tmpfs:
-      - /app
-      - /tmp
+      - /app/.local
     expose:
       - 8191
     healthcheck:
@@ -107,6 +106,11 @@ services:
     # nosemgrep
     image: ghcr.io/rogerfar/rdtclient:2.0.138@sha256:8232cb0ddcf56805109872466c1f934843e72291513ee0b967367927645ec0d1
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:
@@ -194,6 +198,8 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

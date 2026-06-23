@@ -14,11 +14,9 @@ services:
       RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:?}
       RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${GDRIVE_FOLDER_ID:?}
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
-    # secrets:
-    #   - restic_password
-    # cap_add:
-    #   - DAC_OVERRIDE
-    #   - FOWNER
+    cap_add:
+      - DAC_OVERRIDE
+      - FOWNER
     cap_drop:
       - ALL
     security_opt:
@@ -42,7 +40,3 @@ networks:
   default:
     name: caddy
     external: true
-
-secrets:
-  restic_password:
-    environment: RESTIC_PASSWORD

@@ -15,9 +15,9 @@ services:
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     secrets:
       - restic_password
-    cap_add:
-      - DAC_OVERRIDE
-      - FOWNER
+    # cap_add:
+    #   - DAC_OVERRIDE
+    #   - FOWNER
     cap_drop:
       - ALL
     security_opt:
@@ -30,9 +30,9 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    tmpfs:
-      - /tmp
-      - /var/run
+    # tmpfs:
+    #   - /tmp
+    #   - /var/run
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

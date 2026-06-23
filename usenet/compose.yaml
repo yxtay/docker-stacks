@@ -20,6 +20,7 @@ services:
       - /apps/nzbhydra2:/config
     tmpfs:
       - /run:exec
+      - /tmp
     expose:
       - 5076
     healthcheck:

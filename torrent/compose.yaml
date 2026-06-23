@@ -125,6 +125,7 @@ services:
       - /mnt/torrent:/mnt/torrent
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
+      - /app
       - /run:exec
     expose:
       - 6500

@@ -75,8 +75,8 @@ services:
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
-    tmpfs:
-      - /.cache
+    # tmpfs:
+    #   - /.cache
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]

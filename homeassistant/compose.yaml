@@ -63,6 +63,7 @@ services:
     environment:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
+      UV_CACHE_DIR: /config/.esphome/platformio/.cache/uv
     cap_add:
       - NET_RAW
     cap_drop:
@@ -75,8 +76,6 @@ services:
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /apps/esphome:/config
-    tmpfs:
-      - /root
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]

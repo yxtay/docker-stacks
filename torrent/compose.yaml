@@ -200,20 +200,17 @@ services:
     environment:
       <<: *envs
       ORIGIN: https://profilarr.${DOMAIN:?}
-    # cap_add:
-    #   - CHOWN
-    #   - DAC_OVERRIDE
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
     #   - SETGID
     #   - SETUID
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
-    # read_only: true
     volumes:
       - /apps/profilarr:/config
-    # tmpfs:
-    #   - /tmp:mode=1777,uid=${PUID:-1000},gid=${PGID:-1000}
     expose:
       - 6868
     healthcheck:

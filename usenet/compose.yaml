@@ -140,7 +140,7 @@ services:
       - /mnt/usenet:/mnt/usenet
       - /mnt/remote:/mnt/remote:rshared
     tmpfs:
-      - /run:exec,uid=${PUID:-1000},gid=${PGID:-1000}
+      - /run:exec
       - /tmp
     expose:
       - 8080
@@ -155,6 +155,11 @@ services:
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:1e95b5c13fe015361a9ae1c4d99fc2336816790aaea60fa74b2ffebe076a69e0
     user: ${PUID:-1000}:${PGID:-1000}
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:
@@ -182,6 +187,11 @@ services:
     image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
     user: ${PUID:-1000}:${PGID:-1000}
     environment: *envs
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

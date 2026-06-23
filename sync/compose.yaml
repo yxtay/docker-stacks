@@ -51,13 +51,10 @@ services:
       - CACHEDIR.TAG
       - --ignore-case
       - --one-file-system
-      - --metadata
       - --skip-links
       - --track-renames
     cap_add:
-      - CHOWN
       - DAC_OVERRIDE
-      - FOWNER
     cap_drop:
       - ALL
     security_opt:

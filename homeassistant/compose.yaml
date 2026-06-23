@@ -102,8 +102,8 @@ services:
     volumes:
       - /apps/trmnl-ha:/data
     tmpfs:
-      - /tmp
       - /root
+      - /tmp
     ports:
       - 10000:10000
     healthcheck:

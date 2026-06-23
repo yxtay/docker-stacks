@@ -17,10 +17,10 @@ services:
     cap_add:
       - DAC_OVERRIDE
       - FOWNER
-    # cap_drop:
-    #   - ALL
-    # security_opt:
-    #   - no-new-privileges:true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     # read_only: true
     uts: host
     volumes:
@@ -29,8 +29,8 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    tmpfs:
-      - /var/spool/cron/crontabs
+    # tmpfs:
+    #   - /var/spool/cron/crontabs
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

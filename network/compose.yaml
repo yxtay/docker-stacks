@@ -18,9 +18,6 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
-    sysctls:
-      net.ipv4.conf.all.arp_ignore: 1
-      net.ipv4.conf.all.arp_announce: 2
     volumes:
       - /apps/netalertx/data:/data
       - /etc/localtime:/etc/localtime:ro

@@ -7,16 +7,11 @@ dirs=(
   /apps
   /backups
   /mnt/remote
-  /mnt/remote/altmount
   /mnt/remote/debrid
   /mnt/torrent
   /mnt/torrent/downloads
   /mnt/torrent/movies
   /mnt/torrent/shows
-  /mnt/usenet
-  /mnt/usenet/downloads
-  /mnt/usenet/movies
-  /mnt/usenet/shows
 )
 for dir in "${dirs[@]}"; do
   mkdir -p "${dir}"

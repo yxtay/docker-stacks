@@ -83,8 +83,6 @@ Usenet streaming and indexing.
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
 - **altmount** — Usenet WebDAV mount
-- **radarr_usenet** — Movie manager (Usenet)
-- **sonarr_usenet** — TV show manager (Usenet)
 
 ### Torrent Stack (`torrent/`)
 
@@ -93,8 +91,8 @@ Torrent streaming and indexing.
 - **prowlarr** — Indexer manager (Usenet + Torrents)
 - **rclone** — Debrid FUSE mount
 - **rdtclient** — Real-Debrid download client
-- **radarr_torrent** — Movie manager (Torrents)
-- **sonarr_torrent** — TV show manager (Torrents)
+- **radarr** — Movie manager
+- **sonarr** — TV show manager
 - **profilarr** — ARR profile manager
 
 ### Home Assistant Stack (`homeassistant/`)

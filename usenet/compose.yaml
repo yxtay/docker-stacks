@@ -52,7 +52,6 @@ services:
     read_only: true
     volumes:
       - /apps/nzbdav:/config
-      - /mnt/usenet:/mnt/usenet
     tmpfs:
       - /tmp
     expose:
@@ -133,19 +132,16 @@ services:
       - DAC_OVERRIDE
       - SETGID
       - SETUID
-      - SYS_ADMIN
     cap_drop:
       - ALL
     security_opt:
-      - apparmor:unconfined
+      - no-new-privileges:true
     read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/altmount:/config
       - /apps/altmount/metadata:/metadata
-      - /mnt/usenet:/mnt/usenet
-      - /mnt/remote:/mnt/remote:rshared
     tmpfs:
       - /run:exec
       - /tmp
@@ -156,66 +152,6 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth altmount altmount:8080
       tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
-
-  radarr_usenet:
-    # nosemgrep
-    image: ghcr.io/linuxserver/radarr:6.2.1@sha256:1e95b5c13fe015361a9ae1c4d99fc2336816790aaea60fa74b2ffebe076a69e0
-    environment: *envs
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/radarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet
-      - /mnt/usenet:/data
-      - /mnt/remote:/mnt/remote:rslave
-    tmpfs:
-      - /run:exec
-    expose:
-      - 7878
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth radarr_usenet radarr_usenet:7878
-
-  sonarr_usenet:
-    # nosemgrep
-    image: ghcr.io/linuxserver/sonarr:4.0.17@sha256:02bc962946fef994e67a38152446df25c10a52f8583aefeeb6467f9dd44cab99
-    environment: *envs
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/sonarr_usenet:/config
-      - /mnt/usenet:/mnt/usenet
-      - /mnt/usenet:/data
-      - /mnt/remote:/mnt/remote:rslave
-    tmpfs:
-      - /run:exec
-    expose:
-      - 8989
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
-    restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sonarr_usenet sonarr_usenet:8989
 
 networks:
   default:

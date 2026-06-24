@@ -10,7 +10,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     uts: host
     volumes:
       - /apps/crowdsec/config:/etc/crowdsec
@@ -48,9 +48,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./crowdsec-firewall-bouncer/crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
+      - ./crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
     tmpfs:
-      - /run
       - /tmp
     network_mode: host
     healthcheck:

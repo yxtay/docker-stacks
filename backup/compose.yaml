@@ -17,6 +17,8 @@ services:
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     cap_add:
       - DAC_OVERRIDE
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

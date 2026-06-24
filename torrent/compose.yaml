@@ -14,7 +14,7 @@ services:
       - /apps/flaresolverr:/config
     tmpfs:
       - /tmp
-      - /root
+      - /app/chromedriver
     expose:
       - 8191
     healthcheck:

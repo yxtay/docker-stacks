@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy homeassistant ${HA_IP_ADDRESS:?}:8123
+      caddy.import: reverse_proxy homeassistant host.docker.internal:8123
 
   music_assistant:
     # nosemgrep
@@ -55,7 +55,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy music_assistant ${HA_IP_ADDRESS:?}:8095
+      caddy.import: reverse_proxy music_assistant host.docker.internal:8095
 
   esphome:
     # nosemgrep
@@ -82,7 +82,7 @@ services:
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy esphome ${HA_IP_ADDRESS:?}:6052
+      caddy.import: reverse_proxy esphome host.docker.internal:6052
 
   trmnl_ha:
     # nosemgrep

@@ -132,11 +132,10 @@ services:
       - DAC_OVERRIDE
       - SETGID
       - SETUID
-      - SYS_ADMIN
     cap_drop:
       - ALL
     security_opt:
-      - apparmor:unconfined
+      - no-new-privileges:true
     read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm

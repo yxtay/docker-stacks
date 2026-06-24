@@ -6,8 +6,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/flaresolverr:/config
+    tmpfs:
+      - /tmp
+      - /root
     expose:
       - 8191
     healthcheck:

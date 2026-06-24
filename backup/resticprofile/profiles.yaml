@@ -63,6 +63,7 @@ profiles:
         - immich/data/library
         - immich/data/thumbs
         - immich/data/upload
+        - immich/database
         - nzbdav/blobs
         - portainer/compose
         - profilarr/data/databases

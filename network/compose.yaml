@@ -1,0 +1,43 @@
+services:
+  netalertx:
+    # nosemgrep
+    image: ghcr.io/netalertx/netalertx:latest
+    environment:
+      LISTEN_ADDR: ${LISTEN_ADDR:-0.0.0.0}
+      PORT: ${PORT:-20211}
+      GRAPHQL_PORT: ${GRAPHQL_PORT:-20212}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETUID
+      - SETGID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    sysctls:
+      net.ipv4.conf.all.arp_ignore: 1
+      net.ipv4.conf.all.arp_announce: 2
+    volumes:
+      - /apps/netalertx/data:/data
+      - /etc/localtime:/etc/localtime:ro
+    tmpfs:
+      - /tmp:uid=${NETALERTX_UID:-20211},gid=${NETALERTX_GID:-20211},mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime
+    expose:
+      - 20211
+      - 20212
+    network_mode: ${NETALERTX_NETWORK_MODE:-host}
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+          pids: 512
+        reservations:
+          memory: 1024M
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth netalertx localhost:20211

@@ -95,6 +95,12 @@ Torrent streaming and indexing.
 - **sonarr** — TV show manager
 - **profilarr** — ARR profile manager
 
+### Network Stack (`network/`)
+
+Network monitoring and device discovery.
+
+- **netalertx** — Network device scanner and alerting (host network)
+
 ### Home Assistant Stack (`homeassistant/`)
 
 Home automation and related services. All services use host networking for

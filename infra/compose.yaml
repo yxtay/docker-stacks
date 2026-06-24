@@ -32,6 +32,8 @@ services:
     networks:
       - default
       - socket_proxy
+    extra_hosts:
+      - host.docker.internal:host-gateway
     healthcheck:
       test: [CMD, wget, --spider, "http://127.0.0.1:2019/config/"]
     restart: unless-stopped

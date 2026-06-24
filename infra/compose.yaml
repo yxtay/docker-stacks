@@ -181,6 +181,7 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
+      - FOWNER
     cap_drop:
       - ALL
     security_opt:

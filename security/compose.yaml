@@ -10,11 +10,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    # read_only: true
+    read_only: true
     uts: host
     volumes:
       - /apps/crowdsec/config:/etc/crowdsec
       - /apps/crowdsec/data:/var/lib/crowdsec/data
+      - /apps/crowdsec/staging:/staging/var/lib/crowdsec/data
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
       - /var/log:/var/log:ro
     tmpfs:

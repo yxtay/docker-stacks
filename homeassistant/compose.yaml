@@ -88,7 +88,7 @@ services:
     # nosemgrep
     image: ghcr.io/usetrmnl/trmnl-ha-${ARCH:-amd64}:0.8.1
     environment:
-      HOME_ASSISTANT_URL: "http://${HA_IP_ADDRESS:?}:8123"
+      HOME_ASSISTANT_URL: "http://host.docker.internal:8123"
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}

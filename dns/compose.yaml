@@ -56,7 +56,7 @@ services:
       test: [CMD, nslookup, localhost, 127.0.0.1]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy adguard adguard:3000
       caddy.@adguard_doh.host: "adguard.{env.DOMAIN}"
       caddy.@adguard_doh.path: /dns-query /dns-query/*

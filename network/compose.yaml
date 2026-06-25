@@ -41,8 +41,3 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth netalertx host.docker.internal:20211
-
-networks:
-  default:
-    name: caddy
-    external: true

@@ -10,7 +10,6 @@ services:
       - --xattrs
       - --one-file-system
       - --delete-after
-      - --no-links
       - --numeric-ids
       - --partial
       - --sparse

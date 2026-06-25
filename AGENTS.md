@@ -50,7 +50,7 @@ submitting changes.
 
     ```yaml
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy <service-name> <service-name>:<port>
     ```
 

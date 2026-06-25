@@ -28,7 +28,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:8123"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy homeassistant host.docker.internal:8123
 
   music_assistant:
@@ -54,7 +54,7 @@ services:
       test: [CMD, wget, -qO-, "http://localhost:8095"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy music_assistant host.docker.internal:8095
 
   esphome:
@@ -81,7 +81,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy esphome host.docker.internal:6052
 
   trmnl_ha:
@@ -108,7 +108,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:10000/health"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy trmnl_ha trmnl_ha:10000
 
 networks:

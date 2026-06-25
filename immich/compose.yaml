@@ -34,7 +34,7 @@ services:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy immich immich_server:2283
 
   immich_machine_learning:
@@ -128,7 +128,7 @@ services:
       test: [CMD, wget, -qO-, "http://localhost:8080/"]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
 
   immich_kiosk:
@@ -156,7 +156,7 @@ services:
       test: [CMD, /kiosk, --healthcheck]
     restart: unless-stopped
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000
 
 networks:

@@ -36,5 +36,5 @@ services:
         reservations:
           memory: 1024M
     labels:
-      caddy: "*.{$$DOMAIN}"
+      caddy: "*.$${DOMAIN}"
       caddy.import: reverse_proxy_auth netalertx host.docker.internal:20211

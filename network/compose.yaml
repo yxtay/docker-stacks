@@ -27,11 +27,9 @@ services:
       - 20211
       - 20212
     network_mode: ${NETALERTX_NETWORK_MODE:-host}
-    extra_hosts:
-      - host.docker.internal:host-gateway
     dns:
       - ${ROUTER_IP:-192.168.0.1}
-      - host.docker.internal
+      - 172.17.0.1
     restart: unless-stopped
     deploy:
       resources:

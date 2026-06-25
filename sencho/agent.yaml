@@ -1,14 +1,9 @@
+includes:
+  - ./compose.yaml
+
 services:
   sencho:
-    extends:
-      file: ./compose.yaml
-      service: sencho
     environment:
       SENCHO_MODE: pilot
       SENCHO_PRIMARY_URL: ${SENCHO_PRIMARY_URL:?}
       SENCHO_ENROLL_TOKEN: ${SENCHO_ENROLL_TOKEN:?}
-
-networks:
-  default:
-    name: caddy
-    external: true

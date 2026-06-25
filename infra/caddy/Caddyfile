@@ -1,6 +1,7 @@
 {
 	# debug
 	order crowdsec first
+	order appsec after crowdsec
 
 	log {
 		format json {
@@ -12,6 +13,7 @@
 	crowdsec {
 		api_url http://crowdsec:8080
 		api_key {env.CROWDSEC_API_KEY}
+		appsec_url http://crowdsec:7422
 	}
 
 	servers {
@@ -87,8 +89,9 @@
 
 (defaults) {
 	crowdsec
-	import security_headers
+	appsec
 	encode zstd gzip
+	import security_headers
 }
 
 (reverse_proxy) {

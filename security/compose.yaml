@@ -3,7 +3,13 @@ services:
     # nosemgrep
     image: ghcr.io/crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9bb8b367120eb08b82890aa912ce96bfa1ada93dda0721700e4b4e0dde
     environment:
-      COLLECTIONS: crowdsecurity/caddy crowdsecurity/iptables crowdsecurity/linux
+      COLLECTIONS: >-
+        crowdsecurity/appsec-crs
+        crowdsecurity/appsec-generic-rules
+        crowdsecurity/appsec-virtual-patching
+        crowdsecurity/caddy
+        crowdsecurity/iptables
+        crowdsecurity/linux-lpe
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     cap_drop:
@@ -14,10 +20,13 @@ services:
     volumes:
       - /apps/crowdsec/config:/etc/crowdsec
       - /apps/crowdsec/data:/var/lib/crowdsec/data
-      - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - ./acquis.d:/etc/crowdsec/acquis.d:ro
       - /var/log:/var/log:ro
     tmpfs:
       - /tmp
+    expose:
+      - 8080
+      - 7422
     ports:
       - 127.0.0.1:8080:8080
     networks:

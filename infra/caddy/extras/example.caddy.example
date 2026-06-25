@@ -1,0 +1,4 @@
+# Reverse proxy to an external service (e.g. web server, management UI)
+# Copy to <name>.caddy and update subdomain and IP:port
+# import reverse_proxy myservice 192.168.1.100:80
+# import reverse_proxy_auth myservice 192.168.1.100:80

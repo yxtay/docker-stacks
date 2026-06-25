@@ -5,7 +5,6 @@ services:
     environment:
       COLLECTIONS: >-
         crowdsecurity/appsec-crs
-        crowdsecurity/appsec-crs-inband
         crowdsecurity/appsec-generic-rules
         crowdsecurity/appsec-virtual-patching
         crowdsecurity/caddy

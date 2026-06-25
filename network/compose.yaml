@@ -15,8 +15,6 @@ services:
       - SETGID
     cap_drop:
       - ALL
-    # security_opt:
-    #   - no-new-privileges:true
     read_only: true
     volumes:
       - /apps/netalertx/data:/data

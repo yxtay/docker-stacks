@@ -26,7 +26,7 @@ services:
     # expose:
     #   - 20211
     #   - 20212
-    network_mode: ${NETALERTX_NETWORK_MODE:-host}
+    network_mode: host
     restart: unless-stopped
     deploy:
       resources:

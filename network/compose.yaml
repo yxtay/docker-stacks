@@ -23,9 +23,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     tmpfs:
       - /tmp:uid=${NETALERTX_UID:-20211},gid=${NETALERTX_GID:-20211},mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime
-    expose:
-      - 20211
-      - 20212
+    # expose:
+    #   - 20211
+    #   - 20212
     network_mode: ${NETALERTX_NETWORK_MODE:-host}
     dns:
       - ${ROUTER_IP:-192.168.0.1}

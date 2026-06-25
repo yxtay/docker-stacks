@@ -5,6 +5,9 @@ services:
       - COMPOSE_DIR=${COMPOSE_DIR:?}
     cap_drop:
       - ALL
+    cap_add:
+      - DAC_OVERRIDE
+      - FOWNER
     security_opt:
       - no-new-privileges:true
     read_only: true

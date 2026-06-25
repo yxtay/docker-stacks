@@ -17,8 +17,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 1852:1852
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:1852"]
     restart: unless-stopped
     labels:
       caddy: "*.{$$DOMAIN}"

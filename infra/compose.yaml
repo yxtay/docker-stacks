@@ -35,7 +35,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     healthcheck:
-      test: [CMD, wget, --spider, "http://127.0.0.1:2019/config/"]
+      test: [CMD, wget, -qO-, "http://localhost/healthz"]
     restart: unless-stopped
     deploy:
       resources:

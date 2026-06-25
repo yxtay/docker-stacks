@@ -118,13 +118,22 @@
 	}
 }
 
+localhost, caddy {
+	root * /usr/share/caddy
+	respond /healthz "OK"
+	respond /readyz "OK"
+	respond /livez "OK"
+	metrics /metrics
+	file_server
+}
+
 {$DOMAIN} {
 	redir https://www.{host}{uri} permanent
 }
 
 *.{$DOMAIN} {
 	import defaults
-	import /config/caddy/extras/*.caddy
+	import /config/extras/*.caddy
 
 	@www host www.{env.DOMAIN}
 	handle @www {

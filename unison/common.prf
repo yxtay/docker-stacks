@@ -12,9 +12,8 @@ group = false
 owner = false
 perms = 0
 
-ignorenot = Name *.{conf,ini,json,prf,txt,yaml,yml}
 ignore = Name __pycache__
-ignore = Name *.{bak,git,pid,pyc,lock}
+ignore = Name *.{bak,DS_Store,git,pid,pyc,lock}
 ignore = Name {,*.}{cache,tmp}
 
 ignore = Name MediaCover

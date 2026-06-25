@@ -1,26 +1,12 @@
 services:
   sencho:
-    image: ghcr.io/studio-saelix/sencho:0.92.0@sha256:dfc60ca163c0de68f3a17d3720a7b929456e491b2cec7af8b3500f44a19795c2
+    extends:
+      file: ./compose.yaml
+      service: sencho
     environment:
-      COMPOSE_DIR: ${COMPOSE_DIR:?}
       SENCHO_MODE: pilot
       SENCHO_PRIMARY_URL: ${SENCHO_PRIMARY_URL:?}
       SENCHO_ENROLL_TOKEN: ${SENCHO_ENROLL_TOKEN:?}
-    cap_drop:
-      - ALL
-    cap_add:
-      - DAC_OVERRIDE
-      - FOWNER
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/sencho:/app/data
-      - ${COMPOSE_DIR:-${HOME}}:${COMPOSE_DIR:-${HOME}}
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    tmpfs:
-      - /tmp
-    restart: unless-stopped
 
 networks:
   default:

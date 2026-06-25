@@ -20,6 +20,12 @@ services:
     tmpfs:
       - /run:exec
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
 networks:
   default:

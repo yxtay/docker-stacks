@@ -21,6 +21,12 @@ services:
     healthcheck:
       test: [CMD, /portainer, --version]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth portainer portainer:9000

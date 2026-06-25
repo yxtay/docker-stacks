@@ -33,6 +33,12 @@ services:
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
 networks:
   default:

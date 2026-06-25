@@ -124,7 +124,7 @@
 
 *.{$DOMAIN} {
 	import defaults
-	import /etc/caddy/extras/*.caddy
+	import /config/*.caddy
 
 	@www host www.{env.DOMAIN}
 	handle @www {

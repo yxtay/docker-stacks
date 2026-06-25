@@ -1,0 +1,27 @@
+services:
+  sencho:
+    image: ghcr.io/studio-saelix/sencho:0.92.0@sha256:dfc60ca163c0de68f3a17d3720a7b929456e491b2cec7af8b3500f44a19795c2
+    environment:
+      - COMPOSE_DIR=${COMPOSE_DIR:?}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/sencho:/app/data
+      - ${COMPOSE_DIR}:${COMPOSE_DIR}
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 1852:1852
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:1852"]
+    restart: unless-stopped
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth sencho sencho:1852
+
+networks:
+  default:
+    name: caddy
+    external: true

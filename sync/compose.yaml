@@ -64,3 +64,8 @@ services:
       - /apps:/apps:ro
       - /data/apps:/data/apps
     restart: no
+
+networks:
+  default:
+    name: caddy
+    external: true

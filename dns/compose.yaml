@@ -55,6 +55,12 @@ services:
     healthcheck:
       test: [CMD, nslookup, localhost, 127.0.0.1]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy adguard adguard:3000

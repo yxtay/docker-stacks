@@ -14,6 +14,12 @@ services:
     networks:
       - socket_proxy
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   dozzle:
     # nosemgrep
@@ -36,6 +42,12 @@ services:
     healthcheck:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth dozzle dozzle:8080
@@ -57,6 +69,12 @@ services:
     healthcheck:
       test: [CMD, /beszel, health, --url, "http://localhost:8090"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth beszel beszel:8090
@@ -81,6 +99,12 @@ services:
     healthcheck:
       test: [CMD, /agent, health]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
 networks:
   default:

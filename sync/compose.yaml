@@ -30,6 +30,12 @@ services:
       - /apps:/apps:ro
       - /data/apps:/data/apps
     restart: no
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   rclone:
     image: ghcr.io/rclone/rclone:1.74.3@sha256:623378ad0ff3ebd5cebf77720843c0e02edfe46e2d5b5ac6bed54c6371780dfb
@@ -64,6 +70,12 @@ services:
       - /apps:/apps:ro
       - /data/apps:/data/apps
     restart: no
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
 networks:
   default:

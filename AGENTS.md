@@ -74,9 +74,19 @@ submitting changes.
   - Add `read_only: true` with `tmpfs: [/run:exec]`. Only add `/tmp`
     to tmpfs if the service actually writes temp files (test first).
     Mount writable paths as volumes.
-  - LinuxServer.io images ignore `PUID`/`PGID` under `read_only: true`
-    (container runs as UID 911). Use host volume ownership or Docker
-    `user:` directive to control file permissions.
+  - LinuxServer.io images: `PUID`/`PGID` has no effect under
+    `read_only: true` (container runs as UID 911). Images handle
+    ownership of volumes mounted to `/config` automatically.
+  - Add resource limits to every service:
+
+    ```yaml
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    ```
 
 - Environment variables:
   - Use YAML anchors (`&envs`) for shared `PUID`/`PGID`/`TZ` in stacks

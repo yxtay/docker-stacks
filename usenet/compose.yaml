@@ -26,6 +26,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:5076/actuator/health/ping"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
@@ -59,6 +65,12 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:3000/health"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
@@ -89,6 +101,12 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://127.0.0.1:7000/"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
@@ -115,6 +133,12 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:7000/health"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
@@ -148,6 +172,12 @@ services:
     expose:
       - 8080
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth altmount altmount:8080

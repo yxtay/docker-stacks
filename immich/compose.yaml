@@ -33,6 +33,12 @@ services:
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy immich immich_server:2283
@@ -57,6 +63,12 @@ services:
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   redis:
     # nosemgrep
@@ -75,6 +87,12 @@ services:
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   database:
     # nosemgrep
@@ -105,6 +123,12 @@ services:
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   gphotos2immich:
     # nosemgrep
@@ -127,6 +151,12 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:8080/"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
@@ -155,6 +185,12 @@ services:
     healthcheck:
       test: [CMD, /kiosk, --healthcheck]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000

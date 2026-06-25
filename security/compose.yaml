@@ -10,7 +10,6 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    # read_only: true
     uts: host
     volumes:
       - /apps/crowdsec/config:/etc/crowdsec
@@ -27,6 +26,12 @@ services:
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   crowdsec-firewall-bouncer:
     # nosemgrep
@@ -55,6 +60,12 @@ services:
     healthcheck:
       test: [CMD, pidof, crowdsec-firewall-bouncer]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
 networks:
   default:

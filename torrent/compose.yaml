@@ -13,6 +13,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8191/health"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   prowlarr:
     # nosemgrep
@@ -40,6 +46,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:9696/ping"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
@@ -96,6 +108,12 @@ services:
     healthcheck:
       test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
 
   rdtclient:
     # nosemgrep
@@ -117,6 +135,12 @@ services:
     expose:
       - 6500
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
@@ -147,6 +171,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth radarr radarr:7878
@@ -177,6 +207,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth sonarr sonarr:8989
@@ -203,6 +239,12 @@ services:
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:6868"]
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth profilarr profilarr:6868

@@ -18,12 +18,9 @@ services:
       - /apps/sencho:/app/data
       - ${COMPOSE_DIR:-${HOME}}:${COMPOSE_DIR:-${HOME}}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - 1852:1852
+    tmpfs:
+      - /tmp
     restart: unless-stopped
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sencho sencho:1852
 
 networks:
   default:

@@ -29,7 +29,6 @@ services:
     network_mode: ${NETALERTX_NETWORK_MODE:-host}
     dns:
       - ${ROUTER_IP:-192.168.0.1}
-      - 172.17.0.1
     restart: unless-stopped
     deploy:
       resources:

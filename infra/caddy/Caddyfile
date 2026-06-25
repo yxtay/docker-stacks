@@ -1,6 +1,7 @@
 {
 	# debug
 	order crowdsec first
+	order appsec after crowdsec
 
 	log {
 		format json {

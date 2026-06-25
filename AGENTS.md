@@ -34,8 +34,9 @@ submitting changes.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when
     strictly required (e.g., URLs with colons).
-  - Every service should have a `healthcheck`. Specify only the `test` command,
-    leaving `interval`, `timeout`, `retries` as defaults.
+  - Every service should have a `healthcheck`. Only add one if the container
+    image does not already define a healthcheck. Specify only the `test`
+    command, leaving `interval`, `timeout`, `retries` as defaults.
   - Prefer the service's built-in health check command when available
     (e.g., `redis-cli ping`, `pg_isready`, `/dozzle healthcheck`,
     `/beszel health`). Fall back to `curl -fsSL` or `wget -qO-` for

@@ -22,7 +22,7 @@ services:
       test: [CMD, /portainer, --version]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth portainer portainer:9000
 
 networks:

@@ -41,7 +41,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:9696/ping"]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
@@ -118,7 +118,7 @@ services:
       - 6500
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
 
   radarr:
@@ -148,7 +148,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:7878/ping"]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth radarr radarr:7878
 
   sonarr:
@@ -178,7 +178,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:8989/ping"]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth sonarr sonarr:8989
 
   profilarr:
@@ -204,7 +204,7 @@ services:
       test: [CMD, curl, -fsSL, "http://localhost:6868"]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth profilarr profilarr:6868
 
 networks:

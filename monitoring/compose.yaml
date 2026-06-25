@@ -37,7 +37,7 @@ services:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth dozzle dozzle:8080
 
   beszel:
@@ -58,7 +58,7 @@ services:
       test: [CMD, /beszel, health, --url, "http://localhost:8090"]
     restart: unless-stopped
     labels:
-      caddy: "*.$${DOMAIN}"
+      caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth beszel beszel:8090
 
   beszel_agent:

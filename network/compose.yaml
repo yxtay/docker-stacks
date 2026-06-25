@@ -25,7 +25,7 @@ services:
     # ---------------------------
 
     volumes:
-      - type: volume # Persistent Docker-managed named volume for config + database
+      - type: bind # Persistent Docker-managed named volume for config + database
         source: /apps/netalertx
         target: /data # `/data/config` and `/data/db` live inside this mount
         read_only: false

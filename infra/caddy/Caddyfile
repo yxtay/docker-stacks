@@ -118,7 +118,7 @@
 	}
 }
 
-localhost, caddy {
+localhost:80, caddy:80 {
 	root * /usr/share/caddy
 	respond /healthz "OK"
 	respond /readyz "OK"

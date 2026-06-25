@@ -88,8 +88,9 @@
 
 (defaults) {
 	crowdsec
-	import security_headers
+	appsec
 	encode zstd gzip
+	import security_headers
 }
 
 (reverse_proxy) {

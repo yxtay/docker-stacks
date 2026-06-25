@@ -8,6 +8,7 @@ services:
       SENCHO_MODE: pilot
       SENCHO_PRIMARY_URL: ${SENCHO_PRIMARY_URL:?}
       SENCHO_ENROLL_TOKEN: ${SENCHO_ENROLL_TOKEN:?}
+    ports: !reset []
 
 networks:
   default:

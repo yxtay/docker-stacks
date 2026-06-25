@@ -12,6 +12,7 @@
 	crowdsec {
 		api_url http://crowdsec:8080
 		api_key {env.CROWDSEC_API_KEY}
+		appsec_url http://crowdsec:7422
 	}
 
 	servers {

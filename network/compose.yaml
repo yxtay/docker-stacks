@@ -15,8 +15,8 @@ services:
       - SETGID
     cap_drop:
       - ALL
-    security_opt:
-      - no-new-privileges:true
+    # security_opt:
+    #   - no-new-privileges:true
     read_only: true
     volumes:
       - /apps/netalertx/data:/data
@@ -26,7 +26,7 @@ services:
     # expose:
     #   - 20211
     #   - 20212
-    network_mode: host
+    network_mode: ${NETALERTX_NETWORK_MODE:-host}
     restart: unless-stopped
     deploy:
       resources:

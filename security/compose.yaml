@@ -4,6 +4,7 @@ services:
     image: ghcr.io/crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9bb8b367120eb08b82890aa912ce96bfa1ada93dda0721700e4b4e0dde
     environment:
       COLLECTIONS: >-
+        crowdsecurity/appsec-crs
         crowdsecurity/appsec-generic-rules
         crowdsecurity/appsec-virtual-patching
         crowdsecurity/caddy

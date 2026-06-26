@@ -5,6 +5,7 @@ fastcheck = true
 links = false
 log = false
 maxerrors = 10
+prefer = newer
 times = true
 
 dontchmod = true

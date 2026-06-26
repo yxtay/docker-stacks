@@ -8,7 +8,7 @@ services:
         crowdsecurity/appsec-virtual-patching
         crowdsecurity/caddy
         crowdsecurity/iptables
-        crowdsecurity/linux-lpe
+        crowdsecurity/linux
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     cap_drop:

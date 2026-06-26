@@ -21,17 +21,10 @@ with automatic HTTPS via DuckDNS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`). [TinyAuth] provides forward authentication via OAuth
 (GitHub/Google) for protected services.
 
+All services have deploy resource limits (1 CPU, 4 GB memory, 512 PIDs) for
+isolation and stability.
+
 [TinyAuth]: https://tinyauth.app
-
-### Portainer Stack (`portainer/`)
-
-Container management UI. GitOps via systemd timer (every 5 minutes).
-
-### Dockhand Stack (`dockhand/`)
-
-Container management UI.
-
-- **dockhand** — Docker container management dashboard
 
 ### Infra Stack (`infra/`)
 
@@ -44,11 +37,30 @@ Core infrastructure and utility services.
 - **whoami** — Request echo (debugging)
 - **librespeed** — Speed test
 
+Caddy supports optional per-deployment reverse proxy configs via
+`infra/caddy/extras/*.caddy` (glob import, safe when empty).
+
 ### DDNS Stack (`ddns/`)
 
 Dynamic DNS updates.
 
 - **duckdns** — DuckDNS dynamic DNS client
+
+### DNS Stack (`dns/`)
+
+Network-wide DNS filtering.
+
+- **adguard** — DNS server with ad/tracker blocking
+
+### Security Stack (`security/`)
+
+Intrusion detection and web application firewall.
+
+- **crowdsec** — IDS/IPS with AppSec WAF (virtual patching, generic rules)
+
+CrowdSec monitors Caddy access logs, syslog, and kernel logs. The AppSec
+engine (port 7422) inspects HTTP requests via Caddy's `appsec_url` directive.
+Acquisition configs live in `acquis.d/`.
 
 ### Monitoring Stack (`monitoring/`)
 
@@ -58,6 +70,24 @@ Monitoring and container maintenance.
 - **dozzle** — Real-time container log viewer
 - **beszel** — Server monitoring hub
 - **beszel_agent** — Monitoring agent (host network)
+
+### Portainer Stack (`portainer/`)
+
+Container management UI. GitOps via systemd timer (every 5 minutes).
+
+- **portainer** — Container management dashboard
+
+### Dockhand Stack (`dockhand/`)
+
+Container management UI.
+
+- **dockhand** — Docker container management dashboard
+
+### Sencho Stack (`sencho/`)
+
+Compose stack editor.
+
+- **sencho** — Docker Compose file editor UI
 
 ### Backup Stack (`backup/`)
 
@@ -73,27 +103,6 @@ Failure notifications sent to ntfy.sh.
 One-way sync of `/apps` to `/data/apps` for local redundancy using rsync.
 
 - **rsync** — Archive copy with hardlinks, ACLs, xattrs
-
-### Usenet Stack (`usenet/`)
-
-Usenet streaming and indexing.
-
-- **nzbhydra2** — NZB indexer search
-- **nzbdav** — NZB WebDAV server
-- **usenetstreamer** — Stremio addon
-- **streamnzb** — Usenet streamer
-- **altmount** — Usenet WebDAV mount
-
-### Torrent Stack (`torrent/`)
-
-Torrent streaming and indexing.
-
-- **prowlarr** — Indexer manager (Usenet + Torrents)
-- **rclone** — Debrid FUSE mount
-- **rdtclient** — Real-Debrid download client
-- **radarr** — Movie manager
-- **sonarr** — TV show manager
-- **profilarr** — ARR profile manager
 
 ### Network Stack (`network/`)
 
@@ -121,6 +130,28 @@ Self-hosted photo and video management.
 - **database** — PostgreSQL with pgvecto.rs
 - **gphotos2immich** — Google Photos import bridge
 - **immich_kiosk** — Photo slideshow display
+
+### Usenet Stack (`usenet/`)
+
+Usenet streaming and indexing.
+
+- **nzbhydra2** — NZB indexer search
+- **nzbdav** — NZB WebDAV server
+- **usenetstreamer** — Stremio addon
+- **streamnzb** — Usenet streamer
+- **altmount** — Usenet WebDAV mount
+
+### Torrent Stack (`torrent/`)
+
+Torrent streaming and indexing.
+
+- **flaresolverr** — Cloudflare bypass for scraping
+- **prowlarr** — Indexer manager (Usenet + Torrents)
+- **rclone** — Debrid FUSE mount
+- **rdtclient** — Real-Debrid download client
+- **radarr** — Movie manager
+- **sonarr** — TV show manager
+- **profilarr** — ARR profile manager
 
 ## Systemd Timers
 

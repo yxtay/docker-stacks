@@ -56,7 +56,7 @@ Network-wide DNS filtering.
 
 Intrusion detection and web application firewall.
 
-- **crowdsec** — IDS/IPS with AppSec WAF (CRS, virtual patching, generic rules)
+- **crowdsec** — IDS/IPS with AppSec WAF (virtual patching, generic rules)
 
 CrowdSec monitors Caddy access logs, syslog, and kernel logs. The AppSec
 engine (port 7422) inspects HTTP requests via Caddy's `appsec_url` directive.

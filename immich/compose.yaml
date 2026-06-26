@@ -60,6 +60,8 @@ services:
       - /apps/immich/model/cache:/cache
     tmpfs:
       - /root
+    expose:
+      - 3003
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/3003"]
     restart: unless-stopped

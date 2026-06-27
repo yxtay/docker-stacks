@@ -1,5 +1,5 @@
-poll_without_inotify: false
-filenames:
-  - /var/log/traefik/*.log
+source: docker
+container_name:
+  - traefik
 labels:
   type: traefik

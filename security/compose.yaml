@@ -9,6 +9,7 @@ services:
         crowdsecurity/caddy
         crowdsecurity/iptables
         crowdsecurity/linux
+        crowdsecurity/traefik
       DOCKER_HOST: tcp://socket_proxy:2375
       TZ: ${TZ:-UTC}
     cap_drop:

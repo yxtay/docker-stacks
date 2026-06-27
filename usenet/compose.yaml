@@ -78,7 +78,7 @@ services:
 
   usenetstreamer:
     # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.8.1@sha256:7dfb83d13b24f4d69bac0008e9e9cd778033816e587220b9b6b862155058528f
+    image: ghcr.io/sanket9225/usenetstreamer:1.8.1@sha256:6849cacb9cdd63ad2197cc38bf58d83cb8a93dbfb34eb5770e75d858730a3327
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000

@@ -9,6 +9,7 @@ services:
       TZ: ${TZ:-Etc/UTC}
       RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
       RESTIC_FROM_PASSWORD: ${RESTIC_PASSWORD:?}
+      RESTICPROFILE_LOCK_WAIT: 1h
       RCLONE_CONFIG: /config/rclone/rclone.conf
       RCLONE_CONFIG_GDRIVE_TYPE: drive
       RCLONE_CONFIG_GDRIVE_SCOPE: drive

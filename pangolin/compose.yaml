@@ -7,7 +7,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/pangolin/config:/app/config
+      - ./config:/app/config
     tmpfs:
       - /tmp
     healthcheck:
@@ -37,7 +37,7 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - /apps/pangolin/config:/var/config
+      - ./config:/var/config
     ports:
       - 51820:51820/udp
       - 21820:21820/udp
@@ -55,8 +55,6 @@ services:
   traefik:
     image: docker.io/traefik:v3.6
     container_name: traefik
-    command:
-      - --configFile=/etc/traefik/traefik_config.yml
     depends_on:
       pangolin:
         condition: service_healthy
@@ -66,8 +64,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/pangolin/traefik:/etc/traefik:ro
-      - /apps/pangolin/letsencrypt:/letsencrypt
+      - ./config/traefik:/etc/traefik:ro
+      - ./config/letsencrypt:/letsencrypt
     network_mode: service:gerbil
     restart: unless-stopped
     deploy:

@@ -1,7 +1,7 @@
 services:
   resticprofile:
     # nosemgrep
-    image: creativeprojects/resticprofile:0.33.1@sha256:b49083f2edead2d572e70506059793d71daae65c0c387424ee5440c04871fd14
+    image: creativeprojects/resticprofile:0.33.1@sha256:e083988d54dcc894ed04216b23ac54ccbb95f49cbe494210def7ac536b0a4f18
     entrypoint: [sh]
     command: >-
       -c "resticprofile schedule --all && exec crond -f -L /dev/stdout"

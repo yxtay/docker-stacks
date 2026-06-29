@@ -45,7 +45,7 @@ http:
           crowdsecAppsecFailureBlock: true
           crowdsecAppsecUnreachableBlock: true
           crowdsecAppsecBodyLimit: 10485760
-          crowdsecLapiKey: "{{ env "CROWDSEC_TRAEFIK_BOUNCER_KEY" }}"
+          crowdsecLapiKey: {{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}
           crowdsecLapiHost: crowdsec:8080
           crowdsecLapiScheme: http
           forwardedHeadersTrustedIPs:
@@ -60,7 +60,7 @@ http:
 
   routers:
     main-app-router-redirect:
-      rule: "Host(`{{ env "PANGOLIN_DOMAIN" }}`)"
+      rule: "Host(`{{env "PANGOLIN_DOMAIN"}}`)"
       service: next-service
       entryPoints:
         - web
@@ -69,7 +69,7 @@ http:
         - badger
 
     next-router:
-      rule: "Host(`{{ env "PANGOLIN_DOMAIN" }}`) && !PathPrefix(`/api/v1`)"
+      rule: "Host(`{{env "PANGOLIN_DOMAIN"}}`) && !PathPrefix(`/api/v1`)"
       service: next-service
       entryPoints:
         - websecure
@@ -80,7 +80,7 @@ http:
         certResolver: letsencrypt
 
     api-router:
-      rule: "Host(`{{ env "PANGOLIN_DOMAIN" }}`) && PathPrefix(`/api/v1`)"
+      rule: "Host(`{{env "PANGOLIN_DOMAIN"}}`) && PathPrefix(`/api/v1`)"
       service: api-service
       entryPoints:
         - websecure
@@ -91,7 +91,7 @@ http:
         certResolver: letsencrypt
 
     ws-router:
-      rule: "Host(`{{ env "PANGOLIN_DOMAIN" }}`)"
+      rule: "Host(`{{env "PANGOLIN_DOMAIN"}}`)"
       service: api-service
       entryPoints:
         - websecure

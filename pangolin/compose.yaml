@@ -11,6 +11,8 @@ services:
       - ./config/config.yml:/app/config/config.yml:ro
     tmpfs:
       - /tmp
+    environment:
+      SERVER_SECRET: ${SERVER_SECRET:?}
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:3001/api/v1/"]
     restart: unless-stopped
@@ -70,6 +72,11 @@ services:
       - /apps/traefik/plugins:/plugins-storage
     tmpfs:
       - /tmp
+    environment:
+      DOMAIN: ${DOMAIN:?}
+      PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:?}
+      CROWDSEC_TRAEFIK_BOUNCER_KEY: ${CROWDSEC_TRAEFIK_BOUNCER_KEY:?}
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${LETSENCRYPT_EMAIL:?}
     network_mode: service:gerbil
     restart: unless-stopped
     deploy:

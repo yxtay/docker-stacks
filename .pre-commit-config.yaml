@@ -66,6 +66,7 @@ repos:
     rev: v0.21.0
     hooks:
       - id: yamlfmt
+        exclude: pangolin/config/traefik/dynamic/
 
 ci:
   autoupdate_commit_msg: "ci: pre-commit autoupdate"

@@ -16,7 +16,6 @@ domains:
     base_domain: "example.com"
 
 server:
-  secret: "changeme"
   cors:
     origins: ["https://pangolin.example.com"]
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]

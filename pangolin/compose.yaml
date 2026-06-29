@@ -7,7 +7,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./config:/app/config
+      - /apps/pangolin:/app/config
+      - ./config/config.yml:/app/config/config.yml:ro
     tmpfs:
       - /tmp
     healthcheck:
@@ -36,7 +37,8 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ./config:/var/config
+      - /apps/pangolin:/var/config
+      - ./config/config.yml:/var/config/config.yml:ro
     ports:
       - 80:80
       - 443:443
@@ -64,7 +66,7 @@ services:
     read_only: true
     volumes:
       - ./config/traefik:/etc/traefik:ro
-      - ./config/letsencrypt:/letsencrypt
+      - /apps/pangolin/letsencrypt:/letsencrypt
     tmpfs:
       - /tmp
       - /plugins-storage

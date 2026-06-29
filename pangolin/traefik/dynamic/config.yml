@@ -10,22 +10,22 @@ http:
     default-whitelist:
       ipAllowList:
         sourceRange:
-          - "10.0.0.0/8"
-          - "192.168.0.0/16"
-          - "172.16.0.0/12"
+          - 10.0.0.0/8
+          - 192.168.0.0/16
+          - 172.16.0.0/12
     security-headers:
       headers:
         customResponseHeaders:
           Server: ""
           X-Powered-By: ""
-          X-Forwarded-Proto: "https"
+          X-Forwarded-Proto: https
         sslProxyHeaders:
-          X-Forwarded-Proto: "https"
+          X-Forwarded-Proto: https
         hostsProxyHeaders:
-          - "X-Forwarded-Host"
+          - X-Forwarded-Host
         contentTypeNosniff: true
-        customFrameOptionsValue: "SAMEORIGIN"
-        referrerPolicy: "strict-origin-when-cross-origin"
+        customFrameOptionsValue: SAMEORIGIN
+        referrerPolicy: strict-origin-when-cross-origin
         forceSTSHeader: true
         stsIncludeSubdomains: true
         stsSeconds: 63072000
@@ -45,18 +45,18 @@ http:
           crowdsecAppsecFailureBlock: true
           crowdsecAppsecUnreachableBlock: true
           crowdsecAppsecBodyLimit: 10485760
-          crowdsecLapiKey: { { env "CROWDSEC_TRAEFIK_BOUNCER_KEY": "" }: "" }
+          crowdsecLapiKey: '{{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}'
           crowdsecLapiHost: crowdsec:8080
           crowdsecLapiScheme: http
           forwardedHeadersTrustedIPs:
-            - "10.0.0.0/8"
-            - "172.16.0.0/12"
-            - "192.168.0.0/16"
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
           clientTrustedIPs:
-            - "10.0.0.0/8"
-            - "172.16.0.0/12"
-            - "192.168.0.0/16"
-            - "100.89.137.0/20"
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+            - 100.89.137.0/20
 
   routers:
     main-app-router-redirect:
@@ -105,12 +105,12 @@ http:
     next-service:
       loadBalancer:
         servers:
-          - url: "http://pangolin:3002"
+          - url: http://pangolin:3002
 
     api-service:
       loadBalancer:
         servers:
-          - url: "http://pangolin:3000"
+          - url: http://pangolin:3000
 
 tcp:
   serversTransports:

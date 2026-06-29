@@ -29,7 +29,7 @@ services:
       - 2283
     networks:
       - default
-      - caddy
+      - proxy_net
     healthcheck:
       test: [CMD, bash, -c, ":> /dev/tcp/localhost/2283"]
     restart: unless-stopped
@@ -150,7 +150,7 @@ services:
     expose:
       - 8080
     networks:
-      - caddy
+      - proxy_net
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:8080/"]
     restart: unless-stopped
@@ -184,7 +184,7 @@ services:
     expose:
       - 3000
     networks:
-      - caddy
+      - proxy_net
     healthcheck:
       test: [CMD, /kiosk, --healthcheck]
     restart: unless-stopped
@@ -200,6 +200,6 @@ services:
 
 networks:
   default:
-  caddy:
-    name: caddy
+  proxy_net:
+    name: proxy
     external: true

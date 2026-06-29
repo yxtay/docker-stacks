@@ -231,6 +231,6 @@ services:
 
 networks:
   default:
-    name: caddy
+    name: proxy
   socket_proxy:
     name: socket_proxy

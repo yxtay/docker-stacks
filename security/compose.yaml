@@ -78,7 +78,7 @@ services:
 
 networks:
   default:
-    name: caddy
+    name: proxy
     external: true
   socket_proxy:
     name: socket_proxy

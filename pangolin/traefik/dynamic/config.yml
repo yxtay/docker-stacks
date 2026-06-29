@@ -4,9 +4,6 @@ http:
       plugin:
         badger:
           disableForwardAuth: true
-    redirect-to-https:
-      redirectScheme:
-        scheme: https
     default-whitelist:
       ipAllowList:
         sourceRange:
@@ -50,47 +47,17 @@ http:
             - 100.89.137.0/20
 
   routers:
-    main-app-router-redirect:
-      rule: Host(`{{env "PANGOLIN_DOMAIN"}}`)
-      service: next-service
-      entryPoints:
-        - web
-      middlewares:
-        - redirect-to-https
-        - badger
-
     next-router:
       rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && !PathPrefix(`/api/v1`)
       service: next-service
       entryPoints:
         - websecure
-      middlewares:
-        - security-headers
-        - badger
-      tls:
-        certResolver: letsencrypt
 
     api-router:
       rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && PathPrefix(`/api/v1`)
       service: api-service
       entryPoints:
         - websecure
-      middlewares:
-        - security-headers
-        - badger
-      tls:
-        certResolver: letsencrypt
-
-    ws-router:
-      rule: Host(`{{env "PANGOLIN_DOMAIN"}}`)
-      service: api-service
-      entryPoints:
-        - websecure
-      middlewares:
-        - security-headers
-        - badger
-      tls:
-        certResolver: letsencrypt
 
   services:
     next-service:

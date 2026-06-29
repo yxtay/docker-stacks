@@ -69,6 +69,11 @@ certificatesResolvers:
 entryPoints:
   web:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     address: ":443"
     transport:
@@ -81,6 +86,8 @@ entryPoints:
         certResolver: letsencrypt
       middlewares:
         - crowdsec@file
+        - badger@file
+        - security-headers@file
       encodedCharacters:
         allowEncodedSlash: true
         allowEncodedQuestionMark: true

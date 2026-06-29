@@ -201,5 +201,4 @@ services:
 networks:
   default:
   proxy:
-    name: proxy
     external: true

@@ -12,7 +12,7 @@ app:
     anonymous_usage: true
 
 domains:
-  domain1:
+  main:
     base_domain: example.com
 
 server:

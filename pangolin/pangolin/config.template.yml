@@ -3,7 +3,7 @@
 
 gerbil:
   start_port: 51820
-  base_endpoint: {? {.Env.PANGOLIN_DOMAIN: ''} : ''}
+  base_endpoint: { { .Env.PANGOLIN_DOMAIN: "" }: "" }
 
 app:
   dashboard_url: https://{{ .Env.PANGOLIN_DOMAIN }}
@@ -13,7 +13,7 @@ app:
 
 domains:
   main:
-    base_domain: {? {.Env.DOMAIN: ''} : ''}
+    base_domain: { { .Env.DOMAIN: "" }: "" }
 
 server:
   cors:

@@ -34,7 +34,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth nzbhydra2 nzbhydra2:5076
+      caddy.import: reverse_proxy_auth nzbhydra2 {{ upstreams 5076 }}
       tinyauth.apps.nzbhydra2.path.allow: \/api
 
   nzbdav:
@@ -73,12 +73,12 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
+      caddy.import: reverse_proxy_auth nzbdav {{ upstreams 3000 }}
       tinyauth.apps.nzbdav.path.allow: \/(api$|content)
 
   usenetstreamer:
     # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.8.0@sha256:63d40e380ff9f420c1524c65a759ac9f7de18f648eae2488828704e4f8c2d8ab
+    image: ghcr.io/sanket9225/usenetstreamer:1.8.1@sha256:6849cacb9cdd63ad2197cc38bf58d83cb8a93dbfb34eb5770e75d858730a3327
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       NZBDAV_URL: http://nzbdav:3000
@@ -109,12 +109,12 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
+      caddy.import: reverse_proxy_auth usenetstreamer {{ upstreams 7000 }}
       tinyauth.apps.usenetstreamer.path.allow: \/(manifest|nzb|stream)
 
   streamnzb:
     # nosemgrep
-    image: ghcr.io/gaisberg/streamnzb:v4.7.0@sha256:744fa988038af6b376335c74a44225603148a7c2bad218188bbef876ab5f974c
+    image: ghcr.io/gaisberg/streamnzb:v4.8.0@sha256:344a67b188452911777ac3309bba5a443e9b19db2c0b1f3991c9aaa0ae9b86dd
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -141,7 +141,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
+      caddy.import: reverse_proxy_auth streamnzb {{ upstreams 7000 }}
       tinyauth.apps.streamnzb.path.allow: \/(manifest|play|stream)
 
   altmount:
@@ -180,7 +180,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth altmount altmount:8080
+      caddy.import: reverse_proxy_auth altmount {{ upstreams 8080 }}
       tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
 
 networks:

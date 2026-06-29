@@ -1,7 +1,7 @@
 services:
   autoheal:
     # nosemgrep
-    image: willfarrell/autoheal:latest@sha256:ba8e6ab448593fa248121d5ed21c682e40d061ab8bef29bc877806f2c548093a
+    image: willfarrell/autoheal:latest@sha256:34b85a4df5d0fa917f70375680541e9f4d53f564429446da210111dde35e8101
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       DOCKER_SOCK: tcp://socket_proxy:2375
@@ -50,7 +50,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth dozzle dozzle:8080
+      caddy.import: reverse_proxy_auth dozzle {{ upstreams 8080 }}
 
   beszel:
     # nosemgrep
@@ -77,7 +77,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth beszel beszel:8090
+      caddy.import: reverse_proxy_auth beszel {{ upstreams 8090 }}
 
   beszel_agent:
     # nosemgrep

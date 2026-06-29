@@ -2,11 +2,10 @@ services:
   gomplate:
     image: docker.io/hairyhenderson/gomplate:stable
     command:
-      - --file=/templates/config.template.yml
-      - --out=/output/config.yml
+      - --file=/config/config.template.yml
+      - --out=/config/config.yml
     volumes:
-      - ./pangolin/config.template.yml:/templates/config.template.yml:ro
-      - ./pangolin:/output
+      - ./pangolin:/config
     environment:
       DOMAIN: ${DOMAIN:?}
       PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}

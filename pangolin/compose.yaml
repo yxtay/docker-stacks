@@ -17,9 +17,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 0.5
-          memory: 128m
-          pids: 64
+          cpus: 1
+          memory: 4G
+          pids: 512
 
   pangolin:
     image: docker.io/fosrl/pangolin:latest

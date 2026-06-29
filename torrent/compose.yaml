@@ -174,7 +174,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: 2
           memory: 4g
           pids: 512
     labels:
@@ -210,7 +210,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: 2
           memory: 4g
           pids: 512
     labels:

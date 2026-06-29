@@ -1,0 +1,32 @@
+services:
+  newt:
+    # nosemgrep
+    image: ghcr.io/fosrl/newt:1.13.0@sha256:63d956c8fdee889255e441ec405193b47b1fd2d975b505492ec848a8007f4fc3
+    environment:
+      DOCKER_HOST: tcp://socket_proxy:2375
+      NEWT_ID: ${NEWT_ID:?}
+      NEWT_SECRET: ${NEWT_SECRET:?}
+      PANGOLIN_ENDPOINT: ${PANGOLIN_ENDPOINT:?}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    networks:
+      - default
+      - socket_proxy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+networks:
+  default:
+    name: proxy
+    external: true
+  socket_proxy:
+    name: socket_proxy
+    external: true

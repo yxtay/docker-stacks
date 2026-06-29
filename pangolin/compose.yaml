@@ -31,7 +31,6 @@ services:
         condition: service_healthy
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
     cap_drop:
       - ALL
     security_opt:
@@ -74,3 +73,7 @@ services:
           cpus: 1
           memory: 4g
           pids: 512
+
+networks:
+  default:
+    name: pangolin

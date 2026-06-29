@@ -53,6 +53,7 @@ settings.local.json
 ansible/host_vars/*
 !ansible/host_vars/*.example
 
+pangolin/pangolin/config.yml
 /apps
 unison/ar*
 unison/fp*

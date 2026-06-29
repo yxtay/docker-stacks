@@ -8,7 +8,7 @@
 			time_format rfc3339
 		}
 	}
-	acme_dns duckdns {env.DUCKDNS_TOKEN} # for DuckDNS
+	dns duckdns {env.DUCKDNS_TOKEN}
 
 	crowdsec {
 		api_url http://crowdsec:8080
@@ -46,51 +46,34 @@
 		# 'unsafe-inline' needed for LibreSpeed
 		# 'unsafe-eval' needed for Immich and Immich Kiosk
 		?Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' wss: ws:; frame-ancestors 'self'; form-action 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
-
 		# Process-Isolate documents to prevent others from access in pop-up window
 		?Cross-Origin-Opener-Policy "same-origin"
-
 		# Limit current resource loading to the site and sub-domains only
 		?Cross-Origin-Resource-Policy "same-site"
-
-		# Disable FLoC tracking
-		Permissions-Policy "interest-cohort=()"
-
+		# Restrict browser features for embedded content
+		Permissions-Policy "camera=(self), microphone=(self), geolocation=(self), payment=(self), usb=(self), serial=(self), hid=(self), midi=(self), display-capture=(self), bluetooth=(self), idle-detection=(), accelerometer=(), gyroscope=(), magnetometer=(), xr-spatial-tracking=()"
 		# Set Referrer Policy
 		Referrer-Policy "strict-origin-when-cross-origin"
-
 		# Enable HTTP Strict Transport Security (HSTS)
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
-
 		# Remove identifying headers
 		-Server
-		-Via
 		-X-Powered-By
-
 		# Disallow sniffing of X-Content-Type-Options
 		X-Content-Type-Options "nosniff"
-
 		# Disable DNS prefetching
 		?X-DNS-Prefetch-Control "off"
-
-		# Disallow the site to be rendered within a frame (clickjacking protection)
-		X-Frame-Options "SAMEORIGIN"
-
 		# Disable cross-domain policy file loading
 		X-Permitted-Cross-Domain-Policies "none"
-
 		# Prevent search engines from indexing
 		?X-Robots-Tag "noindex, nofollow"
-
-		# Disable buggy browser XSS filters
-		X-XSS-Protection "0"
 	}
 }
 
 (defaults) {
 	crowdsec
 	appsec
-	encode zstd gzip
+	encode
 	import security_headers
 }
 

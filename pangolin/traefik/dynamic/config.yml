@@ -43,8 +43,8 @@ http:
           crowdsecMode: live
           crowdsecAppsecEnabled: true
           crowdsecAppsecHost: crowdsec:7422
-          crowdsecAppsecFailureBlock: true
-          crowdsecAppsecUnreachableBlock: true
+          crowdsecAppsecFailureBlock: false
+          crowdsecAppsecUnreachableBlock: false
           crowdsecAppsecBodyLimit: 10485760
           crowdsecLapiKey: '{{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}'
           crowdsecLapiHost: crowdsec:8080

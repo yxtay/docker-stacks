@@ -8,7 +8,6 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/app/config
-      - ./config/config.yml:/app/config/config.yml:ro
     tmpfs:
       - /tmp
     environment:
@@ -40,7 +39,6 @@ services:
       - no-new-privileges:true
     volumes:
       - /apps/pangolin:/var/config
-      - ./config/config.yml:/var/config/config.yml:ro
     ports:
       - 80:80
       - 443:443

@@ -64,7 +64,6 @@ certificatesResolvers:
     acme:
       dnsChallenge:
         provider: duckdns
-      email: changeme@example.com
       storage: /letsencrypt/acme.json
       caServer: https://acme-v02.api.letsencrypt.org/directory
 

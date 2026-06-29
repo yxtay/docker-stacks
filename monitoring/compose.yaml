@@ -50,7 +50,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth dozzle dozzle:8080
+      caddy.import: reverse_proxy_auth dozzle {{ upstreams 8080 }}
 
   beszel:
     # nosemgrep
@@ -77,7 +77,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth beszel beszel:8090
+      caddy.import: reverse_proxy_auth beszel {{ upstreams 8090 }}
 
   beszel_agent:
     # nosemgrep

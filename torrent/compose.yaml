@@ -54,7 +54,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
+      caddy.import: reverse_proxy_auth prowlarr {{ upstreams 9696 }}
 
   rclone:
     # nosemgrep
@@ -143,7 +143,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
+      caddy.import: reverse_proxy_auth rdtclient {{ upstreams 6500 }}
 
   radarr:
     # nosemgrep
@@ -179,7 +179,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth radarr radarr:7878
+      caddy.import: reverse_proxy_auth radarr {{ upstreams 7878 }}
 
   sonarr:
     # nosemgrep
@@ -215,7 +215,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sonarr sonarr:8989
+      caddy.import: reverse_proxy_auth sonarr {{ upstreams 8989 }}
 
   profilarr:
     # nosemgrep
@@ -247,7 +247,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth profilarr profilarr:6868
+      caddy.import: reverse_proxy_auth profilarr {{ upstreams 6868 }}
 
 networks:
   default:

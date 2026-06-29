@@ -29,7 +29,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth portainer portainer:9000
+      caddy.import: reverse_proxy_auth portainer {{ upstreams 9000 }}
 
 networks:
   default:

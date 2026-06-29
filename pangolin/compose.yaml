@@ -11,7 +11,7 @@ services:
     tmpfs:
       - /tmp
     healthcheck:
-      test: [CMD, curl, -f, "http://localhost:3001/api/v1/"]
+      test: [CMD, curl, -fsSL, "http://localhost:3001/api/v1/"]
     restart: unless-stopped
     deploy:
       resources:
@@ -38,11 +38,11 @@ services:
     volumes:
       - ./config:/var/config
     ports:
-      - 51820:51820/udp
-      - 21820:21820/udp
+      - 80:80
       - 443:443
       - 443:443/udp
-      - 80:80
+      - 21820:21820/udp
+      - 51820:51820/udp
     restart: unless-stopped
     deploy:
       resources:
@@ -65,6 +65,9 @@ services:
     volumes:
       - ./config/traefik:/etc/traefik:ro
       - ./config/letsencrypt:/letsencrypt
+    tmpfs:
+      - /tmp
+      - /plugins-storage
     network_mode: service:gerbil
     restart: unless-stopped
     deploy:

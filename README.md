@@ -16,7 +16,7 @@ for setup and usage.
 
 ## Docker Stacks
 
-All stacks join the `caddy` external network and use Caddy for reverse proxy
+All stacks join the `proxy` external network and use Caddy for reverse proxy
 with automatic HTTPS via DuckDNS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`). [TinyAuth] provides forward authentication via OAuth
 (GitHub/Google) for protected services.
@@ -34,7 +34,7 @@ Reverse proxy and authentication gateway.
 - **tinyauth** — OAuth forward auth
 
 Caddy supports optional per-deployment reverse proxy configs via
-`proxy/caddy/extras/*.caddy` (glob import, safe when empty).
+`/apps/caddy/extras/*.caddy` (glob import, safe when empty).
 
 ### Infra Stack (`infra/`)
 
@@ -164,7 +164,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

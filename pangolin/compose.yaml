@@ -65,7 +65,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./config/traefik:/etc/traefik:ro
+      - ./traefik:/etc/traefik:ro
       - /apps/traefik/letsencrypt:/letsencrypt
       - /apps/traefik/plugins:/plugins-storage
     tmpfs:

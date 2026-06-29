@@ -114,4 +114,5 @@ services:
 
 networks:
   default:
-    name: pangolin
+    name: proxy
+    external: true

@@ -35,9 +35,8 @@ http:
       plugin:
         crowdsec:
           enabled: true
+          CrowdsecMode: stream
           crowdsecAppsecEnabled: true
-          crowdsecAppsecFailureBlock: false
-          crowdsecAppsecUnreachableBlock: false
           crowdsecLapiKey: '{{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}'
           clientTrustedIPs:
             - 10.0.0.0/8

@@ -63,7 +63,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy adguard adguard:3000
+      caddy.import: reverse_proxy adguard {{ upstreams 3000 }}
       caddy.@adguard_doh.host: "adguard.{env.DOMAIN}"
       caddy.@adguard_doh.path: /dns-query /dns-query/*
       caddy.handle: "@adguard_doh"

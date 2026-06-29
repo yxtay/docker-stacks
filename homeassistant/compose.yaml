@@ -133,7 +133,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy trmnl_ha trmnl_ha:10000
+      caddy.import: reverse_proxy trmnl_ha {{ upstreams 10000 }}
 
 networks:
   default:

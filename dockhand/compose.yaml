@@ -25,7 +25,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth dockhand dockhand:3000
+      caddy.import: reverse_proxy_auth dockhand {{ upstreams 3000 }}
 
 networks:
   default:

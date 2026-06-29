@@ -67,9 +67,9 @@ services:
     volumes:
       - ./config/traefik:/etc/traefik:ro
       - /apps/traefik/letsencrypt:/letsencrypt
+      - /apps/traefik/plugins:/plugins-storage
     tmpfs:
       - /tmp
-      - /plugins-storage
     network_mode: service:gerbil
     restart: unless-stopped
     deploy:

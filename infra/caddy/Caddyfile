@@ -80,7 +80,7 @@
 (reverse_proxy) {
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
-		reverse_proxy {args[1]} {
+		reverse_proxy {args[1:]} {
 			fail_duration 30s
 		}
 	}
@@ -98,7 +98,7 @@
 	@{args[0]} host {args[0]}.{env.DOMAIN}
 	handle @{args[0]} {
 		import tinyauth
-		reverse_proxy {args[1]} {
+		reverse_proxy {args[1:]} {
 			fail_duration 30s
 		}
 	}

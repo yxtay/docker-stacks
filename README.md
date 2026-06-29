@@ -16,7 +16,7 @@ for setup and usage.
 
 ## Docker Stacks
 
-All stacks join the `caddy` external network and use Caddy for reverse proxy
+All stacks join the `proxy` external network and use Caddy for reverse proxy
 with automatic HTTPS via DuckDNS. Services are exposed via wildcard subdomains
 (`*.DOMAIN`). [TinyAuth] provides forward authentication via OAuth
 (GitHub/Google) for protected services.
@@ -26,19 +26,24 @@ isolation and stability.
 
 [TinyAuth]: https://tinyauth.app
 
+### Proxy Stack (`proxy/`)
+
+Reverse proxy and authentication gateway.
+
+- **caddy** — Reverse proxy, automatic HTTPS
+- **tinyauth** — OAuth forward auth
+
+Caddy supports optional per-deployment reverse proxy configs via
+`/apps/caddy/extras/*.caddy` (glob import, safe when empty).
+
 ### Infra Stack (`infra/`)
 
 Core infrastructure and utility services.
 
-- **caddy** — Reverse proxy, automatic HTTPS
-- **tinyauth** — OAuth forward auth
 - **socket_proxy** — Docker socket proxy
 - **tailscale** — Mesh VPN
 - **whoami** — Request echo (debugging)
 - **librespeed** — Speed test
-
-Caddy supports optional per-deployment reverse proxy configs via
-`infra/caddy/extras/*.caddy` (glob import, safe when empty).
 
 ### DDNS Stack (`ddns/`)
 

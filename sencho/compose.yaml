@@ -1,6 +1,6 @@
 services:
   sencho:
-    image: ghcr.io/studio-saelix/sencho:0.93.0@sha256:72919d52739b5ae765af9a5a3a8c07291c88d5fb315aa2d9082c5c6fe009b96a
+    image: ghcr.io/studio-saelix/sencho:0.93.1@sha256:a53036e013a362b8b4daa1f4a7177487bb0e4a6a02f7c635ed4e74b120e30271
     environment:
       COMPOSE_DIR: ${COMPOSE_DIR:?}
     cap_drop:

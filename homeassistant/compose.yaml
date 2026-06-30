@@ -106,7 +106,7 @@ services:
     # nosemgrep
     image: ghcr.io/usetrmnl/trmnl-ha-${ARCH:-amd64}:0.8.1
     environment:
-      HOME_ASSISTANT_URL: "${HOME_ASSISTANT_URL:-http://${IP_ADDRESS:-host.docker.internal}:8123}"
+      HOME_ASSISTANT_URL: "http://${IP_ADDRESS:-host.docker.internal}:8123"
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
       TZ: ${TZ:-UTC}
@@ -122,6 +122,8 @@ services:
       - /tmp
     ports:
       - 10000:10000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:10000/health"]
     restart: unless-stopped

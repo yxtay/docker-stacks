@@ -110,8 +110,6 @@ services:
     image: ghcr.io/javi11/altmount:v0.2.0@sha256:2592723a519248340e43fa5a564cff01f3faf24f680ba4d8a1ae84f2e87c2cd2
     environment:
       # PUID/PGID has no effect with read_only: true
-      PUID: 911
-      PGID: 911
       TZ: ${TZ:-UTC}
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
       COOKIE_DOMAIN: altmount.${DOMAIN:?}

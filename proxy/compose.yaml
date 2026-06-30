@@ -73,7 +73,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy tinyauth {{ upstreams 3000 }}
+      caddy.import: reverse_proxy tinyauth tinyauth:3000
 
 networks:
   default:

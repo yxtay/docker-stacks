@@ -28,7 +28,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sencho {{ upstreams 1852 }}
+      caddy.import: reverse_proxy_auth sencho sencho:1852
       tinyauth.apps.sencho.path.allow: \/pilot
 
 networks:

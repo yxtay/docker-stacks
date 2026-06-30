@@ -1,49 +1,10 @@
 services:
-  nzbhydra2:
-    # nosemgrep
-    image: lscr.io/linuxserver/nzbhydra2:8.8.5@sha256:aea63584c86d72dabac5b4014de33575700e8b3e8d0c91fdc3e1ee2ee01b3fbb
-    environment: &envs
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
-      TZ: ${TZ:-UTC}
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/nzbhydra2:/config
-    tmpfs:
-      - /run:exec
-      - /tmp
-    expose:
-      - 5076
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:5076/actuator/health/ping"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth nzbhydra2 {{ upstreams 5076 }}
-      tinyauth.apps.nzbhydra2.path.allow: \/api
-
   nzbdav:
     # nosemgrep
     image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
     environment:
-      <<: *envs
-      # dotnet/aspnet default uid, gid required
-      # otherwise conflicts with read_only
+      TZ: ${TZ:-UTC}
+      # dotnet/aspnet default uid, gid required with read_only: true
       PUID: 1654
       PGID: 1654
     cap_add:
@@ -148,7 +109,10 @@ services:
     # nosemgrep
     image: ghcr.io/javi11/altmount:v0.2.0@sha256:2592723a519248340e43fa5a564cff01f3faf24f680ba4d8a1ae84f2e87c2cd2
     environment:
-      <<: *envs
+      # PUID/PGID has no effect with read_only: true
+      PUID: 911
+      PGID: 911
+      TZ: ${TZ:-UTC}
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
       COOKIE_DOMAIN: altmount.${DOMAIN:?}
     cap_add:

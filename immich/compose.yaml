@@ -41,7 +41,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy immich {{ upstreams 2283 }}
+      caddy.import: reverse_proxy immich immich_server:2283
 
   immich_machine_learning:
     # nosemgrep
@@ -162,7 +162,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy gphotos2immich {{ upstreams 8080 }}
+      caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
 
   immich_kiosk:
     # nosemgrep
@@ -196,7 +196,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy immich_kiosk {{ upstreams 3000 }}
+      caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000
 
 networks:
   default:

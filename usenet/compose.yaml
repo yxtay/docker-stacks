@@ -34,7 +34,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth nzbdav {{ upstreams 3000 }}
+      caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
       tinyauth.apps.nzbdav.path.allow: \/(api$|content)
 
   usenetstreamer:
@@ -70,7 +70,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth usenetstreamer {{ upstreams 7000 }}
+      caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
       tinyauth.apps.usenetstreamer.path.allow: \/(manifest|nzb|stream)
 
   streamnzb:
@@ -102,7 +102,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth streamnzb {{ upstreams 7000 }}
+      caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
       tinyauth.apps.streamnzb.path.allow: \/(manifest|play|stream)
 
   altmount:
@@ -142,7 +142,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth altmount {{ upstreams 8080 }}
+      caddy.import: reverse_proxy_auth altmount altmount:8080
       tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
 
 networks:

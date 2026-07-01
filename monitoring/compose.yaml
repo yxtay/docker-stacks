@@ -21,9 +21,34 @@ services:
           memory: 4g
           pids: 512
 
+  gomplate:
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
+    command:
+      - --file=/input/notifications.template.yml
+      - --out=/output/notifications.yml
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./dozzle:/input:ro
+      - /apps/dozzle:/output
+    environment:
+      NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4G
+          pids: 512
+
   dozzle:
     # nosemgrep
     image: ghcr.io/amir20/dozzle:v10.6.7@sha256:43d933ebda116990c920e054d68a1aed286ab01fd31657983c53bbdf46cc0aa8
+    depends_on:
+      gomplate:
+        condition: service_completed_successfully
     environment:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true

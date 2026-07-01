@@ -1,0 +1,68 @@
+subscriptions:
+  - id: 1
+    name: High CPU
+    enabled: true
+    dispatcherId: 1
+    logExpression: ""
+    containerExpression: "true"
+    metricExpression: cpu > 80
+    cooldown: 300
+    sampleWindow: 60
+  - id: 2
+    name: High Memory
+    enabled: true
+    dispatcherId: 1
+    logExpression: ""
+    containerExpression: "true"
+    metricExpression: memory > 80
+    cooldown: 300
+    sampleWindow: 60
+  - id: 3
+    name: Container Died
+    enabled: true
+    dispatcherId: 2
+    logExpression: ""
+    containerExpression: "true"
+    eventExpression: name in ["die"] && !(attributes["exitCode"] in ["0", "130", "143", "137"])
+    cooldown: 300
+  - id: 4
+    name: Container Unhealthy
+    enabled: true
+    dispatcherId: 1
+    logExpression: ""
+    containerExpression: "true"
+    eventExpression: attributes["health_status"] in ["unhealthy"]
+    cooldown: 300
+  - id: 5
+    name: Error
+    enabled: true
+    dispatcherId: 2
+    logExpression: level in ["error"] && message matches "(?i)(auth|cred|invalid|memory|timed|unavail)"
+    containerExpression: "true"
+  - id: 6
+    name: Warning
+    enabled: true
+    dispatcherId: 1
+    logExpression: level in ["warn","error"] && (message matches "(?i)(den(i|y)|disk|expire|fatal|forbid|identity|kill|login)" || message matches "(?i)(password|permit|refuse|signature|timeout|unauth|unkown|verif(i|y))")
+    containerExpression: "true"
+dispatchers:
+  - id: 1
+    name: ntfy.sh
+    type: webhook
+    url: https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-dozzle
+    template: |-
+      host: {{ .Container.HostName }}
+      container: {{ .Container.Name }}
+
+      {{ .Detail }}
+  - id: 2
+    name: ntfy.sh high
+    type: webhook
+    url: https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-dozzle
+    template: |-
+      host: {{ .Container.HostName }}
+      container: {{ .Container.Name }}
+
+      {{ .Detail }}
+    headers:
+      Priority: high

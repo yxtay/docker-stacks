@@ -48,7 +48,7 @@ subscriptions:
     logExpression: >-
       level in ["warn","error"] && (
         message matches "(?i)(den(i|y)|disk|expire|fatal|forbid|identity|kill)" ||
-        message matches "(?i)(password|permit|refuse|signature|unauth|unkown|verif(i|y))"
+        message matches "(?i)(password|permit|refuse|signature|unauth|unknown|verif(i|y))"
       )
     containerExpression: "true"
 dispatchers:

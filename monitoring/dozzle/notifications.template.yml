@@ -43,7 +43,11 @@ subscriptions:
     name: Warning
     enabled: true
     dispatcherId: 1
-    logExpression: level in ["warn","error"] && (message matches "(?i)(den(i|y)|disk|expire|fatal|forbid|identity|kill|login)" || message matches "(?i)(password|permit|refuse|signature|timeout|unauth|unkown|verif(i|y))")
+    logExpression: >-
+      level in ["warn","error"] && (
+        message matches "(?i)(den(i|y)|disk|expire|fatal|forbid|identity|kill|login)" ||
+        message matches "(?i)(password|permit|refuse|signature|unauth|unkown|verif(i|y))"
+      )
     containerExpression: "true"
 dispatchers:
   - id: 1

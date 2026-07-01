@@ -2,15 +2,16 @@ services:
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
     command:
-      - --file=/config/config.template.yml
-      - --out=/config/config.yml
+      - --file=/input/config.template.yml
+      - --out=/output/config.yml
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./pangolin:/config
+      - ./pangolin:/input:ro
+      - /apps/pangolin:/output
     environment:
       DOMAIN: ${DOMAIN:?}
       PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}
@@ -33,7 +34,6 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/app/config
-      - ./pangolin/config.yml:/app/config/config.yml:ro
     tmpfs:
       - /tmp
     environment:
@@ -69,7 +69,6 @@ services:
       - no-new-privileges:true
     volumes:
       - /apps/pangolin:/var/config
-      - ./pangolin/config.yml:/var/config/config.yml:ro
     expose:
       - 3004
     ports:

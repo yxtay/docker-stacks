@@ -23,9 +23,7 @@ services:
   prowlarr:
     # nosemgrep
     image: ghcr.io/linuxserver/prowlarr:2.4.0@sha256:3950b5e48cf4ba9dab78fe14038dd7f062e66b7b4ab368b02c94a13f6a3dae9f
-    environment: &envs
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
+    environment:
       TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
@@ -54,7 +52,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth prowlarr {{ upstreams 9696 }}
+      caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
 
   rclone:
     # nosemgrep
@@ -64,8 +62,8 @@ services:
       -c "
       fusermount3 -uz /mnt/remote/debrid 2> /dev/null || true &&
       exec rclone mount debrid: /mnt/remote/debrid
-      --uid ${PUID:-1000}
-      --gid ${PGID:-1000}
+      --uid ${PUID:-911}
+      --gid ${PGID:-911}
       --allow-other
       --attr-timeout 1m
       --dir-cache-time 5m
@@ -85,7 +83,7 @@ services:
       --log-format json
       "
     environment:
-      <<: *envs
+      TZ: ${TZ:-UTC}
       RCLONE_CONFIG_DEBRID_TYPE: webdav
       RCLONE_CONFIG_DEBRID_VENDOR: other
       RCLONE_CONFIG_DEBRID_URL: ${RCLONE_CONFIG_DEBRID_URL:?}
@@ -118,7 +116,8 @@ services:
   rdtclient:
     # nosemgrep
     image: ghcr.io/rogerfar/rdtclient:2.0.139@sha256:1eac0b117564a7ab4c7d8801c9c259416259889a17f1833d0537d4a7760655fa
-    environment: *envs
+    environment:
+      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -143,12 +142,13 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth rdtclient {{ upstreams 6500 }}
+      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
 
   radarr:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.2.1@sha256:39da107b5a9371fdaa651bd188049b863716a815385eb3a30d41071b7e1aeb33
-    environment: *envs
+    environment:
+      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -179,12 +179,13 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth radarr {{ upstreams 7878 }}
+      caddy.import: reverse_proxy_auth radarr radarr:7878
 
   sonarr:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.19@sha256:fbb15bb4fb14d1ffe017f6be0e3fed8f1b300e4687e329767da0b61f36ba1eed
-    environment: *envs
+    environment:
+      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -215,13 +216,13 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sonarr {{ upstreams 8989 }}
+      caddy.import: reverse_proxy_auth sonarr sonarr:8989
 
   profilarr:
     # nosemgrep
     image: ghcr.io/dictionarry-hub/profilarr:2.0.9@sha256:7a9b5112ff227320d17c65ab643a5d875713e6235991ef04a8e482ec51427902
     environment:
-      <<: *envs
+      TZ: ${TZ:-UTC}
       ORIGIN: https://profilarr.${DOMAIN:?}
     cap_add:
       - CHOWN
@@ -247,7 +248,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth profilarr {{ upstreams 6868 }}
+      caddy.import: reverse_proxy_auth profilarr profilarr:6868
 
 networks:
   default:

@@ -1,6 +1,6 @@
 services:
   sencho:
-    image: ghcr.io/studio-saelix/sencho:0.93.0@sha256:72919d52739b5ae765af9a5a3a8c07291c88d5fb315aa2d9082c5c6fe009b96a
+    image: ghcr.io/studio-saelix/sencho:0.93.2@sha256:53d1469de4924bfc326d77db10cc975c6549a0a7a1afa219c6c718633333d910
     environment:
       COMPOSE_DIR: ${COMPOSE_DIR:?}
     cap_drop:
@@ -28,7 +28,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth sencho {{ upstreams 1852 }}
+      caddy.import: reverse_proxy_auth sencho sencho:1852
       tinyauth.apps.sencho.path.allow: \/pilot
 
 networks:

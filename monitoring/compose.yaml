@@ -1,7 +1,7 @@
 services:
   autoheal:
     # nosemgrep
-    image: willfarrell/autoheal:latest@sha256:34b85a4df5d0fa917f70375680541e9f4d53f564429446da210111dde35e8101
+    image: willfarrell/autoheal:latest@sha256:f60b4441b32aa297ae5bd3ce8419dc2b28e02646909ab1917b39fbf41206008c
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       DOCKER_SOCK: tcp://socket_proxy:2375
@@ -21,9 +21,34 @@ services:
           memory: 4g
           pids: 512
 
+  gomplate:
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
+    command:
+      - --file=/input/notifications.template.yml
+      - --out=/output/notifications.yml
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./dozzle:/input:ro
+      - /apps/dozzle:/output
+    environment:
+      NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4G
+          pids: 512
+
   dozzle:
     # nosemgrep
-    image: ghcr.io/amir20/dozzle:v10.6.6@sha256:2e14180fa14c195b8e86705b7ab2234b87599215bcf06f7f56396cb45f57f963
+    image: ghcr.io/amir20/dozzle:v10.6.7@sha256:43d933ebda116990c920e054d68a1aed286ab01fd31657983c53bbdf46cc0aa8
+    depends_on:
+      gomplate:
+        condition: service_completed_successfully
     environment:
       DOCKER_HOST: tcp://socket_proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
@@ -50,7 +75,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth dozzle {{ upstreams 8080 }}
+      caddy.import: reverse_proxy_auth dozzle dozzle:8080
 
   beszel:
     # nosemgrep
@@ -77,7 +102,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth beszel {{ upstreams 8090 }}
+      caddy.import: reverse_proxy_auth beszel beszel:8090
 
   beszel_agent:
     # nosemgrep

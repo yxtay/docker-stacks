@@ -44,8 +44,7 @@ subscriptions:
     enabled: true
     dispatcherId: 1
     logExpression: >-
-      level in ["warn","error"] &&
-      (
+      level in ["warn","error"] && (
         message matches "(?i)(den(i|y)|disk|expire|fatal|forbid|identity|kill|login)" ||
         message matches "(?i)(password|permit|refuse|signature|unauth|unkown|verif(i|y))"
       )

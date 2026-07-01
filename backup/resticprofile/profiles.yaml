@@ -49,6 +49,7 @@ profiles:
         - "*-cache"
         - .cache
         - cache
+        - logs
         - tmp
         # Build artifacts
         - __pycache__

@@ -37,7 +37,7 @@ subscriptions:
     name: Error
     enabled: true
     dispatcherId: 2
-    logExpression: level in ["error"] && message matches "(?i)(auth|cred|invalid|memory|timed|unavail)"
+    logExpression: level in ["error"] && message matches "(?i)(auth(e|o)|cred|invalid|memory|timed|unavail)"
     containerExpression: "true"
   - id: 6
     name: Warning

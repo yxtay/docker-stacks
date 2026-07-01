@@ -46,6 +46,7 @@ profiles:
         - "*.pid"
         - "*.lock"
         - "*.tmp"
+        - "*-cache"
         - .cache
         - cache
         - tmp

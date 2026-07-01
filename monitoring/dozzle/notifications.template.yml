@@ -51,18 +51,18 @@ dispatchers:
     type: webhook
     url: https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-dozzle
     template: |-
-      host: {{ ".Container.HostName" }}
-      container: {{ ".Container.Name" }}
+      host: {{ "{{ .Container.HostName }}" }}
+      container: {{ "{{ .Container.Name }}" }}
 
-      {{ ".Detail" }}
+      {{ "{{ .Detail }}" }}
   - id: 2
     name: ntfy.sh high
     type: webhook
     url: https://ntfy.sh/{{ .Env.NTFY_TOPIC_PREFIX }}-dozzle
     template: |-
-      host: {{ ".Container.HostName" }}
-      container: {{ ".Container.Name" }}
+      host: {{ "{{ .Container.HostName }}" }}
+      container: {{ "{{ .Container.Name }}" }}
 
-      {{ ".Detail" }}
+      {{ "{{ .Detail }}" }}
     headers:
       Priority: high

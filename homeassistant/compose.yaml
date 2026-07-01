@@ -39,7 +39,7 @@ services:
 
   music_assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:2.9.4@sha256:e5dbb44e9dc92ff95dd2b15a9176b238f4e0969aed89850bf428b3d424640ca3
+    image: ghcr.io/music-assistant/server:2.9.5@sha256:d5f2e4e7ef2b9798b554c1ad79b0444728606d8f68f8b151f64621934d80ef65
     # Additional caps needed to mount smb folders within the container:
     # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
     # security_opt: [apparmor:unconfined]
@@ -71,7 +71,7 @@ services:
 
   esphome:
     # nosemgrep
-    image: ghcr.io/esphome/esphome:2026.6.3@sha256:6cba3ffe30cf858f0609b5028d9143dd821242c1ebbf2429a79e9c90cf52c130
+    image: ghcr.io/esphome/esphome:2026.6.4@sha256:20c12b47f53d31c4d2b1eeeec03ef93e414a710f5834220d02353ec575bca1c6
     environment:
       TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio

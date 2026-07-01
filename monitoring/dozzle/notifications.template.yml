@@ -5,7 +5,7 @@ subscriptions:
     dispatcherId: 1
     logExpression: ""
     containerExpression: "true"
-    metricExpression: cpu > 80
+    metricExpression: cpu > 90
     cooldown: 300
     sampleWindow: 60
   - id: 2

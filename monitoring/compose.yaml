@@ -22,7 +22,7 @@ services:
           pids: 512
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
+    image: ghcr.io/hairyhenderson/gomplate:latest
     command:
       - --file=/config/notifications.template.yml
       - --out=/config/notifications.yml

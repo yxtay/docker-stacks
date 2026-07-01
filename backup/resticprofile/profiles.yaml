@@ -46,8 +46,10 @@ profiles:
         - "*.pid"
         - "*.lock"
         - "*.tmp"
+        - "*-cache"
         - .cache
         - cache
+        - logs
         - tmp
         # Build artifacts
         - __pycache__

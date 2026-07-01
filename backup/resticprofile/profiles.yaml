@@ -47,7 +47,7 @@ profiles:
         - "*.lock"
         - "*.tmp"
         - "*-cache"
-        - .cache
+        - "*.cache"
         - cache
         - logs
         - tmp

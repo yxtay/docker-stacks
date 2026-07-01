@@ -24,15 +24,16 @@ services:
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
     command:
-      - --file=/config/notifications.template.yml
-      - --out=/config/notifications.yml
+      - --file=/input/notifications.template.yml
+      - --out=/output/notifications.yml
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./dozzle:/config
+      - ./dozzle:/input:ro
+      - /apps/dozzle:/output
     environment:
       NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     deploy:
@@ -58,7 +59,6 @@ services:
     read_only: true
     volumes:
       - /apps/dozzle:/data
-      - ./dozzle/notifications.yml:/data/notifications.yml
     expose:
       - 8080
     networks:

@@ -53,12 +53,12 @@ services:
       - --hard-links
       - --acls
       - --xattrs
+      - --numeric-ids
+      - --sparse
+      - --partial
       - --one-file-system
       - --delete-after
       - --delete-excluded
-      - --numeric-ids
-      - --partial
-      - --sparse
       - --exclude-from=/config/exclude.txt
       - /apps/
       - /data/apps/
@@ -90,19 +90,18 @@ services:
     tty: false
     command:
       - sync
-      - /apps/
-      - /data/apps/
+      - --track-renames
+      - --one-file-system
+      - --ignore-case
+      - --delete-excluded
       - --exclude-from
       - /config/exclude.txt
-      - --delete-excluded
       - --exclude-if-present
       - .nobackup
       - --exclude-if-present
       - CACHEDIR.TAG
-      - --ignore-case
-      - --one-file-system
-      - --skip-links
-      - --track-renames
+      - /apps/
+      - /data/apps/
     cap_add:
       - DAC_OVERRIDE
     cap_drop:

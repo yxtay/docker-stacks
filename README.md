@@ -100,14 +100,11 @@ Encrypted backups of `/apps` using restic with resticprofile orchestration.
 Local repository copied to Google Drive via rclone backend.
 Retention: 7 daily, 4 weekly, 3 monthly snapshots.
 Failure notifications sent to ntfy.sh.
+Also provides one-way sync of `/apps` to `/data/apps` for local redundancy.
 
 - **resticprofile** — Scheduled restic backups via crond
-
-### Sync Stack (`sync/`)
-
-One-way sync of `/apps` to `/data/apps` for local redundancy using rsync.
-
-- **rsync** — Archive copy with hardlinks, ACLs, xattrs
+- **rsync** — Archive copy with hardlinks, ACLs, xattrs to `/data/apps`
+- **rclone** — Alternative one-way sync to `/data/apps`
 
 ### Network Stack (`network/`)
 

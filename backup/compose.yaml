@@ -96,8 +96,6 @@ services:
       - --exclude-if-present
       - .github
       - --exclude-if-present
-      - .gitignore
-      - --exclude-if-present
       - .nobackup
       - --exclude-if-present
       - CACHEDIR.TAG

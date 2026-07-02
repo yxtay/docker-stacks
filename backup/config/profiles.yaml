@@ -36,9 +36,7 @@ profiles:
       no-error-on-warning: true
       exclude-caches: true
       exclude-if-present:
-        - .git
         - .github
-        - .gitignore
         - .nobackup
       iexclude-file:
         - exclude.txt

@@ -94,8 +94,6 @@ services:
       - --exclude-from
       - /config/exclude.txt
       - --exclude-if-present
-      - .github
-      - --exclude-if-present
       - .nobackup
       - --exclude-if-present
       - CACHEDIR.TAG

@@ -55,6 +55,7 @@ services:
       - --xattrs
       - --one-file-system
       - --delete-after
+      - --delete-excluded
       - --numeric-ids
       - --partial
       - --sparse
@@ -93,6 +94,7 @@ services:
       - /data/apps/
       - --exclude-from
       - /config/exclude.txt
+      - --delete-excluded
       - --exclude-if-present
       - .nobackup
       - --exclude-if-present

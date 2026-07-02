@@ -112,6 +112,8 @@ services:
       - ./config:/config:ro
       - /apps:/apps:ro
       - /data/apps:/data/apps
+    tmpfs:
+      - /root
     restart: no
     deploy:
       resources:

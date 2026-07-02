@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SYNC_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/sync
-docker compose -f "${SYNC_DIR}/compose.yaml" run --rm rsync
+BACKUP_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/backup
+docker compose -f "${BACKUP_DIR}/compose.yaml" run --rm rsync

@@ -123,7 +123,9 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth whoami whoami:80
       pangolin.public-resources.whoami.name: whoami
+      pangolin.public-resources.whoami.mode: http
       pangolin.public-resources.whoami.full-domain: "whoami.${DOMAIN:?}"
+      pangolin.public-resources.whoami.targets[0].method: http
 
   librespeed:
     # nosemgrep

@@ -12,6 +12,8 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    volumes:
+      - /apps/pangolin/newt:/root/.config/newt-client
     networks:
       - default
       - socket_proxy

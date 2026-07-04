@@ -1,7 +1,7 @@
 services:
   autoheal:
     # nosemgrep
-    image: willfarrell/autoheal:latest@sha256:f60b4441b32aa297ae5bd3ce8419dc2b28e02646909ab1917b39fbf41206008c
+    image: willfarrell/autoheal:latest@sha256:c5819d4773640607339b2df25ae78dd634065b224580a1b80e5eceb8e43fb649
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       DOCKER_SOCK: tcp://socket_proxy:2375

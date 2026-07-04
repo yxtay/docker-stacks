@@ -36,38 +36,15 @@ profiles:
       no-error-on-warning: true
       exclude-caches: true
       exclude-if-present:
-        - .git
-        - .github
-        - .gitignore
         - .nobackup
+      iexclude-file:
+        - exclude.txt
       iexclude:
-        # Temp and runtime files
-        - "*.bak"
-        - "*.pid"
-        - "*.lock"
-        - "*.tmp"
-        - .cache
-        - cache
-        - tmp
-        # Build artifacts
-        - __pycache__
-        - "*.pyc"
+        # Logs (excluded from backup only, kept for local sync)
+        - "*.log*"
+        - logs
         # App-specific paths
-        - MediaCover
-        - altmount/.nzbs
-        - altmount/metadata
-        - esphome/.esphome
-        - homeassistant/deps
-        - homeassistant/tts
-        - immich/data/encoded-video
-        - immich/data/library
-        - immich/data/thumbs
-        - immich/data/upload
         - immich/database
-        - nzbdav/blobs
-        - portainer/compose
-        - profilarr/data/databases
-        - prowlarr/Definitions
 
     forget: &forget
       send-after-fail: *send-after-fail

@@ -15,7 +15,7 @@ perms = 0
 
 ignore = Name __pycache__
 ignore = Name *.{bak,DS_Store,git,pid,pyc,lock}
-ignore = Name {,*.}{cache,tmp}
+ignore = Name {,*.,*-}{cache,tmp}
 
 ignore = Name MediaCover
 ignore = BelowPath altmount/{.nzbs,metadata}

@@ -34,7 +34,7 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/app/config
-      - /apps/pangolin/cache:/app/config/.next/cache
+      - /apps/pangolin/cache:/app/.next/cache
     tmpfs:
       - /tmp
     environment:

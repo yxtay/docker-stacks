@@ -15,6 +15,8 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin/newt:/root/.config/newt-client
+    extra_hosts:
+      - host.docker.internal:host-gateway
     networks:
       - default
       - socket_proxy

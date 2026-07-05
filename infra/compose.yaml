@@ -122,9 +122,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth whoami whoami:80
-      pangolin.public-resources.whoami.name: whoami
-      pangolin.public-resources.whoami.mode: http
-      pangolin.public-resources.whoami.full-domain: "whoami.${DOMAIN:?}"
 
   librespeed:
     # nosemgrep
@@ -149,9 +146,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth librespeed librespeed:8080
-      pangolin.public-resources.librespeed.name: librespeed
-      pangolin.public-resources.librespeed.mode: http
-      pangolin.public-resources.librespeed.full-domain: "librespeed.${DOMAIN:?}"
 
 networks:
   default:

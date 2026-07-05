@@ -8,6 +8,8 @@ services:
       NEWT_SECRET: ${NEWT_SECRET:?}
       PANGOLIN_ENDPOINT: ${PANGOLIN_ENDPOINT:?}
       BLUEPRINT_FILE: ${BLUEPRINT_FILE:-}
+    cap_add:
+      - NET_RAW
     cap_drop:
       - ALL
     security_opt:

@@ -2,7 +2,7 @@ services:
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
     command:
-      - --file=/input/config.template.yml
+      - --file=/input/pangolin/config.template.yml
       - --out=/pangolin/config.yml
       - --file=/input/traefik/traefik.template.yml
       - --out=/traefik/traefik.yml
@@ -12,7 +12,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./pangolin:/input:ro
+      - ./:/input:ro
       - /apps/pangolin:/pangolin
       - ./traefik:/traefik
     environment:

@@ -4,30 +4,24 @@ http:
       plugin:
         badger:
           disableForwardAuth: true
-    default-whitelist:
-      ipAllowList:
-        sourceRange:
-          - 10.0.0.0/8
-          - 172.16.0.0/12
-          - 192.168.0.0/16
-          - 100.89.137.0/20
     security-headers:
       headers:
         customResponseHeaders:
           Server: ""
           X-Powered-By: ""
           X-Forwarded-Proto: https
-        sslProxyHeaders:
-          X-Forwarded-Proto: https
-        hostsProxyHeaders:
-          - X-Forwarded-Host
+          Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' wss: ws:; frame-ancestors 'self'; form-action 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+          Cross-Origin-Opener-Policy: same-origin
+          Cross-Origin-Resource-Policy: same-site
+          Permissions-Policy: "camera=(self), microphone=(self), geolocation=(self), payment=(self), usb=(self), serial=(self), hid=(self), midi=(self), display-capture=(self), bluetooth=(self), idle-detection=(), accelerometer=(), gyroscope=(), magnetometer=(), xr-spatial-tracking=()"
+          Referrer-Policy: strict-origin-when-cross-origin
+          X-DNS-Prefetch-Control: "off"
+          X-Permitted-Cross-Domain-Policies: none
+          X-Robots-Tag: noindex, nofollow
         contentTypeNosniff: true
-        customFrameOptionsValue: SAMEORIGIN
-        referrerPolicy: strict-origin-when-cross-origin
         forceSTSHeader: true
         stsIncludeSubdomains: true
-        stsSeconds: 63072000
-        stsPreload: true
+        stsSeconds: 31536000
     crowdsec:
       plugin:
         crowdsec:

@@ -23,40 +23,6 @@ log:
 
 accessLog:
   format: json
-  filters:
-    statusCodes:
-      - 200-299
-      - 400-499
-      - 500-599
-    retryAttempts: true
-    minDuration: 100ms
-  bufferingSize: 100
-  fields:
-    defaultMode: drop
-    names:
-      ClientAddr: keep
-      ClientHost: keep
-      RequestMethod: keep
-      RequestPath: keep
-      RequestProtocol: keep
-      DownstreamStatus: keep
-      DownstreamContentSize: keep
-      Duration: keep
-      ServiceName: keep
-      StartUTC: keep
-      TLSVersion: keep
-      TLSCipher: keep
-      RetryAttempts: keep
-    headers:
-      defaultMode: drop
-      names:
-        User-Agent: keep
-        X-Real-Ip: keep
-        X-Forwarded-For: keep
-        X-Forwarded-Proto: keep
-        Content-Type: keep
-        Authorization: redact
-        Cookie: redact
 
 certificatesResolvers:
   letsencrypt:

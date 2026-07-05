@@ -29,7 +29,6 @@ certificatesResolvers:
     acme:
       dnsChallenge:
         provider: duckdns
-        delayBeforeCheck: 60
       storage: /letsencrypt/acme.json
       caServer: https://acme-v02.api.letsencrypt.org/directory
 

@@ -78,6 +78,8 @@ services:
       - 443:443/udp
       - 21820:21820/udp
       - 51820:51820/udp
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:3004/healthz"]
     restart: unless-stopped
     deploy:
       resources:
@@ -110,6 +112,8 @@ services:
       CROWDSEC_TRAEFIK_BOUNCER_KEY: ${CROWDSEC_TRAEFIK_BOUNCER_KEY:?}
       TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${LETSENCRYPT_EMAIL:-}
     network_mode: service:gerbil
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost/ping"]
     restart: unless-stopped
     deploy:
       resources:

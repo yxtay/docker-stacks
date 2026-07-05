@@ -36,6 +36,19 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
       tinyauth.apps.nzbdav.path.allow: \/(api$|content)
+      pangolin.public-resources.nzbdav.name: nzbdav
+      pangolin.public-resources.nzbdav.mode: http
+      pangolin.public-resources.nzbdav.full-domain: "nzbdav.${DOMAIN:?}"
+      pangolin.public-resources.nzbdav.auth.sso-enabled: true
+      pangolin.public-resources.nzbdav.rules[0].action: pass
+      pangolin.public-resources.nzbdav.rules[0].match: path
+      pangolin.public-resources.nzbdav.rules[0].value: /api
+      pangolin.public-resources.nzbdav.rules[0].enabled: true
+      pangolin.public-resources.nzbdav.rules[1].action: pass
+      pangolin.public-resources.nzbdav.rules[1].match: path
+      pangolin.public-resources.nzbdav.rules[1].value: /content*
+      pangolin.public-resources.nzbdav.rules[1].enabled: true
+      pangolin.public-resources.nzbdav.targets[0].method: http
 
   usenetstreamer:
     # nosemgrep
@@ -72,6 +85,23 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
       tinyauth.apps.usenetstreamer.path.allow: \/(manifest|nzb|stream)
+      pangolin.public-resources.usenetstreamer.name: usenetstreamer
+      pangolin.public-resources.usenetstreamer.mode: http
+      pangolin.public-resources.usenetstreamer.full-domain: "usenetstreamer.${DOMAIN:?}"
+      pangolin.public-resources.usenetstreamer.auth.sso-enabled: true
+      pangolin.public-resources.usenetstreamer.rules[0].action: pass
+      pangolin.public-resources.usenetstreamer.rules[0].match: path
+      pangolin.public-resources.usenetstreamer.rules[0].value: /*/manifest*
+      pangolin.public-resources.usenetstreamer.rules[0].enabled: true
+      pangolin.public-resources.usenetstreamer.rules[1].action: pass
+      pangolin.public-resources.usenetstreamer.rules[1].match: path
+      pangolin.public-resources.usenetstreamer.rules[1].value: /*/nzb*
+      pangolin.public-resources.usenetstreamer.rules[1].enabled: true
+      pangolin.public-resources.usenetstreamer.rules[2].action: pass
+      pangolin.public-resources.usenetstreamer.rules[2].match: path
+      pangolin.public-resources.usenetstreamer.rules[2].value: /*/stream*
+      pangolin.public-resources.usenetstreamer.rules[2].enabled: true
+      pangolin.public-resources.usenetstreamer.targets[0].method: http
 
   streamnzb:
     # nosemgrep
@@ -104,6 +134,23 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
       tinyauth.apps.streamnzb.path.allow: \/(manifest|play|stream)
+      pangolin.public-resources.streamnzb.name: streamnzb
+      pangolin.public-resources.streamnzb.mode: http
+      pangolin.public-resources.streamnzb.full-domain: "streamnzb.${DOMAIN:?}"
+      pangolin.public-resources.streamnzb.auth.sso-enabled: true
+      pangolin.public-resources.streamnzb.rules[0].action: pass
+      pangolin.public-resources.streamnzb.rules[0].match: path
+      pangolin.public-resources.streamnzb.rules[0].value: /*/manifest*
+      pangolin.public-resources.streamnzb.rules[0].enabled: true
+      pangolin.public-resources.streamnzb.rules[1].action: pass
+      pangolin.public-resources.streamnzb.rules[1].match: path
+      pangolin.public-resources.streamnzb.rules[1].value: /*/play*
+      pangolin.public-resources.streamnzb.rules[1].enabled: true
+      pangolin.public-resources.streamnzb.rules[2].action: pass
+      pangolin.public-resources.streamnzb.rules[2].match: path
+      pangolin.public-resources.streamnzb.rules[2].value: /*/stream*
+      pangolin.public-resources.streamnzb.rules[2].enabled: true
+      pangolin.public-resources.streamnzb.targets[0].method: http
 
   altmount:
     # nosemgrep
@@ -144,6 +191,27 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth altmount altmount:8080
       tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
+      pangolin.public-resources.altmount.name: altmount
+      pangolin.public-resources.altmount.mode: http
+      pangolin.public-resources.altmount.full-domain: "altmount.${DOMAIN:?}"
+      pangolin.public-resources.altmount.auth.sso-enabled: true
+      pangolin.public-resources.altmount.rules[0].action: pass
+      pangolin.public-resources.altmount.rules[0].match: path
+      pangolin.public-resources.altmount.rules[0].value: /sabnzbd*
+      pangolin.public-resources.altmount.rules[0].enabled: true
+      pangolin.public-resources.altmount.rules[1].action: pass
+      pangolin.public-resources.altmount.rules[1].match: path
+      pangolin.public-resources.altmount.rules[1].value: /stream*
+      pangolin.public-resources.altmount.rules[1].enabled: true
+      pangolin.public-resources.altmount.rules[2].action: pass
+      pangolin.public-resources.altmount.rules[2].match: path
+      pangolin.public-resources.altmount.rules[2].value: /stremio*
+      pangolin.public-resources.altmount.rules[2].enabled: true
+      pangolin.public-resources.altmount.rules[3].action: pass
+      pangolin.public-resources.altmount.rules[3].match: path
+      pangolin.public-resources.altmount.rules[3].value: /webdav*
+      pangolin.public-resources.altmount.rules[3].enabled: true
+      pangolin.public-resources.altmount.targets[0].method: http
 
 networks:
   default:

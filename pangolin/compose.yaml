@@ -1,0 +1,132 @@
+services:
+  gomplate:
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
+    command:
+      - --file=/input/pangolin/config.template.yml
+      - --out=/pangolin/config.yml
+      - --file=/input/traefik/traefik.template.yml
+      - --out=/traefik/traefik.yml
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./:/input:ro
+      - /apps/pangolin:/pangolin
+      - ./traefik:/traefik
+    environment:
+      DOMAIN: ${DOMAIN:?}
+      PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4G
+          pids: 512
+
+  pangolin:
+    image: ghcr.io/fosrl/pangolin:1.19.4@sha256:a9a4b0bd136ef7ccead120cf41f85bd1b751ddcd05f42392437b1792546e402f
+    depends_on:
+      gomplate:
+        condition: service_completed_successfully
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/pangolin:/app/config
+      - /apps/pangolin/cache:/app/.next/cache
+    tmpfs:
+      - /tmp
+    environment:
+      SERVER_SECRET: ${SERVER_SECRET:?}
+    expose:
+      - 3000
+      - 3001
+      - 3002
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:3001/api/v1/"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 2g
+          pids: 512
+
+  gerbil:
+    image: ghcr.io/fosrl/gerbil:1.4.2@sha256:6d640c114be57435b37b5a042872f116b53e984546f351820d6a758436d0f991
+    command:
+      - --reachableAt=http://gerbil:3004
+      - --generateAndSaveKeyTo=/var/config/key
+      - --remoteConfig=http://pangolin:3001/api/v1/
+    depends_on:
+      pangolin:
+        condition: service_healthy
+    cap_add:
+      - NET_ADMIN
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/pangolin:/var/config
+    expose:
+      - 3004
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+      - 21820:21820/udp
+      - 51820:51820/udp
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:3004/healthz"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+  traefik:
+    image: ghcr.io/traefik/traefik:3.7.5@sha256:e4d98158c01ad752fc1071d4e9573788747230d902cdde00a772516e692d07c9
+    container_name: traefik
+    depends_on:
+      pangolin:
+        condition: service_healthy
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./traefik:/etc/traefik:ro
+      - /apps/traefik/letsencrypt:/letsencrypt
+      - /apps/traefik/plugins:/plugins-storage
+    tmpfs:
+      - /tmp
+    environment:
+      DOMAIN: ${DOMAIN:?}
+      PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}
+      DUCKDNS_TOKEN: ${DUCKDNS_TOKEN:?}
+      CROWDSEC_TRAEFIK_BOUNCER_KEY: ${CROWDSEC_TRAEFIK_BOUNCER_KEY:?}
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${LETSENCRYPT_EMAIL:-}
+    network_mode: service:gerbil
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost/ping"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+networks:
+  default:
+    name: proxy
+    external: true

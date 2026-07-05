@@ -51,6 +51,10 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt
+        domains:
+          - main: "*.${DOMAIN}"
+            sans:
+              - "${DOMAIN}"
       middlewares:
         - crowdsec@file
         - badger@file

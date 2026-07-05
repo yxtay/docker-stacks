@@ -53,6 +53,14 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
+      pangolin.public-resources.prowlarr.name: prowlarr
+      pangolin.public-resources.prowlarr.mode: http
+      pangolin.public-resources.prowlarr.full-domain: "prowlarr.${DOMAIN:?}"
+      pangolin.public-resources.prowlarr.auth.sso-enabled: "true"
+      pangolin.public-resources.prowlarr.auth.sso-roles[0]: Member
+      pangolin.public-resources.prowlarr.targets[0].hostname: prowlarr
+      pangolin.public-resources.prowlarr.targets[0].port: "9696"
+      pangolin.public-resources.prowlarr.targets[0].method: http
 
   rclone:
     # nosemgrep
@@ -143,6 +151,14 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
+      pangolin.public-resources.rdtclient.name: rdtclient
+      pangolin.public-resources.rdtclient.mode: http
+      pangolin.public-resources.rdtclient.full-domain: "rdtclient.${DOMAIN:?}"
+      pangolin.public-resources.rdtclient.auth.sso-enabled: "true"
+      pangolin.public-resources.rdtclient.auth.sso-roles[0]: Member
+      pangolin.public-resources.rdtclient.targets[0].hostname: rdtclient
+      pangolin.public-resources.rdtclient.targets[0].port: "6500"
+      pangolin.public-resources.rdtclient.targets[0].method: http
 
   radarr:
     # nosemgrep
@@ -180,6 +196,14 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth radarr radarr:7878
+      pangolin.public-resources.radarr.name: radarr
+      pangolin.public-resources.radarr.mode: http
+      pangolin.public-resources.radarr.full-domain: "radarr.${DOMAIN:?}"
+      pangolin.public-resources.radarr.auth.sso-enabled: "true"
+      pangolin.public-resources.radarr.auth.sso-roles[0]: Member
+      pangolin.public-resources.radarr.targets[0].hostname: radarr
+      pangolin.public-resources.radarr.targets[0].port: "7878"
+      pangolin.public-resources.radarr.targets[0].method: http
 
   sonarr:
     # nosemgrep
@@ -217,6 +241,14 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth sonarr sonarr:8989
+      pangolin.public-resources.sonarr.name: sonarr
+      pangolin.public-resources.sonarr.mode: http
+      pangolin.public-resources.sonarr.full-domain: "sonarr.${DOMAIN:?}"
+      pangolin.public-resources.sonarr.auth.sso-enabled: "true"
+      pangolin.public-resources.sonarr.auth.sso-roles[0]: Member
+      pangolin.public-resources.sonarr.targets[0].hostname: sonarr
+      pangolin.public-resources.sonarr.targets[0].port: "8989"
+      pangolin.public-resources.sonarr.targets[0].method: http
 
   profilarr:
     # nosemgrep
@@ -249,6 +281,14 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth profilarr profilarr:6868
+      pangolin.public-resources.profilarr.name: profilarr
+      pangolin.public-resources.profilarr.mode: http
+      pangolin.public-resources.profilarr.full-domain: "profilarr.${DOMAIN:?}"
+      pangolin.public-resources.profilarr.auth.sso-enabled: "true"
+      pangolin.public-resources.profilarr.auth.sso-roles[0]: Member
+      pangolin.public-resources.profilarr.targets[0].hostname: profilarr
+      pangolin.public-resources.profilarr.targets[0].port: "6868"
+      pangolin.public-resources.profilarr.targets[0].method: http
 
 networks:
   default:

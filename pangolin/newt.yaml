@@ -7,6 +7,7 @@ services:
       NEWT_ID: ${NEWT_ID:?}
       NEWT_SECRET: ${NEWT_SECRET:?}
       PANGOLIN_ENDPOINT: ${PANGOLIN_ENDPOINT:?}
+      BLUEPRINT_FILE: /app/blueprint.yml
     cap_drop:
       - ALL
     security_opt:
@@ -14,6 +15,7 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin/newt:/root/.config/newt-client
+      - ./newt/blueprint.yml:/app/blueprint.yml:ro
     networks:
       - default
       - socket_proxy

@@ -42,8 +42,12 @@ services:
       pangolin.public-resources.nzbdav.auth.sso-enabled: true
       pangolin.public-resources.nzbdav.rules[0].action: pass
       pangolin.public-resources.nzbdav.rules[0].match: path
-      pangolin.public-resources.nzbdav.rules[0].value: \/(api$|content)
+      pangolin.public-resources.nzbdav.rules[0].value: /api
       pangolin.public-resources.nzbdav.rules[0].enabled: true
+      pangolin.public-resources.nzbdav.rules[1].action: pass
+      pangolin.public-resources.nzbdav.rules[1].match: path
+      pangolin.public-resources.nzbdav.rules[1].value: /content*
+      pangolin.public-resources.nzbdav.rules[1].enabled: true
       pangolin.public-resources.nzbdav.targets[0].method: http
 
   usenetstreamer:
@@ -87,8 +91,16 @@ services:
       pangolin.public-resources.usenetstreamer.auth.sso-enabled: true
       pangolin.public-resources.usenetstreamer.rules[0].action: pass
       pangolin.public-resources.usenetstreamer.rules[0].match: path
-      pangolin.public-resources.usenetstreamer.rules[0].value: \/(manifest|nzb|stream)
+      pangolin.public-resources.usenetstreamer.rules[0].value: /*/manifest*
       pangolin.public-resources.usenetstreamer.rules[0].enabled: true
+      pangolin.public-resources.usenetstreamer.rules[1].action: pass
+      pangolin.public-resources.usenetstreamer.rules[1].match: path
+      pangolin.public-resources.usenetstreamer.rules[1].value: /*/nzb*
+      pangolin.public-resources.usenetstreamer.rules[1].enabled: true
+      pangolin.public-resources.usenetstreamer.rules[2].action: pass
+      pangolin.public-resources.usenetstreamer.rules[2].match: path
+      pangolin.public-resources.usenetstreamer.rules[2].value: /*/stream*
+      pangolin.public-resources.usenetstreamer.rules[2].enabled: true
       pangolin.public-resources.usenetstreamer.targets[0].method: http
 
   streamnzb:
@@ -128,8 +140,16 @@ services:
       pangolin.public-resources.streamnzb.auth.sso-enabled: true
       pangolin.public-resources.streamnzb.rules[0].action: pass
       pangolin.public-resources.streamnzb.rules[0].match: path
-      pangolin.public-resources.streamnzb.rules[0].value: \/(manifest|play|stream)
+      pangolin.public-resources.streamnzb.rules[0].value: /*/manifest*
       pangolin.public-resources.streamnzb.rules[0].enabled: true
+      pangolin.public-resources.streamnzb.rules[1].action: pass
+      pangolin.public-resources.streamnzb.rules[1].match: path
+      pangolin.public-resources.streamnzb.rules[1].value: /*/play*
+      pangolin.public-resources.streamnzb.rules[1].enabled: true
+      pangolin.public-resources.streamnzb.rules[2].action: pass
+      pangolin.public-resources.streamnzb.rules[2].match: path
+      pangolin.public-resources.streamnzb.rules[2].value: /*/stream*
+      pangolin.public-resources.streamnzb.rules[2].enabled: true
       pangolin.public-resources.streamnzb.targets[0].method: http
 
   altmount:
@@ -177,8 +197,20 @@ services:
       pangolin.public-resources.altmount.auth.sso-enabled: true
       pangolin.public-resources.altmount.rules[0].action: pass
       pangolin.public-resources.altmount.rules[0].match: path
-      pangolin.public-resources.altmount.rules[0].value: \/(sabnzbd|stream|stremio|webdav)
+      pangolin.public-resources.altmount.rules[0].value: /sabnzbd*
       pangolin.public-resources.altmount.rules[0].enabled: true
+      pangolin.public-resources.altmount.rules[1].action: pass
+      pangolin.public-resources.altmount.rules[1].match: path
+      pangolin.public-resources.altmount.rules[1].value: /stream*
+      pangolin.public-resources.altmount.rules[1].enabled: true
+      pangolin.public-resources.altmount.rules[2].action: pass
+      pangolin.public-resources.altmount.rules[2].match: path
+      pangolin.public-resources.altmount.rules[2].value: /stremio*
+      pangolin.public-resources.altmount.rules[2].enabled: true
+      pangolin.public-resources.altmount.rules[3].action: pass
+      pangolin.public-resources.altmount.rules[3].match: path
+      pangolin.public-resources.altmount.rules[3].value: /webdav*
+      pangolin.public-resources.altmount.rules[3].enabled: true
       pangolin.public-resources.altmount.targets[0].method: http
 
 networks:

@@ -54,7 +54,7 @@ entryPoints:
         domains:
           - main: "*.${DOMAIN}"
             sans:
-              - "${DOMAIN}"
+              - ${DOMAIN}
       middlewares:
         - crowdsec@file
         - badger@file

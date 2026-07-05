@@ -3,7 +3,9 @@ services:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:759e59ef04ba5efb668df6fe21f5c280e7a762b4b88b9a2736169e4b925e87a3
     command:
       - --file=/input/config.template.yml
-      - --out=/output/config.yml
+      - --out=/pangolin/config.yml
+      - --file=/input/traefik/traefik.template.yml
+      - --out=/traefik/traefik.yml
     cap_drop:
       - ALL
     security_opt:
@@ -11,7 +13,8 @@ services:
     read_only: true
     volumes:
       - ./pangolin:/input:ro
-      - /apps/pangolin:/output
+      - /apps/pangolin:/pangolin
+      - ./traefik:/traefik
     environment:
       DOMAIN: ${DOMAIN:?}
       PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}

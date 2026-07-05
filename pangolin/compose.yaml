@@ -71,6 +71,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/pangolin:/var/config
     expose:

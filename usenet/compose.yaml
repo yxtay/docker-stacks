@@ -45,7 +45,7 @@ services:
       pangolin.public-resources.nzbdav.targets[0].method: http
       pangolin.public-resources.nzbdav.rules[0].action: allow
       pangolin.public-resources.nzbdav.rules[0].match: path
-      pangolin.public-resources.nzbdav.rules[0].value: /api
+      pangolin.public-resources.nzbdav.rules[0].value: /api/*
       pangolin.public-resources.nzbdav.rules[0].enabled: true
       pangolin.public-resources.nzbdav.rules[1].action: allow
       pangolin.public-resources.nzbdav.rules[1].match: path

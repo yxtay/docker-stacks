@@ -53,6 +53,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
+      tinyauth.apps.prowlarr.path.allow: \/(api|download|signalr)
       pangolin.public-resources.prowlarr.name: prowlarr
       pangolin.public-resources.prowlarr.mode: http
       pangolin.public-resources.prowlarr.full-domain: "prowlarr.${DOMAIN:?}"

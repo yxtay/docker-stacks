@@ -137,7 +137,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
-      tinyauth.apps.streamnzb.path.allow: \/(manifest|play|stream)
+      tinyauth.apps.streamnzb.path.allow: \/(failover_order|manifest|stream)
       pangolin.public-resources.streamnzb.name: streamnzb
       pangolin.public-resources.streamnzb.mode: http
       pangolin.public-resources.streamnzb.full-domain: "streamnzb.${DOMAIN:?}"

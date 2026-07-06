@@ -125,6 +125,14 @@ services:
           cpus: 1
           memory: 4g
           pids: 512
+    labels:
+      pangolin.public-resources.traefik.name: traefik
+      pangolin.public-resources.traefik.mode: http
+      pangolin.public-resources.traefik.full-domain: "traefik.${DOMAIN:?}"
+      pangolin.public-resources.traefik.auth.sso-enabled: true
+      pangolin.public-resources.traefik.targets[0].hostname: gerbil
+      pangolin.public-resources.traefik.targets[0].port: 8080
+      pangolin.public-resources.traefik.targets[0].method: http
 
 networks:
   default:

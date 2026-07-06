@@ -1,9 +1,33 @@
 http:
   middlewares:
+    ratelimit:
+      rateLimit:
+        average: 60
+        period: 1m
+        burst: 120
+    crowdsec:
+      plugin:
+        crowdsec:
+          enabled: true
+          CrowdsecMode: stream
+          crowdsecAppsecEnabled: true
+          crowdsecLapiKey: '{{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}'
+          clientTrustedIPs:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+            - 100.89.137.0/20
+          forwardedHeadersTrustedIPs:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+            - 100.89.137.0/20
     badger:
       plugin:
         badger:
           disableForwardAuth: true
+    compress:
+      compress: {}
     security-headers:
       headers:
         customResponseHeaders:
@@ -22,23 +46,6 @@ http:
         forceSTSHeader: true
         stsIncludeSubdomains: true
         stsSeconds: 31536000
-    crowdsec:
-      plugin:
-        crowdsec:
-          enabled: true
-          CrowdsecMode: stream
-          crowdsecAppsecEnabled: true
-          crowdsecLapiKey: '{{env "CROWDSEC_TRAEFIK_BOUNCER_KEY"}}'
-          clientTrustedIPs:
-            - 10.0.0.0/8
-            - 172.16.0.0/12
-            - 192.168.0.0/16
-            - 100.89.137.0/20
-          forwardedHeadersTrustedIPs:
-            - 10.0.0.0/8
-            - 172.16.0.0/12
-            - 192.168.0.0/16
-            - 100.89.137.0/20
 
   routers:
     next-router:

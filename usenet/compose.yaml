@@ -45,7 +45,7 @@ services:
       pangolin.public-resources.nzbdav.targets[0].method: http
       pangolin.public-resources.nzbdav.rules[0].action: allow
       pangolin.public-resources.nzbdav.rules[0].match: path
-      pangolin.public-resources.nzbdav.rules[0].value: /api/*
+      pangolin.public-resources.nzbdav.rules[0].value: /api
       pangolin.public-resources.nzbdav.rules[0].enabled: true
       pangolin.public-resources.nzbdav.rules[1].action: allow
       pangolin.public-resources.nzbdav.rules[1].match: path
@@ -147,12 +147,16 @@ services:
       pangolin.public-resources.streamnzb.targets[0].method: http
       pangolin.public-resources.streamnzb.rules[0].action: allow
       pangolin.public-resources.streamnzb.rules[0].match: path
-      pangolin.public-resources.streamnzb.rules[0].value: "*/manifest.json"
+      pangolin.public-resources.streamnzb.rules[0].value: "*/failover_order/*"
       pangolin.public-resources.streamnzb.rules[0].enabled: true
       pangolin.public-resources.streamnzb.rules[1].action: allow
       pangolin.public-resources.streamnzb.rules[1].match: path
-      pangolin.public-resources.streamnzb.rules[1].value: "*/stream/*"
+      pangolin.public-resources.streamnzb.rules[1].value: "*/manifest.json"
       pangolin.public-resources.streamnzb.rules[1].enabled: true
+      pangolin.public-resources.streamnzb.rules[2].action: allow
+      pangolin.public-resources.streamnzb.rules[2].match: path
+      pangolin.public-resources.streamnzb.rules[2].value: "*/stream/*"
+      pangolin.public-resources.streamnzb.rules[2].enabled: true
 
   altmount:
     # nosemgrep

@@ -68,6 +68,10 @@ services:
       pangolin.public-resources.prowlarr.rules[1].match: path
       pangolin.public-resources.prowlarr.rules[1].value: "*/download/*"
       pangolin.public-resources.prowlarr.rules[1].enabled: true
+      pangolin.public-resources.prowlarr.rules[2].action: allow
+      pangolin.public-resources.prowlarr.rules[2].match: path
+      pangolin.public-resources.prowlarr.rules[2].value: "/signalr/*"
+      pangolin.public-resources.prowlarr.rules[2].enabled: true
 
   rclone:
     # nosemgrep

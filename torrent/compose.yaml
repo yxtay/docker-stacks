@@ -60,9 +60,14 @@ services:
       pangolin.public-resources.prowlarr.targets[0].hostname: prowlarr
       pangolin.public-resources.prowlarr.targets[0].port: 9696
       pangolin.public-resources.prowlarr.targets[0].method: http
-      pangolin.public-resources.altmount.rules[0].action: allow
-      pangolin.public-resources.altmount.rules[0].match: path
-      pangolin.public-resources.altmount.rules[0].value: /api/*
+      pangolin.public-resources.prowlarr.rules[0].action: allow
+      pangolin.public-resources.prowlarr.rules[0].match: path
+      pangolin.public-resources.prowlarr.rules[0].value: /api/*
+      pangolin.public-resources.prowlarr.rules[0].enabled: true
+      pangolin.public-resources.prowlarr.rules[1].action: allow
+      pangolin.public-resources.prowlarr.rules[1].match: path
+      pangolin.public-resources.prowlarr.rules[1].value: "*/download/*"
+      pangolin.public-resources.prowlarr.rules[1].enabled: true
 
   rclone:
     # nosemgrep

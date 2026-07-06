@@ -40,6 +40,8 @@ services:
       pangolin.public-resources.nzbdav.mode: http
       pangolin.public-resources.nzbdav.full-domain: "nzbdav.${DOMAIN:?}"
       pangolin.public-resources.nzbdav.auth.sso-enabled: true
+      pangolin.public-resources.nzbdav.targets[0].hostname: nzbdav
+      pangolin.public-resources.nzbdav.targets[0].port: 3000
       pangolin.public-resources.nzbdav.rules[0].action: pass
       pangolin.public-resources.nzbdav.rules[0].match: path
       pangolin.public-resources.nzbdav.rules[0].value: /api
@@ -89,17 +91,19 @@ services:
       pangolin.public-resources.usenetstreamer.mode: http
       pangolin.public-resources.usenetstreamer.full-domain: "usenetstreamer.${DOMAIN:?}"
       pangolin.public-resources.usenetstreamer.auth.sso-enabled: true
+      pangolin.public-resources.usenetstreamer.targets[0].hostname: usenetstreamer
+      pangolin.public-resources.usenetstreamer.targets[0].port: 7000
       pangolin.public-resources.usenetstreamer.rules[0].action: pass
       pangolin.public-resources.usenetstreamer.rules[0].match: path
-      pangolin.public-resources.usenetstreamer.rules[0].value: /*/manifest*
+      pangolin.public-resources.usenetstreamer.rules[0].value: "*/manifest.json"
       pangolin.public-resources.usenetstreamer.rules[0].enabled: true
       pangolin.public-resources.usenetstreamer.rules[1].action: pass
       pangolin.public-resources.usenetstreamer.rules[1].match: path
-      pangolin.public-resources.usenetstreamer.rules[1].value: /*/nzb*
+      pangolin.public-resources.usenetstreamer.rules[1].value: "*/nzb/*"
       pangolin.public-resources.usenetstreamer.rules[1].enabled: true
       pangolin.public-resources.usenetstreamer.rules[2].action: pass
       pangolin.public-resources.usenetstreamer.rules[2].match: path
-      pangolin.public-resources.usenetstreamer.rules[2].value: /*/stream*
+      pangolin.public-resources.usenetstreamer.rules[2].value: "*/stream/*"
       pangolin.public-resources.usenetstreamer.rules[2].enabled: true
       pangolin.public-resources.usenetstreamer.targets[0].method: http
 
@@ -138,17 +142,19 @@ services:
       pangolin.public-resources.streamnzb.mode: http
       pangolin.public-resources.streamnzb.full-domain: "streamnzb.${DOMAIN:?}"
       pangolin.public-resources.streamnzb.auth.sso-enabled: true
+      pangolin.public-resources.streamnzb.targets[0].hostname: streamnzb
+      pangolin.public-resources.streamnzb.targets[0].port: 7000
       pangolin.public-resources.streamnzb.rules[0].action: pass
       pangolin.public-resources.streamnzb.rules[0].match: path
-      pangolin.public-resources.streamnzb.rules[0].value: /*/manifest*
+      pangolin.public-resources.streamnzb.rules[0].value: "*/manifest.json"
       pangolin.public-resources.streamnzb.rules[0].enabled: true
       pangolin.public-resources.streamnzb.rules[1].action: pass
       pangolin.public-resources.streamnzb.rules[1].match: path
-      pangolin.public-resources.streamnzb.rules[1].value: /*/play*
+      pangolin.public-resources.streamnzb.rules[1].value: "*/play/*"
       pangolin.public-resources.streamnzb.rules[1].enabled: true
       pangolin.public-resources.streamnzb.rules[2].action: pass
       pangolin.public-resources.streamnzb.rules[2].match: path
-      pangolin.public-resources.streamnzb.rules[2].value: /*/stream*
+      pangolin.public-resources.streamnzb.rules[2].value: "*/stream/*"
       pangolin.public-resources.streamnzb.rules[2].enabled: true
       pangolin.public-resources.streamnzb.targets[0].method: http
 
@@ -195,6 +201,8 @@ services:
       pangolin.public-resources.altmount.mode: http
       pangolin.public-resources.altmount.full-domain: "altmount.${DOMAIN:?}"
       pangolin.public-resources.altmount.auth.sso-enabled: true
+      pangolin.public-resources.altmount.targets[0].hostname: altmount
+      pangolin.public-resources.altmount.targets[0].port: 8080
       pangolin.public-resources.altmount.rules[0].action: pass
       pangolin.public-resources.altmount.rules[0].match: path
       pangolin.public-resources.altmount.rules[0].value: /sabnzbd*

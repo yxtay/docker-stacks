@@ -36,6 +36,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy homeassistant ${IP_ADDRESS:-host.docker.internal}:8123
+      pangolin.public-resources.homeassistant.name: homeassistant
+      pangolin.public-resources.homeassistant.mode: http
+      pangolin.public-resources.homeassistant.full-domain: "homeassistant.${DOMAIN:?}"
+      pangolin.public-resources.homeassistant.auth.sso-enabled: true
+      pangolin.public-resources.homeassistant.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.homeassistant.targets[0].port: 8123
+      pangolin.public-resources.homeassistant.targets[0].method: http
 
   music_assistant:
     # nosemgrep
@@ -68,6 +75,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy music_assistant ${IP_ADDRESS:-host.docker.internal}:8095
+      pangolin.public-resources.music_assistant.name: music_assistant
+      pangolin.public-resources.music_assistant.mode: http
+      pangolin.public-resources.music_assistant.full-domain: "music_assistant.${DOMAIN:?}"
+      pangolin.public-resources.music_assistant.auth.sso-enabled: true
+      pangolin.public-resources.music_assistant.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.music_assistant.targets[0].port: 8095
+      pangolin.public-resources.music_assistant.targets[0].method: http
 
   esphome:
     # nosemgrep
@@ -101,6 +115,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy esphome ${IP_ADDRESS:-host.docker.internal}:6052
+      pangolin.public-resources.esphome.name: esphome
+      pangolin.public-resources.esphome.mode: http
+      pangolin.public-resources.esphome.full-domain: "esphome.${DOMAIN:?}"
+      pangolin.public-resources.esphome.auth.sso-enabled: true
+      pangolin.public-resources.esphome.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.esphome.targets[0].port: 6052
+      pangolin.public-resources.esphome.targets[0].method: http
 
   trmnl_ha:
     # nosemgrep
@@ -136,6 +157,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy trmnl_ha trmnl_ha:10000
+      pangolin.public-resources.trmnl_ha.name: trmnl_ha
+      pangolin.public-resources.trmnl_ha.mode: http
+      pangolin.public-resources.trmnl_ha.full-domain: "trmnl_ha.${DOMAIN:?}"
+      pangolin.public-resources.trmnl_ha.auth.sso-enabled: true
+      pangolin.public-resources.trmnl_ha.targets[0].hostname: trmnl_ha
+      pangolin.public-resources.trmnl_ha.targets[0].port: 10000
+      pangolin.public-resources.trmnl_ha.targets[0].method: http
 
 networks:
   default:

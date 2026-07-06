@@ -42,6 +42,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy immich immich_server:2283
+      pangolin.public-resources.immich.name: immich
+      pangolin.public-resources.immich.mode: http
+      pangolin.public-resources.immich.full-domain: "immich.${DOMAIN:?}"
+      pangolin.public-resources.immich.auth.sso-enabled: true
+      pangolin.public-resources.immich.targets[0].hostname: immich_server
+      pangolin.public-resources.immich.targets[0].port: 2283
+      pangolin.public-resources.immich.targets[0].method: http
 
   immich_machine_learning:
     # nosemgrep
@@ -163,6 +170,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy gphotos2immich gphotos2immich:8080
+      pangolin.public-resources.gphotos2immich.name: gphotos2immich
+      pangolin.public-resources.gphotos2immich.mode: http
+      pangolin.public-resources.gphotos2immich.full-domain: "gphotos2immich.${DOMAIN:?}"
+      pangolin.public-resources.gphotos2immich.auth.sso-enabled: true
+      pangolin.public-resources.gphotos2immich.targets[0].hostname: gphotos2immich
+      pangolin.public-resources.gphotos2immich.targets[0].port: 8080
+      pangolin.public-resources.gphotos2immich.targets[0].method: http
 
   immich_kiosk:
     # nosemgrep
@@ -197,6 +211,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy immich_kiosk immich_kiosk:3000
+      pangolin.public-resources.immich_kiosk.name: immich_kiosk
+      pangolin.public-resources.immich_kiosk.mode: http
+      pangolin.public-resources.immich_kiosk.full-domain: "immich_kiosk.${DOMAIN:?}"
+      pangolin.public-resources.immich_kiosk.auth.sso-enabled: true
+      pangolin.public-resources.immich_kiosk.targets[0].hostname: immich_kiosk
+      pangolin.public-resources.immich_kiosk.targets[0].port: 3000
+      pangolin.public-resources.immich_kiosk.targets[0].method: http
 
 networks:
   default:

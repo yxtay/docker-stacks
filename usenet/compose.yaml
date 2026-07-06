@@ -205,19 +205,19 @@ services:
       pangolin.public-resources.altmount.targets[0].port: 8080
       pangolin.public-resources.altmount.rules[0].action: pass
       pangolin.public-resources.altmount.rules[0].match: path
-      pangolin.public-resources.altmount.rules[0].value: /sabnzbd*
+      pangolin.public-resources.altmount.rules[0].value: /sabnzbd/*
       pangolin.public-resources.altmount.rules[0].enabled: true
       pangolin.public-resources.altmount.rules[1].action: pass
       pangolin.public-resources.altmount.rules[1].match: path
-      pangolin.public-resources.altmount.rules[1].value: /stream*
+      pangolin.public-resources.altmount.rules[1].value: /stream/*
       pangolin.public-resources.altmount.rules[1].enabled: true
       pangolin.public-resources.altmount.rules[2].action: pass
       pangolin.public-resources.altmount.rules[2].match: path
-      pangolin.public-resources.altmount.rules[2].value: /stremio*
+      pangolin.public-resources.altmount.rules[2].value: /stremio/*
       pangolin.public-resources.altmount.rules[2].enabled: true
       pangolin.public-resources.altmount.rules[3].action: pass
       pangolin.public-resources.altmount.rules[3].match: path
-      pangolin.public-resources.altmount.rules[3].value: /webdav*
+      pangolin.public-resources.altmount.rules[3].value: /webdav/*
       pangolin.public-resources.altmount.rules[3].enabled: true
       pangolin.public-resources.altmount.targets[0].method: http
 

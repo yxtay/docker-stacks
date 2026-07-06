@@ -42,6 +42,7 @@ entryPoints:
           scheme: https
   websecure:
     address: ":443"
+    asDefault: true
     transport:
       respondingTimeouts:
         readTimeout: 30m

@@ -44,14 +44,10 @@ http:
     next-router:
       rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && !PathPrefix(`/api/v1`)
       service: next-service
-      entryPoints:
-        - websecure
 
     api-router:
       rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && PathPrefix(`/api/v1`)
       service: api-service
-      entryPoints:
-        - websecure
 
   services:
     next-service:

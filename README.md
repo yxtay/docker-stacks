@@ -126,7 +126,7 @@ mDNS/device discovery.
 
 Self-hosted photo and video management.
 
-- **immich_server** — Main Immich server
+- **immich-server** — Main Immich server
 - **immich-machine-learning** — ML inference (face detection, search)
 - **redis** — Valkey cache
 - **database** — PostgreSQL with pgvecto.rs
@@ -161,7 +161,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

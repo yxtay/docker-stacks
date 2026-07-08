@@ -40,7 +40,7 @@ services:
       pangolin.public-resources.homeassistant.mode: http
       pangolin.public-resources.homeassistant.full-domain: "homeassistant.${DOMAIN:?}"
       pangolin.public-resources.homeassistant.auth.sso-enabled: true
-      pangolin.public-resources.homeassistant.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.homeassistant.targets[0].hostname: ${IP_ADDRESS:-host.docker.internal}
       pangolin.public-resources.homeassistant.targets[0].port: 8123
       pangolin.public-resources.homeassistant.targets[0].method: http
 
@@ -79,7 +79,7 @@ services:
       pangolin.public-resources.music-assistant.mode: http
       pangolin.public-resources.music-assistant.full-domain: "music-assistant.${DOMAIN:?}"
       pangolin.public-resources.music-assistant.auth.sso-enabled: true
-      pangolin.public-resources.music-assistant.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.music-assistant.targets[0].hostname: ${IP_ADDRESS:-host.docker.internal}
       pangolin.public-resources.music-assistant.targets[0].port: 8095
       pangolin.public-resources.music-assistant.targets[0].method: http
 
@@ -119,7 +119,7 @@ services:
       pangolin.public-resources.esphome.mode: http
       pangolin.public-resources.esphome.full-domain: "esphome.${DOMAIN:?}"
       pangolin.public-resources.esphome.auth.sso-enabled: true
-      pangolin.public-resources.esphome.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.esphome.targets[0].hostname: ${IP_ADDRESS:-host.docker.internal}
       pangolin.public-resources.esphome.targets[0].port: 6052
       pangolin.public-resources.esphome.targets[0].method: http
 

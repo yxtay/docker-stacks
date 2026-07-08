@@ -116,9 +116,9 @@ services:
       HUB_URL: http://localhost:8090
       KEY: ${BESZEL_AGENT_KEY}
       TOKEN: ${BESZEL_AGENT_TOKEN}
+      DOCKER_HOST: tcp://127.0.0.1:2375
     volumes:
       - /apps/beszel/agent:/var/lib/beszel-agent
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
     network_mode: host
     healthcheck:

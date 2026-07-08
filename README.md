@@ -40,7 +40,7 @@ Caddy supports optional per-deployment reverse proxy configs via
 
 Core infrastructure and utility services.
 
-- **socket_proxy** — Docker socket proxy
+- **socket-proxy** — Docker socket proxy
 - **tailscale** — Mesh VPN
 - **whoami** — Request echo (debugging)
 - **librespeed** — Speed test
@@ -74,7 +74,7 @@ Monitoring and container maintenance.
 - **autoheal** — Restart unhealthy containers
 - **dozzle** — Real-time container log viewer
 - **beszel** — Server monitoring hub
-- **beszel_agent** — Monitoring agent (host network)
+- **beszel-agent** — Monitoring agent (host network)
 
 ### Portainer Stack (`portainer/`)
 
@@ -126,7 +126,7 @@ mDNS/device discovery.
 
 Self-hosted photo and video management.
 
-- **immich_server** — Main Immich server
+- **immich-server** — Main Immich server
 - **immich-machine-learning** — ML inference (face detection, search)
 - **redis** — Valkey cache
 - **database** — PostgreSQL with pgvecto.rs

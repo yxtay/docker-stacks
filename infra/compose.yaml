@@ -1,5 +1,5 @@
 services:
-  socket_proxy:
+  socket-proxy:
     # nosemgrep
     image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
     environment:
@@ -53,10 +53,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
       - /run
-    expose:
-      - 2375
+    ports:
+      - 127.0.0.1:2375:2375
     networks:
-      - socket_proxy
+      - socket-proxy
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped
@@ -151,5 +151,5 @@ networks:
   default:
     name: proxy
     external: true
-  socket_proxy:
-    name: socket_proxy
+  socket-proxy:
+    name: socket-proxy

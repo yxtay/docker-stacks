@@ -65,24 +65,24 @@ http:
         stsSeconds: 31536000
 
   routers:
-    next-router:
-      rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && !PathPrefix(`/api/v1`)
-      service: next-service
-
     api-router:
       rule: Host(`{{env "PANGOLIN_DOMAIN"}}`) && PathPrefix(`/api/v1`)
       service: api-service
 
-  services:
-    next-service:
-      loadBalancer:
-        servers:
-          - url: http://pangolin:3002
+    next-router:
+      rule: Host(`{{env "PANGOLIN_DOMAIN"}}`)
+      service: next-service
 
+  services:
     api-service:
       loadBalancer:
         servers:
           - url: http://pangolin:3000
+
+    next-service:
+      loadBalancer:
+        servers:
+          - url: http://pangolin:3002
 
 tcp:
   serversTransports:

@@ -36,5 +36,7 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth arcane arcane:3552
 
-volumes:
-  arcane-data:
+networks:
+  default:
+    name: proxy
+    external: true

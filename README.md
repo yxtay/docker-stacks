@@ -118,20 +118,20 @@ Home automation and related services. All services use host networking for
 mDNS/device discovery.
 
 - **homeassistant** — Home automation platform
-- **music_assistant** — Music streaming server (SMB mount support)
+- **music-assistant** — Music streaming server (SMB mount support)
 - **esphome** — ESP device firmware manager (OTA/USB flash)
-- **trmnl_ha** — TRMNL e-ink display dashboard for HA
+- **trmnlha** — TRMNL e-ink display dashboard for HA
 
 ### Immich Stack (`immich/`)
 
 Self-hosted photo and video management.
 
 - **immich_server** — Main Immich server
-- **immich_machine_learning** — ML inference (face detection, search)
+- **immich-machine-learning** — ML inference (face detection, search)
 - **redis** — Valkey cache
 - **database** — PostgreSQL with pgvecto.rs
 - **gphotos2immich** — Google Photos import bridge
-- **immich_kiosk** — Photo slideshow display
+- **immich-kiosk** — Photo slideshow display
 
 ### Usenet Stack (`usenet/`)
 
@@ -161,7 +161,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

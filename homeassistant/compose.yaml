@@ -75,13 +75,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy music-assistant ${IP_ADDRESS:-host.docker.internal}:8095
-      pangolin.public-resources.music_assistant.name: music_assistant
-      pangolin.public-resources.music_assistant.mode: http
-      pangolin.public-resources.music_assistant.full-domain: "music-assistant.${DOMAIN:?}"
-      pangolin.public-resources.music_assistant.auth.sso-enabled: true
-      pangolin.public-resources.music_assistant.targets[0].hostname: host.docker.internal
-      pangolin.public-resources.music_assistant.targets[0].port: 8095
-      pangolin.public-resources.music_assistant.targets[0].method: http
+      pangolin.public-resources.music-assistant.name: music-assistant
+      pangolin.public-resources.music-assistant.mode: http
+      pangolin.public-resources.music-assistant.full-domain: "music-assistant.${DOMAIN:?}"
+      pangolin.public-resources.music-assistant.auth.sso-enabled: true
+      pangolin.public-resources.music-assistant.targets[0].hostname: host.docker.internal
+      pangolin.public-resources.music-assistant.targets[0].port: 8095
+      pangolin.public-resources.music-assistant.targets[0].method: http
 
   esphome:
     # nosemgrep

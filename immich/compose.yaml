@@ -211,13 +211,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy immich-kiosk immich_kiosk:3000
-      pangolin.public-resources.immich_kiosk.name: immich_kiosk
-      pangolin.public-resources.immich_kiosk.mode: http
-      pangolin.public-resources.immich_kiosk.full-domain: "immich-kiosk.${DOMAIN:?}"
-      pangolin.public-resources.immich_kiosk.auth.sso-enabled: true
-      pangolin.public-resources.immich_kiosk.targets[0].hostname: immich_kiosk
-      pangolin.public-resources.immich_kiosk.targets[0].port: 3000
-      pangolin.public-resources.immich_kiosk.targets[0].method: http
+      pangolin.public-resources.immich-kiosk.name: immich-kiosk
+      pangolin.public-resources.immich-kiosk.mode: http
+      pangolin.public-resources.immich-kiosk.full-domain: "immich-kiosk.${DOMAIN:?}"
+      pangolin.public-resources.immich-kiosk.auth.sso-enabled: true
+      pangolin.public-resources.immich-kiosk.targets[0].hostname: immich_kiosk
+      pangolin.public-resources.immich-kiosk.targets[0].port: 3000
+      pangolin.public-resources.immich-kiosk.targets[0].method: http
 
 networks:
   default:

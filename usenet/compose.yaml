@@ -155,7 +155,7 @@ services:
       pangolin.public-resources.streamnzb.rules[1].enabled: true
       pangolin.public-resources.streamnzb.rules[2].action: allow
       pangolin.public-resources.streamnzb.rules[2].match: path
-      pangolin.public-resources.streamnzb.rules[2].value: "*/stream/*"
+      pangolin.public-resources.streamnzb.rules[2].value: "*/stream*/*"
       pangolin.public-resources.streamnzb.rules[2].enabled: true
 
   altmount:

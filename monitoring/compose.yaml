@@ -4,7 +4,7 @@ services:
     image: willfarrell/autoheal:latest@sha256:cbc8fcb306a10bb2a79c56042c77f0f7a29fe87d827290a3f2142a3d0bed192e
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
-      DOCKER_SOCK: tcp://socket_proxy:2375
+      DOCKER_SOCK: tcp://socket-proxy:2375
       WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
     cap_drop:
       - ALL
@@ -12,7 +12,7 @@ services:
       - no-new-privileges:true
     read_only: true
     networks:
-      - socket_proxy
+      - socket-proxy
     restart: unless-stopped
     deploy:
       resources:
@@ -50,7 +50,7 @@ services:
       gomplate:
         condition: service_completed_successfully
     environment:
-      DOCKER_HOST: tcp://socket_proxy:2375
+      DOCKER_HOST: tcp://socket-proxy:2375
       DOZZLE_ENABLE_ACTIONS: true
     cap_drop:
       - ALL
@@ -63,7 +63,7 @@ services:
       - 8080
     networks:
       - default
-      - socket_proxy
+      - socket-proxy
     healthcheck:
       test: [CMD, /dozzle, healthcheck]
     restart: unless-stopped
@@ -104,7 +104,7 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth beszel beszel:8090
 
-  beszel_agent:
+  beszel-agent:
     # nosemgrep
     image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7@sha256:41252f7c7adf0b53ee1d72cbe2e3ea7adc7fffd357ff54bf2bd0c59d166e30c9
     cap_drop:
@@ -135,6 +135,6 @@ networks:
   default:
     name: proxy
     external: true
-  socket_proxy:
-    name: socket_proxy
+  socket-proxy:
+    name: socket-proxy
     external: true

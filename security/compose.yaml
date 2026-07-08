@@ -10,7 +10,7 @@ services:
         crowdsecurity/iptables
         crowdsecurity/linux
         crowdsecurity/traefik
-      DOCKER_HOST: tcp://socket_proxy:2375
+      DOCKER_HOST: tcp://socket-proxy:2375
       TZ: ${TZ:-UTC}
     cap_drop:
       - ALL
@@ -31,7 +31,7 @@ services:
       - 127.0.0.1:8080:8080
     networks:
       - default
-      - socket_proxy
+      - socket-proxy
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
@@ -80,6 +80,6 @@ networks:
   default:
     name: proxy
     external: true
-  socket_proxy:
-    name: socket_proxy
+  socket-proxy:
+    name: socket-proxy
     external: true

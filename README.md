@@ -40,7 +40,7 @@ Caddy supports optional per-deployment reverse proxy configs via
 
 Core infrastructure and utility services.
 
-- **socket_proxy** — Docker socket proxy
+- **socket-proxy** — Docker socket proxy
 - **tailscale** — Mesh VPN
 - **whoami** — Request echo (debugging)
 - **librespeed** — Speed test
@@ -74,7 +74,7 @@ Monitoring and container maintenance.
 - **autoheal** — Restart unhealthy containers
 - **dozzle** — Real-time container log viewer
 - **beszel** — Server monitoring hub
-- **beszel_agent** — Monitoring agent (host network)
+- **beszel-agent** — Monitoring agent (host network)
 
 ### Portainer Stack (`portainer/`)
 
@@ -161,7 +161,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

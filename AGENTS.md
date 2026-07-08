@@ -108,7 +108,7 @@ submitting changes.
 
 - Network patterns:
   - All web services join external `caddy` network.
-  - Services needing Docker API access use a dedicated `socket_proxy`
+  - Services needing Docker API access use a dedicated `socket-proxy`
     internal network (never mount docker.sock directly in app containers).
   - Use `network_mode: host` only for services requiring host network
     access (home automation, firewall bouncers, system monitors).

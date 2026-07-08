@@ -53,7 +53,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth prowlarr prowlarr:9696
-      tinyauth.apps.prowlarr.path.allow: \/(api|download|signalr)
+      tinyauth.apps.prowlarr.path.allow: \/(download|search)
       pangolin.public-resources.prowlarr.name: prowlarr
       pangolin.public-resources.prowlarr.mode: http
       pangolin.public-resources.prowlarr.full-domain: "prowlarr.${DOMAIN:?}"
@@ -63,16 +63,12 @@ services:
       pangolin.public-resources.prowlarr.targets[0].method: http
       pangolin.public-resources.prowlarr.rules[0].action: allow
       pangolin.public-resources.prowlarr.rules[0].match: path
-      pangolin.public-resources.prowlarr.rules[0].value: "*/api/*"
+      pangolin.public-resources.prowlarr.rules[0].value: "*/download/*"
       pangolin.public-resources.prowlarr.rules[0].enabled: true
       pangolin.public-resources.prowlarr.rules[1].action: allow
       pangolin.public-resources.prowlarr.rules[1].match: path
-      pangolin.public-resources.prowlarr.rules[1].value: "*/download/*"
+      pangolin.public-resources.prowlarr.rules[1].value: "*/search/*"
       pangolin.public-resources.prowlarr.rules[1].enabled: true
-      pangolin.public-resources.prowlarr.rules[2].action: allow
-      pangolin.public-resources.prowlarr.rules[2].match: path
-      pangolin.public-resources.prowlarr.rules[2].value: "*/signalr/*"
-      pangolin.public-resources.prowlarr.rules[2].enabled: true
 
   rclone:
     # nosemgrep

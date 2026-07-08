@@ -210,7 +210,7 @@ services:
       pangolin.public-resources.altmount.rules[0].enabled: true
       pangolin.public-resources.altmount.rules[1].action: allow
       pangolin.public-resources.altmount.rules[1].match: path
-      pangolin.public-resources.altmount.rules[1].value: "*/stream/*"
+      pangolin.public-resources.altmount.rules[1].value: "*/stream*/*"
       pangolin.public-resources.altmount.rules[1].enabled: true
       pangolin.public-resources.altmount.rules[2].action: allow
       pangolin.public-resources.altmount.rules[2].match: path

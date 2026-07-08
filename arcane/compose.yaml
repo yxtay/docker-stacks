@@ -4,6 +4,7 @@ services:
     cap_drop:
       - ALL
     cap_add:
+      - CHOWN
       - DAC_OVERRIDE
       - FOWNER
     security_opt:

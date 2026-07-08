@@ -13,9 +13,9 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/arcane:/app/data
+      - /apps/arcane/data:/app/data
       - /apps/arcane/cache:/builds
-      - /apps/arcane/backups:/backups
+      - /backups:/backups
       - ${COMPOSE_DIR:-${HOME}}:${COMPOSE_DIR:-${HOME}}
       - /var/run/docker.sock:/var/run/docker.sock
     environment:

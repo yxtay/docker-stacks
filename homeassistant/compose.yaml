@@ -123,7 +123,7 @@ services:
       pangolin.public-resources.esphome.targets[0].port: 6052
       pangolin.public-resources.esphome.targets[0].method: http
 
-  trmnl_ha:
+  trmnlha:
     # nosemgrep
     image: ghcr.io/usetrmnl/trmnl-ha-${ARCH:-amd64}:0.8.1
     environment:
@@ -137,7 +137,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/trmnl-ha:/data
+      - /apps/trmnlha:/data
     tmpfs:
       - /root
       - /tmp
@@ -156,14 +156,14 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy trmnlha trmnl_ha:10000
-      pangolin.public-resources.trmnl_ha.name: trmnl_ha
-      pangolin.public-resources.trmnl_ha.mode: http
-      pangolin.public-resources.trmnl_ha.full-domain: "trmnlha.${DOMAIN:?}"
-      pangolin.public-resources.trmnl_ha.auth.sso-enabled: true
-      pangolin.public-resources.trmnl_ha.targets[0].hostname: trmnl_ha
-      pangolin.public-resources.trmnl_ha.targets[0].port: 10000
-      pangolin.public-resources.trmnl_ha.targets[0].method: http
+      caddy.import: reverse_proxy trmnlha trmnlha:10000
+      pangolin.public-resources.trmnlha.name: trmnlha
+      pangolin.public-resources.trmnlha.mode: http
+      pangolin.public-resources.trmnlha.full-domain: "trmnlha.${DOMAIN:?}"
+      pangolin.public-resources.trmnlha.auth.sso-enabled: true
+      pangolin.public-resources.trmnlha.targets[0].hostname: trmnlha
+      pangolin.public-resources.trmnlha.targets[0].port: 10000
+      pangolin.public-resources.trmnlha.targets[0].method: http
 
 networks:
   default:

@@ -18,6 +18,8 @@ services:
       - /backups:/backups
       - ${COMPOSE_DIR:-${HOME}}:${COMPOSE_DIR:-${HOME}}
       - /var/run/docker.sock:/var/run/docker.sock
+    tmpfs:
+      - /tmp
     environment:
       - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
       - JWT_SECRET=${JWT_SECRET:?}

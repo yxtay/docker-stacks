@@ -44,7 +44,7 @@ services:
       pangolin.public-resources.homeassistant.targets[0].port: 8123
       pangolin.public-resources.homeassistant.targets[0].method: http
 
-  music_assistant:
+  music-assistant:
     # nosemgrep
     image: ghcr.io/music-assistant/server:2.9.5@sha256:d5f2e4e7ef2b9798b554c1ad79b0444728606d8f68f8b151f64621934d80ef65
     # Additional caps needed to mount smb folders within the container:
@@ -58,7 +58,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/music_assistant:/data
+      - /apps/music-assistant:/data
     tmpfs:
       - /tmp
     # Network mode must be set to host for MA to work correctly

@@ -86,7 +86,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
-      tinyauth.apps.usenetstreamer.path.allow: \/(manifest|nzb|stream)
+      tinyauth.apps.usenetstreamer.path.allow: \/(manifest.json|nzb|stream)
       pangolin.public-resources.usenetstreamer.name: usenetstreamer
       pangolin.public-resources.usenetstreamer.mode: http
       pangolin.public-resources.usenetstreamer.full-domain: "usenetstreamer.${DOMAIN:?}"
@@ -137,7 +137,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth streamnzb streamnzb:7000
-      tinyauth.apps.streamnzb.path.allow: \/(failover_order|manifest|stream)
+      tinyauth.apps.streamnzb.path.allow: \/(failover_order|manifest.json|stream)
       pangolin.public-resources.streamnzb.name: streamnzb
       pangolin.public-resources.streamnzb.mode: http
       pangolin.public-resources.streamnzb.full-domain: "streamnzb.${DOMAIN:?}"
@@ -206,7 +206,7 @@ services:
       pangolin.public-resources.altmount.targets[0].method: http
       pangolin.public-resources.altmount.rules[0].action: allow
       pangolin.public-resources.altmount.rules[0].match: path
-      pangolin.public-resources.altmount.rules[0].value: /sabnzbd/*
+      pangolin.public-resources.altmount.rules[0].value: "*/sabnzbd/*"
       pangolin.public-resources.altmount.rules[0].enabled: true
       pangolin.public-resources.altmount.rules[1].action: allow
       pangolin.public-resources.altmount.rules[1].match: path
@@ -214,11 +214,11 @@ services:
       pangolin.public-resources.altmount.rules[1].enabled: true
       pangolin.public-resources.altmount.rules[2].action: allow
       pangolin.public-resources.altmount.rules[2].match: path
-      pangolin.public-resources.altmount.rules[2].value: /stremio/*
+      pangolin.public-resources.altmount.rules[2].value: "*/stremio/*"
       pangolin.public-resources.altmount.rules[2].enabled: true
       pangolin.public-resources.altmount.rules[3].action: allow
       pangolin.public-resources.altmount.rules[3].match: path
-      pangolin.public-resources.altmount.rules[3].value: /webdav/*
+      pangolin.public-resources.altmount.rules[3].value: "*/webdav/*"
       pangolin.public-resources.altmount.rules[3].enabled: true
 
 networks:

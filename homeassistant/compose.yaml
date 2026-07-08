@@ -74,10 +74,10 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy music_assistant ${IP_ADDRESS:-host.docker.internal}:8095
+      caddy.import: reverse_proxy music-assistant ${IP_ADDRESS:-host.docker.internal}:8095
       pangolin.public-resources.music_assistant.name: music_assistant
       pangolin.public-resources.music_assistant.mode: http
-      pangolin.public-resources.music_assistant.full-domain: "music_assistant.${DOMAIN:?}"
+      pangolin.public-resources.music_assistant.full-domain: "music-assistant.${DOMAIN:?}"
       pangolin.public-resources.music_assistant.auth.sso-enabled: true
       pangolin.public-resources.music_assistant.targets[0].hostname: host.docker.internal
       pangolin.public-resources.music_assistant.targets[0].port: 8095
@@ -156,10 +156,10 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy trmnl_ha trmnl_ha:10000
+      caddy.import: reverse_proxy trmnlha trmnl_ha:10000
       pangolin.public-resources.trmnl_ha.name: trmnl_ha
       pangolin.public-resources.trmnl_ha.mode: http
-      pangolin.public-resources.trmnl_ha.full-domain: "trmnl_ha.${DOMAIN:?}"
+      pangolin.public-resources.trmnl_ha.full-domain: "trmnlha.${DOMAIN:?}"
       pangolin.public-resources.trmnl_ha.auth.sso-enabled: true
       pangolin.public-resources.trmnl_ha.targets[0].hostname: trmnl_ha
       pangolin.public-resources.trmnl_ha.targets[0].port: 10000

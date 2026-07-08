@@ -1,0 +1,33 @@
+services:
+  arcane:
+    image: ghcr.io/getarcaneapp/manager:latest
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_OVERRIDE
+      - FOWNER
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - arcane-data:/app/data
+      - ${COMPOSE_DIR:-${HOME}}:${COMPOSE_DIR:-${HOME}}
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
+      - JWT_SECRET=${JWT_SECRET:?}
+    ports:
+      - 3552:3552
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth arcane arcane:3552
+
+volumes:
+  arcane-data:

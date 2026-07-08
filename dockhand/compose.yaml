@@ -15,7 +15,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 3000:3000
-    # network_mode: host  # required for initial setup
     restart: unless-stopped
     deploy:
       resources:

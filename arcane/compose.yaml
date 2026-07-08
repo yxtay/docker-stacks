@@ -23,6 +23,8 @@ services:
       - JWT_SECRET=${JWT_SECRET:?}
     ports:
       - 3552:3552
+    healthcheck:
+      test: [CMD, /app/arcane, health]
     restart: unless-stopped
     deploy:
       resources:

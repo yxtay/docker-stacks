@@ -94,6 +94,12 @@ Compose stack editor.
 
 - **sencho** — Docker Compose file editor UI
 
+### Arcane Stack (`arcane/`)
+
+Container management UI.
+
+- **arcane** — Docker container management dashboard
+
 ### Backup Stack (`backup/`)
 
 Encrypted backups of `/apps` using restic with resticprofile orchestration.

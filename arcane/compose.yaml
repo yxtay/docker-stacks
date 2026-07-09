@@ -1,0 +1,44 @@
+services:
+  arcane:
+    # nosemgrep
+    image: ghcr.io/getarcaneapp/manager:v2.3.2@sha256:5ce589ebe440d41fe78b1af4df0e0050f6345014e80520691150c1948e822ad8
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/arcane/data:/app/data
+      - /apps/arcane/cache:/builds
+      - /var/run/docker.sock:/var/run/docker.sock
+    tmpfs:
+      - /tmp
+    environment:
+      - APP_URL=https://arcane.${DOMAIN:?}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
+      - JWT_SECRET=${JWT_SECRET:?}
+    ports:
+      - 3552:3552
+    healthcheck:
+      test: [CMD, /app/arcane, health]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth arcane arcane:3552
+
+networks:
+  default:
+    name: proxy
+    external: true

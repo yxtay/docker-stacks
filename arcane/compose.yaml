@@ -1,6 +1,7 @@
 services:
   arcane:
-    image: ghcr.io/getarcaneapp/manager:latest
+    # nosemgrep
+    image: ghcr.io/getarcaneapp/manager:v2.3.2@sha256:5ce589ebe440d41fe78b1af4df0e0050f6345014e80520691150c1948e822ad8
     cap_drop:
       - ALL
     cap_add:

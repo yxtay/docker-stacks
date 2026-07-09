@@ -15,7 +15,6 @@ services:
     volumes:
       - /apps/arcane/data:/app/data
       - /apps/arcane/cache:/builds
-      - /backups:/backups
       - /var/run/docker.sock:/var/run/docker.sock
     tmpfs:
       - /tmp

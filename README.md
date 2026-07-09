@@ -94,6 +94,14 @@ Compose stack editor.
 
 - **sencho** — Docker Compose file editor UI
 
+### Komodo Stack (`komodo/`)
+
+Container and compose stack management platform.
+
+- **mongo** — Database for Komodo Core
+- **core** — Web UI, API, and orchestration engine
+- **periphery** — Agent for managing this host's containers
+
 ### Backup Stack (`backup/`)
 
 Encrypted backups of `/apps` using restic with resticprofile orchestration.

@@ -1,0 +1,122 @@
+services:
+  mongo:
+    # nosemgrep
+    image: mongo:8.2.11@sha256:3809fdcebf634552847a68bfed1927652cfb0e97ece23d94d7b57867de243464
+    command: --quiet --wiredTigerCacheSizeGB 0.25
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${KOMODO_DATABASE_USERNAME:?}
+      MONGO_INITDB_ROOT_PASSWORD: ${KOMODO_DATABASE_PASSWORD:?}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/komodo/mongo/data:/data/db
+      - /apps/komodo/mongo/config:/data/configdb
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: [CMD, mongosh, --quiet, --eval, "db.adminCommand('ping')"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      komodo.skip:
+
+  core:
+    # nosemgrep
+    image: ghcr.io/moghtech/komodo-core:2@sha256:7afbcfa99674bf3f51539ec3aa7235795e9b994af9b7099a6c4c654d5d8a5b6b
+    init: true
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      KOMODO_DATABASE_ADDRESS: mongo:27017
+      KOMODO_DATABASE_USERNAME: ${KOMODO_DATABASE_USERNAME:?}
+      KOMODO_DATABASE_PASSWORD: ${KOMODO_DATABASE_PASSWORD:?}
+      TZ: ${TZ:-Etc/UTC}
+      KOMODO_HOST: "https://komodo.${DOMAIN:?}"
+      KOMODO_TITLE: Komodo
+      KOMODO_PERIPHERY_PUBLIC_KEY: file:/config/keys/periphery.pub
+      KOMODO_LOCAL_AUTH: true
+      KOMODO_INIT_ADMIN_USERNAME: ${KOMODO_INIT_ADMIN_USERNAME:?}
+      KOMODO_INIT_ADMIN_PASSWORD: ${KOMODO_INIT_ADMIN_PASSWORD:?}
+      KOMODO_FIRST_SERVER_NAME: ${KOMODO_FIRST_SERVER_NAME:-Local}
+      KOMODO_WEBHOOK_SECRET: ${KOMODO_WEBHOOK_SECRET:?}
+      KOMODO_JWT_SECRET: ${KOMODO_JWT_SECRET:?}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/komodo/keys:/config/keys
+      - /apps/komodo/backups:/backups
+    tmpfs:
+      - /tmp
+      - /action-cache
+    expose:
+      - 9120
+    networks:
+      - default
+      - proxy
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:9120/version"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth komodo core:9120
+
+  periphery:
+    # nosemgrep
+    image: ghcr.io/moghtech/komodo-periphery:2@sha256:7fb1a4807d125ce036a17d37c940b4001402afcaf342a2c720c98d096b1b54da
+    init: true
+    depends_on:
+      core:
+        condition: service_healthy
+    environment:
+      PERIPHERY_CORE_ADDRESS: ws://core:9120
+      PERIPHERY_CONNECT_AS: ${KOMODO_FIRST_SERVER_NAME:-Local}
+      PERIPHERY_CORE_PUBLIC_KEYS: file:/config/keys/core.pub
+      PERIPHERY_ROOT_DIRECTORY: ${PERIPHERY_ROOT_DIRECTORY:?}
+      PERIPHERY_SERVER_ENABLED: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/komodo/keys:/config/keys
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/proc:ro
+      - ${PERIPHERY_ROOT_DIRECTORY:?}:${PERIPHERY_ROOT_DIRECTORY:?}
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:8120/version"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+networks:
+  default:
+  proxy:
+    external: true

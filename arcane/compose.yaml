@@ -19,6 +19,7 @@ services:
     tmpfs:
       - /tmp
     environment:
+      - APP_URL=https://arcane.${DOMAIN:?}
       - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
       - JWT_SECRET=${JWT_SECRET:?}
     ports:

@@ -16,14 +16,12 @@ services:
       - /apps/arcane/data:/app/data
       - /apps/arcane/cache:/builds
       - /backups:/backups
-      - ${PROJECTS_DIRECTORY}:${PROJECTS_DIRECTORY}
       - /var/run/docker.sock:/var/run/docker.sock
     tmpfs:
       - /tmp
     environment:
       - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
       - JWT_SECRET=${JWT_SECRET:?}
-      - PROJECTS_DIRECTORY=${PROJECTS_DIRECTORY:?}
     ports:
       - 3552:3552
     healthcheck:

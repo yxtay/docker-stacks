@@ -37,7 +37,7 @@ services:
       # get only
       DISTRIBUTION: 0
       EVENTS: 1
-      INFO: 0 # caddy
+      INFO: 1 # caddy
       PING: 1
       SYSTEM: 0
       VERSION: 1

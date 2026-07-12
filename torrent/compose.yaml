@@ -43,7 +43,7 @@ services:
     tmpfs:
       - /tmp
       - /opt/camoufox/addons
-      - /opt/camoufox/glxtest
+      - /opt/camoufox/glxtest:exec
     expose:
       - 8191
     networks:

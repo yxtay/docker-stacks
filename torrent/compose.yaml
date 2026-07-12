@@ -34,7 +34,6 @@ services:
         condition: service_healthy
     environment:
       REDIS_URL: redis://valkey:6379
-      MOZ_DISABLE_CONTENT_SANDBOX: 1
     cap_drop:
       - ALL
     security_opt:
@@ -42,7 +41,7 @@ services:
     read_only: true
     shm_size: 1gb
     tmpfs:
-      - /tmp
+      - /tmp:exec
       - /opt/camoufox/addons
       - /opt/camoufox/glxtest
     expose:

@@ -41,7 +41,7 @@ services:
     shm_size: 1gb
     tmpfs:
       - /tmp
-      - /opt/camoufox
+      - /opt/camoufox/addons
     expose:
       - 8191
     networks:

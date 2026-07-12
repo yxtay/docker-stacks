@@ -338,3 +338,4 @@ networks:
     name: proxy
     external: true
   trawl:
+    internal: true

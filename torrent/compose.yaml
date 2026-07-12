@@ -40,7 +40,7 @@ services:
     read_only: true
     shm_size: 1gb
     tmpfs:
-      #   - /tmp
+      - /tmp
       #   - /opt/camoufox/addons
       - /opt/camoufox/glxtest
     expose:

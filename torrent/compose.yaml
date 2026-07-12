@@ -38,12 +38,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     shm_size: 1gb
     tmpfs:
       - /tmp
       - /opt/camoufox/addons
-      - /opt/camoufox/glxtest:exec,mode=1777
+      - /opt/camoufox/glxtest
     expose:
       - 8191
     networks:

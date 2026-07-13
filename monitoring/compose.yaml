@@ -1,7 +1,7 @@
 services:
   autoheal:
     # nosemgrep
-    image: willfarrell/autoheal:latest@sha256:4313c6bf631e79801165718769bcbb48ffbbfb8b549e5738f5f12fee2f963e5c
+    image: willfarrell/autoheal:latest@sha256:ece80898117672f615a5ef9e1a3bb66633d7ac05dbe0f1212556ccbfe97d8cfa
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       DOCKER_SOCK: tcp://socket-proxy:2375
@@ -22,7 +22,7 @@ services:
           pids: 512
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:f4b506086c278a01eabddd9635c51135605b3f9b8a8a174591394a54f24f378a
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:8a1689c9a1fdda2adaf4f47bb6f42c0fba46a63f15f4d0207f0f7561f5d0edb2
     command:
       - --file=/input/notifications.template.yml
       - --out=/output/notifications.yml

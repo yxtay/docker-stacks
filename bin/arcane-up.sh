@@ -22,5 +22,4 @@ if [ ! -f .env ]; then
   echo "JWT_SECRET=$(openssl rand -hex 32)" >>.env
 fi
 
-cat .env
 docker compose up --detach --pull always --remove-orphans

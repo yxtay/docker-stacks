@@ -3,12 +3,12 @@ services:
     # nosemgrep
     image: ghcr.io/getarcaneapp/manager:v2.4.0@sha256:91fa94e50d53f0dbb5f66ff287a74920b87cdb233dbb1904a725d1c25b49e885
     environment:
-      - APP_URL=https://arcane.${DOMAIN:?}
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
-      - JWT_SECRET=${JWT_SECRET:?}
-      - LOG_JSON=true
-      - PUID=${PUID:-}
-      - PGID=${PGID:-}
+      APP_URL: ${APP_URL:-http://localhost:3552}
+      PUID: ${PUID:-}
+      PGID: ${PGID:-}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?}
+      JWT_SECRET: ${JWT_SECRET:?}
+      LOG_JSON: true
     cap_drop:
       - ALL
     cap_add:

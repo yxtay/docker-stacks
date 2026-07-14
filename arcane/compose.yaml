@@ -2,6 +2,12 @@ services:
   arcane:
     # nosemgrep
     image: ghcr.io/getarcaneapp/manager:v2.4.0@sha256:91fa94e50d53f0dbb5f66ff287a74920b87cdb233dbb1904a725d1c25b49e885
+    environment:
+      - APP_URL=https://arcane.${DOMAIN:?}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
+      - JWT_SECRET=${JWT_SECRET:?}
+      - PUID=${PUID:-}
+      - PGID=${PGID:-}
     cap_drop:
       - ALL
     cap_add:
@@ -19,10 +25,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     tmpfs:
       - /tmp
-    environment:
-      - APP_URL=https://arcane.${DOMAIN:?}
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
-      - JWT_SECRET=${JWT_SECRET:?}
     ports:
       - 3552:3552
     healthcheck:

@@ -9,14 +9,14 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?}
       JWT_SECRET: ${JWT_SECRET:?}
       LOG_JSON: true
-    cap_drop:
-      - ALL
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
       - SETUID
+    cap_drop:
+      - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true

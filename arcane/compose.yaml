@@ -6,6 +6,7 @@ services:
       - APP_URL=https://arcane.${DOMAIN:?}
       - ENCRYPTION_KEY=${ENCRYPTION_KEY:?}
       - JWT_SECRET=${JWT_SECRET:?}
+      - LOG_JSON=true
       - PUID=${PUID:-}
       - PGID=${PGID:-}
     cap_drop:

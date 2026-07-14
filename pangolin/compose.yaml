@@ -6,7 +6,6 @@ services:
       - --out=/pangolin/config.yml
       - --file=/input/traefik/traefik.template.yml
       - --out=/traefik/traefik.yml
-    user: 65532:65532
     cap_drop:
       - ALL
     security_opt:

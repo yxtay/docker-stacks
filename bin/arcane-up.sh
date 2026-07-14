@@ -19,9 +19,10 @@ git reset --hard "${REMOTE}"
 
 # Generate .env if missing
 if [ ! -f .env ]; then
-  echo "PORTAINER_DATA=${PORTAINER_DATA}" >.env
+  key=$(openssl rand -hex 32)
+  echo "ENCRYPTION_KEY=${key}" >>.env
+  echo "JWT_SECRET=${key}" >>.env
 fi
 
 cat .env
 docker compose up --detach --pull always --remove-orphans
-docker system prune --all --force

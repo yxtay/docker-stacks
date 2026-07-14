@@ -3,7 +3,7 @@ Description=Run portainer-up every 5 minutes
 
 [Timer]
 OnCalendar=*:0/5
-Unit=run-script@portainer-up.sh.service
+Unit=run-script@arcane-up.sh.service
 
 [Install]
 WantedBy=timers.target

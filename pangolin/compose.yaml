@@ -8,6 +8,8 @@ services:
       - --out=/traefik/traefik.yml
     cap_drop:
       - ALL
+    cap_add:
+      - DAC_OVERRIDE
     security_opt:
       - no-new-privileges:true
     read_only: true

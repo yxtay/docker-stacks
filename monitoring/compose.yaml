@@ -1,26 +1,4 @@
 services:
-  autoheal:
-    # nosemgrep
-    image: willfarrell/autoheal:latest@sha256:f589bb9739fafd3d44c5e1ee8c11ac2b62b980e28608d80ce234195315fc0a09
-    environment:
-      AUTOHEAL_CONTAINER_LABEL: all
-      DOCKER_SOCK: tcp://socket-proxy:2375
-      WEBHOOK_URL: https://ntfy.sh/${NTFY_TOPIC_PREFIX:?}-autoheal
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    networks:
-      - socket-proxy
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:5180f888a49d6ab34a4b3269ba06d734dc2fd24eeb98e096869e9c851f92a3ba
     command:

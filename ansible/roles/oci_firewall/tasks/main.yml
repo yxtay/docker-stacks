@@ -16,6 +16,24 @@
   environment:
     DEBIAN_FRONTEND: noninteractive
 
+- name: Remove TCP ports
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    state: absent
+  loop: "{{ oci_firewall_tcp_ports_remove | default([]) }}"
+
+- name: Remove UDP ports
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: udp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    state: absent
+  loop: "{{ oci_firewall_udp_ports_remove | default([]) }}"
+
 - name: Allow TCP ports
   ansible.builtin.iptables:
     chain: INPUT

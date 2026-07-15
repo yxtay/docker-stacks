@@ -3,18 +3,21 @@ set -euo pipefail
 
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/arcane"
 
-# Check remote HEAD without fetching objects
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git ls-remote origin HEAD | cut -f1)
+# Get default branch and remote HEAD in single call
+REMOTE_INFO=$(git ls-remote --symref origin HEAD)
+DEFAULT_BRANCH=$(echo "${REMOTE_INFO}" | awk '/^ref:/ {sub("refs/heads/", "", $2); print $2}')
+REMOTE_SHA=$(echo "${REMOTE_INFO}" | awk '!/^ref:/ {print $1}')
 
-if [ "${LOCAL}" == "${REMOTE}" ]; then
+LOCAL_SHA=$(git rev-parse HEAD)
+
+if [ "${LOCAL_SHA}" == "${REMOTE_SHA}" ]; then
   exit 0
 fi
 
-# Fetch and reset to latest
-echo "Updating: ${LOCAL} -> ${REMOTE}"
+# Fetch and switch to default branch at latest
+echo "Updating: ${LOCAL_SHA} -> ${REMOTE_SHA}"
 git fetch origin
-git reset --hard "${REMOTE}"
+git switch --force-create "${DEFAULT_BRANCH}" "origin/${DEFAULT_BRANCH}"
 
 # Generate .env if missing
 if [ ! -f .env ]; then

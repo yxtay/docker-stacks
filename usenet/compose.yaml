@@ -221,6 +221,47 @@ services:
       pangolin.public-resources.altmount.rules[3].value: "*/webdav/*"
       pangolin.public-resources.altmount.rules[3].enabled: true
 
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:v2.4.2
+    environment:
+      SECRET_KEY: ${AIOSTREAMS_SECRET_KEY:?}
+      BASE_URL: "https://aiostreams.${DOMAIN:?}"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/aiostreams:/app/data
+    tmpfs:
+      - /tmp
+    expose:
+      - 3000
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:3000/api/v1/status"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth aiostreams aiostreams:3000
+      tinyauth.apps.aiostreams.path.allow: \/stremio
+      pangolin.public-resources.aiostreams.name: aiostreams
+      pangolin.public-resources.aiostreams.mode: http
+      pangolin.public-resources.aiostreams.full-domain: "aiostreams.${DOMAIN:?}"
+      pangolin.public-resources.aiostreams.auth.sso-enabled: true
+      pangolin.public-resources.aiostreams.targets[0].hostname: aiostreams
+      pangolin.public-resources.aiostreams.targets[0].port: 3000
+      pangolin.public-resources.aiostreams.targets[0].method: http
+      pangolin.public-resources.aiostreams.rules[0].action: allow
+      pangolin.public-resources.aiostreams.rules[0].match: path
+      pangolin.public-resources.aiostreams.rules[0].value: "*/stremio/*"
+      pangolin.public-resources.aiostreams.rules[0].enabled: true
+
 networks:
   default:
     name: proxy

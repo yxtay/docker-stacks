@@ -148,6 +148,7 @@ Usenet streaming and indexing.
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
 - **altmount** — Usenet WebDAV mount
+- **aiostreams** — Stremio super-addon
 
 ### Torrent Stack (`torrent/`)
 

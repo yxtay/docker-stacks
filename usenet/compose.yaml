@@ -262,6 +262,14 @@ services:
       pangolin.public-resources.aiostreams.rules[0].match: path
       pangolin.public-resources.aiostreams.rules[0].value: "*/stremio/*"
       pangolin.public-resources.aiostreams.rules[0].enabled: true
+      pangolin.public-resources.aiostreams.rules[1].action: allow
+      pangolin.public-resources.aiostreams.rules[1].match: path
+      pangolin.public-resources.aiostreams.rules[1].value: "*/debrid/*"
+      pangolin.public-resources.aiostreams.rules[1].enabled: true
+      pangolin.public-resources.aiostreams.rules[2].action: allow
+      pangolin.public-resources.aiostreams.rules[2].match: path
+      pangolin.public-resources.aiostreams.rules[2].value: "*/usenet/*"
+      pangolin.public-resources.aiostreams.rules[2].enabled: true
 
 networks:
   default:

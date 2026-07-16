@@ -221,6 +221,52 @@ services:
       pangolin.public-resources.altmount.rules[3].value: "*/webdav/*"
       pangolin.public-resources.altmount.rules[3].enabled: true
 
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:v2.31.0@sha256:84033635dbebd8cb6687b9fca21dbed0630050a083cdefa6f019b8b2c9c32a61
+    environment:
+      BASE_URL: "https://aiostreams.${DOMAIN:?}"
+      SECRET_KEY: ${AIOSTREAMS_SECRET_KEY:?}
+      AIOSTREAMS_AUTH: ${AIOSTREAMS_AUTH:-}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/aiostreams:/app/data
+    expose:
+      - 3000
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth aiostreams aiostreams:3000
+      tinyauth.apps.aiostreams.path.allow: \/(debrid|stremio|usenet)
+      pangolin.public-resources.aiostreams.name: aiostreams
+      pangolin.public-resources.aiostreams.mode: http
+      pangolin.public-resources.aiostreams.full-domain: "aiostreams.${DOMAIN:?}"
+      pangolin.public-resources.aiostreams.auth.sso-enabled: true
+      pangolin.public-resources.aiostreams.targets[0].hostname: aiostreams
+      pangolin.public-resources.aiostreams.targets[0].port: 3000
+      pangolin.public-resources.aiostreams.targets[0].method: http
+      pangolin.public-resources.aiostreams.rules[0].action: allow
+      pangolin.public-resources.aiostreams.rules[0].match: path
+      pangolin.public-resources.aiostreams.rules[0].value: "*/debrid/*"
+      pangolin.public-resources.aiostreams.rules[0].enabled: true
+      pangolin.public-resources.aiostreams.rules[1].action: allow
+      pangolin.public-resources.aiostreams.rules[1].match: path
+      pangolin.public-resources.aiostreams.rules[1].value: "*/stremio/*"
+      pangolin.public-resources.aiostreams.rules[1].enabled: true
+      pangolin.public-resources.aiostreams.rules[2].action: allow
+      pangolin.public-resources.aiostreams.rules[2].match: path
+      pangolin.public-resources.aiostreams.rules[2].value: "*/usenet/*"
+      pangolin.public-resources.aiostreams.rules[2].enabled: true
+
 networks:
   default:
     name: proxy

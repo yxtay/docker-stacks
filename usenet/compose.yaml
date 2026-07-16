@@ -1,57 +1,4 @@
 services:
-  nzbdav:
-    # nosemgrep
-    image: ghcr.io/nzbdav-dev/nzbdav:0.6.4@sha256:fc44a9d33adceddc4397eb660b4fcaf1917e23323fb80dea0645f56db129562f
-    environment:
-      # dotnet/aspnet default uid, gid required with read_only: true
-      PUID: 1654
-      PGID: 1654
-      TZ: ${TZ:-UTC}
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/nzbdav:/config
-    tmpfs:
-      - /tmp
-    expose:
-      - 3000
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:3000/health"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth nzbdav nzbdav:3000
-      tinyauth.apps.nzbdav.path.allow: \/(api$|content)
-      pangolin.public-resources.nzbdav.name: nzbdav
-      pangolin.public-resources.nzbdav.mode: http
-      pangolin.public-resources.nzbdav.full-domain: "nzbdav.${DOMAIN:?}"
-      pangolin.public-resources.nzbdav.auth.sso-enabled: true
-      pangolin.public-resources.nzbdav.targets[0].hostname: nzbdav
-      pangolin.public-resources.nzbdav.targets[0].port: 3000
-      pangolin.public-resources.nzbdav.targets[0].method: http
-      pangolin.public-resources.nzbdav.rules[0].action: allow
-      pangolin.public-resources.nzbdav.rules[0].match: path
-      pangolin.public-resources.nzbdav.rules[0].value: "*/api"
-      pangolin.public-resources.nzbdav.rules[0].enabled: true
-      pangolin.public-resources.nzbdav.rules[1].action: allow
-      pangolin.public-resources.nzbdav.rules[1].match: path
-      pangolin.public-resources.nzbdav.rules[1].value: "*/content/*"
-      pangolin.public-resources.nzbdav.rules[1].enabled: true
-
   nzbdavex:
     # nosemgrep
     image: ghcr.io/qooode/nzbdavex:1.2.0@sha256:6924c799ea7f980225f784b41ec6f28346baf82845809808b7567c1fb4d9bbe0
@@ -110,8 +57,8 @@ services:
     image: ghcr.io/sanket9225/usenetstreamer:1.8.2@sha256:62912b8cd79a1aedc9388a2e367cf68ccdefb2863353008d56a56452123a6389
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
-      NZBDAV_URL: http://nzbdav:3000
-      NZBDAV_WEBDAV_URL: http://nzbdav:3000
+      NZBDAV_URL: http://nzbdavex:3000
+      NZBDAV_WEBDAV_URL: http://nzbdavex:3000
       CONFIG_DIR: /data/config
     cap_add:
       - CHOWN

@@ -65,7 +65,6 @@ services:
     image: ghcr.io/sanket9225/usenetstreamer:1.8.2@sha256:62912b8cd79a1aedc9388a2e367cf68ccdefb2863353008d56a56452123a6389
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
-      NZBDAV_WEBDAV_URL: http://nzbdavex:3000
       CONFIG_DIR: /data/config
     cap_add:
       - CHOWN

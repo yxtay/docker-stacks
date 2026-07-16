@@ -222,7 +222,7 @@ services:
       pangolin.public-resources.altmount.rules[3].enabled: true
 
   aiostreams:
-    image: ghcr.io/viren070/aiostreams:v2.4.2
+    image: ghcr.io/viren070/aiostreams:v2.31.0@sha256:84033635dbebd8cb6687b9fca21dbed0630050a083cdefa6f019b8b2c9c32a61
     environment:
       BASE_URL: "https://aiostreams.${DOMAIN:?}"
       SECRET_KEY: ${AIOSTREAMS_SECRET_KEY:?}

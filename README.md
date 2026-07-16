@@ -144,7 +144,7 @@ Self-hosted photo and video management.
 Usenet streaming and indexing.
 
 - **nzbhydra2** — NZB indexer search
-- **nzbdav** — NZB WebDAV server
+- **nzbdavex** — Extended NZB WebDAV server
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
 - **altmount** — Usenet WebDAV mount

@@ -54,7 +54,7 @@ services:
 
   nzbdavex:
     # nosemgrep
-    image: ghcr.io/qooode/nzbdavex:v1.2.0
+    image: ghcr.io/qooode/nzbdavex:1.2.0@sha256:6924c799ea7f980225f784b41ec6f28346baf82845809808b7567c1fb4d9bbe0
     environment:
       # dotnet/aspnet default uid, gid required with read_only: true
       PUID: 1654

@@ -236,8 +236,6 @@ services:
       - /apps/aiostreams:/app/data
     expose:
       - 3000
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:3000/api/v1/status"]
     restart: unless-stopped
     deploy:
       resources:

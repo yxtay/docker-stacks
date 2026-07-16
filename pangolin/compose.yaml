@@ -1,6 +1,6 @@
 services:
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:5180f888a49d6ab34a4b3269ba06d734dc2fd24eeb98e096869e9c851f92a3ba
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:9ad2af199225a78e5dd404a43dfcf9712b559e3bcf50956bfe30919b5c149183
     command:
       - --file=/input/pangolin/config.template.yml
       - --out=/pangolin/config.yml
@@ -93,7 +93,7 @@ services:
           pids: 512
 
   traefik:
-    image: ghcr.io/traefik/traefik:v3.7.7@sha256:6ed4e7c21f70c336bd10f798f259a75378affa622e328eae04484f64ff5882aa
+    image: ghcr.io/traefik/traefik:v3.7.8@sha256:5cb000ad823bfcfff911e22a4c4fa09cee74c7a2d960c012a1a46a8d0a159fcf
     container_name: traefik
     depends_on:
       pangolin:

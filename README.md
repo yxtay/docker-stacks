@@ -78,7 +78,7 @@ Monitoring and container maintenance.
 
 ### Portainer Stack (`portainer/`)
 
-Container management UI. GitOps via systemd timer (every 5 minutes).
+Container management UI.
 
 - **portainer** — Container management dashboard
 
@@ -96,7 +96,7 @@ Compose stack editor.
 
 ### Arcane Stack (`arcane/`)
 
-Container management UI.
+Container management UI. GitOps via systemd timer (every 5 minutes).
 
 - **arcane** — Docker container management dashboard
 
@@ -168,7 +168,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 
 | Timer              | Schedule    | Purpose                            |
 | ------------------ | ----------- | ---------------------------------- |
-| `portainer-up`     | Every 5 min | GitOps stack sync                  |
+| `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |
 | `cleanup-symlinks` | Daily       | Remove broken symlinks from mounts |

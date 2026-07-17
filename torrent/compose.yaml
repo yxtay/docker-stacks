@@ -213,7 +213,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-      # - apparmor:unconfined
+      - apparmor:unconfined
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:

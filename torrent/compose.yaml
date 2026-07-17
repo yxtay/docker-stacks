@@ -220,7 +220,7 @@ services:
       - /apps/decypharr:/app
       - /apps/decypharr/cache:/cache
       - /mnt/torrent:/mnt/torrent
-    #   - /mnt/remote:/mnt/remote:rshared
+      - /mnt/remote:/mnt/remote:rshared
     # tmpfs:
     #   - /run:exec
     expose:

@@ -211,6 +211,8 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
+      - SETGID
+      - SETUID
       - SYS_ADMIN
     cap_drop:
       - ALL

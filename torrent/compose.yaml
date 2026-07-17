@@ -214,14 +214,14 @@ services:
       - apparmor:unconfined
     devices:
       - /dev/fuse:/dev/fuse:rwm
-    read_only: true
+    # read_only: true
     volumes:
       - /apps/decypharr:/app
       - /apps/decypharr/cache:/cache
       - /mnt/torrent:/mnt/torrent
-      - /mnt/remote:/mnt/remote:rshared
-    tmpfs:
-      - /run:exec
+    #   - /mnt/remote:/mnt/remote:rshared
+    # tmpfs:
+    #   - /run:exec
     expose:
       - 8282
     restart: unless-stopped

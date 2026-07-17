@@ -201,6 +201,51 @@ services:
       pangolin.public-resources.rdtclient.targets[0].port: 6500
       pangolin.public-resources.rdtclient.targets[0].method: http
 
+  decypharr:
+    # nosemgrep
+    image: ghcr.io/sirrobot01/decypharr:v2.4
+    environment:
+      TZ: ${TZ:-UTC}
+      PUID: ${PUID:-911}
+      PGID: ${PGID:-911}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SYS_ADMIN
+    cap_drop:
+      - ALL
+    security_opt:
+      - apparmor:unconfined
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    read_only: true
+    volumes:
+      - /apps/decypharr:/app
+      - /apps/decypharr/cache:/cache
+      - /mnt/torrent:/mnt/torrent
+      - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /run:exec
+    expose:
+      - 8282
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth decypharr decypharr:8282
+      pangolin.public-resources.decypharr.name: decypharr
+      pangolin.public-resources.decypharr.mode: http
+      pangolin.public-resources.decypharr.full-domain: "decypharr.${DOMAIN:?}"
+      pangolin.public-resources.decypharr.auth.sso-enabled: true
+      pangolin.public-resources.decypharr.targets[0].hostname: decypharr
+      pangolin.public-resources.decypharr.targets[0].port: 8282
+      pangolin.public-resources.decypharr.targets[0].method: http
+
   radarr:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.3.0@sha256:2b2c1c05eb3f648d2c80dfab9486147dd7bb0ad4d77fa972fc1c5de8f1da3738

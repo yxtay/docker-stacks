@@ -159,6 +159,7 @@ Torrent streaming and indexing.
 - **prowlarr** — Indexer manager (Usenet + Torrents)
 - **rclone** — Debrid FUSE mount
 - **rdtclient** — Real-Debrid download client
+- **decypharr** — Debrid media gateway (qBittorrent API + WebDAV)
 - **radarr** — Movie manager
 - **sonarr** — TV show manager
 - **profilarr** — ARR profile manager
@@ -169,7 +170,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `portainer-up`     | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

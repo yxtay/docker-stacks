@@ -208,7 +208,7 @@ services:
       - FOWNER
       - SETGID
       - SETUID
-      # - SYS_ADMIN
+      - SYS_ADMIN
     cap_drop:
       - ALL
     security_opt:

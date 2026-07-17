@@ -55,6 +55,10 @@ services:
       pangolin.public-resources.nzbdavex.rules[2].match: path
       pangolin.public-resources.nzbdavex.rules[2].value: "*/content/*"
       pangolin.public-resources.nzbdavex.rules[2].enabled: true
+      pangolin.public-resources.nzbdavex.rules[3].action: allow
+      pangolin.public-resources.nzbdavex.rules[3].match: path
+      pangolin.public-resources.nzbdavex.rules[3].value: "*/view/*"
+      pangolin.public-resources.nzbdavex.rules[3].enabled: true
 
   usenetstreamer:
     # nosemgrep

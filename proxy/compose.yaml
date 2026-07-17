@@ -43,7 +43,7 @@ services:
 
   tinyauth:
     # nosemgrep
-    image: ghcr.io/tinyauthapp/tinyauth:v5.1.0@sha256:b16837b6b88dcfdc43881a1efb30b913bb5a82ae6a3f85486841f817f6f6649d
+    image: ghcr.io/tinyauthapp/tinyauth:v5.1.1@sha256:f93a91626024dc9dc8d3fc28fbf50822fcd65808b03762fc40fc7e61f897cee1
     environment:
       DOCKER_HOST: tcp://socket-proxy:2375
       TINYAUTH_APPURL: https://tinyauth.${DOMAIN:?}

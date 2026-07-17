@@ -155,10 +155,7 @@ Usenet streaming and indexing.
 Torrent streaming and indexing.
 
 - **trawl** — Cloudflare/CAPTCHA bypass for scraping (FlareSolverr alternative)
-- **valkey** — Cache for trawl browser sessions
 - **prowlarr** — Indexer manager (Usenet + Torrents)
-- **rclone** — Debrid FUSE mount
-- **rdtclient** — Real-Debrid download client
 - **decypharr** — Debrid media gateway (qBittorrent API + WebDAV)
 - **radarr** — Movie manager
 - **sonarr** — TV show manager

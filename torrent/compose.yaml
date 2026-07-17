@@ -1,39 +1,10 @@
 services:
-  valkey:
-    # nosemgrep
-    image: ghcr.io/valkey-io/valkey:9.1.0@sha256:8e8d64b405ce18f41b8e5ee20aa4687a8ed0022d1298f2ce31cdcf3a76e09411
-    command: [valkey-server, --save, "", --appendonly, "no"]
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /data
-    networks:
-      - trawl
-    healthcheck:
-      test: [CMD, valkey-cli, ping]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-
   trawl:
     # nosemgrep
     image: ghcr.io/germondai/trawl:1.0.0@sha256:f282af7cf88072dd777698f7fbc554e0ccc39830c3d6e7670aa84cb347495303
     depends_on:
       valkey:
         condition: service_healthy
-    environment:
-      REDIS_URL: redis://valkey:6379
     cap_drop:
       - ALL
     security_opt:

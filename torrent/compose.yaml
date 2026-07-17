@@ -212,7 +212,6 @@ services:
     cap_drop:
       - ALL
     security_opt:
-      - no-new-privileges:true
       - apparmor:unconfined
     devices:
       - /dev/fuse:/dev/fuse:rwm

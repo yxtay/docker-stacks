@@ -36,6 +36,14 @@ Reverse proxy and authentication gateway.
 Caddy supports optional per-deployment reverse proxy configs via
 `/apps/caddy/extras/*.caddy` (glob import, safe when empty).
 
+### Pangolin Stack (`pangolin/`)
+
+Self-hosted tunneling and reverse proxy gateway with SSO.
+
+- **pangolin** — Tunnel server and resource manager
+- **gerbil** — WireGuard tunnel endpoint
+- **traefik** — Reverse proxy (network mode via gerbil)
+
 ### Infra Stack (`infra/`)
 
 Core infrastructure and utility services.
@@ -143,7 +151,6 @@ Self-hosted photo and video management.
 
 Usenet streaming and indexing.
 
-- **nzbhydra2** — NZB indexer search
 - **nzbdavex** — Extended NZB WebDAV server
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer

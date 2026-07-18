@@ -6,7 +6,7 @@ services:
     command: >-
       -c "resticprofile schedule --all && exec crond -f -L /dev/stdout"
     environment:
-      TZ: ${TZ:-Etc/UTC}
+      TZ: ${TZ:-}
       RESTIC_PASSWORD: ${RESTIC_PASSWORD:?}
       RESTIC_FROM_PASSWORD: ${RESTIC_PASSWORD:?}
       RESTICPROFILE_LOCK_WAIT: 1h

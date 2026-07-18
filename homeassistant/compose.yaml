@@ -5,7 +5,6 @@ services:
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
-      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -87,7 +86,6 @@ services:
     # nosemgrep
     image: ghcr.io/esphome/esphome:2026.7.0@sha256:959ef36e5ea97c8309429f0ba1405ddb2eead19019b81e6e9518e683dff5191c
     environment:
-      TZ: ${TZ:-UTC}
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       UV_CACHE_DIR: /config/.esphome/platformio/.cache/uv
     cap_add:
@@ -130,7 +128,6 @@ services:
       HOME_ASSISTANT_URL: "http://${IP_ADDRESS:-host.docker.internal}:8123"
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
       KEEP_BROWSER_OPEN: "true"
-      TZ: ${TZ:-UTC}
     cap_drop:
       - ALL
     security_opt:

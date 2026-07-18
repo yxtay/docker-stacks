@@ -1,39 +1,7 @@
 services:
-  valkey:
-    # nosemgrep
-    image: ghcr.io/valkey-io/valkey:9.1.0@sha256:8e8d64b405ce18f41b8e5ee20aa4687a8ed0022d1298f2ce31cdcf3a76e09411
-    command: [valkey-server, --save, "", --appendonly, "no"]
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /data
-    networks:
-      - trawl
-    healthcheck:
-      test: [CMD, valkey-cli, ping]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-
   trawl:
     # nosemgrep
     image: ghcr.io/germondai/trawl:1.0.0@sha256:f282af7cf88072dd777698f7fbc554e0ccc39830c3d6e7670aa84cb347495303
-    depends_on:
-      valkey:
-        condition: service_healthy
-    environment:
-      REDIS_URL: redis://valkey:6379
     cap_drop:
       - ALL
     security_opt:
@@ -57,8 +25,6 @@ services:
   prowlarr:
     # nosemgrep
     image: ghcr.io/linuxserver/prowlarr:2.4.0@sha256:4fd7a166c8f46dd3370a871c250ee577d6c2ae97a0dbe0e3614b5ef736205620
-    environment:
-      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -104,85 +70,32 @@ services:
       pangolin.public-resources.prowlarr.rules[1].value: "*/search/*"
       pangolin.public-resources.prowlarr.rules[1].enabled: true
 
-  rclone:
+  decypharr:
     # nosemgrep
-    image: ghcr.io/rclone/rclone:1.74.4@sha256:c61954aaa32328a5486715dd063a81c7879f5195ad3505cd362deddd509dc4a1
-    entrypoint: [sh]
-    command: >-
-      -c "
-      fusermount3 -uz /mnt/remote/debrid 2> /dev/null || true &&
-      exec rclone mount debrid: /mnt/remote/debrid
-      --uid ${PUID:-911}
-      --gid ${PGID:-911}
-      --allow-other
-      --attr-timeout 1m
-      --dir-cache-time 5m
-      --poll-interval 1m
-      --buffer-size 64M
-      --cache-dir /config/rclone/cache
-      --vfs-cache-mode full
-      --vfs-cache-max-age 1d
-      --vfs-cache-max-size 20G
-      --vfs-fast-fingerprint
-      --vfs-read-ahead 64M
-      --vfs-read-chunk-size 1M
-      --vfs-read-chunk-size-limit 32M
-      --no-checksum
-      --no-modtime
-      --read-only
-      --log-format json
-      "
+    image: ghcr.io/sirrobot01/decypharr:v2.4@sha256:d9df495fd156a379abd5b760ad54ed960881408599cd045c4d552a6d20bc7ce6
     environment:
-      TZ: ${TZ:-UTC}
-      RCLONE_CONFIG_DEBRID_TYPE: webdav
-      RCLONE_CONFIG_DEBRID_VENDOR: other
-      RCLONE_CONFIG_DEBRID_URL: ${RCLONE_CONFIG_DEBRID_URL:?}
-      RCLONE_CONFIG_DEBRID_USER: ${RCLONE_CONFIG_DEBRID_USER:?}
-      RCLONE_CONFIG_DEBRID_PASS: ${RCLONE_CONFIG_DEBRID_PASS:?}
+      PUID: 911
+      PGID: 911
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
       - SYS_ADMIN
     cap_drop:
       - ALL
     security_opt:
       - apparmor:unconfined
-    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
-      - /apps/rclone:/config/rclone
-      - /mnt/remote:/mnt/remote:rshared
-    healthcheck:
-      test: [CMD, grep, -q, " /mnt/remote/debrid ", /proc/mounts]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-
-  rdtclient:
-    # nosemgrep
-    image: ghcr.io/rogerfar/rdtclient:2.0.140@sha256:3f5f37783da704d50bcc6773ffa22eaed86fd4bfbd225a7929e181c6774ead29
-    environment:
-      TZ: ${TZ:-UTC}
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /apps/rdtclient:/data/db
+      - /apps/decypharr:/app
+      - /apps/decypharr/cache:/cache
       - /mnt/torrent:/mnt/torrent
-      - /mnt/remote:/mnt/remote:rslave
+      - /mnt/remote:/mnt/remote:rshared
     expose:
-      - 6500
+      - 8282
     restart: unless-stopped
     deploy:
       resources:
@@ -192,20 +105,18 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth rdtclient rdtclient:6500
-      pangolin.public-resources.rdtclient.name: rdtclient
-      pangolin.public-resources.rdtclient.mode: http
-      pangolin.public-resources.rdtclient.full-domain: "rdtclient.${DOMAIN:?}"
-      pangolin.public-resources.rdtclient.auth.sso-enabled: true
-      pangolin.public-resources.rdtclient.targets[0].hostname: rdtclient
-      pangolin.public-resources.rdtclient.targets[0].port: 6500
-      pangolin.public-resources.rdtclient.targets[0].method: http
+      caddy.import: reverse_proxy_auth decypharr decypharr:8282
+      pangolin.public-resources.decypharr.name: decypharr
+      pangolin.public-resources.decypharr.mode: http
+      pangolin.public-resources.decypharr.full-domain: "decypharr.${DOMAIN:?}"
+      pangolin.public-resources.decypharr.auth.sso-enabled: true
+      pangolin.public-resources.decypharr.targets[0].hostname: decypharr
+      pangolin.public-resources.decypharr.targets[0].port: 8282
+      pangolin.public-resources.decypharr.targets[0].method: http
 
   radarr:
     # nosemgrep
     image: ghcr.io/linuxserver/radarr:6.3.0@sha256:2b2c1c05eb3f648d2c80dfab9486147dd7bb0ad4d77fa972fc1c5de8f1da3738
-    environment:
-      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -248,8 +159,6 @@ services:
   sonarr:
     # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.19@sha256:4b025354d338999e03bf6dbdadcdde94815d39d4a5aba5de3cdc86a56d7d6c51
-    environment:
-      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -293,7 +202,6 @@ services:
     # nosemgrep
     image: ghcr.io/dictionarry-hub/profilarr:2.0.9@sha256:7a9b5112ff227320d17c65ab643a5d875713e6235991ef04a8e482ec51427902
     environment:
-      TZ: ${TZ:-UTC}
       ORIGIN: https://profilarr.${DOMAIN:?}
     cap_add:
       - CHOWN

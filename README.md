@@ -36,6 +36,14 @@ Reverse proxy and authentication gateway.
 Caddy supports optional per-deployment reverse proxy configs via
 `/apps/caddy/extras/*.caddy` (glob import, safe when empty).
 
+### Pangolin Stack (`pangolin/`)
+
+Self-hosted tunneling and reverse proxy gateway with SSO.
+
+- **pangolin** — Tunnel server and resource manager
+- **gerbil** — WireGuard tunnel endpoint
+- **traefik** — Reverse proxy (network mode via gerbil)
+
 ### Infra Stack (`infra/`)
 
 Core infrastructure and utility services.
@@ -78,7 +86,7 @@ Monitoring and container maintenance.
 
 ### Portainer Stack (`portainer/`)
 
-Container management UI. GitOps via systemd timer (every 5 minutes).
+Container management UI.
 
 - **portainer** — Container management dashboard
 
@@ -96,7 +104,7 @@ Compose stack editor.
 
 ### Arcane Stack (`arcane/`)
 
-Container management UI.
+Container management UI. GitOps via systemd timer (every 5 minutes).
 
 - **arcane** — Docker container management dashboard
 
@@ -143,7 +151,6 @@ Self-hosted photo and video management.
 
 Usenet streaming and indexing.
 
-- **nzbhydra2** — NZB indexer search
 - **nzbdavex** — Extended NZB WebDAV server
 - **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
@@ -155,10 +162,8 @@ Usenet streaming and indexing.
 Torrent streaming and indexing.
 
 - **trawl** — Cloudflare/CAPTCHA bypass for scraping (FlareSolverr alternative)
-- **valkey** — Cache for trawl browser sessions
 - **prowlarr** — Indexer manager (Usenet + Torrents)
-- **rclone** — Debrid FUSE mount
-- **rdtclient** — Real-Debrid download client
+- **decypharr** — Debrid media gateway (qBittorrent API + WebDAV)
 - **radarr** — Movie manager
 - **sonarr** — TV show manager
 - **profilarr** — ARR profile manager
@@ -169,8 +174,8 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
-| `portainer-up`     | Every 5 min | GitOps stack sync                  |
+| ------------------ | ----------- | ---------------------------------- |
+| `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |
 | `cleanup-symlinks` | Daily       | Remove broken symlinks from mounts |

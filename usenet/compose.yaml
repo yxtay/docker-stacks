@@ -6,7 +6,6 @@ services:
       # dotnet/aspnet default uid, gid required with read_only: true
       PUID: 1654
       PGID: 1654
-      TZ: ${TZ:-UTC}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -169,7 +168,6 @@ services:
     image: ghcr.io/javi11/altmount:0.3.1@sha256:d57e56f8d651c2e6d33f549ea1424f17e14e81296f1272e3d8c3dc76ae56ebff
     environment:
       # PUID/PGID has no effect with read_only: true
-      TZ: ${TZ:-UTC}
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
       COOKIE_DOMAIN: altmount.${DOMAIN:?}
     cap_add:

@@ -49,7 +49,7 @@ services:
     tmpfs:
       - /run
     networks:
-      - internal-net
+      - default
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
     restart: unless-stopped
@@ -90,7 +90,7 @@ services:
       - 8642
       - 9119
     networks:
-      - internal-net
+      - default
       - proxy-net
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8642/health"]
@@ -121,8 +121,7 @@ services:
       pangolin.public-resources.hermes-api.targets[0].method: http
 
 networks:
-  internal-net:
-    internal: true
+  default:
   proxy-net:
     name: proxy
     external: true

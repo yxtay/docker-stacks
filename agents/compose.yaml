@@ -84,8 +84,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
-          memory: 4g
+          cpus: 2
+          memory: 8g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

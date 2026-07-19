@@ -8,17 +8,12 @@ services:
       # containers
       CONTAINERS: 1
       EXEC: 1
-      ALLOW_START: 1
-      ALLOW_STOP: 1
-      ALLOW_RESTARTS: 1
 
       # images
       IMAGES: 1
-      BUILD: 1
 
-      # networks / volumes
+      # networks
       NETWORKS: 1
-      VOLUMES: 1
 
       # system
       EVENTS: 1

@@ -49,7 +49,6 @@ services:
         condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
-      TERMINAL_BACKEND: docker
       DOCKER_HOST: tcp://socket-proxy:2375
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:?}
       OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}

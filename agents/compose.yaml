@@ -59,7 +59,7 @@ services:
       - default
       - proxy
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8642/health"]
+      test: [CMD, hermes, doctor, --quiet]
     restart: unless-stopped
     deploy:
       resources:

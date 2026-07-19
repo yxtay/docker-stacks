@@ -74,7 +74,7 @@ services:
       - 9119
     networks:
       - default
-      - proxy-net
+      - proxy
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8642/health"]
     restart: unless-stopped
@@ -105,6 +105,6 @@ services:
 
 networks:
   default:
-  proxy-net:
+  proxy:
     name: proxy
     external: true

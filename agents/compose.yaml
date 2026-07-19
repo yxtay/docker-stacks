@@ -57,6 +57,8 @@ services:
       TERMINAL_BACKEND: docker
       DOCKER_HOST: tcp://socket-proxy:2375
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:?}
+      OPENCODEGO_API_KEY: ${OPENCODEGO_API_KEY:-}
+      NOUSPORTAL_API_KEY: ${NOUSPORTAL_API_KEY:-}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

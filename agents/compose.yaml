@@ -12,8 +12,8 @@ services:
       # images
       IMAGES: 1
 
-      # networks
-      NETWORKS: 1
+      # volumes
+      VOLUMES: 1
 
       # system
       EVENTS: 1

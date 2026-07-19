@@ -2,7 +2,6 @@ services:
   socket-proxy:
     # nosemgrep
     image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
-    user: ${PUID:-1000}:${PGID:-1000}
     environment:
       POST: 1
       CONTAINERS: 1

@@ -15,30 +15,16 @@ services:
       # images
       IMAGES: 1
       BUILD: 1
-      COMMIT: 0
 
-      # networks / volumes / plugins
+      # networks / volumes
       NETWORKS: 1
       VOLUMES: 1
-      PLUGINS: 0
-
-      # swarm
-      CONFIGS: 0
-      NODES: 0
-      SECRETS: 0
-      SERVICES: 0
-      SWARM: 0
-      TASKS: 0
 
       # system
-      DISTRIBUTION: 0
       EVENTS: 1
       INFO: 1
       PING: 1
-      SYSTEM: 0
       VERSION: 1
-      AUTH: 0
-      SESSION: 0
     cap_drop:
       - ALL
     security_opt:

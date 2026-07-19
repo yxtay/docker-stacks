@@ -1,0 +1,114 @@
+services:
+  socket-proxy:
+    # nosemgrep
+    image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
+    environment:
+      POST: 1
+
+      # containers
+      CONTAINERS: 1
+      EXEC: 1
+      ALLOW_START: 1
+      ALLOW_STOP: 1
+      ALLOW_RESTARTS: 1
+
+      # images
+      IMAGES: 1
+      BUILD: 1
+      COMMIT: 0
+
+      # networks / volumes / plugins
+      NETWORKS: 1
+      VOLUMES: 1
+      PLUGINS: 0
+
+      # swarm
+      CONFIGS: 0
+      NODES: 0
+      SECRETS: 0
+      SERVICES: 0
+      SWARM: 0
+      TASKS: 0
+
+      # system
+      DISTRIBUTION: 0
+      EVENTS: 1
+      INFO: 1
+      PING: 1
+      SYSTEM: 0
+      VERSION: 1
+      AUTH: 0
+      SESSION: 0
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /run
+    networks:
+      - socket-proxy
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+  hermes:
+    image: nousresearch/hermes-agent:v2026.6.5
+    command: gateway run
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
+    environment:
+      HERMES_DASHBOARD: 1
+      TERMINAL_BACKEND: docker
+      DOCKER_HOST: tcp://socket-proxy:2375
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:?}
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/hermes:/opt/data
+    tmpfs:
+      - /run:exec
+      - /tmp:exec
+    expose:
+      - 8642
+      - 9119
+    networks:
+      - default
+      - socket-proxy
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8642/health"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import_0: reverse_proxy_auth hermes hermes:9119
+      caddy.import_1: reverse_proxy_auth hermes-api hermes:8642
+
+networks:
+  default:
+    name: proxy
+    external: true
+  socket-proxy:
+    name: socket-proxy

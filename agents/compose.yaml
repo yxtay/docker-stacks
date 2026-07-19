@@ -59,7 +59,7 @@ services:
       - default
       - proxy
     healthcheck:
-      test: [CMD, hermes, doctor, --quiet]
+      test: [CMD, hermes, doctor]
     restart: unless-stopped
     deploy:
       resources:

@@ -4,22 +4,10 @@ services:
     image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
     environment:
       POST: 1
-
-      # containers
       CONTAINERS: 1
       EXEC: 1
-
-      # images
       IMAGES: 1
-
-      # volumes
-      VOLUMES: 1
-
-      # system
-      EVENTS: 1
-      INFO: 1
-      PING: 1
-      VERSION: 1
+      BUILD: 1
     cap_drop:
       - ALL
     security_opt:
@@ -61,12 +49,8 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
     volumes:
       - /apps/hermes:/opt/data
-    tmpfs:
-      - /run:exec
-      - /tmp:exec
     expose:
       - 8642
       - 9119
@@ -103,6 +87,7 @@ services:
 
 networks:
   default:
+    internal: true
   proxy:
     name: proxy
     external: true

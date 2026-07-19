@@ -105,6 +105,20 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import_0: reverse_proxy_auth hermes hermes:9119
       caddy.import_1: reverse_proxy_auth hermes-api hermes:8642
+      pangolin.public-resources.hermes.name: hermes
+      pangolin.public-resources.hermes.mode: http
+      pangolin.public-resources.hermes.full-domain: "hermes.${DOMAIN:?}"
+      pangolin.public-resources.hermes.auth.sso-enabled: true
+      pangolin.public-resources.hermes.targets[0].hostname: hermes
+      pangolin.public-resources.hermes.targets[0].port: 9119
+      pangolin.public-resources.hermes.targets[0].method: http
+      pangolin.public-resources.hermes-api.name: hermes-api
+      pangolin.public-resources.hermes-api.mode: http
+      pangolin.public-resources.hermes-api.full-domain: "hermes-api.${DOMAIN:?}"
+      pangolin.public-resources.hermes-api.auth.sso-enabled: true
+      pangolin.public-resources.hermes-api.targets[0].hostname: hermes
+      pangolin.public-resources.hermes-api.targets[0].port: 8642
+      pangolin.public-resources.hermes-api.targets[0].method: http
 
 networks:
   default:

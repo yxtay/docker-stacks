@@ -3,7 +3,6 @@ services:
     # nosemgrep
     image: nousresearch/hermes-agent:v2026.7.7.2@sha256:9c841866021c54c4596849f6135717e8a4d52ba510b7f52c50aef1de1a283973
     command: gateway run
-    working_dir: /opt/data/home
     depends_on:
       socket-proxy:
         condition: service_healthy
@@ -11,8 +10,15 @@ services:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
+      CEREBRAS_API_KEY: ${CEREBRAS_API_KEY:-}
+      EXA_API_KEY: ${EXA_API_KEY:-}
+      FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY:-}
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

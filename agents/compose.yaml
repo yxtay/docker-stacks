@@ -8,7 +8,7 @@ services:
         condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
-      HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:?}
+      HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}

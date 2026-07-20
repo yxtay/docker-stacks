@@ -1,56 +1,17 @@
 services:
-  socket-proxy:
-    # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
-    environment:
-      POST: 1
-
-      # containers
-      CONTAINERS: 1
-      EXEC: 1
-
-      # images
-      IMAGES: 1
-
-      # volumes
-      VOLUMES: 1
-
-      # system
-      EVENTS: 1
-      INFO: 1
-      PING: 1
-      VERSION: 1
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    tmpfs:
-      - /run
-    networks:
-      - default
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-
   hermes:
-    image: nousresearch/hermes-agent:v2026.6.5
+    # nosemgrep
+    image: nousresearch/hermes-agent:v2026.7.7.2@sha256:9c841866021c54c4596849f6135717e8a4d52ba510b7f52c50aef1de1a283973
     command: gateway run
+    working_dir: /opt/data
     depends_on:
       socket-proxy:
         condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
+      HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:?}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}
     cap_add:
       - CHOWN
@@ -61,12 +22,8 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
     volumes:
       - /apps/hermes:/opt/data
-    tmpfs:
-      - /run:exec
-      - /tmp:exec
     expose:
       - 8642
       - 9119
@@ -74,7 +31,7 @@ services:
       - default
       - proxy
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8642/health"]
+      test: [CMD, hermes, doctor]
     restart: unless-stopped
     deploy:
       resources:
@@ -101,8 +58,39 @@ services:
       pangolin.public-resources.hermes-api.targets[0].port: 8642
       pangolin.public-resources.hermes-api.targets[0].method: http
 
+  socket-proxy:
+    # nosemgrep
+    image: ghcr.io/linuxserver/socket-proxy:3.4.2@sha256:a9de14c1c9697de5384a63c2a8e1fdbb823d74f03c94cde77c59e149169c0326
+    environment:
+      POST: 1
+      CONTAINERS: 1
+      EXEC: 1
+      IMAGES: 1
+      BUILD: 1
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /run
+    networks:
+      - default
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:2375/_ping"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
 networks:
   default:
+    name: agents
   proxy:
     name: proxy
     external: true

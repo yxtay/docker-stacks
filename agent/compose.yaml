@@ -90,7 +90,7 @@ services:
 
 networks:
   default:
-    name: agents
+    name: agent
   proxy:
     name: proxy
     external: true

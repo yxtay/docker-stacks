@@ -3,7 +3,7 @@ services:
     # nosemgrep
     image: nousresearch/hermes-agent:v2026.7.7.2@sha256:9c841866021c54c4596849f6135717e8a4d52ba510b7f52c50aef1de1a283973
     command: gateway run
-    working_dir: /opt/data
+    working_dir: /opt/data/home
     depends_on:
       socket-proxy:
         condition: service_healthy
@@ -16,6 +16,7 @@ services:
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
+      - FOWNER
       - SETGID
       - SETUID
     cap_drop:

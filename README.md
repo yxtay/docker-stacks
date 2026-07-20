@@ -26,13 +26,12 @@ isolation and stability.
 
 [TinyAuth]: https://tinyauth.app
 
-### Agent Stack (`agents/`)
+### Agents Stack (`agents/`)
 
 Autonomous AI agent stack.
 
 - **hermes** — Autonomous AI agent with persistent memory and tool use
-- **socket-proxy** — Dedicated Docker socket proxy for hermes
-  (untrusted code execution environment)
+- **socket-proxy** — Dedicated Docker socket proxy for hermes (untrusted code execution environment)
 
 ### Proxy Stack (`proxy/`)
 

@@ -19,9 +19,10 @@ data "oci_core_images" "instance_image" {
   }
 }
 
-#checkov:skip=CKV_OCI_4:Ensure OCI Compute Instance boot volume has in-transit data encryption enabled
-#checkov:skip=CKV_OCI_5:Ensure OCI Compute Instance has Legacy MetaData service endpoint disabled
 resource "oci_core_instance" "instance" {
+  # checkov:skip=CKV_OCI_4:Ensure OCI Compute Instance boot volume has in-transit data encryption enabled
+  # checkov:skip=CKV_OCI_5:Ensure OCI Compute Instance has Legacy MetaData service endpoint disabled
+
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = var.instance_display_name

@@ -165,7 +165,7 @@ services:
 
   altmount:
     # nosemgrep
-    image: ghcr.io/javi11/altmount:0.3.1@sha256:d57e56f8d651c2e6d33f549ea1424f17e14e81296f1272e3d8c3dc76ae56ebff
+    image: ghcr.io/javi11/altmount:0.3.2@sha256:cd02c5ee4a840a6a3fef486846ab9e1e61d704d7a04def9e53783b29add2ba0b
     environment:
       # PUID/PGID has no effect with read_only: true
       JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}

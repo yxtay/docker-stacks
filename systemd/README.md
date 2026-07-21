@@ -11,7 +11,7 @@ added per job.
 
 | Timer                    | Schedule    | Description                  |
 |--------------------------|-------------|------------------------------|
-| `portainer-up.timer`     | Every 5 min | GitOps: sync Portainer stack |
+| `arcane-up.timer`        | Every 5 min | GitOps: sync Arcane stack    |
 | `logrotate.timer`        | Hourly      | Custom log rotation          |
 | `cleanup-symlinks.timer` | Daily       | Remove broken symlinks       |
 
@@ -24,7 +24,7 @@ added per job.
 ## Install
 
 ```bash
-../bin/systemd-setup.sh
+../bin/setup-systemd.sh
 ```
 
 This symlinks unit files to `~/.config/systemd/user/`,
@@ -34,16 +34,16 @@ enables timers, and sets up lingering.
 
 ```bash
 # Run a service manually
-systemctl --user start run-script@portainer-up.sh
+systemctl --user start run-script@arcane-up.sh
 
 # Trigger a timer immediately
-systemctl --user start portainer-up.timer
+systemctl --user start arcane-up.timer
 
 # Check service status/result
-systemctl --user status run-script@portainer-up.sh
+systemctl --user status run-script@arcane-up.sh
 
 # View logs
-journalctl --user -u run-script@portainer-up.sh
+journalctl --user -u run-script@arcane-up.sh
 ```
 
 ## Verify

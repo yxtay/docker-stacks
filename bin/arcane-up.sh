@@ -22,7 +22,7 @@ fi
 # Fetch and switch to default branch at latest
 echo "Updating: ${LOCAL_SHA} -> ${REMOTE_SHA}"
 git fetch origin
-git switch --force-create --discard-changes "${DEFAULT_BRANCH}" "origin/${DEFAULT_BRANCH}"
+git switch --discard-changes --force-create "${DEFAULT_BRANCH}" "origin/${DEFAULT_BRANCH}"
 
 # Generate .env if missing
 if [ ! -f .env ]; then

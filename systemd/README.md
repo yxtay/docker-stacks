@@ -9,11 +9,11 @@ added per job.
 
 ## Units
 
-| Timer                    | Schedule    | Description                  |
-|--------------------------|-------------|------------------------------|
-| `arcane-up.timer`        | Every 5 min | GitOps: sync Arcane stack    |
-| `logrotate.timer`        | Hourly      | Custom log rotation          |
-| `cleanup-symlinks.timer` | Daily       | Remove broken symlinks       |
+| Timer                    | Schedule    | Description               |
+|--------------------------|-------------|---------------------------|
+| `arcane-up.timer`        | Every 5 min | GitOps: sync Arcane stack |
+| `logrotate.timer`        | Hourly      | Custom log rotation       |
+| `cleanup-symlinks.timer` | Daily       | Remove broken symlinks    |
 
 ## Adding a New Job
 

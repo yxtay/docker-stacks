@@ -92,24 +92,6 @@ Monitoring and container maintenance.
 - **beszel** — Server monitoring hub
 - **beszel-agent** — Monitoring agent (host network)
 
-### Portainer Stack (`portainer/`)
-
-Container management UI.
-
-- **portainer** — Container management dashboard
-
-### Dockhand Stack (`dockhand/`)
-
-Container management UI.
-
-- **dockhand** — Docker container management dashboard
-
-### Sencho Stack (`sencho/`)
-
-Compose stack editor.
-
-- **sencho** — Docker Compose file editor UI
-
 ### Arcane Stack (`arcane/`)
 
 Container management UI. GitOps via systemd timer (every 5 minutes).

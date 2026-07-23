@@ -37,8 +37,8 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/app/config
-      - /apps/geoip:/app/config/geoip:ro
       - /apps/pangolin/cache:/app/.next/cache
+      - /apps/geoip:/usr/share/GeoIP:ro
     tmpfs:
       - /tmp
     environment:

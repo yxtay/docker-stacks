@@ -115,6 +115,8 @@ services:
       GEOIPUPDATE_FREQUENCY: ${GEOIPUPDATE_FREQUENCY:-24}
     volumes:
       - /apps/geoip:/usr/share/GeoIP
+    tmpfs:
+      - /tmp
     restart: unless-stopped
     deploy:
       resources:

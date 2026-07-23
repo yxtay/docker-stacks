@@ -20,6 +20,7 @@ services:
     read_only: true
     volumes:
       - ./caddy:/etc/caddy:ro
+      - /apps/geoip:/etc/caddy/geoip:ro
       - /apps/caddy:/config
       - /apps/caddy:/data
     ports:

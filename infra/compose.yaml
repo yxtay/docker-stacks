@@ -101,6 +101,30 @@ services:
           memory: 4g
           pids: 512
 
+  geoipupdate:
+    image: ghcr.io/maxmind/geoipupdate:v8.0.0
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    environment:
+      GEOIPUPDATE_ACCOUNT_ID: ${GEOIPUPDATE_ACCOUNT_ID:?}
+      GEOIPUPDATE_LICENSE_KEY: ${GEOIPUPDATE_LICENSE_KEY:?}
+      GEOIPUPDATE_EDITION_IDS: ${GEOIPUPDATE_EDITION_IDS:-GeoLite2-ASN GeoLite2-City GeoLite2-Country}
+      GEOIPUPDATE_FREQUENCY: ${GEOIPUPDATE_FREQUENCY:-24}
+    volumes:
+      - /apps/geoip:/usr/share/GeoIP
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
   whoami:
     # nosemgrep
     image: ghcr.io/traefik/whoami:v1.11.0@sha256:200689790a0a0ea48ca45992e0450bc26ccab5307375b41c84dfc4f2475937ab

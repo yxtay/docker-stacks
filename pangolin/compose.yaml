@@ -38,6 +38,7 @@ services:
     volumes:
       - /apps/pangolin:/app/config
       - /apps/pangolin/cache:/app/.next/cache
+      - /apps/geoip:/usr/share/GeoIP:ro
     tmpfs:
       - /tmp
     environment:

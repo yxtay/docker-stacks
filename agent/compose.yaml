@@ -31,8 +31,13 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/hermes:/opt/data
+      - /apps/:/apps:ro
+      - /home/ubuntu/docker-stacks/:/opt/data/home/docker-stacks:ro
+    tmpfs:
+      - /tmp:exec
     expose:
       - 8642
       - 9119

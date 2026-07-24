@@ -38,7 +38,7 @@ services:
       - /home/ubuntu/docker-stacks/:/opt/data/home/docker-stacks:ro
     tmpfs:
       - /run:exec
-      - /tmp:exec
+      - /tmp
     expose:
       - 8642
       - 9119

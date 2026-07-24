@@ -46,14 +46,13 @@ services:
       - default
       - proxy
     healthcheck:
-      test: [CMD, hermes, doctor]
-      timeout: 60s
+      test: [CMD, curl, -fsSL, "http://localhost:9119/api/status"]
     restart: unless-stopped
     deploy:
       resources:
         limits:
           cpus: 2
-          memory: 12g
+          memory: 8g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

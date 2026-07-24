@@ -47,12 +47,13 @@ services:
       - proxy
     healthcheck:
       test: [CMD, hermes, doctor]
+      timeout: 60s
     restart: unless-stopped
     deploy:
       resources:
         limits:
           cpus: 2
-          memory: 8g
+          memory: 12g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

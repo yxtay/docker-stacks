@@ -21,6 +21,7 @@ services:
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}
       TAVILY_API_KEY: ${TAVILY_API_KEY:-}
+      XAI_API_KEY: ${XAI_API_KEY:-}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -31,8 +32,14 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/hermes:/opt/data
+      - /apps/:/apps:ro
+      - /home/ubuntu/docker-stacks/:/opt/data/home/docker-stacks:ro
+    tmpfs:
+      - /run:exec
+      - /tmp
     expose:
       - 8642
       - 9119
@@ -40,7 +47,7 @@ services:
       - default
       - proxy
     healthcheck:
-      test: [CMD, hermes, doctor]
+      test: [CMD, curl, -fsSL, "http://localhost:9119/api/status"]
     restart: unless-stopped
     deploy:
       resources:

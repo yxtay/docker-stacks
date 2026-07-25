@@ -107,7 +107,7 @@ services:
   manifest:
     image: manifestdotbuild/manifest:6.16.0
     depends_on:
-      manifest-db:
+      postgres:
         condition: service_healthy
     environment:
       PORT: 2099

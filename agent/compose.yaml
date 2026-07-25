@@ -111,17 +111,10 @@ services:
         condition: service_healthy
     environment:
       PORT: 2099
-      DATABASE_URL: "postgresql://manifest:${MANIFEST_DB_PASSWORD:?}@manifest-db:5432/manifest"
+      DATABASE_URL: "postgresql://manifest:manifest@manifest-db:5432/manifest"
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
-      MANIFEST_ENCRYPTION_KEY: ${MANIFEST_ENCRYPTION_KEY:-}
       BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
       OLLAMA_HOST: "http://host.docker.internal:11434"
-      PROVIDER_TIMEOUT_MS: 180000
-      STREAM_WARMUP_MS: 15000
-      CODEX_SEMANTIC_OUTPUT_TIMEOUT_MS: 60000
-      SEED_DATA: "false"
-      NODE_ENV: production
-      MANIFEST_MODE: selfhosted
       MANIFEST_TELEMETRY_DISABLED: 1
     cap_drop:
       - ALL
@@ -133,16 +126,12 @@ services:
     expose:
       - 2099
     networks:
-      - default
+      - manifest
       - proxy
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
-      test:
-        - CMD
-        - node
-        - -e
-        - "fetch('http://localhost:2099/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      test: [CMD, wget, -qO-, "http://localhost:2099/api/v1/health"]
     restart: unless-stopped
     deploy:
       resources:
@@ -160,18 +149,16 @@ services:
       pangolin.public-resources.manifest.targets[0].hostname: manifest
       pangolin.public-resources.manifest.targets[0].port: 2099
       pangolin.public-resources.manifest.targets[0].method: http
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-        max-file: "5"
 
   manifest-db:
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: manifest
-      POSTGRES_PASSWORD: ${MANIFEST_DB_PASSWORD:?}
+      POSTGRES_PASSWORD: manifest
       POSTGRES_DB: manifest
+      PGUSER: manifest
+      PGDATABASE: manifest
+      POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -183,15 +170,16 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    shm_size: 128mb
     volumes:
-      - /apps/manifest/db:/var/lib/postgresql/data
+      - /apps/manifest/db:/var/lib/postgresql
     tmpfs:
       - /etc/postgresql
       - /run
     networks:
-      - default
+      - manifest
     healthcheck:
-      test: [CMD, pg_isready, -U, manifest]
+      test: [CMD, pg_isready]
     restart: unless-stopped
     deploy:
       resources:
@@ -199,11 +187,6 @@ services:
           cpus: 1
           memory: 4g
           pids: 512
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-        max-file: "5"
 
 networks:
   default:
@@ -211,3 +194,5 @@ networks:
   proxy:
     name: proxy
     external: true
+  manifest:
+    internal: true

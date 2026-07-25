@@ -34,7 +34,7 @@ Autonomous AI agent stack.
 - **socket-proxy** — Dedicated Docker socket proxy for hermes
   (untrusted code execution environment)
 - **manifest** — Open-source LLM router for agents and AI applications
-- **manifest-db** — Dedicated PostgreSQL database for manifest
+- **postgres** — Dedicated PostgreSQL database for manifest
 
 ### Proxy Stack (`proxy/`)
 
@@ -166,7 +166,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

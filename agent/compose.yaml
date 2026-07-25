@@ -111,6 +111,7 @@ services:
         condition: service_healthy
     environment:
       PORT: 2099
+      DATABASE_URL: ${DATABASE_URL:-postgresql://manifest:manifest@postgres:5432/manifest}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
       BETTER_AUTH_URL: https://manifest.${DOMAIN:?}
     cap_drop:

@@ -154,7 +154,7 @@ services:
       pangolin.public-resources.manifest.targets[0].port: 2099
       pangolin.public-resources.manifest.targets[0].method: http
 
-  manifest-db:
+  postgres:
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: manifest

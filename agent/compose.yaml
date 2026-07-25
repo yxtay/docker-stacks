@@ -111,7 +111,7 @@ services:
         condition: service_healthy
     environment:
       PORT: 2099
-      DATABASE_URL: "postgresql://manifest:manifest@manifest-db:5432/manifest"
+      DATABASE_URL: "postgresql://manifest:${POSTGRES_PASSWORD:-manifest}@manifest-db:5432/manifest"
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
       BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
       OLLAMA_HOST: "http://host.docker.internal:11434"

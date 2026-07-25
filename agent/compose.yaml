@@ -104,6 +104,103 @@ services:
           memory: 4g
           pids: 512
 
+  manifest:
+    image: manifestdotbuild/manifest:6.16.0
+    depends_on:
+      manifest-db:
+        condition: service_healthy
+    environment:
+      PORT: 2099
+      DATABASE_URL: "postgresql://manifest:${MANIFEST_DB_PASSWORD:?}@manifest-db:5432/manifest"
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
+      MANIFEST_ENCRYPTION_KEY: ${MANIFEST_ENCRYPTION_KEY:-}
+      BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
+      OLLAMA_HOST: "http://host.docker.internal:11434"
+      PROVIDER_TIMEOUT_MS: 180000
+      STREAM_WARMUP_MS: 15000
+      CODEX_SEMANTIC_OUTPUT_TIMEOUT_MS: 60000
+      SEED_DATA: "false"
+      NODE_ENV: production
+      MANIFEST_MODE: selfhosted
+      MANIFEST_TELEMETRY_DISABLED: 1
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    expose:
+      - 2099
+    networks:
+      - default
+      - proxy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://localhost:2099/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth manifest manifest:2099"
+      pangolin.public-resources.manifest.name: manifest
+      pangolin.public-resources.manifest.mode: http
+      pangolin.public-resources.manifest.full-domain: "manifest.${DOMAIN:?}"
+      pangolin.public-resources.manifest.auth.sso-enabled: true
+      pangolin.public-resources.manifest.targets[0].hostname: manifest
+      pangolin.public-resources.manifest.targets[0].port: 2099
+      pangolin.public-resources.manifest.targets[0].method: http
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "5"
+
+  manifest-db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: manifest
+      POSTGRES_PASSWORD: ${MANIFEST_DB_PASSWORD:?}
+      POSTGRES_DB: manifest
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/manifest/db:/var/lib/postgresql/data
+    tmpfs:
+      - /etc/postgresql
+      - /run
+    networks:
+      - default
+    healthcheck:
+      test: [CMD, pg_isready, -U, manifest]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "5"
+
 networks:
   default:
     name: agent

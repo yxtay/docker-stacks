@@ -107,24 +107,28 @@ services:
   manifest:
     image: manifestdotbuild/manifest:6.16.0
     depends_on:
-      postgres:
+      manifest-db:
         condition: service_healthy
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql://manifest:manifest@postgres:5432/manifest}
+      PORT: 2099
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
-      BETTER_AUTH_URL: https://manifest.${DOMAIN:?}
+      BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
+      OLLAMA_HOST: "http://host.docker.internal:11434"
+      MANIFEST_TELEMETRY_DISABLED: 1
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      - /tmp
+      - /tmp:size=64m
     expose:
       - 2099
     networks:
       - manifest
       - proxy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:2099/api/v1/health"]
     restart: unless-stopped
@@ -145,14 +149,14 @@ services:
       pangolin.public-resources.manifest.targets[0].port: 2099
       pangolin.public-resources.manifest.targets[0].method: http
 
-  postgres:
-    image: postgres:18.4-alpine
+  manifest-db:
+    image: postgres:17-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-manifest}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-manifest}
-      POSTGRES_DB: ${POSTGRES_DB:-manifest}
-      PGUSER: ${PGUSER:-manifest}
-      PGDATABASE: ${PGDATABASE:-manifest}
+      POSTGRES_USER: manifest
+      POSTGRES_PASSWORD: manifest
+      POSTGRES_DB: manifest
+      PGUSER: manifest
+      PGDATABASE: manifest
       POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
@@ -165,8 +169,9 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    shm_size: 128mb
     volumes:
-      - /apps/manifest:/var/lib/postgresql
+      - /apps/manifest/db:/var/lib/postgresql
     tmpfs:
       - /etc/postgresql
       - /run

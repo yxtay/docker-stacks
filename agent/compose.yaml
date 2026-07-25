@@ -105,7 +105,7 @@ services:
           pids: 512
 
   manifest:
-    image: manifestdotbuild/manifest:6.16.0
+    image: manifestdotbuild/manifest:6.16.0@sha256:a73989a9c9652c35f8fb16e835222c6fb7a8765e7f5493a1fdb98a3abdc19a45
     depends_on:
       postgres:
         condition: service_healthy
@@ -151,7 +151,7 @@ services:
       pangolin.public-resources.manifest.targets[0].method: http
 
   postgres:
-    image: postgres:17-alpine
+    image: postgres:17-alpine@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-manifest}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-manifest}

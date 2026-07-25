@@ -107,11 +107,10 @@ services:
   manifest:
     image: manifestdotbuild/manifest:6.16.0
     depends_on:
-      postgres:
+      manifest-db:
         condition: service_healthy
     environment:
       PORT: 2099
-      DATABASE_URL: ${DATABASE_URL:-postgresql://manifest:manifest@postgres:5432/manifest}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
       BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
       OLLAMA_HOST: "http://host.docker.internal:11434"
@@ -131,11 +130,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
-      test:
-        - CMD
-        - node
-        - -e
-        - const p=process.env.PORT||'2099';fetch(`http://127.0.0.1:$${p}/api/v1/health`).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      test: [CMD, wget, -qO-, "http://localhost:2099/api/v1/health"]
     restart: unless-stopped
     deploy:
       resources:
@@ -154,7 +149,7 @@ services:
       pangolin.public-resources.manifest.targets[0].port: 2099
       pangolin.public-resources.manifest.targets[0].method: http
 
-  postgres:
+  manifest-db:
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: manifest

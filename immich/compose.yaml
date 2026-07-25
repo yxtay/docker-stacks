@@ -123,7 +123,6 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
-    shm_size: 128mb
     volumes:
       - ${DB_DATA_LOCATION:?}:/var/lib/postgresql
     tmpfs:

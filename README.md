@@ -33,6 +33,8 @@ Autonomous AI agent stack.
 - **hermes** — Autonomous AI agent with persistent memory and tool use
 - **socket-proxy** — Dedicated Docker socket proxy for hermes
   (untrusted code execution environment)
+- **manifest** — Open-source LLM router for agents and AI applications
+- **postgres** — Dedicated PostgreSQL database for manifest
 
 ### Proxy Stack (`proxy/`)
 

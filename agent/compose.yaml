@@ -111,6 +111,7 @@ services:
         condition: service_healthy
     environment:
       PORT: 2099
+      DATABASE_URL: ${DATABASE_URL:-postgresql://manifest:manifest@postgres:5432/manifest}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
       BETTER_AUTH_URL: "https://manifest.${DOMAIN:?}"
       OLLAMA_HOST: "http://host.docker.internal:11434"
@@ -130,7 +131,11 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:2099/api/v1/health"]
+      test:
+        - CMD
+        - node
+        - -e
+        - const p=process.env.PORT||'2099';fetch(`http://127.0.0.1:$${p}/api/v1/health`).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
     restart: unless-stopped
     deploy:
       resources:

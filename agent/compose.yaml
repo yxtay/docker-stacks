@@ -116,9 +116,9 @@ services:
     volumes:
       - /apps/litellm/config.yaml:/app/config.yaml:ro
     tmpfs:
-      - /tmp
       - /app/cache
       - /app/migrations
+      - /tmp
     expose:
       - 4000
     networks:

@@ -101,8 +101,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command:
-      - --config=/app/config.yaml
+    # command:
+    #   - --config=/app/config.yaml
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://litellm:litellm@db:5432/litellm}
       STORE_MODEL_IN_DB: true

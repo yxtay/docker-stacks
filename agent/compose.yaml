@@ -114,7 +114,7 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/litellm/config.yaml:/app/config.yaml
+      - /apps/litellm/config.yaml:/app/config.yaml:ro
     tmpfs:
       - /app/cache
       - /app/migrations

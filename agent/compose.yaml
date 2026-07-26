@@ -11,17 +11,8 @@ services:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
-      CEREBRAS_API_KEY: ${CEREBRAS_API_KEY:-}
-      EXA_API_KEY: ${EXA_API_KEY:-}
-      FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
-      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
-      GROQ_API_KEY: ${GROQ_API_KEY:-}
-      MISTRAL_API_KEY: ${MISTRAL_API_KEY:-}
-      NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
-      OPENCODE_ZEN_API_KEY: ${OPENCODE_ZEN_API_KEY:-}
-      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
-      XAI_API_KEY: ${XAI_API_KEY:-}
+    env_file:
+      - .env
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -104,34 +95,38 @@ services:
           memory: 4g
           pids: 512
 
-  manifest:
-    image: manifestdotbuild/manifest:6.16.0@sha256:a73989a9c9652c35f8fb16e835222c6fb7a8765e7f5493a1fdb98a3abdc19a45
+  litellm:
+    # nosemgrep
+    image: docker.litellm.ai/berriai/litellm:main-stable
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
+    command:
+      - --config=/app/config.yaml
     environment:
-      PORT: 2099
-      DATABASE_URL: ${DATABASE_URL:-postgresql://manifest:manifest@postgres:5432/manifest}
-      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
-      BETTER_AUTH_URL: https://manifest.${DOMAIN:?}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://litellm:litellm@db:5432/litellm}
+      STORE_MODEL_IN_DB: "True"
+    env_file:
+      - .env
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
+    volumes:
+      - /apps/litellm/config.yaml:/app/config.yaml
     tmpfs:
-      - /tmp
+      - /app/cache
+      - /app/migrations
     expose:
-      - 2099
+      - 4000
     networks:
-      - manifest
+      - litellm
       - proxy
     healthcheck:
       test:
-        - CMD
-        - node
-        - -e
-        - const p=process.env.PORT||'2099';fetch(`http://127.0.0.1:$${p}/api/v1/health`).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+        - CMD-SHELL
+        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"
     restart: unless-stopped
     deploy:
       resources:
@@ -141,23 +136,23 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: "reverse_proxy_auth manifest manifest:2099"
-      pangolin.public-resources.manifest.name: manifest
-      pangolin.public-resources.manifest.mode: http
-      pangolin.public-resources.manifest.full-domain: "manifest.${DOMAIN:?}"
-      pangolin.public-resources.manifest.auth.sso-enabled: true
-      pangolin.public-resources.manifest.targets[0].hostname: manifest
-      pangolin.public-resources.manifest.targets[0].port: 2099
-      pangolin.public-resources.manifest.targets[0].method: http
+      caddy.import: "reverse_proxy_auth litellm litellm:4000"
+      pangolin.public-resources.litellm.name: litellm
+      pangolin.public-resources.litellm.mode: http
+      pangolin.public-resources.litellm.full-domain: "litellm.${DOMAIN:?}"
+      pangolin.public-resources.litellm.auth.sso-enabled: true
+      pangolin.public-resources.litellm.targets[0].hostname: litellm
+      pangolin.public-resources.litellm.targets[0].port: 4000
+      pangolin.public-resources.litellm.targets[0].method: http
 
-  postgres:
+  db:
     image: postgres:18-alpine@sha256:9a8afca54e7861fd90fab5fdf4c42477a6b1cb7d293595148e674e0a3181de15
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-manifest}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-manifest}
-      POSTGRES_DB: ${POSTGRES_DB:-manifest}
-      PGUSER: ${PGUSER:-manifest}
-      PGDATABASE: ${PGDATABASE:-manifest}
+      POSTGRES_USER: ${POSTGRES_USER:-litellm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-litellm}
+      POSTGRES_DB: ${POSTGRES_DB:-litellm}
+      PGUSER: ${PGUSER:-litellm}
+      PGDATABASE: ${PGDATABASE:-litellm}
       POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
@@ -171,12 +166,12 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/manifest:/var/lib/postgresql
+      - /apps/litellm:/var/lib/postgresql
     tmpfs:
       - /etc/postgresql
       - /run
     networks:
-      - manifest
+      - litellm
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped
@@ -193,5 +188,5 @@ networks:
   proxy:
     name: proxy
     external: true
-  manifest:
+  litellm:
     internal: true

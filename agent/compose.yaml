@@ -97,7 +97,7 @@ services:
 
   litellm:
     # nosemgrep
-    image: docker.litellm.ai/berriai/litellm:main-stable
+    image: docker.litellm.ai/berriai/litellm:v1.92.0
     depends_on:
       db:
         condition: service_healthy

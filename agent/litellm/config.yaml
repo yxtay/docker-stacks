@@ -1,0 +1,86 @@
+model_list:
+  - model_name: cerebras/gemma-4-31b
+    litellm_params:
+      model: gemma-4-31b
+      litellm_credential_name: cerebras
+
+  - model_name: google/gemini-flash-lite-latest
+    litellm_params:
+      model: gemini/gemini-flash-lite-latest
+      litellm_credential_name: google
+
+  - model_name: google/gemma-4-31b-it
+    litellm_params:
+      model: gemini/gemma-4-31b-it
+      litellm_credential_name: google
+
+  - model_name: groq/gpt-oss-120b
+    litellm_params:
+      model: openai/gpt-oss-120b
+      litellm_credential_name: groq
+
+  - model_name: nous/hy3:free
+    litellm_params:
+      model: tencent/hy3:free
+      litellm_credential_name: nous
+
+  - model_name: nvidia/deepseek-v4-pro
+    litellm_params:
+      model: deepseek-ai/deepseek-v4-pro
+      litellm_credential_name: nvidia
+
+  - model_name: opencode-zen/deepseek-v4-flash-free
+    litellm_params:
+      model: deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: opencode-zen/mimo-v2.5-free
+    litellm_params:
+      model: mimo-v2.5-free
+      litellm_credential_name: opencode_zen
+
+credential_list:
+  - credential_name: cerebras
+    credential_values:
+      api_key: os.environ/CEREBRAS_API_KEY
+      api_base: https://api.cerebras.ai/v1
+    credential_info: {}
+
+  - credential_name: google
+    credential_values:
+      api_key: os.environ/GOOGLE_API_KEY
+      api_base: https://generativelanguage.googleapis.com/v1beta/interactions
+    credential_info: {}
+
+  - credential_name: groq
+    credential_values:
+      api_key: os.environ/GROQ_API_KEY
+      api_base: https://api.groq.com/openai/v1
+    credential_info: {}
+
+  - credential_name: nous
+    credential_values:
+      api_key: os.environ/NOUS_API_KEY
+      api_base: https://inference-api.nousresearch.com/v1
+    credential_info: {}
+
+  - credential_name: nvidia
+    credential_values:
+      api_key: os.environ/NVIDIA_API_KEY
+      api_base: https://integrate.api.nvidia.com/v1
+    credential_info: {}
+
+  - credential_name: opencode_zen
+    credential_values:
+      api_key: os.environ/OPENCODE_ZEN_API_KEY
+      api_base: https://opencode.ai/zen/v1
+    credential_info: {}
+
+  - credential_name: opencode_go
+    credential_values:
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      api_base: https://opencode.ai/zen/go/v1
+    credential_info: {}
+
+general_settings:
+  store_model_in_db: true

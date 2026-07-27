@@ -296,7 +296,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth easynews-plus-plus easynews-plus-plus:1337
-      tinyauth.apps.easynews-plus-plus.path.allow: \/(manifest.json|stream)
+      tinyauth.apps.easynews-plus-plus.path.allow: \/(manifest.json|resolve|stream)
       pangolin.public-resources.easynews-plus-plus.name: easynews-plus-plus
       pangolin.public-resources.easynews-plus-plus.mode: http
       pangolin.public-resources.easynews-plus-plus.full-domain: "easynews-plus-plus.${DOMAIN:?}"
@@ -310,8 +310,12 @@ services:
       pangolin.public-resources.easynews-plus-plus.rules[0].enabled: true
       pangolin.public-resources.easynews-plus-plus.rules[1].action: allow
       pangolin.public-resources.easynews-plus-plus.rules[1].match: path
-      pangolin.public-resources.easynews-plus-plus.rules[1].value: "*/stream/*"
+      pangolin.public-resources.easynews-plus-plus.rules[1].value: "*/resolve/*"
       pangolin.public-resources.easynews-plus-plus.rules[1].enabled: true
+      pangolin.public-resources.easynews-plus-plus.rules[2].action: allow
+      pangolin.public-resources.easynews-plus-plus.rules[2].match: path
+      pangolin.public-resources.easynews-plus-plus.rules[2].value: "*/stream/*"
+      pangolin.public-resources.easynews-plus-plus.rules[2].enabled: true
 
 networks:
   default:

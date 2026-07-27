@@ -226,6 +226,7 @@ services:
       pangolin.public-resources.altmount.rules[3].enabled: true
 
   aiostreams:
+    # nosemgrep
     image: ghcr.io/viren070/aiostreams:v2.31.1@sha256:26d93653c3a5d0835db9189d6aca21d05614e68107c4d4a3ec7196b60c88c3bc
     environment:
       BASE_URL: "https://aiostreams.${DOMAIN:?}"
@@ -270,6 +271,45 @@ services:
       pangolin.public-resources.aiostreams.rules[2].match: path
       pangolin.public-resources.aiostreams.rules[2].value: "*/usenet/*"
       pangolin.public-resources.aiostreams.rules[2].enabled: true
+
+  easynews-plus-plus:
+    # nosemgrep
+    image: ghcr.io/varming73/easynews-plus-plus:2.8.1@sha256:5ba25fec8f89bab05834bbfd3d498b5ff126e4656a580640276dd9fc46238b46
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    expose:
+      - 1337
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:1337/"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth easynews-plus-plus easynews-plus-plus:1337
+      tinyauth.apps.easynews-plus-plus.path.allow: \/(manifest.json|stream)
+      pangolin.public-resources.easynews-plus-plus.name: easynews-plus-plus
+      pangolin.public-resources.easynews-plus-plus.mode: http
+      pangolin.public-resources.easynews-plus-plus.full-domain: "easynews-plus-plus.${DOMAIN:?}"
+      pangolin.public-resources.easynews-plus-plus.auth.sso-enabled: true
+      pangolin.public-resources.easynews-plus-plus.targets[0].hostname: easynews-plus-plus
+      pangolin.public-resources.easynews-plus-plus.targets[0].port: 1337
+      pangolin.public-resources.easynews-plus-plus.targets[0].method: http
+      pangolin.public-resources.easynews-plus-plus.rules[0].action: allow
+      pangolin.public-resources.easynews-plus-plus.rules[0].match: path
+      pangolin.public-resources.easynews-plus-plus.rules[0].value: "*/manifest.json"
+      pangolin.public-resources.easynews-plus-plus.rules[0].enabled: true
+      pangolin.public-resources.easynews-plus-plus.rules[1].action: allow
+      pangolin.public-resources.easynews-plus-plus.rules[1].match: path
+      pangolin.public-resources.easynews-plus-plus.rules[1].value: "*/stream*/*"
+      pangolin.public-resources.easynews-plus-plus.rules[1].enabled: true
 
 networks:
   default:

@@ -275,6 +275,8 @@ services:
   easynews-plus-plus:
     # nosemgrep
     image: ghcr.io/varming73/easynews-plus-plus:2.8.1@sha256:5ba25fec8f89bab05834bbfd3d498b5ff126e4656a580640276dd9fc46238b46
+    environment:
+      TMDB_API_KEY: ${TMDB_API_KEY:-}
     cap_drop:
       - ALL
     security_opt:

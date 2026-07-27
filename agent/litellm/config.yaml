@@ -16,7 +16,7 @@ model_list:
 
   - model_name: groq/gpt-oss-120b
     litellm_params:
-      model: groq/gpt-oss-120b
+      model: groq/openai/gpt-oss-120b
       api_key: os.environ/GROQ_API_KEY
 
   - model_name: nous/hy3:free

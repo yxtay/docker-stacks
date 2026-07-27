@@ -308,7 +308,7 @@ services:
       pangolin.public-resources.easynews-plus-plus.rules[0].enabled: true
       pangolin.public-resources.easynews-plus-plus.rules[1].action: allow
       pangolin.public-resources.easynews-plus-plus.rules[1].match: path
-      pangolin.public-resources.easynews-plus-plus.rules[1].value: "*/stream*/*"
+      pangolin.public-resources.easynews-plus-plus.rules[1].value: "*/stream/*"
       pangolin.public-resources.easynews-plus-plus.rules[1].enabled: true
 
 networks:

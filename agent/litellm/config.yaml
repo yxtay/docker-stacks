@@ -1,0 +1,83 @@
+general_settings:
+  store_model_in_db: true
+
+litellm_settings:
+  drop_params: true
+  request_timeout: 60
+  json_logs: true
+
+model_list:
+  - model_name: cerebras/gemma-4-31b
+    litellm_params:
+      model: cerebras/gemma-4-31b
+
+  - model_name: google/gemini-flash-lite-latest
+    litellm_params:
+      model: gemini/gemini-flash-lite-latest
+
+  - model_name: google/gemma-4-31b-it
+    litellm_params:
+      model: gemini/gemma-4-31b-it
+
+  - model_name: groq/gpt-oss-120b
+    litellm_params:
+      model: groq/openai/gpt-oss-120b
+
+  - model_name: nous/hy3:free
+    litellm_params:
+      model: openai/tencent/hy3:free
+      litellm_credential_name: nous
+
+  - model_name: opencode-zen/deepseek-v4-flash-free
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: opencode-zen/mimo-v2.5-free
+    litellm_params:
+      model: openai/mimo-v2.5-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: openrouter/free
+    litellm_params:
+      model: openrouter/openrouter/free
+
+  - model_name: smart-router
+    litellm_params:
+      model: auto_router/complexity_router
+      complexity_router_config:
+        tiers:
+          SIMPLE: opencode-zen/deepseek-v4-flash-free
+          MEDIUM: opencode-zen/deepseek-v4-flash-free
+          COMPLEX: nous/hy3:free
+          REASONING: nous/hy3:free
+      adaptive: true
+      session_affinity: true
+      complexity_router_default_model: nous/hy3:free
+
+credential_list:
+  - credential_name: nous
+    credential_values:
+      api_key: os.environ/NOUS_API_KEY
+      api_base: https://inference-api.nousresearch.com/v1
+    credential_info: {}
+
+  - credential_name: opencode_zen
+    credential_values:
+      api_key: os.environ/OPENCODE_ZEN_API_KEY
+      api_base: https://opencode.ai/zen/v1
+    credential_info: {}
+
+  - credential_name: opencode_go
+    credential_values:
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      api_base: https://opencode.ai/zen/go/v1
+    credential_info: {}
+
+# guardrails:
+#   - guardrail_name: headroom
+#     litellm_params:
+#       guardrail: headroom
+#       mode: pre_call
+#       api_base: http://headroom:8787
+#       default_on: true

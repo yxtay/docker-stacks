@@ -78,16 +78,16 @@ credential_list:
       api_base: https://opencode.ai/zen/go/v1
     credential_info: {}
 
-# general_settings:
-#   store_model_in_db: true
-#   background_health_checks: true
-#   health_check_interval: 300
+general_settings:
+  store_model_in_db: true
+  background_health_checks: true
+  health_check_interval: 300
 
-# litellm_settings:
-#   drop_params: true
-#   request_timeout: 120
-#   json_logs: true
+litellm_settings:
+  drop_params: true
+  request_timeout: 120
+  json_logs: true
 
-# router_settings:
-#   cooldown_time: 60
-#   allowed_fails: 3
+router_settings:
+  cooldown_time: 60
+  allowed_fails: 3

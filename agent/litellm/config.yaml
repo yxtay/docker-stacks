@@ -15,6 +15,10 @@ model_list:
     litellm_params:
       model: groq/openai/gpt-oss-120b
 
+  - model_name: openrouter/free
+    litellm_params:
+      model: openrouter/free
+
   - model_name: nous/hy3:free
     litellm_params:
       model: openai/tencent/hy3:free
@@ -55,3 +59,6 @@ credential_list:
 
 general_settings:
   store_model_in_db: true
+
+litellm_settings:
+  drop_params: true

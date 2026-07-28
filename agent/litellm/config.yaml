@@ -46,18 +46,18 @@ model_list:
     litellm_params:
       model: openrouter/free
 
-  - model_name: smart-router
-    litellm_params:
-      model: auto_router/complexity_router
-      complexity_router_config:
-        tiers:
-          SIMPLE: opencode-zen/deepseek-v4-flash-free
-          MEDIUM: opencode-zen/deepseek-v4-flash-free
-          COMPLEX: nous/hy3:free
-          REASONING: nous/hy3:free
-      adaptive: true
-      session_affinity: true
-      complexity_router_default_model: nous/hy3:free
+# - model_name: smart-router
+#   litellm_params:
+#     model: auto_router/complexity_router
+#     complexity_router_config:
+#       tiers:
+#         SIMPLE: opencode-zen/deepseek-v4-flash-free
+#         MEDIUM: opencode-zen/deepseek-v4-flash-free
+#         COMPLEX: nous/hy3:free
+#         REASONING: nous/hy3:free
+#     adaptive: true
+#     session_affinity: true
+#     complexity_router_default_model: nous/hy3:free
 
 credential_list:
   - credential_name: nous

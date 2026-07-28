@@ -27,7 +27,7 @@ model_list:
   - model_name: nvidia/deepseek-v4-pro
     litellm_params:
       model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-      litellm_credential_name: nvidia
+      api_key: os.environ/NVIDIA_API_KEY
 
   - model_name: opencode-zen/deepseek-v4-flash-free
     litellm_params:

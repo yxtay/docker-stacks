@@ -20,17 +20,17 @@ model_list:
       model: openai/tencent/hy3:free
       litellm_credential_name: nous
 
-  # - model_name: nvidia/deepseek-v4-pro:max
-  #   litellm_params:
-  #   model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-  #   thinking:
-  #     type: enabled
-  #     budget_tokens: 32000
+  - model_name: nvidia/deepseek-v4-pro:max
+    litellm_params:
+      model: nvidia_nim/deepseek-ai/deepseek-v4-pro
+      thinking:
+        type: enabled
+        budget_tokens: 32000
 
-  # - model_name: nvidia/deepseek-v4-pro:high
-  #   litellm_params:
-  #     model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-  #     reasoning_effort: high
+  - model_name: nvidia/deepseek-v4-pro:high
+    litellm_params:
+      model: nvidia_nim/deepseek-ai/deepseek-v4-pro
+      reasoning_effort: high
 
   - model_name: opencode-zen/deepseek-v4-flash-free
     litellm_params:

@@ -4,7 +4,6 @@ general_settings:
 litellm_settings:
   drop_params: true
   request_timeout: 60
-  set_verbose: false
   json_logs: true
 
 model_list:
@@ -81,3 +80,4 @@ credential_list:
 #       guardrail: headroom
 #       mode: pre_call
 #       api_base: http://headroom:8787
+#       default_on: true

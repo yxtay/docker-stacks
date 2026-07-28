@@ -2,22 +2,18 @@ model_list:
   - model_name: cerebras/gemma-4-31b
     litellm_params:
       model: cerebras/gemma-4-31b
-      api_key: os.environ/CEREBRAS_API_KEY
 
   - model_name: google/gemini-flash-lite-latest
     litellm_params:
       model: gemini/gemini-flash-lite-latest
-      api_key: os.environ/GOOGLE_API_KEY
 
   - model_name: google/gemma-4-31b-it
     litellm_params:
       model: gemini/gemma-4-31b-it
-      api_key: os.environ/GOOGLE_API_KEY
 
   - model_name: groq/gpt-oss-120b
     litellm_params:
       model: groq/openai/gpt-oss-120b
-      api_key: os.environ/GROQ_API_KEY
 
   - model_name: nous/hy3:free
     litellm_params:
@@ -27,7 +23,6 @@ model_list:
   - model_name: nvidia/deepseek-v4-pro
     litellm_params:
       model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-      api_key: os.environ/NVIDIA_API_KEY
 
   - model_name: opencode-zen/deepseek-v4-flash-free
     litellm_params:

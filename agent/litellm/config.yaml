@@ -1,3 +1,12 @@
+general_settings:
+  store_model_in_db: true
+
+litellm_settings:
+  drop_params: true
+  request_timeout: 60
+  set_verbose: false
+  json_logs: true
+
 model_list:
   - model_name: cerebras/gemma-4-31b
     litellm_params:
@@ -19,18 +28,6 @@ model_list:
     litellm_params:
       model: openai/tencent/hy3:free
       litellm_credential_name: nous
-
-  - model_name: nvidia/deepseek-v4-pro:max
-    litellm_params:
-      model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-      thinking:
-        type: enabled
-        budget_tokens: 32000
-
-  - model_name: nvidia/deepseek-v4-pro:high
-    litellm_params:
-      model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-      reasoning_effort: high
 
   - model_name: opencode-zen/deepseek-v4-flash-free
     litellm_params:
@@ -78,16 +75,9 @@ credential_list:
       api_base: https://opencode.ai/zen/go/v1
     credential_info: {}
 
-general_settings:
-  store_model_in_db: true
-  background_health_checks: true
-  health_check_interval: 300
-
-litellm_settings:
-  drop_params: true
-  request_timeout: 120
-  json_logs: true
-
-router_settings:
-  cooldown_time: 60
-  allowed_fails: 3
+# guardrails:
+#   - guardrail_name: headroom
+#     litellm_params:
+#       guardrail: headroom
+#       mode: pre_call
+#       api_base: http://headroom:8787

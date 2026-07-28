@@ -44,7 +44,7 @@ model_list:
 
   - model_name: openrouter/free
     litellm_params:
-      model: openrouter/free
+      model: openrouter/openrouter/free
 
   - model_name: smart-router
     litellm_params:

@@ -1,46 +1,46 @@
 model_list:
-  - model_name: cerebras/gemma-4-31b
-    litellm_params:
-      model: cerebras/gemma-4-31b
+  # - model_name: cerebras/gemma-4-31b
+  #   litellm_params:
+  #     model: cerebras/gemma-4-31b
 
-  - model_name: google/gemini-flash-lite-latest
-    litellm_params:
-      model: gemini/gemini-flash-lite-latest
+  # - model_name: google/gemini-flash-lite-latest
+  #   litellm_params:
+  #     model: gemini/gemini-flash-lite-latest
 
   - model_name: google/gemma-4-31b-it
     litellm_params:
       model: gemini/gemma-4-31b-it
 
-  - model_name: groq/gpt-oss-120b
-    litellm_params:
-      model: groq/openai/gpt-oss-120b
+# - model_name: groq/gpt-oss-120b
+#   litellm_params:
+#     model: groq/openai/gpt-oss-120b
 
-  - model_name: nous/hy3:free
-    litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
+# - model_name: nous/hy3:free
+#   litellm_params:
+#     model: openai/tencent/hy3:free
+#     litellm_credential_name: nous
 
-  - model_name: nvidia/deepseek-v4-pro:max
-    litellm_params:
-    model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-    thinking:
-      type: enabled
-      budget_tokens: 32000
+# - model_name: nvidia/deepseek-v4-pro:max
+#   litellm_params:
+#   model: nvidia_nim/deepseek-ai/deepseek-v4-pro
+#   thinking:
+#     type: enabled
+#     budget_tokens: 32000
 
-  - model_name: nvidia/deepseek-v4-pro:high
-    litellm_params:
-      model: nvidia_nim/deepseek-ai/deepseek-v4-pro
-      reasoning_effort: high
+# - model_name: nvidia/deepseek-v4-pro:high
+#   litellm_params:
+#     model: nvidia_nim/deepseek-ai/deepseek-v4-pro
+#     reasoning_effort: high
 
-  - model_name: opencode-zen/deepseek-v4-flash-free
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
+# - model_name: opencode-zen/deepseek-v4-flash-free
+#   litellm_params:
+#     model: openai/deepseek-v4-flash-free
+#     litellm_credential_name: opencode_zen
 
-  - model_name: opencode-zen/mimo-v2.5-free
-    litellm_params:
-      model: openai/mimo-v2.5-free
-      litellm_credential_name: opencode_zen
+# - model_name: opencode-zen/mimo-v2.5-free
+#   litellm_params:
+#     model: openai/mimo-v2.5-free
+#     litellm_credential_name: opencode_zen
 
 # - model_name: openrouter/free
 #   litellm_params:
@@ -78,16 +78,16 @@ credential_list:
       api_base: https://opencode.ai/zen/go/v1
     credential_info: {}
 
-general_settings:
-  store_model_in_db: true
-  background_health_checks: true
-  health_check_interval: 300
+# general_settings:
+#   store_model_in_db: true
+#   background_health_checks: true
+#   health_check_interval: 300
 
-litellm_settings:
-  drop_params: true
-  request_timeout: 120
-  json_logs: true
+# litellm_settings:
+#   drop_params: true
+#   request_timeout: 120
+#   json_logs: true
 
-router_settings:
-  cooldown_time: 60
-  allowed_fails: 3
+# router_settings:
+#   cooldown_time: 60
+#   allowed_fails: 3

@@ -190,7 +190,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     volumes:
       - /apps/headroom:/home/nonroot/.headroom
     tmpfs:

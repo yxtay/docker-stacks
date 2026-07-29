@@ -66,11 +66,11 @@ model_list:
     litellm_params:
       model: cerebras/gemma-4-31b
 
-  - model_name: google/gemini-flash-lite-latest
+  - model_name: gemini/gemini-flash-lite-latest
     litellm_params:
       model: gemini/gemini-flash-lite-latest
 
-  - model_name: google/gemma-4-31b-it
+  - model_name: gemini/gemma-4-31b-it
     litellm_params:
       model: gemini/gemma-4-31b-it
 

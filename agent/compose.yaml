@@ -160,7 +160,8 @@ services:
       - litellm
       - proxy
     healthcheck:
-      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8787/readyz"]
+      test:
+        ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8787/readyz"]
     restart: unless-stopped
     deploy:
       resources:

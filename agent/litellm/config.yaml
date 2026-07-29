@@ -1,9 +1,5 @@
 general_settings:
   store_model_in_db: true
-  enable_health_check_routing: true
-  background_health_checks: true
-  health_check_interval: 60
-  health_check_ignore_transient_errors: true
   cancel_on_disconnect: true
 
 litellm_settings:

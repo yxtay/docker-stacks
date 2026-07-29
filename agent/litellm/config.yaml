@@ -24,9 +24,9 @@ router_settings:
         role: system
   default_fallbacks: [complex, medium, simple]
   fallbacks:
-    - reasoning: complex
-    - complex: medium
-    - medium: simple
+    - reasoning: [complex, medium, simple]
+    - complex: [medium, simple]
+    - medium: [simple]
 
 model_list:
   - model_name: auto

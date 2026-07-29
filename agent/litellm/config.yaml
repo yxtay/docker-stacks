@@ -5,6 +5,15 @@ litellm_settings:
   drop_params: true
   request_timeout: 60
   json_logs: true
+  default_fallbacks: ["complex"]
+
+router_settings:
+  default_litellm_params:
+    cache_control_injection_points:
+      - location: message
+        role: system
+  optional_pre_call_checks: ["prompt_caching"]
+  enable_anthropic_prompt_caching: true
 
 model_list:
   - model_name: cerebras/gemma-4-31b
@@ -42,18 +51,38 @@ model_list:
     litellm_params:
       model: openrouter/openrouter/free
 
-  - model_name: smart-router
+  - model_name: simple
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: medium
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: complex
+    litellm_params:
+      model: openai/tencent/hy3:free
+      litellm_credential_name: nous
+
+  - model_name: reasoning
+    litellm_params:
+      model: openai/tencent/hy3:free
+      litellm_credential_name: nous
+
+  - model_name: auto
     litellm_params:
       model: auto_router/complexity_router
       complexity_router_config:
         tiers:
-          SIMPLE: opencode-zen/deepseek-v4-flash-free
-          MEDIUM: opencode-zen/deepseek-v4-flash-free
-          COMPLEX: nous/hy3:free
-          REASONING: nous/hy3:free
+          SIMPLE: simple
+          MEDIUM: medium
+          COMPLEX: complex
+          REASONING: reasoning
       adaptive: true
       session_affinity: true
-      complexity_router_default_model: nous/hy3:free
+      complexity_router_default_model: complex
 
 credential_list:
   - credential_name: nous

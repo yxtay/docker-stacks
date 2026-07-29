@@ -54,13 +54,13 @@ model_list:
 
   - model_name: complex
     litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
 
   - model_name: reasoning
     litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
 
   - model_name: cerebras/gemma-4-31b
     litellm_params:
@@ -77,11 +77,6 @@ model_list:
   - model_name: groq/gpt-oss-120b
     litellm_params:
       model: groq/openai/gpt-oss-120b
-
-  - model_name: nous/hy3:free
-    litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
 
   - model_name: opencode-zen/deepseek-v4-flash-free
     litellm_params:

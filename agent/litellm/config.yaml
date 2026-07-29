@@ -112,5 +112,5 @@ guardrails:
     litellm_params:
       guardrail: headroom
       mode: pre_call
-      api_base: http://headroom:8787/v1
-      default_on: true
+      api_base: http://headroom:8787
+      # default_on: true

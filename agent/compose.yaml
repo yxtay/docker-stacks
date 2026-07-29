@@ -121,7 +121,6 @@ services:
     expose:
       - 4000
     networks:
-      - litellm
       - proxy
     healthcheck:
       test:
@@ -157,11 +156,9 @@ services:
     expose:
       - 8787
     networks:
-      - litellm
       - proxy
     healthcheck:
-      test:
-        ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8787/readyz"]
+      test: [CMD, curl, -fsSL, "http://localhost:8787/readyz"]
     restart: unless-stopped
     deploy:
       resources:

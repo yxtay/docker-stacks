@@ -193,6 +193,8 @@ services:
     read_only: true
     volumes:
       - /apps/headroom:/home/nonroot/.headroom
+    tmpfs:
+      - /tmp
     expose:
       - 8787
     networks:

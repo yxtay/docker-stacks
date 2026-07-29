@@ -147,6 +147,8 @@ services:
 
   headroom:
     image: ghcr.io/headroomlabs-ai/headroom:0.32.0-code@sha256:4f4ef9b3eb9b1a26d659c42f6ea3bc5e6128b6eea2b16702611c71225877a119
+    environment:
+      HEADROOM_OUTPUT_SHAPER: "1"
     cap_drop:
       - ALL
     security_opt:

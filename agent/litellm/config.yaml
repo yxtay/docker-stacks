@@ -20,7 +20,7 @@ router_settings:
     cache_control_injection_points:
       - location: message
         role: system
-  optional_pre_call_checks: ["prompt_caching"]
+  optional_pre_call_checks: [prompt_caching]
   enable_anthropic_prompt_caching: true
   default_fallbacks: [complex, medium, simple]
   fallbacks:

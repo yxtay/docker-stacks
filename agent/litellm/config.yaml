@@ -12,16 +12,16 @@ litellm_settings:
   drop_params: true
 
 router_settings:
-  enable_pre_call_checks: true
   cooldown_time: 60
   allowed_fails: 3
   ttft_timeout: 30
+  enable_pre_call_checks: true
+  optional_pre_call_checks: [prompt_caching]
+  enable_anthropic_prompt_caching: true
   default_litellm_params:
     cache_control_injection_points:
       - location: message
         role: system
-  optional_pre_call_checks: [prompt_caching]
-  enable_anthropic_prompt_caching: true
   default_fallbacks: [complex, medium, simple]
   fallbacks:
     - reasoning: complex

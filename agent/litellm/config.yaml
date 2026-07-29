@@ -8,7 +8,6 @@ general_settings:
 
 litellm_settings:
   json_logs: true
-  default_fallbacks: ["complex"]
   request_timeout: 60
   drop_params: true
 
@@ -23,6 +22,7 @@ router_settings:
         role: system
   optional_pre_call_checks: ["prompt_caching"]
   enable_anthropic_prompt_caching: true
+  default_fallbacks: [complex, medium, simple]
   fallbacks:
     - reasoning: complex
     - complex: medium

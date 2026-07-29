@@ -1,21 +1,67 @@
 general_settings:
   store_model_in_db: true
+  enable_health_check_routing: true
+  background_health_checks: true
+  health_check_interval: 60
+  health_check_ignore_transient_errors: true
+  cancel_on_disconnect: true
 
 litellm_settings:
-  drop_params: true
-  request_timeout: 60
   json_logs: true
   default_fallbacks: ["complex"]
+  request_timeout: 60
+  drop_params: true
 
 router_settings:
+  enable_pre_call_checks: true
+  cooldown_time: 60
+  allowed_fails: 3
+  ttft_timeout: 30
   default_litellm_params:
     cache_control_injection_points:
       - location: message
         role: system
   optional_pre_call_checks: ["prompt_caching"]
   enable_anthropic_prompt_caching: true
+  fallbacks:
+    - reasoning: complex
+    - complex: medium
+    - medium: simple
 
 model_list:
+  - model_name: auto
+    litellm_params:
+      model: auto_router/complexity_router
+      complexity_router_config:
+        tiers:
+          SIMPLE: simple
+          MEDIUM: medium
+          COMPLEX: complex
+          REASONING: reasoning
+      adaptive: true
+      session_affinity: true
+      complexity_router_default_model: complex
+
+  - model_name: simple
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: medium
+    litellm_params:
+      model: openai/deepseek-v4-flash-free
+      litellm_credential_name: opencode_zen
+
+  - model_name: complex
+    litellm_params:
+      model: openai/tencent/hy3:free
+      litellm_credential_name: nous
+
+  - model_name: reasoning
+    litellm_params:
+      model: openai/tencent/hy3:free
+      litellm_credential_name: nous
+
   - model_name: cerebras/gemma-4-31b
     litellm_params:
       model: cerebras/gemma-4-31b
@@ -50,39 +96,6 @@ model_list:
   - model_name: openrouter/free
     litellm_params:
       model: openrouter/openrouter/free
-
-  - model_name: simple
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: medium
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: complex
-    litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
-
-  - model_name: reasoning
-    litellm_params:
-      model: openai/tencent/hy3:free
-      litellm_credential_name: nous
-
-  - model_name: auto
-    litellm_params:
-      model: auto_router/complexity_router
-      complexity_router_config:
-        tiers:
-          SIMPLE: simple
-          MEDIUM: medium
-          COMPLEX: complex
-          REASONING: reasoning
-      adaptive: true
-      session_affinity: true
-      complexity_router_default_model: complex
 
 credential_list:
   - credential_name: nous

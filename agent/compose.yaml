@@ -121,6 +121,7 @@ services:
     expose:
       - 4000
     networks:
+      - litellm
       - proxy
     healthcheck:
       test:

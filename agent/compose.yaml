@@ -182,6 +182,39 @@ services:
           memory: 4g
           pids: 512
 
+  headroom:
+    image: ghcr.io/headroomlabs-ai/headroom:0.32.0-code@sha256:4f4ef9b3eb9b1a26d659c42f6ea3bc5e6128b6eea2b16702611c71225877a119
+    environment:
+      HEADROOM_OUTPUT_SHAPER: 1
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/headroom:/home/nonroot/.headroom
+    expose:
+      - 8787
+    networks:
+      - proxy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth headroom headroom:8787"
+      pangolin.public-resources.headroom.name: headroom
+      pangolin.public-resources.headroom.mode: http
+      pangolin.public-resources.headroom.full-domain: "headroom.${DOMAIN:?}"
+      pangolin.public-resources.headroom.auth.sso-enabled: true
+      pangolin.public-resources.headroom.targets[0].hostname: headroom
+      pangolin.public-resources.headroom.targets[0].port: 8787
+      pangolin.public-resources.headroom.targets[0].method: http
+
 networks:
   default:
     name: agent

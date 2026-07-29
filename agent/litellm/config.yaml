@@ -66,11 +66,11 @@ model_list:
     litellm_params:
       model: cerebras/gemma-4-31b
 
-  - model_name: google/gemini-flash-lite-latest
+  - model_name: gemini/gemini-flash-lite-latest
     litellm_params:
       model: gemini/gemini-flash-lite-latest
 
-  - model_name: google/gemma-4-31b-it
+  - model_name: gemini/gemma-4-31b-it
     litellm_params:
       model: gemini/gemma-4-31b-it
 
@@ -111,10 +111,10 @@ credential_list:
       api_base: https://opencode.ai/zen/go/v1
     credential_info: {}
 
-# guardrails:
-#   - guardrail_name: headroom
-#     litellm_params:
-#       guardrail: headroom
-#       mode: pre_call
-#       api_base: http://headroom:8787
-#       default_on: true
+guardrails:
+  - guardrail_name: headroom
+    litellm_params:
+      guardrail: headroom
+      mode: pre_call
+      api_base: http://headroom:8787
+      default_on: true

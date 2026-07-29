@@ -113,4 +113,5 @@ guardrails:
       guardrail: headroom
       mode: pre_call
       api_base: http://headroom:8787
+      api_key: os.environ/LITELLM_MASTER_KEY
       # default_on: true

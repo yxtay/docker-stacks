@@ -104,7 +104,7 @@ services:
     command:
       - --config=/app/config.yaml
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql://litellm:litellm@db:5432/litellm}
+      DATABASE_URL: ${LITELLM_DATABASE_URL:?}
     env_file:
       - .env
     cap_drop:

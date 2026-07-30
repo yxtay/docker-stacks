@@ -2,7 +2,7 @@ services:
   newt:
     # nosemgrep
     image: ghcr.io/fosrl/newt:1.15.0@sha256:d69d047c816ca7721eae90d5f3cd3be53b615b3d498678be21488d666538ee5c
-    command: ["-prefer-endpoint=gerbil:51820"]
+    command: [newt, -prefer-endpoint, "gerbil:51820"]
     environment:
       DOCKER_SOCKET: tcp://socket-proxy:2375
       NEWT_ID: ${NEWT_ID:?}

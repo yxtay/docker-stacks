@@ -93,19 +93,25 @@ credential_list:
   - credential_name: nous
     credential_values:
       api_key: os.environ/NOUS_API_KEY
-      api_base: https://inference-api.nousresearch.com/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://inference-api.nousresearch.com/v1
     credential_info: {}
 
   - credential_name: opencode_zen
     credential_values:
       api_key: os.environ/OPENCODE_ZEN_API_KEY
-      api_base: https://opencode.ai/zen/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://opencode.ai/zen/v1
     credential_info: {}
 
   - credential_name: opencode_go
     credential_values:
       api_key: os.environ/OPENCODE_GO_API_KEY
-      api_base: https://opencode.ai/zen/go/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://opencode.ai/zen/go/v1
     credential_info: {}
 
 guardrails:
@@ -114,4 +120,3 @@ guardrails:
       guardrail: headroom
       mode: pre_call
       api_base: http://headroom:8787
-      default_on: true

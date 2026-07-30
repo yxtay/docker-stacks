@@ -10,14 +10,11 @@ litellm_settings:
 router_settings:
   cooldown_time: 60
   allowed_fails: 3
-  ttft_timeout: 30
+  num_retries: 4
+  retry_policy:
+    RateLimitErrorRetries: 5
+    InternalServerErrorRetries: 3
   enable_pre_call_checks: true
-  optional_pre_call_checks: [prompt_caching]
-  enable_anthropic_prompt_caching: true
-  default_litellm_params:
-    cache_control_injection_points:
-      - location: message
-        role: system
   default_fallbacks: [complex]
   fallbacks:
     - reasoning: [complex]
@@ -34,8 +31,7 @@ model_list:
           MEDIUM: medium
           COMPLEX: complex
           REASONING: reasoning
-      adaptive: true
-      session_affinity: true
+        adaptive: true
       complexity_router_default_model: complex
 
   - model_name: simple
@@ -112,10 +108,3 @@ credential_list:
       extra_headers:
         x-headroom-base-url: https://opencode.ai/zen/go/v1
     credential_info: {}
-
-guardrails:
-  - guardrail_name: headroom
-    litellm_params:
-      guardrail: headroom
-      mode: pre_call
-      api_base: http://headroom:8787

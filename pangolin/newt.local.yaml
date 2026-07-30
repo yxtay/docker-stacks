@@ -1,0 +1,7 @@
+include:
+  - ./newt.yaml
+
+services:
+  newt:
+    extra_hosts:
+      - pangolin.yxtay.duckdns.org:host-gateway

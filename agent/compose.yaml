@@ -188,11 +188,10 @@ services:
     image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
     environment:
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
-      HEADROOM_LOSSLESS: 1
       HEADROOM_OUTPUT_SHAPER: 1
-      HEADROOM_SAVINGS_PROFILE: general
+      HEADROOM_SAVINGS_PROFILE: coding
       HEADROOM_SKIP_UPSTREAM_CHECK: 1
-      HOME: /home/nonroot/.headroom
+      XDG_CACHE_HOME: /home/nonroot/.headroom/.cache
     cap_drop:
       - ALL
     security_opt:
@@ -206,6 +205,8 @@ services:
       - 8787
     networks:
       - proxy
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8787/health"]
     restart: unless-stopped
     deploy:
       resources:

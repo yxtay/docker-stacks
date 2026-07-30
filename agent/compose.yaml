@@ -205,8 +205,6 @@ services:
       - 8787
     networks:
       - proxy
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8787/health"]
     restart: unless-stopped
     deploy:
       resources:

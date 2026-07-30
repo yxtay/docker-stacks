@@ -20,6 +20,7 @@ router_settings:
         role: system
   default_fallbacks: [complex, medium, simple]
   fallbacks:
+    - auto: [complex, medium, simple]
     - reasoning: [complex, medium, simple]
     - complex: [medium, simple]
     - medium: [simple]

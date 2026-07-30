@@ -108,3 +108,10 @@ credential_list:
       extra_headers:
         x-headroom-base-url: https://opencode.ai/zen/go/v1
     credential_info: {}
+
+guardrails:
+  - guardrail_name: headroom
+    litellm_params:
+      guardrail: headroom
+      mode: pre_call
+      api_base: http://headroom:8787

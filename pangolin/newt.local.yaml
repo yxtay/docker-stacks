@@ -4,4 +4,4 @@ include:
 services:
   newt:
     extra_hosts:
-      - pangolin.yxtay.duckdns.org:host-gateway
+      - pangolin.${DOMAIN:?}:host-gateway

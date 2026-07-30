@@ -101,6 +101,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      headroom:
+        condition: service_healthy
     command:
       - --config=/app/config.yaml
     environment:
@@ -185,7 +187,12 @@ services:
   headroom:
     image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
     environment:
+      HEADROOM_COMPRESS_ALLOW_REMOTE: 1
+      HEADROOM_LOSSLESS: 1
       HEADROOM_OUTPUT_SHAPER: 1
+      HEADROOM_SAVINGS_PROFILE: general
+      HEADROOM_SKIP_UPSTREAM_CHECK: 1
+      HOME: /home/nonroot/.headroom
     cap_drop:
       - ALL
     security_opt:
@@ -193,6 +200,8 @@ services:
     read_only: true
     volumes:
       - /apps/headroom:/home/nonroot/.headroom
+    tmpfs:
+      - /tmp
     expose:
       - 8787
     networks:
@@ -201,8 +210,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
-          memory: 4g
+          cpus: 2
+          memory: 8g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

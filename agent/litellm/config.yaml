@@ -1,9 +1,5 @@
 general_settings:
   store_model_in_db: true
-  enable_health_check_routing: true
-  background_health_checks: true
-  health_check_interval: 60
-  health_check_ignore_transient_errors: true
   cancel_on_disconnect: true
 
 litellm_settings:
@@ -14,18 +10,11 @@ litellm_settings:
 router_settings:
   cooldown_time: 60
   allowed_fails: 3
-  ttft_timeout: 30
   enable_pre_call_checks: true
-  optional_pre_call_checks: [prompt_caching]
-  enable_anthropic_prompt_caching: true
-  default_litellm_params:
-    cache_control_injection_points:
-      - location: message
-        role: system
-  default_fallbacks: [complex, medium, simple]
+  default_fallbacks: [complex]
   fallbacks:
-    - reasoning: [complex, medium, simple]
-    - complex: [medium, simple]
+    - reasoning: [complex]
+    - complex: [medium]
     - medium: [simple]
 
 model_list:
@@ -38,9 +27,8 @@ model_list:
           MEDIUM: medium
           COMPLEX: complex
           REASONING: reasoning
-      adaptive: true
-      session_affinity: true
-      complexity_router_default_model: complex
+        adaptive: true
+        complexity_router_default_model: complex
 
   - model_name: simple
     litellm_params:
@@ -96,19 +84,25 @@ credential_list:
   - credential_name: nous
     credential_values:
       api_key: os.environ/NOUS_API_KEY
-      api_base: https://inference-api.nousresearch.com/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://inference-api.nousresearch.com/v1
     credential_info: {}
 
   - credential_name: opencode_zen
     credential_values:
       api_key: os.environ/OPENCODE_ZEN_API_KEY
-      api_base: https://opencode.ai/zen/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://opencode.ai/zen/v1
     credential_info: {}
 
   - credential_name: opencode_go
     credential_values:
       api_key: os.environ/OPENCODE_GO_API_KEY
-      api_base: https://opencode.ai/zen/go/v1
+      api_base: http://headroom:8787
+      extra_headers:
+        x-headroom-base-url: https://opencode.ai/zen/go/v1
     credential_info: {}
 
 guardrails:
@@ -117,4 +111,3 @@ guardrails:
       guardrail: headroom
       mode: pre_call
       api_base: http://headroom:8787
-      default_on: true

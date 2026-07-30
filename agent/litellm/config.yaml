@@ -120,4 +120,3 @@ guardrails:
       guardrail: headroom
       mode: pre_call
       api_base: http://headroom:8787
-      default_on: true

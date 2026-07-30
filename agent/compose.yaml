@@ -189,6 +189,7 @@ services:
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: general
       HEADROOM_SKIP_UPSTREAM_CHECK: 1
+      HOME: /home/nonroot/.headroom
     cap_drop:
       - ALL
     security_opt:

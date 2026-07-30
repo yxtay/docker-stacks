@@ -16,7 +16,6 @@ services:
       - /apps/pangolin/newt:/root/.config/newt-client
     extra_hosts:
       - host.docker.internal:host-gateway
-      - pangolin.yxtay.duckdns.org:host-gateway
     networks:
       - default
       - socket-proxy

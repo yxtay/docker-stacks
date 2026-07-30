@@ -1,11 +1,16 @@
 general_settings:
   store_model_in_db: true
   cancel_on_disconnect: true
+  user_api_key_cache_ttl: 300
 
 litellm_settings:
   json_logs: true
   request_timeout: 60
   drop_params: true
+  cache: true
+  cache_params:
+    type: local
+    ttl: 3600
 
 router_settings:
   cooldown_time: 60

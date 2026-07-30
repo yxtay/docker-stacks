@@ -18,11 +18,10 @@ router_settings:
     cache_control_injection_points:
       - location: message
         role: system
-  default_fallbacks: [complex, medium, simple]
+  default_fallbacks: [complex]
   fallbacks:
-    - auto: [complex, medium, simple]
-    - reasoning: [complex, medium, simple]
-    - complex: [medium, simple]
+    - reasoning: [complex]
+    - complex: [medium]
     - medium: [simple]
 
 model_list:

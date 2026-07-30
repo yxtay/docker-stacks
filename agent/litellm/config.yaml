@@ -28,7 +28,7 @@ model_list:
           COMPLEX: complex
           REASONING: reasoning
         adaptive: true
-      complexity_router_default_model: complex
+        complexity_router_default_model: complex
 
   - model_name: simple
     litellm_params:

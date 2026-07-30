@@ -60,7 +60,7 @@ model_list:
       model: openai/mimo-v2.5-free
       litellm_credential_name: opencode_zen
 
-  - model_name: openrouter/free
+  - model_name: openrouter:free
     litellm_params:
       model: openrouter/openrouter/free
 

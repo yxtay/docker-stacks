@@ -10,10 +10,6 @@ litellm_settings:
 router_settings:
   cooldown_time: 60
   allowed_fails: 3
-  num_retries: 4
-  retry_policy:
-    RateLimitErrorRetries: 5
-    InternalServerErrorRetries: 3
   enable_pre_call_checks: true
   default_fallbacks: [complex]
   fallbacks:

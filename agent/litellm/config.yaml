@@ -16,11 +16,10 @@ router_settings:
   cooldown_time: 60
   allowed_fails: 3
   enable_pre_call_checks: true
-  default_fallbacks: [complex]
+  default_fallbacks: ["deepseek-v4-flash:free"]
   fallbacks:
-    - reasoning: [complex]
-    - complex: [medium]
-    - medium: [simple]
+    - deepseek-v4-flash:free: ["mimo-v2.5:free"]
+    - mimo-v2.5:free: ["deepseek-v4-flash:free"]
 
 model_list:
   - model_name: auto
@@ -28,55 +27,35 @@ model_list:
       model: auto_router/complexity_router
       complexity_router_config:
         tiers:
-          SIMPLE: simple
-          MEDIUM: medium
-          COMPLEX: complex
-          REASONING: reasoning
+          SIMPLE: deepseek-v4-flash:free
+          MEDIUM: deepseek-v4-flash:free
+          COMPLEX: deepseek-v4-flash:free
+          REASONING: deepseek-v4-flash:free
         adaptive: true
-        complexity_router_default_model: complex
+        complexity_router_default_model: deepseek-v4-flash:free
 
-  - model_name: simple
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: medium
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: complex
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: reasoning
-    litellm_params:
-      model: openai/deepseek-v4-flash-free
-      litellm_credential_name: opencode_zen
-
-  - model_name: cerebras/gemma-4-31b
+  - model_name: gemma-4-31b
     litellm_params:
       model: cerebras/gemma-4-31b
 
-  - model_name: gemini/gemini-flash-lite-latest
+  - model_name: gemini-flash-lite-latest
     litellm_params:
       model: gemini/gemini-flash-lite-latest
 
-  - model_name: gemini/gemma-4-31b-it
+  - model_name: gemma-4-31b-it
     litellm_params:
       model: gemini/gemma-4-31b-it
 
-  - model_name: groq/gpt-oss-120b
+  - model_name: gpt-oss-120b
     litellm_params:
       model: groq/openai/gpt-oss-120b
 
-  - model_name: opencode-zen/deepseek-v4-flash-free
+  - model_name: deepseek-v4-flash:free
     litellm_params:
       model: openai/deepseek-v4-flash-free
       litellm_credential_name: opencode_zen
 
-  - model_name: opencode-zen/mimo-v2.5-free
+  - model_name: mimo-v2.5:free
     litellm_params:
       model: openai/mimo-v2.5-free
       litellm_credential_name: opencode_zen

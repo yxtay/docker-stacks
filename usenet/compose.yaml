@@ -241,6 +241,11 @@ services:
       - /apps/aiostreams:/app/data
     expose:
       - 3000
+    extra_hosts:
+      - nzbdavex.${DOMAIN}:host-gateway
+      - usernetstreamer.${DOMAIN}:host-gateway
+      - streamnzb.${DOMAIN}:host-gateway
+      - altmount.${DOMAIN}:host-gateway
     restart: unless-stopped
     deploy:
       resources:

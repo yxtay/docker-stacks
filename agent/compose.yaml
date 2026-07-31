@@ -12,10 +12,6 @@ services:
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
       CAMOFOX_URL: http://camofox:9377
-      CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
-      CAMOFOX_REWRITE_LOOPBACK_URLS: "true"
-      CAMOFOX_LOOPBACK_HOST_ALIAS: host.docker.internal
-      CAMOFOX_MANAGED_PERSISTENCE: "true"
     env_file:
       - .env
     cap_add:
@@ -234,11 +230,6 @@ services:
     environment:
       ENABLE_VNC: 1
       VNC_PASSWORD: ${CAMOFOX_VNC_PASSWORD:?}
-      VNC_RESOLUTION: 1920x1080
-      VIEW_ONLY: "false"
-      VNC_PORT: 5900
-      NOVNC_PORT: 6080
-      CAMOFOX_PORT: 9377
       CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
     cap_drop:
       - ALL

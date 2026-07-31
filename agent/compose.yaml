@@ -7,10 +7,17 @@ services:
     depends_on:
       socket-proxy:
         condition: service_healthy
+      camofox:
+        condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
+      CAMOFOX_URL: http://camofox:9377
+      CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
+      CAMOFOX_REWRITE_LOOPBACK_URLS: "true"
+      CAMOFOX_LOOPBACK_HOST_ALIAS: host.docker.internal
+      CAMOFOX_MANAGED_PERSISTENCE: "true"
     env_file:
       - .env
     cap_add:
@@ -223,6 +230,59 @@ services:
       pangolin.public-resources.headroom.targets[0].hostname: headroom
       pangolin.public-resources.headroom.targets[0].port: 8787
       pangolin.public-resources.headroom.targets[0].method: http
+
+  camofox:
+    image: ghcr.io/jo-inc/camofox-browser:1.13.0
+    environment:
+      ENABLE_VNC: 1
+      VNC_PASSWORD: ${CAMOFOX_VNC_PASSWORD:?}
+      VNC_RESOLUTION: 1920x1080
+      VIEW_ONLY: "false"
+      VNC_PORT: 5900
+      NOVNC_PORT: 6080
+      CAMOFOX_PORT: 9377
+      CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/camofox:/root/.camofox
+    tmpfs:
+      - /tmp:exec
+      - /run:exec
+    expose:
+      - 6080
+      - 9377
+      - 5900
+    networks:
+      - default
+      - proxy
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:9377/health"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth camofox camofox:6080"
+      pangolin.public-resources.camofox.name: camofox
+      pangolin.public-resources.camofox.mode: http
+      pangolin.public-resources.camofox.full-domain: "camofox.${DOMAIN:?}"
+      pangolin.public-resources.camofox.auth.sso-enabled: true
+      pangolin.public-resources.camofox.targets[0].hostname: camofox
+      pangolin.public-resources.camofox.targets[0].port: 6080
+      pangolin.public-resources.camofox.targets[0].method: http
+      pangolin.public-resources.camofox-vnc.name: camofox-vnc
+      pangolin.public-resources.camofox-vnc.mode: tcp
+      pangolin.public-resources.camofox-vnc.auth.sso-enabled: true
+      pangolin.public-resources.camofox-vnc.targets[0].hostname: camofox
+      pangolin.public-resources.camofox-vnc.targets[0].port: 5900
 
 networks:
   default:

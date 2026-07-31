@@ -31,6 +31,7 @@ isolation and stability.
 Autonomous AI agent stack.
 
 - **hermes** — Autonomous AI agent with persistent memory and tool use
+- **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
 - **socket-proxy** — Dedicated Docker socket proxy for hermes
   (untrusted code execution environment)
 - **manifest** — Open-source LLM router for agents and AI applications

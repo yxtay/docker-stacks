@@ -139,6 +139,7 @@ When controlling the Camofox browser service (`ghcr.io/jo-inc/camofox-browser`):
 
 - **API Endpoint:** Use port `9377` inside the internal Docker network.
 - **noVNC Live View:** Use port `6080` to watch and interact with the browser
+  via `camofox.${DOMAIN}`
   (e.g., for solving CAPTCHAs, MFA, or visual logins).
 - **Session Persistence:** When setting up browser sessions, always configure
   `managed_persistence: true` in the Hermes config to preserve cookies and

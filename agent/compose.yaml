@@ -239,14 +239,13 @@ services:
     volumes:
       - /apps/camofox:/root/.camofox
     tmpfs:
-      - /tmp:exec
+      - /tmp
       - /run:exec
     expose:
       - 6080
       - 9377
       - 5900
     networks:
-      - default
       - proxy
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:9377/health"]

@@ -68,12 +68,6 @@ model_list:
       reasoning_effort: max
       litellm_credential_name: opencode_go
 
-  - model_name: deepseek-v4-pro:high
-    litellm_params:
-      model: openai/deepseek-v4-pro
-      reasoning_effort: high
-      litellm_credential_name: opencode_go
-
   - model_name: deepseek-v4-pro:max
     litellm_params:
       model: openai/deepseek-v4-pro
@@ -83,6 +77,7 @@ model_list:
   - model_name: deepseek-v4-flash:free
     litellm_params:
       model: openai/deepseek-v4-flash-free
+      reasoning_effort: max
       litellm_credential_name: opencode_zen
 
   - model_name: mimo-v2.5:free

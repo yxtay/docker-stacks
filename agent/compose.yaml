@@ -235,7 +235,6 @@ services:
       - /apps/camofox:/root/.camofox
     tmpfs:
       - /tmp
-      - /run:exec
     expose:
       - 5900
       - 6080

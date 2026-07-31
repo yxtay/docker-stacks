@@ -61,7 +61,7 @@ services:
 
   usenetstreamer:
     # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.8.3@sha256:a340870dbd30835095cec00e07206b859dbc5f40e9dd5476adae83672dc9f60a
+    image: ghcr.io/sanket9225/usenetstreamer:1.8.3@sha256:1581bb5cb6372086db9232c9fd79d3fb6647d99957d7ccc0f8f769f7e97919a1
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       CONFIG_DIR: /data/config

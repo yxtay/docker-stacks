@@ -225,7 +225,7 @@ services:
     environment:
       CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
       ENABLE_VNC: 1
-      VNC_PASSWORD: ${CAMOFOX_VNC_PASSWORD:?}
+      VNC_PASSWORD: ${CAMOFOX_VNC_PASSWORD:-}
     cap_drop:
       - ALL
     security_opt:

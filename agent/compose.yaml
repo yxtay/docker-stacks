@@ -7,8 +7,6 @@ services:
     depends_on:
       socket-proxy:
         condition: service_healthy
-      camofox:
-        condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}

@@ -130,22 +130,3 @@ submitting changes.
     8. Lifecycle: `healthcheck`, `restart`, `deploy`,
        `stop_grace_period`, `stop_signal`, `post_start`, `pre_stop`
     9. Metadata: `labels`, `annotations`, `logging`
-
-## Service Integrations
-
-### Camofox Browser
-
-When controlling the Camofox browser service (`ghcr.io/jo-inc/camofox-browser`):
-
-- **API Endpoint:** Use port `9377` inside the internal Docker network.
-- **noVNC Live View:** Use port `6080` to watch and interact with the browser
-  via `camofox.${DOMAIN}`
-  (e.g., for solving CAPTCHAs, MFA, or visual logins).
-- **Session Persistence:** When setting up browser sessions, always configure
-  `managed_persistence: true` in the Hermes config to preserve cookies and
-  login states between agent tasks.
-- **Loopback URL Rewriting:** When accessing services on `localhost` or
-  `127.0.0.1` from the containerized browser, set
-  `CAMOFOX_REWRITE_LOOPBACK_URLS=true` and
-  `CAMOFOX_LOOPBACK_HOST_ALIAS=host.docker.internal` so the browser can reach
-  the host-published APIs.

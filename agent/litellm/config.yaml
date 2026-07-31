@@ -83,7 +83,6 @@ model_list:
   - model_name: deepseek-v4-flash:free
     litellm_params:
       model: openai/deepseek-v4-flash-free
-      reasoning_effort: max
       litellm_credential_name: opencode_zen
 
   - model_name: mimo-v2.5:free

@@ -235,7 +235,7 @@ services:
       - /apps/camofox:/root/.camofox
     tmpfs:
       - /root/.cache/camoufox/addons/UBO
-      # - /tmp
+      - /tmp
     expose:
       - 5900
       - 6080

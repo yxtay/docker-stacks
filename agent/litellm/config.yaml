@@ -56,6 +56,12 @@ model_list:
       model: openai/tencent/hy3:free
       litellm_credential_name: nous
 
+  - model_name: deepseek-v4-flash:low
+    litellm_params:
+      model: openai/deepseek-v4-flash
+      reasoning_effort: low
+      litellm_credential_name: opencode_go
+
   - model_name: deepseek-v4-flash:high
     litellm_params:
       model: openai/deepseek-v4-flash

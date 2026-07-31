@@ -34,6 +34,8 @@ model_list:
           REASONING: deepseek-v4-flash:free
         adaptive: true
         complexity_router_default_model: deepseek-v4-flash:free
+      model_info:
+        max_input_tokens: 262144
 
   - model_name: gemma-4-31b
     litellm_params:

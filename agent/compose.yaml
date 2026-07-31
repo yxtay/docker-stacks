@@ -4,9 +4,6 @@ services:
     image: nousresearch/hermes-agent:v2026.7.30@sha256:b869e64d6496d4763d5e4fb675b5f504cb23b0e35ec9b790481a56118602b10f
     command: gateway run
     working_dir: /opt/data
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
     environment:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
@@ -236,7 +233,6 @@ services:
     read_only: true
     volumes:
       - /apps/camofox:/root/.camofox
-      - /apps/camofox/.cache:/root/.cache
     tmpfs:
       - /tmp
       - /run:exec

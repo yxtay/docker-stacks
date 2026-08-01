@@ -200,6 +200,9 @@
       }
     ]
   },
+  "config_store": {
+    "enabled": false
+  },
   "logs_store": {
     "retention_days": 90
   }

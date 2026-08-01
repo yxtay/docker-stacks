@@ -34,8 +34,9 @@ Autonomous AI agent stack.
 - **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
 - **socket-proxy** — Dedicated Docker socket proxy for hermes
   (untrusted code execution environment)
-- **manifest** — Open-source LLM router for agents and AI applications
-- **postgres** — Dedicated PostgreSQL database for manifest
+- **bifrost** — High-performance AI gateway with complexity-based routing,
+  fallbacks, and request/response logging
+- **headroom** — Upstream proxy for opencode and Nous providers
 
 ### Proxy Stack (`proxy/`)
 

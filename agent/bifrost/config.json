@@ -135,11 +135,22 @@
     },
     "routing_rules": [
       {
-        "id": "complexity-simple-medium",
-        "name": "Simple/Medium → deepseek-v4-flash:free",
+        "id": "complexity-simple",
+        "name": "Simple → deepseek-v4-flash:free",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "complexity_tier in [\"SIMPLE\", \"MEDIUM\"]",
+        "cel_expression": "complexity_tier == \"SIMPLE\"",
+        "targets": [
+          { "provider": "opencode_zen", "model": "deepseek-v4-flash-free", "weight": 1.0 }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+      },
+      {
+        "id": "complexity-medium",
+        "name": "Medium → deepseek-v4-flash:free",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "complexity_tier == \"MEDIUM\"",
         "targets": [
           { "provider": "opencode_zen", "model": "deepseek-v4-flash-free", "weight": 1.0 }
         ],

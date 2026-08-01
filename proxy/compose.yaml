@@ -1,7 +1,7 @@
 services:
   caddy:
     # nosemgrep
-    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.4@sha256:0f860e623b91d11bf3a75a1a82462a714f181ea6b5db4ebfaae0babeda2c6633
+    image: ghcr.io/serfriz/caddy-duckdns-ddns-crowdsec-geoip-security-dockerproxy:2.11.4@sha256:b51a3ed7ce44e4bd1eeb9c562b1593d94cda201787768b1a8eb0e0fd275c794a
     container_name: caddy
     working_dir: /etc/caddy
     environment:

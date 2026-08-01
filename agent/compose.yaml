@@ -108,8 +108,6 @@ services:
     volumes:
       - /apps/bifrost:/app/data
       - ./bifrost/config.json:/app/data/config.json:ro
-    tmpfs:
-      - /tmp
     expose:
       - 8080
     restart: unless-stopped

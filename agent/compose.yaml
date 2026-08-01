@@ -99,7 +99,7 @@ services:
     depends_on:
       headroom:
         condition: service_healthy
-    command: ["-app-dir", "/app/data"]
+    command: ["-app-dir", "/app/data", "-host", "0.0.0.0"]
     env_file:
       - .env
     cap_drop:

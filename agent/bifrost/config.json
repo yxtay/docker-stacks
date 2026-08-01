@@ -135,7 +135,6 @@
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
-        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
           {
@@ -144,14 +143,15 @@
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 0
       },
       {
         "id": "complexity-medium",
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
-        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
           {
@@ -160,14 +160,15 @@
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 1
       },
       {
         "id": "complexity-complex",
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
-        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
           {
@@ -176,14 +177,15 @@
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 2
       },
       {
         "id": "complexity-reasoning",
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
-        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
           {
@@ -192,7 +194,9 @@
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 3
       }
     ]
   },

@@ -202,12 +202,14 @@
   },
   "config_store": {
     "enabled": true,
+    "type": "sqlite",
     "config": {
       "path": "./config.db"
     }
   },
   "logs_store": {
     "enabled": true,
+    "type": "sqlite",
     "config": {
       "path": "./logs.db"
     },

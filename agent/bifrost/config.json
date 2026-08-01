@@ -1,0 +1,240 @@
+{
+  "$schema": "https://www.getbifrost.ai/schema",
+  "encryption_key": "env.BIFROST_ENCRYPTION_KEY",
+  "client": {
+    "enable_logging": true,
+    "disable_content_logging": true
+  },
+  "providers": {
+    "cerebras": {
+      "keys": [
+        {
+          "name": "cerebras",
+          "value": "env.CEREBRAS_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "gemini": {
+      "keys": [
+        {
+          "name": "gemini",
+          "value": "env.GEMINI_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "groq": {
+      "keys": [
+        {
+          "name": "groq",
+          "value": "env.GROQ_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "openrouter": {
+      "keys": [
+        {
+          "name": "openrouter",
+          "value": "env.OPENROUTER_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "nous": {
+      "keys": [
+        {
+          "name": "nous",
+          "value": "env.NOUS_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "https://inference-api.nousresearch.com",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
+        "allow_private_network": true,
+        "extra_headers": {
+          "x-headroom-base-url": "https://inference-api.nousresearch.com"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
+        }
+      }
+    },
+    "opencode_go": {
+      "keys": [
+        {
+          "name": "opencode-go",
+          "value": "env.OPENCODE_GO_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "https://opencode.ai/zen/go",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
+        "allow_private_network": true,
+        "extra_headers": {
+          "x-headroom-base-url": "https://opencode.ai/zen/go"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
+        }
+      }
+    },
+    "opencode_zen": {
+      "keys": [
+        {
+          "name": "opencode-zen",
+          "value": "env.OPENCODE_ZEN_API_KEY",
+          "models": ["*"],
+          "weight": 1.0,
+          "aliases": {
+            "auto": "deepseek-v4-flash-free"
+          }
+        }
+      ],
+      "network_config": {
+        "base_url": "https://opencode.ai/zen",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
+        "allow_private_network": true,
+        "extra_headers": {
+          "x-headroom-base-url": "https://opencode.ai/zen"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
+        }
+      }
+    }
+  },
+  "governance": {
+    "routing_rules": [
+      {
+        "id": "complexity-simple",
+        "name": "Simple",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 0
+      },
+      {
+        "id": "complexity-medium",
+        "name": "Medium",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 1
+      },
+      {
+        "id": "complexity-complex",
+        "name": "Complex",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 2
+      },
+      {
+        "id": "complexity-reasoning",
+        "name": "Reasoning",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 3
+      }
+    ]
+  },
+  "config_store": {
+    "enabled": true,
+    "type": "sqlite",
+    "config": {
+      "path": "./config.db"
+    }
+  },
+  "logs_store": {
+    "enabled": true,
+    "type": "sqlite",
+    "config": {
+      "path": "./logs.db"
+    },
+    "retention_days": 90
+  }
+}

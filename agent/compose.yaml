@@ -256,10 +256,6 @@ services:
       pangolin.public-resources.camofox.targets[0].hostname: camofox
       pangolin.public-resources.camofox.targets[0].port: 6080
       pangolin.public-resources.camofox.targets[0].method: http
-      pangolin.public-resources.camofox-vnc.name: camofox-vnc
-      pangolin.public-resources.camofox-vnc.mode: tcp
-      pangolin.public-resources.camofox-vnc.targets[0].hostname: camofox
-      pangolin.public-resources.camofox-vnc.targets[0].port: 5900
 
 networks:
   default:

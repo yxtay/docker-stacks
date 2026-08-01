@@ -8,7 +8,7 @@
     "cerebras": {
       "keys": [
         {
-          "name": "cerebras-primary",
+          "name": "cerebras",
           "value": "env.CEREBRAS_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -22,7 +22,7 @@
     "gemini": {
       "keys": [
         {
-          "name": "gemini-primary",
+          "name": "gemini",
           "value": "env.GEMINI_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -36,7 +36,7 @@
     "groq": {
       "keys": [
         {
-          "name": "groq-primary",
+          "name": "groq",
           "value": "env.GROQ_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -50,7 +50,7 @@
     "openrouter": {
       "keys": [
         {
-          "name": "openrouter-primary",
+          "name": "openrouter",
           "value": "env.OPENROUTER_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -64,7 +64,7 @@
     "nous": {
       "keys": [
         {
-          "name": "nous-primary",
+          "name": "nous",
           "value": "env.NOUS_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -85,7 +85,7 @@
     "opencode_zen": {
       "keys": [
         {
-          "name": "opencode-zen-primary",
+          "name": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"],
           "weight": 1.0
@@ -106,7 +106,7 @@
     "opencode_go": {
       "keys": [
         {
-          "name": "opencode-go-primary",
+          "name": "opencode-go",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"],
           "weight": 1.0

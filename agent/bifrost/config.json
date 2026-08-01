@@ -135,6 +135,7 @@
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
+        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
           {
@@ -150,6 +151,7 @@
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
+        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
           {
@@ -165,6 +167,7 @@
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
+        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
           {
@@ -180,6 +183,7 @@
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
+        "scope": "global",
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
           {

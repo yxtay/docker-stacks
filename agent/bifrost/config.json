@@ -130,4 +130,7 @@
       }
     }
   },
+  "logs_store": {
+    "retention_days": 90
+  }
 }

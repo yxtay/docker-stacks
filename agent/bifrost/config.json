@@ -75,6 +75,7 @@
         "base_url": "http://headroom:8787",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
+        "allow_private_network": true,
         "extra_headers": {
           "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
         }
@@ -99,6 +100,7 @@
         "base_url": "http://headroom:8787",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
+        "allow_private_network": true,
         "extra_headers": {
           "x-headroom-base-url": "https://opencode.ai/zen/v1"
         }
@@ -120,6 +122,7 @@
         "base_url": "http://headroom:8787",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
+        "allow_private_network": true,
         "extra_headers": {
           "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
         }

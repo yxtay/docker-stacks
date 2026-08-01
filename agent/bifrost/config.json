@@ -12,7 +12,10 @@
           "name": "cerebras-primary",
           "value": "env.CEREBRAS_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "gemma-4-31b": "gemma-4-31b"
+          }
         }
       ]
     },
@@ -22,7 +25,11 @@
           "name": "gemini-primary",
           "value": "env.GEMINI_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "gemini-flash-lite-latest": "gemini-flash-lite-latest",
+            "gemma-4-31b-it": "gemma-4-31b-it"
+          }
         }
       ]
     },
@@ -32,7 +39,10 @@
           "name": "groq-primary",
           "value": "env.GROQ_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "gpt-oss-120b": "openai/gpt-oss-120b"
+          }
         }
       ]
     },
@@ -42,7 +52,10 @@
           "name": "openrouter-primary",
           "value": "env.OPENROUTER_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "openrouter:free": "openrouter/free"
+          }
         }
       ]
     },
@@ -52,7 +65,10 @@
           "name": "nous-primary",
           "value": "env.NOUS_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "hy3:free": "tencent/hy3:free"
+          }
         }
       ],
       "network_config": {
@@ -71,7 +87,11 @@
           "name": "opencode-zen-primary",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "deepseek-v4-flash:free": "deepseek-v4-flash-free",
+            "mimo-v2.5:free": "mimo-v2.5-free"
+          }
         }
       ],
       "network_config": {
@@ -90,7 +110,13 @@
           "name": "opencode-go-primary",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "deepseek-v4-flash:low": "deepseek-v4-flash",
+            "deepseek-v4-flash:high": "deepseek-v4-flash",
+            "deepseek-v4-flash:max": "deepseek-v4-flash",
+            "deepseek-v4-pro:max": "deepseek-v4-pro"
+          }
         }
       ],
       "network_config": {
@@ -104,44 +130,10 @@
       }
     }
   },
-  "governance": {
-    "routing_rules": [
-      {
-        "id": "deepseek-v4-flash-free-fallback",
-        "name": "deepseek-v4-flash:free fallback to mimo-v2.5:free",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"opencode_zen/deepseek-v4-flash-free\"",
-        "targets": [
-          { "provider": "opencode_zen", "model": "deepseek-v4-flash-free", "weight": 1.0 }
-        ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
-      },
-      {
-        "id": "hy3-free-fallback",
-        "name": "hy3:free fallback to deepseek-v4-flash:free",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"nous/tencent/hy3:free\"",
-        "targets": [
-          { "provider": "nous", "model": "tencent/hy3:free", "weight": 1.0 }
-        ],
-        "fallbacks": ["opencode_zen/deepseek-v4-flash-free"]
-      },
-      {
-        "id": "mimo-free-fallback",
-        "name": "mimo-v2.5:free fallback to deepseek-v4-flash:free",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"opencode_zen/mimo-v2.5-free\"",
-        "targets": [
-          { "provider": "opencode_zen", "model": "mimo-v2.5-free", "weight": 1.0 }
-        ],
-        "fallbacks": ["opencode_zen/deepseek-v4-flash-free"]
-      }
-    ]
-  },
   "config_store": {
+    "enabled": false
+  },
+  "logs_store": {
     "enabled": false
   }
 }

@@ -210,6 +210,9 @@
   "logs_store": {
     "enabled": true,
     "type": "sqlite",
+    "config": {
+      "path": "./config.db"
+    },
     "retention_days": 90
   }
 }

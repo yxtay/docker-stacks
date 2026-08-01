@@ -88,7 +88,10 @@
           "name": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "weight": 1.0,
+          "aliases": {
+            "auto": "deepseek-v4-flash-free"
+          }
         }
       ],
       "network_config": {

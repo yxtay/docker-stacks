@@ -112,8 +112,6 @@ services:
       - /tmp
     expose:
       - 8080
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
     deploy:
       resources:

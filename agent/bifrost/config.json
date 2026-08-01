@@ -13,7 +13,11 @@
           "models": ["*"],
           "weight": 1.0
         }
-      ]
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
     },
     "gemini": {
       "keys": [
@@ -23,7 +27,11 @@
           "models": ["*"],
           "weight": 1.0
         }
-      ]
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
     },
     "groq": {
       "keys": [
@@ -33,7 +41,11 @@
           "models": ["*"],
           "weight": 1.0
         }
-      ]
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
     },
     "openrouter": {
       "keys": [
@@ -43,7 +55,11 @@
           "models": ["*"],
           "weight": 1.0
         }
-      ]
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
     },
     "nous": {
       "keys": [
@@ -56,6 +72,8 @@
       ],
       "network_config": {
         "base_url": "http://headroom:8787",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
         "extra_headers": {
           "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
         }
@@ -75,6 +93,8 @@
       ],
       "network_config": {
         "base_url": "http://headroom:8787",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
         "extra_headers": {
           "x-headroom-base-url": "https://opencode.ai/zen/v1"
         }
@@ -94,6 +114,8 @@
       ],
       "network_config": {
         "base_url": "http://headroom:8787",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
         "extra_headers": {
           "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
         }

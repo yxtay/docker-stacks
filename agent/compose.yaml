@@ -36,7 +36,6 @@ services:
     networks:
       - default
       - socket
-      - backend
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:9119/api/status"]
     restart: unless-stopped
@@ -113,9 +112,6 @@ services:
       - /tmp
     expose:
       - 8080
-    networks:
-      - default
-      - backend
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
@@ -156,8 +152,6 @@ services:
       - /tmp
     expose:
       - 8787
-    networks:
-      - backend
     restart: unless-stopped
     deploy:
       resources:
@@ -218,6 +212,4 @@ networks:
     name: proxy
     external: true
   socket:
-    internal: true
-  backend:
     internal: true

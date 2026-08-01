@@ -223,7 +223,11 @@
     ]
   },
   "config_store": {
-    "enabled": false
+    "enabled": true,
+    "type": "sqlite",
+    "config": {
+      "path": "./config.db"
+    }
   },
   "logs_store": {
     "enabled": true,

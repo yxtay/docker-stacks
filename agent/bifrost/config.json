@@ -131,9 +131,9 @@
     }
   },
   "config_store": {
-    "enabled": false
+    "enabled": true
   },
   "logs_store": {
-    "enabled": false
+    "enabled": true
   }
 }

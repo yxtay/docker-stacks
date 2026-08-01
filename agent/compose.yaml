@@ -108,7 +108,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./bifrost:/app/data:ro
+      - /apps/bifrost:/app/data
+      - ./bifrost/config.json:/app/data/config.json:ro
     tmpfs:
       - /tmp
     expose:
@@ -199,8 +200,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
-          memory: 4g
+          cpus: 2
+          memory: 8g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

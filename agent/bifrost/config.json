@@ -1,6 +1,5 @@
 {
   "$schema": "https://www.getbifrost.ai/schema",
-  "encryption_key": "env.BIFROST_ENCRYPTION_KEY",
   "client": {
     "enable_logging": true,
     "disable_content_logging": true
@@ -221,13 +220,6 @@
         "priority": 3
       }
     ]
-  },
-  "config_store": {
-    "enabled": true,
-    "type": "sqlite",
-    "config": {
-      "path": "./config.db"
-    }
   },
   "logs_store": {
     "enabled": true,

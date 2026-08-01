@@ -12,10 +12,7 @@
           "name": "cerebras-primary",
           "value": "env.CEREBRAS_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "gemma-4-31b": "gemma-4-31b"
-          }
+          "weight": 1.0
         }
       ]
     },
@@ -25,11 +22,7 @@
           "name": "gemini-primary",
           "value": "env.GEMINI_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "gemini-flash-lite-latest": "gemini-flash-lite-latest",
-            "gemma-4-31b-it": "gemma-4-31b-it"
-          }
+          "weight": 1.0
         }
       ]
     },
@@ -39,10 +32,7 @@
           "name": "groq-primary",
           "value": "env.GROQ_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "gpt-oss-120b": "openai/gpt-oss-120b"
-          }
+          "weight": 1.0
         }
       ]
     },
@@ -52,10 +42,7 @@
           "name": "openrouter-primary",
           "value": "env.OPENROUTER_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "openrouter:free": "openrouter/free"
-          }
+          "weight": 1.0
         }
       ]
     },
@@ -65,10 +52,7 @@
           "name": "nous-primary",
           "value": "env.NOUS_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "hy3:free": "tencent/hy3:free"
-          }
+          "weight": 1.0
         }
       ],
       "network_config": {
@@ -87,11 +71,7 @@
           "name": "opencode-zen-primary",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "deepseek-v4-flash:free": "deepseek-v4-flash-free",
-            "mimo-v2.5:free": "mimo-v2.5-free"
-          }
+          "weight": 1.0
         }
       ],
       "network_config": {
@@ -110,13 +90,7 @@
           "name": "opencode-go-primary",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"],
-          "weight": 1.0,
-          "aliases": {
-            "deepseek-v4-flash:low": "deepseek-v4-flash",
-            "deepseek-v4-flash:high": "deepseek-v4-flash",
-            "deepseek-v4-flash:max": "deepseek-v4-flash",
-            "deepseek-v4-pro:max": "deepseek-v4-pro"
-          }
+          "weight": 1.0
         }
       ],
       "network_config": {

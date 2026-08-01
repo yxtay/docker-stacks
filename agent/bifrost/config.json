@@ -102,7 +102,7 @@
         "max_retries": 3,
         "allow_private_network": true,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/v1"
+          "x-headroom-base-url": "https://opencode.ai/zen"
         }
       },
       "custom_provider_config": {
@@ -124,7 +124,7 @@
         "max_retries": 3,
         "allow_private_network": true,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
+          "x-headroom-base-url": "https://opencode.ai/zen/go"
         }
       },
       "custom_provider_config": {

@@ -90,6 +90,34 @@
         }
       }
     },
+    "opencode_go": {
+      "keys": [
+        {
+          "name": "opencode-go",
+          "value": "env.OPENCODE_GO_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "https://opencode.ai/zen/go",
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3,
+        "allow_private_network": true,
+        "extra_headers": {
+          "x-headroom-base-url": "https://opencode.ai/zen/go"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
+        }
+      }
+    },
     "opencode_zen": {
       "keys": [
         {
@@ -109,34 +137,6 @@
         "allow_private_network": true,
         "extra_headers": {
           "x-headroom-base-url": "https://opencode.ai/zen"
-        }
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai",
-        "request_path_overrides": {
-          "chat_completion": "http://headroom:8787/v1/chat/completions",
-          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/responses",
-          "responses_stream": "http://headroom:8787/v1/responses"
-        }
-      }
-    },
-    "opencode_go": {
-      "keys": [
-        {
-          "name": "opencode-go",
-          "value": "env.OPENCODE_GO_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "base_url": "https://opencode.ai/zen/go",
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3,
-        "allow_private_network": true,
-        "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/go"
         }
       },
       "custom_provider_config": {

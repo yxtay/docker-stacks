@@ -1,0 +1,147 @@
+{
+  "$schema": "https://www.getbifrost.ai/schema",
+  "encryption_key": "env.BIFROST_ENCRYPTION_KEY",
+  "client": {
+    "drop_excess_requests": false,
+    "enable_logging": true
+  },
+  "providers": {
+    "cerebras": {
+      "keys": [
+        {
+          "name": "cerebras-primary",
+          "value": "env.CEREBRAS_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ]
+    },
+    "gemini": {
+      "keys": [
+        {
+          "name": "gemini-primary",
+          "value": "env.GEMINI_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ]
+    },
+    "groq": {
+      "keys": [
+        {
+          "name": "groq-primary",
+          "value": "env.GROQ_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ]
+    },
+    "openrouter": {
+      "keys": [
+        {
+          "name": "openrouter-primary",
+          "value": "env.OPENROUTER_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ]
+    },
+    "nous": {
+      "keys": [
+        {
+          "name": "nous-primary",
+          "value": "env.NOUS_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "http://headroom:8787",
+        "extra_headers": {
+          "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    },
+    "opencode_zen": {
+      "keys": [
+        {
+          "name": "opencode-zen-primary",
+          "value": "env.OPENCODE_ZEN_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "http://headroom:8787",
+        "extra_headers": {
+          "x-headroom-base-url": "https://opencode.ai/zen/v1"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    },
+    "opencode_go": {
+      "keys": [
+        {
+          "name": "opencode-go-primary",
+          "value": "env.OPENCODE_GO_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "http://headroom:8787",
+        "extra_headers": {
+          "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
+        }
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    }
+  },
+  "governance": {
+    "routing_rules": [
+      {
+        "id": "deepseek-v4-flash-free-fallback",
+        "name": "deepseek-v4-flash:free fallback to mimo-v2.5:free",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"opencode_zen/deepseek-v4-flash-free\"",
+        "targets": [
+          { "provider": "opencode_zen", "model": "deepseek-v4-flash-free", "weight": 1.0 }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+      },
+      {
+        "id": "hy3-free-fallback",
+        "name": "hy3:free fallback to deepseek-v4-flash:free",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"nous/tencent/hy3:free\"",
+        "targets": [
+          { "provider": "nous", "model": "tencent/hy3:free", "weight": 1.0 }
+        ],
+        "fallbacks": ["opencode_zen/deepseek-v4-flash-free"]
+      },
+      {
+        "id": "mimo-free-fallback",
+        "name": "mimo-v2.5:free fallback to deepseek-v4-flash:free",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"opencode_zen/mimo-v2.5-free\"",
+        "targets": [
+          { "provider": "opencode_zen", "model": "mimo-v2.5-free", "weight": 1.0 }
+        ],
+        "fallbacks": ["opencode_zen/deepseek-v4-flash-free"]
+      }
+    ]
+  },
+  "config_store": {
+    "enabled": false
+  }
+}

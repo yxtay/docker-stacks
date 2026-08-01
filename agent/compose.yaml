@@ -9,6 +9,7 @@ services:
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
       CAMOFOX_URL: http://camofox:9377
+      OPENAI_BASE_URL: http://bifrost:8080/v1
     env_file:
       - .env
     cap_add:
@@ -35,6 +36,7 @@ services:
     networks:
       - default
       - socket
+      - backend
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:9119/api/status"]
     restart: unless-stopped
@@ -91,18 +93,13 @@ services:
           memory: 4g
           pids: 512
 
-  litellm:
+  bifrost:
     # nosemgrep
-    image: docker.litellm.ai/berriai/litellm:v1.94.1@sha256:28b10a635296730007097390939b55f8696ece548530d4ddda3e31c708b4dc81
+    image: maximhq/bifrost:v1.6.7@sha256:eb634891d6225e1ced4a6f1a66a741d0a7883d01d18da046982dad04a6893093
     depends_on:
-      db:
-        condition: service_healthy
       headroom:
         condition: service_healthy
-    command:
-      - --config=/app/config.yaml
-    environment:
-      DATABASE_URL: ${LITELLM_DATABASE_URL:?}
+    command: ["-app-dir", "/app/data"]
     env_file:
       - .env
     cap_drop:
@@ -111,74 +108,33 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./litellm/config.yaml:/app/config.yaml:ro
+      - ./bifrost:/app/data:ro
     tmpfs:
-      - /app/cache
-      - /app/migrations
       - /tmp
     expose:
-      - 4000
+      - 8080
     networks:
       - default
-      - litellm
+      - backend
     healthcheck:
-      test:
-        - CMD-SHELL
-        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"
+      test: [CMD, wget, -qO-, "http://localhost:8080/health"]
     restart: unless-stopped
     deploy:
       resources:
         limits:
           cpus: 1
-          memory: 4g
+          memory: 2g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: "reverse_proxy_auth litellm litellm:4000"
-      pangolin.public-resources.litellm.name: litellm
-      pangolin.public-resources.litellm.mode: http
-      pangolin.public-resources.litellm.full-domain: "litellm.${DOMAIN:?}"
-      pangolin.public-resources.litellm.auth.sso-enabled: true
-      pangolin.public-resources.litellm.targets[0].hostname: litellm
-      pangolin.public-resources.litellm.targets[0].port: 4000
-      pangolin.public-resources.litellm.targets[0].method: http
-
-  db:
-    image: postgres:18-alpine@sha256:9a8afca54e7861fd90fab5fdf4c42477a6b1cb7d293595148e674e0a3181de15
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-litellm}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-litellm}
-      POSTGRES_DB: ${POSTGRES_DB:-litellm}
-      PGUSER: ${PGUSER:-litellm}
-      PGDATABASE: ${PGDATABASE:-litellm}
-      POSTGRES_INITDB_ARGS: --data-checksums
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - FOWNER
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/litellm:/var/lib/postgresql
-    tmpfs:
-      - /etc/postgresql
-      - /run
-    networks:
-      - litellm
-    healthcheck:
-      test: [CMD, pg_isready]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
+      caddy.import: "reverse_proxy_auth bifrost bifrost:8080"
+      pangolin.public-resources.bifrost.name: bifrost
+      pangolin.public-resources.bifrost.mode: http
+      pangolin.public-resources.bifrost.full-domain: "bifrost.${DOMAIN:?}"
+      pangolin.public-resources.bifrost.auth.sso-enabled: true
+      pangolin.public-resources.bifrost.targets[0].hostname: bifrost
+      pangolin.public-resources.bifrost.targets[0].port: 8080
+      pangolin.public-resources.bifrost.targets[0].method: http
 
   headroom:
     image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
@@ -201,7 +157,7 @@ services:
     expose:
       - 8787
     networks:
-      - litellm
+      - backend
     restart: unless-stopped
     deploy:
       resources:
@@ -263,5 +219,5 @@ networks:
     external: true
   socket:
     internal: true
-  litellm:
+  backend:
     internal: true

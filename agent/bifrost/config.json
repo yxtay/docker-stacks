@@ -211,7 +211,7 @@
     "enabled": true,
     "type": "sqlite",
     "config": {
-      "path": "./config.db"
+      "path": "./logs.db"
     },
     "retention_days": 90
   }

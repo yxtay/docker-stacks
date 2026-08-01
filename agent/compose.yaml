@@ -95,6 +95,7 @@ services:
   bifrost:
     # nosemgrep
     image: maximhq/bifrost:v1.6.7@sha256:bf2208978308477a9f667dfc04cef3153197aeaca8618befefbecde3ed3378b7
+    working_dir: /app/data
     depends_on:
       headroom:
         condition: service_healthy

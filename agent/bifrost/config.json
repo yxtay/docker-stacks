@@ -203,13 +203,13 @@
   "config_store": {
     "enabled": true,
     "config": {
-      "path": "/app/data/config.db"
+      "path": "./config.db"
     }
   },
   "logs_store": {
     "enabled": true,
     "config": {
-      "path": "/app/data/logs.db"
+      "path": "./logs.db"
     },
     "retention_days": 90
   }

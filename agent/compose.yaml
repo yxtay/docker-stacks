@@ -99,9 +99,6 @@ services:
     depends_on:
       headroom:
         condition: service_healthy
-    environment:
-      APP_DIR: /app/data
-      APP_HOST: 0.0.0.0
     env_file:
       - .env
     cap_drop:

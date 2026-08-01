@@ -186,6 +186,22 @@
           }
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"]
+      },
+      {
+        "id": "default-fallback",
+        "name": "Default",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "true",
+        "priority": 100,
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"]
       }
     ]
   },

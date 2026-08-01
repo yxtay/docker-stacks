@@ -2,8 +2,7 @@
   "$schema": "https://www.getbifrost.ai/schema",
   "encryption_key": "env.BIFROST_ENCRYPTION_KEY",
   "client": {
-    "enable_logging": true,
-    "disable_content_logging": true
+    "enable_logging": true
   },
   "providers": {
     "cerebras": {
@@ -76,7 +75,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://inference-api.nousresearch.com"
+          "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
         }
       },
       "custom_provider_config": {
@@ -100,7 +99,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen"
+          "x-headroom-base-url": "https://opencode.ai/zen/v1"
         }
       },
       "custom_provider_config": {
@@ -121,7 +120,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/go"
+          "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
         }
       },
       "custom_provider_config": {

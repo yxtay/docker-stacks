@@ -72,16 +72,20 @@
         }
       ],
       "network_config": {
-        "base_url": "http://headroom:8787",
+        "base_url": "https://inference-api.nousresearch.com",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "allow_private_network": true,
         "extra_headers": {
-          "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
+          "x-headroom-base-url": "https://inference-api.nousresearch.com"
         }
       },
       "custom_provider_config": {
-        "base_provider_type": "openai"
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions"
+        }
       }
     },
     "opencode_zen": {
@@ -97,7 +101,7 @@
         }
       ],
       "network_config": {
-        "base_url": "http://headroom:8787",
+        "base_url": "https://opencode.ai/zen",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "allow_private_network": true,
@@ -106,7 +110,11 @@
         }
       },
       "custom_provider_config": {
-        "base_provider_type": "openai"
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions"
+        }
       }
     },
     "opencode_go": {
@@ -119,7 +127,7 @@
         }
       ],
       "network_config": {
-        "base_url": "http://headroom:8787",
+        "base_url": "https://opencode.ai/zen/go",
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "allow_private_network": true,
@@ -128,7 +136,11 @@
         }
       },
       "custom_provider_config": {
-        "base_provider_type": "openai"
+        "base_provider_type": "openai",
+        "request_path_overrides": {
+          "chat_completion": "http://headroom:8787/v1/chat/completions",
+          "chat_completion_stream": "http://headroom:8787/v1/chat/completions"
+        }
       }
     }
   },

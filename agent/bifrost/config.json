@@ -132,7 +132,7 @@
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "complexity_tier == \"SIMPLE\"",
+        "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
           {
             "provider": "opencode_zen",
@@ -147,7 +147,7 @@
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "complexity_tier == \"MEDIUM\"",
+        "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
           {
             "provider": "opencode_zen",
@@ -162,7 +162,7 @@
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "complexity_tier == \"COMPLEX\"",
+        "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
           {
             "provider": "opencode_zen",
@@ -177,7 +177,7 @@
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "complexity_tier == \"REASONING\"",
+        "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
           {
             "provider": "opencode_zen",

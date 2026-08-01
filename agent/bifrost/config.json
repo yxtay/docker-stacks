@@ -204,6 +204,7 @@
     "enabled": true
   },
   "logs_store": {
+    "enabled": true,
     "retention_days": 90
   }
 }

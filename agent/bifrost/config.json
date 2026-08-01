@@ -85,8 +85,8 @@
         "request_path_overrides": {
           "chat_completion": "http://headroom:8787/v1/chat/completions",
           "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/chat/completions",
-          "responses_stream": "http://headroom:8787/v1/chat/completions"
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
         }
       }
     },
@@ -116,8 +116,8 @@
         "request_path_overrides": {
           "chat_completion": "http://headroom:8787/v1/chat/completions",
           "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/chat/completions",
-          "responses_stream": "http://headroom:8787/v1/chat/completions"
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
         }
       }
     },
@@ -144,8 +144,8 @@
         "request_path_overrides": {
           "chat_completion": "http://headroom:8787/v1/chat/completions",
           "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/chat/completions",
-          "responses_stream": "http://headroom:8787/v1/chat/completions"
+          "responses": "http://headroom:8787/v1/responses",
+          "responses_stream": "http://headroom:8787/v1/responses"
         }
       }
     }

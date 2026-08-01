@@ -9,7 +9,6 @@ services:
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
       DOCKER_HOST: tcp://socket-proxy:2375
       CAMOFOX_URL: http://camofox:9377
-      OPENAI_BASE_URL: http://bifrost:8080/v1
     env_file:
       - .env
     cap_add:
@@ -118,7 +117,7 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 2g
+          memory: 4g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"

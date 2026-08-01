@@ -75,7 +75,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://inference-api.nousresearch.com/v1"
+          "x-headroom-base-url": "https://inference-api.nousresearch.com"
         }
       },
       "custom_provider_config": {
@@ -99,7 +99,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/v1"
+          "x-headroom-base-url": "https://opencode.ai/zen"
         }
       },
       "custom_provider_config": {
@@ -120,7 +120,7 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3,
         "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/go/v1"
+          "x-headroom-base-url": "https://opencode.ai/zen/go"
         }
       },
       "custom_provider_config": {

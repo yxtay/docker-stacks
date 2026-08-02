@@ -133,7 +133,7 @@ services:
     environment:
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
       # HEADROOM_CONFIG_DIR: /home/nonroot/.headroom/config
-      # HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
+      HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
       HEADROOM_NO_CCR: 1
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: coding

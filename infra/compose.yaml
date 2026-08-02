@@ -83,11 +83,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    devices:
+      - /dev/net/tun:/dev/net/tun
     read_only: true
     uts: host
     volumes:
       - /apps/tailscale:/var/lib/tailscale
-      - /dev/net/tun:/dev/net/tun
     tmpfs:
       - /run
       - /tmp

@@ -91,7 +91,6 @@ services:
     tmpfs:
       - /run
       - /tmp
-    # network_mode: host
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped

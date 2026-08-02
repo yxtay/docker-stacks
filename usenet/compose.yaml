@@ -163,68 +163,6 @@ services:
       pangolin.public-resources.streamnzb.rules[2].value: "*/stream*/*"
       pangolin.public-resources.streamnzb.rules[2].enabled: true
 
-  altmount:
-    # nosemgrep
-    image: ghcr.io/javi11/altmount:0.3.2@sha256:cd02c5ee4a840a6a3fef486846ab9e1e61d704d7a04def9e53783b29add2ba0b
-    environment:
-      # PUID/PGID has no effect with read_only: true
-      JWT_SECRET: ${ALTMOUNT_JWT_SECRET:?}
-      COOKIE_DOMAIN: altmount.${DOMAIN:?}
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    devices:
-      - /dev/fuse:/dev/fuse:rwm
-    volumes:
-      - /apps/altmount:/config
-      - /apps/altmount/metadata:/metadata
-    tmpfs:
-      - /run:exec
-      - /tmp
-    expose:
-      - 8080
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth altmount altmount:8080
-      tinyauth.apps.altmount.path.allow: \/(sabnzbd|stream|stremio|webdav)
-      pangolin.public-resources.altmount.name: altmount
-      pangolin.public-resources.altmount.mode: http
-      pangolin.public-resources.altmount.full-domain: "altmount.${DOMAIN:?}"
-      pangolin.public-resources.altmount.auth.sso-enabled: true
-      pangolin.public-resources.altmount.targets[0].hostname: altmount
-      pangolin.public-resources.altmount.targets[0].port: 8080
-      pangolin.public-resources.altmount.targets[0].method: http
-      pangolin.public-resources.altmount.rules[0].action: allow
-      pangolin.public-resources.altmount.rules[0].match: path
-      pangolin.public-resources.altmount.rules[0].value: "*/sabnzbd/*"
-      pangolin.public-resources.altmount.rules[0].enabled: true
-      pangolin.public-resources.altmount.rules[1].action: allow
-      pangolin.public-resources.altmount.rules[1].match: path
-      pangolin.public-resources.altmount.rules[1].value: "*/stream*/*"
-      pangolin.public-resources.altmount.rules[1].enabled: true
-      pangolin.public-resources.altmount.rules[2].action: allow
-      pangolin.public-resources.altmount.rules[2].match: path
-      pangolin.public-resources.altmount.rules[2].value: "*/stremio/*"
-      pangolin.public-resources.altmount.rules[2].enabled: true
-      pangolin.public-resources.altmount.rules[3].action: allow
-      pangolin.public-resources.altmount.rules[3].match: path
-      pangolin.public-resources.altmount.rules[3].value: "*/webdav/*"
-      pangolin.public-resources.altmount.rules[3].enabled: true
-
   aiostreams:
     # nosemgrep
     image: ghcr.io/viren070/aiostreams:v2.31.1@sha256:26d93653c3a5d0835db9189d6aca21d05614e68107c4d4a3ec7196b60c88c3bc

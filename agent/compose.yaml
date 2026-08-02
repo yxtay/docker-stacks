@@ -55,11 +55,6 @@ services:
       pangolin.public-resources.hermes.targets[0].hostname: hermes
       pangolin.public-resources.hermes.targets[0].port: 9119
       pangolin.public-resources.hermes.targets[0].method: http
-      pangolin.public-resources.hermes.targets[1].hostname: hermes
-      pangolin.public-resources.hermes.targets[1].port: 8642
-      pangolin.public-resources.hermes.targets[1].method: http
-      pangolin.public-resources.hermes.targets[1].path: /v1
-      pangolin.public-resources.hermes.targets[1].path-match: prefix
 
   socket-proxy:
     # nosemgrep

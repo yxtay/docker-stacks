@@ -132,8 +132,6 @@ services:
     image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
     environment:
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
-      HEADROOM_CONFIG_DIR: /home/nonroot/.headroom/config
-      HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
       HEADROOM_NO_CCR: 1
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: coding

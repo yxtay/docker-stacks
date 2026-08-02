@@ -73,6 +73,7 @@ services:
       TS_AUTHKEY: ${TS_AUTHKEY:?}
       TS_AUTH_ONCE: true
       TS_STATE_DIR: /var/lib/tailscale
+      TS_USERSPACE: false
       TS_ROUTES: ${TS_ROUTES:-}
       TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}
       TS_ENABLE_HEALTH_CHECK: true
@@ -92,6 +93,7 @@ services:
     tmpfs:
       - /run
       - /tmp
+    network_mode: host
     healthcheck:
       test: [CMD, wget, -nv, -O-, "http://localhost:9002/healthz"]
     restart: unless-stopped

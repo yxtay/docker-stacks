@@ -138,7 +138,7 @@ services:
       HEADROOM_SKIP_UPSTREAM_CHECK: 1
       # HEADROOM_CONFIG_DIR: /home/nonroot/.headroom/config
       # HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
-      XDG_CACHE_HOME: /home/nonroot/.headroom/.cache
+      # XDG_CACHE_HOME: /home/nonroot/.headroom/.cache
     cap_drop:
       - ALL
     security_opt:
@@ -146,6 +146,7 @@ services:
     read_only: true
     volumes:
       - /apps/headroom:/home/nonroot/.headroom
+      - /apps/headroom/.cache:/home/nonroot/.cache
     tmpfs:
       - /tmp
     expose:

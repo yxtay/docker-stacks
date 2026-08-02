@@ -99,6 +99,9 @@ services:
     depends_on:
       pangolin:
         condition: service_healthy
+      gerbil:
+        condition: service_healthy
+        restart: true
     cap_drop:
       - ALL
     security_opt:

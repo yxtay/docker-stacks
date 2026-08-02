@@ -39,7 +39,7 @@ subscriptions:
     dispatcherId: 2
     logExpression: >-
       level in ["error"] &&
-      message matches "(?i)(auth(e|o)|cred|invalid|login|memory|timed|unavail)"
+      message matches "(?i)(auth(e|o)|cred|login|memory|timed|unavail)"
     containerExpression: "true"
   - id: 6
     name: Warning
@@ -47,7 +47,7 @@ subscriptions:
     dispatcherId: 1
     logExpression: >-
       level in ["warn","error"] && (
-        message matches "(?i)(den(i|y)|expire|fatal|forbid|identity|kill)" ||
+        message matches "(?i)(den(i|y)|expire|fatal|forbid|identity|invalid|kill)" ||
         message matches "(?i)(password|permit|refuse|signature|unauth|unknown|verif(i|y))"
       )
     containerExpression: "true"

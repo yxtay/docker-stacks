@@ -138,6 +138,7 @@ services:
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: coding
       HEADROOM_SKIP_UPSTREAM_CHECK: 1
+      XDG_CACHE_HOME: /home/nonroot/.headroom/.cache
     cap_drop:
       - ALL
     security_opt:

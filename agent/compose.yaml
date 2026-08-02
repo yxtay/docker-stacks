@@ -143,7 +143,7 @@ services:
     read_only: true
     volumes:
       - /apps/headroom:/home/nonroot/.headroom
-      - /apps/headroom/.cache:/root/.cache
+      # - /apps/headroom/.cache:/root/.cache
     tmpfs:
       - /tmp
     expose:

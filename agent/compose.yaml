@@ -136,8 +136,8 @@ services:
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: coding
       HEADROOM_SKIP_UPSTREAM_CHECK: 1
-      HEADROOM_CONFIG_DIR: /home/nonroot/.headroom/config
-      HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
+      # HEADROOM_CONFIG_DIR: /home/nonroot/.headroom/config
+      # HEADROOM_WORKSPACE_DIR: /home/nonroot/.headroom
       XDG_CACHE_HOME: /home/nonroot/.headroom/.cache
     cap_drop:
       - ALL

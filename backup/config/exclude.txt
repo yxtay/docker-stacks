@@ -23,7 +23,7 @@ immich/data/thumbs/**
 immich/data/upload/**
 altmount/.nzbs/**
 altmount/metadata/**
-nzbdav/blobs/**
+nzbdavex/blobs/**
 portainer/compose/**
 profilarr/data/databases/**
 prowlarr/Definitions/**

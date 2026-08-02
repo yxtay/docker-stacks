@@ -54,6 +54,7 @@ ansible/host_vars/*
 !ansible/host_vars/*.example
 
 /apps
+/vps
 unison/ar*
 unison/fp*
 unison/lk*

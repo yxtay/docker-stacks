@@ -27,3 +27,4 @@ nzbdavex/blobs/**
 portainer/compose/**
 profilarr/data/databases/**
 prowlarr/Definitions/**
+traefik/plugins/**

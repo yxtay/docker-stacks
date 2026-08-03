@@ -14,15 +14,21 @@ tmp/**
 
 # App-specific paths
 MediaCover/**
+altmount/.nzbs/**
+altmount/metadata/**
 esphome/.esphome/**
+hermes/**/.cua-driver/**
+hermes/**/.hermes/**
+hermes/**/.local/**
+hermes/**/.npm/**
+hermes/**/bin/**
+hermes/**/lazy-packages/**
 homeassistant/deps/**
 homeassistant/tts/**
 immich/data/encoded-video/**
 immich/data/library/**
 immich/data/thumbs/**
 immich/data/upload/**
-altmount/.nzbs/**
-altmount/metadata/**
 nzbdavex/blobs/**
 portainer/compose/**
 profilarr/data/databases/**

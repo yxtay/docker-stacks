@@ -26,8 +26,6 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    devices:
-      - /dev/fuse:/dev/fuse:rwm
     uts: host
     volumes:
       - ./config:/resticprofile:ro
@@ -35,8 +33,6 @@ services:
       - /apps:/apps:ro
       - /backups/restic:/backup
       - /apps/resticprofile/cache:/var/cache/restic
-    tmpfs:
-      - /tmp
     healthcheck:
       test: [CMD, resticprofile, snapshots]
     restart: unless-stopped

@@ -24,6 +24,7 @@ services:
     read_only: true
     volumes:
       - /apps/hermes:/opt/data
+      - /apps/hermes/profile.d/hermes-path.sh:/etc/profile.d/hermes-path.sh:ro
       - /apps/:/apps:ro
       - /home/ubuntu/docker-stacks/:/opt/data/home/docker-stacks:ro
     tmpfs:

@@ -163,7 +163,7 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 0
+        "priority": 10
       },
       {
         "id": "complexity-medium",
@@ -180,7 +180,7 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 1
+        "priority": 20
       },
       {
         "id": "complexity-complex",
@@ -197,7 +197,7 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 2
+        "priority": 30
       },
       {
         "id": "complexity-reasoning",
@@ -214,7 +214,24 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 3
+        "priority": 40
+      },
+      {
+        "id": "complexity-fallback",
+        "name": "Fallback",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 100
       }
     ]
   },

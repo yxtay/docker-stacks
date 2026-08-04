@@ -5,62 +5,6 @@
     "disable_content_logging": true
   },
   "providers": {
-    "cerebras": {
-      "keys": [
-        {
-          "name": "cerebras",
-          "value": "env.CEREBRAS_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "gemini": {
-      "keys": [
-        {
-          "name": "gemini",
-          "value": "env.GEMINI_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "groq": {
-      "keys": [
-        {
-          "name": "groq",
-          "value": "env.GROQ_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "openrouter": {
-      "keys": [
-        {
-          "name": "openrouter",
-          "value": "env.OPENROUTER_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
     "nous": {
       "keys": [
         {
@@ -143,6 +87,62 @@
           "responses": "http://headroom:8787/v1/responses",
           "responses_stream": "http://headroom:8787/v1/responses"
         }
+      }
+    },
+    "gemini": {
+      "keys": [
+        {
+          "name": "gemini",
+          "value": "env.GEMINI_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "cerebras": {
+      "keys": [
+        {
+          "name": "cerebras",
+          "value": "env.CEREBRAS_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "groq": {
+      "keys": [
+        {
+          "name": "groq",
+          "value": "env.GROQ_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
+      }
+    },
+    "openrouter": {
+      "keys": [
+        {
+          "name": "openrouter",
+          "value": "env.OPENROUTER_API_KEY",
+          "models": ["*"],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "default_request_timeout_in_seconds": 300,
+        "max_retries": 3
       }
     }
   },

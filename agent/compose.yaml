@@ -126,8 +126,8 @@ services:
 
   headroom:
     image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
-    # entrypoint: ""
-    # command: [/root/.headroom/launch_relay.py]
+    entrypoint: ["python3"]
+    command: [/root/.headroom/launch_relay.py]
     environment:
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
       HEADROOM_EXCLUDE_TOOLS: read_file,headroom_retrieve

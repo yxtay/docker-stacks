@@ -149,7 +149,7 @@
   "governance": {
     "routing_rules": [
       {
-        "id": "complexity-simple",
+        "id": "auto-simple",
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
@@ -166,7 +166,7 @@
         "priority": 10
       },
       {
-        "id": "complexity-medium",
+        "id": "auto-medium",
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
@@ -183,7 +183,7 @@
         "priority": 20
       },
       {
-        "id": "complexity-complex",
+        "id": "auto-complex",
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
@@ -200,7 +200,7 @@
         "priority": 30
       },
       {
-        "id": "complexity-reasoning",
+        "id": "auto-reasoning",
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
@@ -217,7 +217,7 @@
         "priority": 40
       },
       {
-        "id": "complexity-fallback",
+        "id": "auto-fallback",
         "name": "Fallback",
         "enabled": true,
         "chain_rule": false,

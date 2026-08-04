@@ -131,7 +131,6 @@ services:
     environment:
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
       HEADROOM_EXCLUDE_TOOLS: read_file,headroom_retrieve
-      HEADROOM_NO_CCR: 1
       HEADROOM_OUTPUT_SHAPER: 1
       HEADROOM_SAVINGS_PROFILE: coding
       HEADROOM_SKIP_UPSTREAM_CHECK: 1

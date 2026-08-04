@@ -149,7 +149,7 @@
   "governance": {
     "routing_rules": [
       {
-        "id": "complexity-simple",
+        "id": "auto-simple",
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
@@ -163,10 +163,10 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 0
+        "priority": 10
       },
       {
-        "id": "complexity-medium",
+        "id": "auto-medium",
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
@@ -180,10 +180,10 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 1
+        "priority": 20
       },
       {
-        "id": "complexity-complex",
+        "id": "auto-complex",
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
@@ -197,10 +197,10 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 2
+        "priority": 30
       },
       {
-        "id": "complexity-reasoning",
+        "id": "auto-reasoning",
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
@@ -214,7 +214,24 @@
         ],
         "fallbacks": ["opencode_zen/mimo-v2.5-free"],
         "scope": "global",
-        "priority": 3
+        "priority": 40
+      },
+      {
+        "id": "auto-fallback",
+        "name": "Fallback",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\"",
+        "targets": [
+          {
+            "provider": "opencode_zen",
+            "model": "deepseek-v4-flash-free",
+            "weight": 1.0
+          }
+        ],
+        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "scope": "global",
+        "priority": 100
       }
     ]
   },

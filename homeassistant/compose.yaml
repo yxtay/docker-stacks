@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: lscr.io/linuxserver/homeassistant:2026.7.4@sha256:1a784e392af0c57b4527dbcb3e0349887bf042f60fed84b78f14801ca19f8b1b
+    image: lscr.io/linuxserver/homeassistant:2026.8.0@sha256:c949547d4b4a884dec677b4fec01ecb5b0f9801270c49f94788254faef103395
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -84,7 +84,7 @@ services:
 
   esphome:
     # nosemgrep
-    image: ghcr.io/esphome/esphome:2026.7.3@sha256:de90d689b89e20f171b0fbdd0dfea31b21ef647aa7e83d6efd2916ca6e7a30d2
+    image: ghcr.io/esphome/esphome:2026.7.4@sha256:e636269c6390c2124916510d45f55febb1d9ce41365f8445c9083ee41e43c92b
     environment:
       PLATFORMIO_CORE_DIR: /config/.esphome/platformio
       UV_CACHE_DIR: /config/.esphome/platformio/.cache/uv

@@ -131,7 +131,7 @@ services:
     entrypoint: [python]
     command: [/root/.headroom/launch_relay.py]
     environment:
-      HEADROOM_CCR_TTL_SECONDS: 21600
+      HEADROOM_CCR_TTL_SECONDS: ${HEADROOM_CCR_TTL_SECONDS:-86400}
       HEADROOM_COMPRESS_ALLOW_REMOTE: 1
       HEADROOM_DISABLE_KOMPRESS: 1
       HEADROOM_EXCLUDE_TOOLS: read_file,headroom_retrieve

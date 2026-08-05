@@ -114,7 +114,7 @@ services:
 
   streamnzb:
     # nosemgrep
-    image: ghcr.io/gaisberg/streamnzb:v4.12.0@sha256:c5807989865337a7cd5bab7677c4f777c4508340562dfa1fbb1e289529106376
+    image: ghcr.io/gaisberg/streamnzb:v4.13.0@sha256:7b50f405c8183d907d356dfed70a6d63fd971b40c2db99d137b8747366285f6d
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -165,7 +165,7 @@ services:
 
   aiostreams:
     # nosemgrep
-    image: ghcr.io/viren070/aiostreams:v2.31.1@sha256:26d93653c3a5d0835db9189d6aca21d05614e68107c4d4a3ec7196b60c88c3bc
+    image: ghcr.io/viren070/aiostreams:v2.32.0@sha256:432d8cbff592cac1923d9a24dce71be7c2059cc4288fdf5c223a21e99662e8d8
     environment:
       BASE_URL: "https://aiostreams.${DOMAIN:?}"
       SECRET_KEY: ${AIOSTREAMS_SECRET_KEY:?}

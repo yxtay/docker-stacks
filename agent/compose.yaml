@@ -7,7 +7,7 @@ services:
     environment:
       HERMES_DASHBOARD: 1
       HERMES_DASHBOARD_PUBLIC_URL: ${HERMES_DASHBOARD_PUBLIC_URL:-https://hermes.${DOMAIN:?}}
-      HERMES_WRITE_SAFE_ROOT: /opt/data:/tmp/hermes_voice
+      HERMES_WRITE_SAFE_ROOT: /opt/data:/tmp
       CAMOFOX_URL: http://camofox:9377
       DOCKER_HOST: tcp://socket-proxy:2375
       MNEMOSYNE_HOST_LLM_ENABLED: true

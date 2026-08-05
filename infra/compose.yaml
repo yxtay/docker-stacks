@@ -1,7 +1,7 @@
 services:
   socket-proxy:
     # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.3@sha256:5253050dd304d351df2ee61bba43c57dd2b19bb640497a679592051de3a3c639
+    image: ghcr.io/linuxserver/socket-proxy:3.4.3@sha256:a6b52255f881951c3cb6b6cce78c3d91435ed201cf16ab77bfe92e9a8ee13121
     environment:
       POST: 0
 

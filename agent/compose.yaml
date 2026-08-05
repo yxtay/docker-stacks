@@ -91,7 +91,7 @@ services:
 
   bifrost:
     # nosemgrep
-    image: maximhq/bifrost:v1.6.7@sha256:bf2208978308477a9f667dfc04cef3153197aeaca8618befefbecde3ed3378b7
+    image: maximhq/bifrost:v1.6.8@sha256:14f704fcee64de509c139d14458871a4221f71f28a397f2b4d92bbe092d7a63c
     working_dir: /app/data
     depends_on:
       headroom:
@@ -127,7 +127,7 @@ services:
       pangolin.public-resources.bifrost.targets[0].method: http
 
   headroom:
-    image: ghcr.io/headroomlabs-ai/headroom:0.33.0-code@sha256:f450aa2de66ead24e65223ac8763efca2b87725b04e4ac8fd21a4d05af775099
+    image: ghcr.io/headroomlabs-ai/headroom:0.34.0-code@sha256:5253cc98bf85ae4f04992db728498d2b78a379d03edcec1b780af9430c323e76
     entrypoint: [python]
     command: [/root/.headroom/launch_relay.py]
     environment:

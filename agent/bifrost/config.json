@@ -17,23 +17,13 @@
       "network_config": {
         "base_url": "https://inference-api.nousresearch.com",
         "default_request_timeout_in_seconds": 300,
-        "max_retries": 3,
-        "allow_private_network": true,
-        "extra_headers": {
-          "x-headroom-base-url": "https://inference-api.nousresearch.com"
-        }
+        "max_retries": 3
       },
       "custom_provider_config": {
-        "base_provider_type": "openai",
-        "request_path_overrides": {
-          "chat_completion": "http://headroom:8787/v1/chat/completions",
-          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/responses",
-          "responses_stream": "http://headroom:8787/v1/responses"
-        }
+        "base_provider_type": "openai"
       }
     },
-    "opencode_go": {
+    "opencode-go": {
       "keys": [
         {
           "name": "opencode-go",
@@ -43,25 +33,11 @@
         }
       ],
       "network_config": {
-        "base_url": "https://opencode.ai/zen/go",
         "default_request_timeout_in_seconds": 300,
-        "max_retries": 3,
-        "allow_private_network": true,
-        "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen/go"
-        }
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai",
-        "request_path_overrides": {
-          "chat_completion": "http://headroom:8787/v1/chat/completions",
-          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/responses",
-          "responses_stream": "http://headroom:8787/v1/responses"
-        }
+        "max_retries": 3
       }
     },
-    "opencode_zen": {
+    "opencode-zen": {
       "keys": [
         {
           "name": "opencode-zen",
@@ -71,22 +47,8 @@
         }
       ],
       "network_config": {
-        "base_url": "https://opencode.ai/zen",
         "default_request_timeout_in_seconds": 300,
-        "max_retries": 3,
-        "allow_private_network": true,
-        "extra_headers": {
-          "x-headroom-base-url": "https://opencode.ai/zen"
-        }
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai",
-        "request_path_overrides": {
-          "chat_completion": "http://headroom:8787/v1/chat/completions",
-          "chat_completion_stream": "http://headroom:8787/v1/chat/completions",
-          "responses": "http://headroom:8787/v1/responses",
-          "responses_stream": "http://headroom:8787/v1/responses"
-        }
+        "max_retries": 3
       }
     },
     "gemini": {
@@ -156,12 +118,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
           {
-            "provider": "opencode_zen",
+            "provider": "opencode-zen",
             "model": "deepseek-v4-flash-free",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
         "scope": "global",
         "priority": 10
       },
@@ -173,12 +135,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
           {
-            "provider": "opencode_zen",
+            "provider": "opencode-zen",
             "model": "deepseek-v4-flash-free",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
         "scope": "global",
         "priority": 20
       },
@@ -190,12 +152,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
           {
-            "provider": "opencode_zen",
+            "provider": "opencode-zen",
             "model": "deepseek-v4-flash-free",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
         "scope": "global",
         "priority": 30
       },
@@ -207,12 +169,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
           {
-            "provider": "opencode_zen",
+            "provider": "opencode-zen",
             "model": "deepseek-v4-flash-free",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
         "scope": "global",
         "priority": 40
       },
@@ -224,12 +186,12 @@
         "cel_expression": "model == \"auto\"",
         "targets": [
           {
-            "provider": "opencode_zen",
+            "provider": "opencode-zen",
             "model": "deepseek-v4-flash-free",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode_zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
         "scope": "global",
         "priority": 100
       }

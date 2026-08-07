@@ -94,9 +94,6 @@ services:
     # nosemgrep
     image: maximhq/bifrost:v1.6.8@sha256:14f704fcee64de509c139d14458871a4221f71f28a397f2b4d92bbe092d7a63c
     working_dir: /app/data
-    depends_on:
-      headroom:
-        condition: service_healthy
     env_file:
       - .env
     cap_drop:
@@ -126,48 +123,6 @@ services:
       pangolin.public-resources.bifrost.targets[0].hostname: bifrost
       pangolin.public-resources.bifrost.targets[0].port: 8080
       pangolin.public-resources.bifrost.targets[0].method: http
-
-  headroom:
-    image: ghcr.io/headroomlabs-ai/headroom:0.34.0-code@sha256:5253cc98bf85ae4f04992db728498d2b78a379d03edcec1b780af9430c323e76
-    entrypoint: [python]
-    command: [/root/.headroom/launch_relay.py]
-    environment:
-      HEADROOM_CCR_TTL_SECONDS: ${HEADROOM_CCR_TTL_SECONDS:-86400}
-      HEADROOM_COMPRESS_ALLOW_REMOTE: 1
-      HEADROOM_DISABLE_KOMPRESS: 1
-      HEADROOM_EXCLUDE_TOOLS: read_file,headroom_retrieve
-      HEADROOM_OUTPUT_SHAPER: 1
-      HEADROOM_SAVINGS_PROFILE: coding
-      HEADROOM_SKIP_UPSTREAM_CHECK: 1
-      XDG_CACHE_HOME: /root/.headroom/.cache
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/headroom:/root/.headroom
-    tmpfs:
-      - /tmp
-    expose:
-      - 8787
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 2
-          memory: 8g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: "reverse_proxy_auth headroom headroom:8787"
-      pangolin.public-resources.headroom.name: headroom
-      pangolin.public-resources.headroom.mode: http
-      pangolin.public-resources.headroom.full-domain: "headroom.${DOMAIN:?}"
-      pangolin.public-resources.headroom.auth.sso-enabled: true
-      pangolin.public-resources.headroom.targets[0].hostname: headroom
-      pangolin.public-resources.headroom.targets[0].port: 8787
-      pangolin.public-resources.headroom.targets[0].method: http
 
   camofox:
     image: ghcr.io/jo-inc/camofox-browser:1.13.0@sha256:64b30ffdbbc4ae0e28200a66dfbd6f55ac4188229eb34ef769afcf7be40faa6e

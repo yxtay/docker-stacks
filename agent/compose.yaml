@@ -12,6 +12,8 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       MNEMOSYNE_HOST_LLM_ENABLED: true
       MNEMOSYNE_HOST_LLM_TIMEOUT: 120
+      OBSIDIAN_VAULT_PATH: /opt/data/wiki
+      WIKI_PATH: /opt/data/wiki
     env_file:
       - .env
     cap_add:

@@ -10,6 +10,7 @@ services:
       HERMES_WRITE_SAFE_ROOT: /opt/data:/tmp
       CAMOFOX_URL: http://camofox:9377
       DOCKER_HOST: tcp://socket-proxy:2375
+      MNEMOSYNE_CROSS_SESSION: 1
       MNEMOSYNE_HOST_LLM_ENABLED: true
       MNEMOSYNE_HOST_LLM_TIMEOUT: 120
       OBSIDIAN_VAULT_PATH: /opt/data/wiki

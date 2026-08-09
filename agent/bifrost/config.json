@@ -3,7 +3,11 @@
   "source_of_truth": "config.json",
   "client": {
     "enable_logging": true,
-    "disable_content_logging": true
+    "disable_content_logging": true,
+    "compat": {
+      "should_drop_params": true,
+      "should_convert_params": true
+    }
   },
   "providers": {
     "nous": {

@@ -10,6 +10,7 @@ services:
       HERMES_WRITE_SAFE_ROOT: /opt/data:/tmp
       MNEMOSYNE_CROSS_SESSION: 1
       MNEMOSYNE_DEFAULT_SCOPE: global
+      MNEMOSYNE_LLM_ENABLED: 1
       MNEMOSYNE_LLM_BASE_URL: http://bifrost:8080/v1
       MNEMOSYNE_LLM_MODEL: auto
       CAMOFOX_URL: http://camofox:9377

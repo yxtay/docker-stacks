@@ -10,8 +10,8 @@ services:
       HERMES_WRITE_SAFE_ROOT: /opt/data:/tmp
       MNEMOSYNE_CROSS_SESSION: 1
       MNEMOSYNE_DEFAULT_SCOPE: global
-      MNEMOSYNE_HOST_LLM_ENABLED: true
-      MNEMOSYNE_HOST_LLM_TIMEOUT: 120
+      MNEMOSYNE_LLM_BASE_URL: http://bifrost:8080/v1
+      MNEMOSYNE_LLM_MODEL: auto
       CAMOFOX_URL: http://camofox:9377
       DOCKER_HOST: tcp://socket-proxy:2375
       OBSIDIAN_VAULT_PATH: /opt/data/wiki

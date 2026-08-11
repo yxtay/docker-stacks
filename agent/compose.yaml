@@ -180,7 +180,6 @@ services:
       - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
       - /apps/searxng/cache:/var/cache/searxng
     tmpfs:
-      - /run
       - /tmp
     expose:
       - 8080

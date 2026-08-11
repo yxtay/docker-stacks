@@ -166,6 +166,51 @@ services:
       pangolin.public-resources.camofox.targets[0].port: 6080
       pangolin.public-resources.camofox.targets[0].method: http
 
+  searxng:
+    # Identity
+    image: ghcr.io/searxng/searxng:2026.8.10-0a118066d@sha256:cd22dbf7fac8b25d5e39e65af53a4b47009df5ad3162e270c477fd5b30ce03f2
+    # Configuration
+    environment:
+      SEARXNG_SECRET: ${SEARXNG_SECRET:?}
+      SEARXNG_BASE_URL: "https://searxng.${DOMAIN:?}/"
+    # Runtime
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    # Storage
+    volumes:
+      - /apps/searxng/cache:/var/cache/searxng:rw
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+    tmpfs:
+      - /run
+      - /tmp
+    # Networking
+    expose:
+      - 8080
+    # Lifecycle
+    healthcheck:
+      test: [CMD, wget, --spider, -q, "http://localhost:8080/"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    # Metadata
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth searxng searxng:8080"
+      pangolin.public-resources.searxng.name: searxng
+      pangolin.public-resources.searxng.mode: http
+      pangolin.public-resources.searxng.full-domain: "searxng.${DOMAIN:?}"
+      pangolin.public-resources.searxng.auth.sso-enabled: true
+      pangolin.public-resources.searxng.targets[0].hostname: searxng
+      pangolin.public-resources.searxng.targets[0].port: 8080
+      pangolin.public-resources.searxng.targets[0].method: http
+
 networks:
   default:
     name: proxy

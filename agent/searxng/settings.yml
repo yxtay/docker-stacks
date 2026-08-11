@@ -1,0 +1,12 @@
+# SearXNG user settings
+use_default_settings: true
+
+server:
+  image_proxy: true
+
+search:
+  formats:
+    - html
+    - json
+    - csv
+    - rss

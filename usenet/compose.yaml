@@ -61,7 +61,7 @@ services:
 
   usenetstreamer:
     # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.8.3@sha256:1581bb5cb6372086db9232c9fd79d3fb6647d99957d7ccc0f8f769f7e97919a1
+    image: ghcr.io/sanket9225/usenetstreamer:1.8.4@sha256:db65b436c13ae23e29f5727e2c3055b190d77c166ecdb11d5e5a0042686f9871
     environment:
       ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
       CONFIG_DIR: /data/config
@@ -114,7 +114,7 @@ services:
 
   streamnzb:
     # nosemgrep
-    image: ghcr.io/gaisberg/streamnzb:v4.15.0@sha256:c5224c38f0640de559063e0e955d53491c2ee5c5a9a874de0452a99c706e2d41
+    image: ghcr.io/gaisberg/streamnzb:v4.16.0@sha256:1487252f266a0bc5788b888399f41d0673d6c00d5cb66a22e655dab5e2b8f1b3
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

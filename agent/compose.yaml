@@ -177,12 +177,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     volumes:
       - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
       - /apps/searxng/cache:/var/cache/searxng
-    tmpfs:
-      - /tmp
+    # tmpfs:
+    #   - /tmp
     expose:
       - 8080
     healthcheck:

@@ -179,7 +179,7 @@ services:
       - no-new-privileges:true
     # read_only: true
     volumes:
-      - ./searxng:/etc/searxng:ro
+      - ./searxng:/etc/searxng
       - /apps/searxng/cache:/var/cache/searxng
     # tmpfs:
     #   - /tmp

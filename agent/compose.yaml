@@ -170,7 +170,7 @@ services:
     image: ghcr.io/searxng/searxng:2026.8.10-0a118066d@sha256:cd22dbf7fac8b25d5e39e65af53a4b47009df5ad3162e270c477fd5b30ce03f2
     environment:
       SEARXNG_SECRET: ${SEARXNG_SECRET:?}
-      SEARXNG_BASE_URL: "https://searxng.${DOMAIN:?}"
+      SEARXNG_BASE_URL: ${SEARXNG_BASE_URL:-https://searxng.${DOMAIN:?}}
     cap_add:
       - CHOWN
     cap_drop:

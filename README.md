@@ -31,12 +31,12 @@ isolation and stability.
 Autonomous AI agent stack.
 
 - **hermes** — Autonomous AI agent with persistent memory and tool use
-- **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
 - **socket-proxy** — Dedicated Docker socket proxy for hermes
   (untrusted code execution environment)
 - **bifrost** — High-performance AI gateway with complexity-based routing,
   fallbacks, and request/response logging
-- **headroom** — Upstream proxy for opencode and Nous providers
+- **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
+- **searxng** — Self-hosted meta-search engine for agent web search
 - **reader** — Self-hosted Jina Reader: URL→LLM-friendly markdown (r.jina.ai
   engine), on the agent proxy network
 

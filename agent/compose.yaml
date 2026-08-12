@@ -50,8 +50,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 2
-          memory: 8g
+          cpus: 1
+          memory: 4g
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
@@ -213,19 +213,18 @@ services:
     tmpfs:
       - /run:exec
       - /tmp
-      # image runs as uid 1001(jina); Chromium crashpad + profile need a
-      # writable home. uid/gid must match the image's jina user.
-      - /home/jina:rw,exec,size=512m,uid=1001,gid=997
+      # image runs as uid 1001(jina); uid/gid must match the image's jina user.
+      - /home/jina:exec,size=1g,uid=1001,gid=997
     expose:
-      - 8081 # HTTP/1.1 (8080 is h2c; curl/Hermes use 8081)
+      - 8080
+      - 8081
     healthcheck:
-      # image ships no HEALTHCHECK; curl present -> probe listener root (no crawl)
       test: [CMD, curl, -fsSL, "http://localhost:8081/"]
     restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: 2
+          cpus: 1
           memory: 4g
           pids: 512
 

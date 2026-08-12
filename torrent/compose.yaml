@@ -71,7 +71,7 @@ services:
 
   decypharr:
     # nosemgrep
-    image: ghcr.io/sirrobot01/decypharr:v2.4@sha256:d9df495fd156a379abd5b760ad54ed960881408599cd045c4d552a6d20bc7ce6
+    image: ghcr.io/sirrobot01/decypharr:v2.5@sha256:a65c62a18843ca3dfa73cdee5eecccd3732d98f3ff845ae8338a1caf7060dd1a
     environment:
       PUID: 911
       PGID: 911

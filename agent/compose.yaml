@@ -211,17 +211,9 @@ services:
       - no-new-privileges:true
     expose:
       - 8081 # HTTP/1.1 (8080 is h2c; curl/Hermes use 8081)
-    networks:
-      - default
     healthcheck:
-      # image ships no HEALTHCHECK; node present -> probe listener without crawling
-      test:
-        [
-          CMD,
-          node,
-          -e,
-          "require('net').connect(8081,'127.0.0.1').on('connect',()=>process.exit(0)).on('error',e=>process.exit(1))",
-        ]
+      # image ships no HEALTHCHECK; curl present -> probe listener root (no crawl)
+      test: [CMD, curl, -fsSL, "http://localhost:8081/"]
     restart: unless-stopped
     deploy:
       resources:

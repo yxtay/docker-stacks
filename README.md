@@ -37,6 +37,8 @@ Autonomous AI agent stack.
 - **bifrost** — High-performance AI gateway with complexity-based routing,
   fallbacks, and request/response logging
 - **headroom** — Upstream proxy for opencode and Nous providers
+- **reader** — Self-hosted Jina Reader: URL→LLM-friendly markdown (r.jina.ai
+  engine), on the agent proxy network
 
 ### Proxy Stack (`proxy/`)
 

@@ -204,13 +204,13 @@ services:
 
   reader:
     # nosemgrep
-    image: ghcr.io/jina-ai/reader:oss   # Renovate pins digest (automergeDigest)
+    image: ghcr.io/jina-ai/reader:oss # Renovate pins digest (automergeDigest)
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     expose:
-      - 8081   # HTTP/1.1 (8080 is h2c; curl/Hermes use 8081)
+      - 8081 # HTTP/1.1 (8080 is h2c; curl/Hermes use 8081)
     networks:
       - default
     healthcheck:

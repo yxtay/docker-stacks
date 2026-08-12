@@ -209,6 +209,13 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /run:exec
+      - /tmp
+      # image runs as uid 1001(jina); Chromium crashpad + profile need a
+      # writable home. uid/gid must match the image's jina user.
+      - /home/jina:rw,exec,size=512m,uid=1001,gid=997
     expose:
       - 8081 # HTTP/1.1 (8080 is h2c; curl/Hermes use 8081)
     healthcheck:

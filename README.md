@@ -40,7 +40,7 @@ Autonomous AI agent stack.
 - **headroom** — Upstream proxy for opencode and Nous providers
 - **crw** — Self-hosted fastCRW: Firecrawl-compatible web scrape/crawl/search
   API (Rust, ~50MB RAM), on the agent proxy network. Hermes's web_extract can
-  point at it via FIRECRAWL_API_URL=http://crw:3000
+  point at it via FIRECRAWL_API_URL=<http://crw:3000>
 
 ### Proxy Stack (`proxy/`)
 

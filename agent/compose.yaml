@@ -219,7 +219,13 @@ services:
       # image ships no HEALTHCHECK and has no curl/wget/node; bash + /dev/tcp
       # present -> HTTP GET /health must return 200 (validates the server, not
       # just the open port). Self-hosted API is unauthenticated.
-      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/3000; printf 'GET /health HTTP/1.0\\r\\n\\r\\n' >&3; grep -q '200 OK' <&3"]
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "exec 3<>/dev/tcp/127.0.0.1/3000; printf 'GET /health HTTP/1.0\\r\\n\\r\\n' >&3; grep -q '200 OK' <&3",
+        ]
     restart: unless-stopped
     deploy:
       resources:

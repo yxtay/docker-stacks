@@ -202,9 +202,9 @@ services:
       pangolin.public-resources.searxng.targets[0].port: 8080
       pangolin.public-resources.searxng.targets[0].method: http
 
-  reader:
+  crw:
     # nosemgrep
-    image: ghcr.io/jina-ai/reader:oss # Renovate pins digest (automergeDigest)
+    image: ghcr.io/us/crw:latest # Renovate pins digest (automergeDigest)
     cap_drop:
       - ALL
     security_opt:
@@ -213,19 +213,19 @@ services:
     tmpfs:
       - /run:exec
       - /tmp
-      # image runs as uid 1001(jina); uid/gid must match the image's jina user.
-      - /home/jina:exec,size=1g,uid=1001,gid=997
     expose:
-      - 8080
-      - 8081
+      - 3000 # CRW API (Firecrawl-compatible /v1 + /firecrawl/v2)
     healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:8081/"]
+      # image ships no HEALTHCHECK and has no curl/wget/node; bash + /dev/tcp
+      # present -> HTTP GET /health must return 200 (validates the server, not
+      # just the open port). Self-hosted API is unauthenticated.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/3000; printf 'GET /health HTTP/1.0\\r\\n\\r\\n' >&3; grep -q '200 OK' <&3"]
     restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: 1
-          memory: 4g
+          cpus: 2
+          memory: 2g
           pids: 512
 
 networks:

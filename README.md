@@ -37,8 +37,10 @@ Autonomous AI agent stack.
   fallbacks, and request/response logging
 - **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
 - **searxng** — Self-hosted meta-search engine for agent web search
-- **reader** — Self-hosted Jina Reader: URL→LLM-friendly markdown (r.jina.ai
-  engine), on the agent proxy network
+- **headroom** — Upstream proxy for opencode and Nous providers
+- **crw** — Self-hosted fastCRW: Firecrawl-compatible web scrape/crawl/search
+  API (Rust, ~50MB RAM), on the agent proxy network. Hermes's web_extract can
+  point at it via FIRECRAWL_API_URL=http://crw:3000
 
 ### Proxy Stack (`proxy/`)
 

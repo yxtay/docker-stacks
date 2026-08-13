@@ -239,7 +239,7 @@ services:
     expose:
       - 9222
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:9222/json/version"]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/9222"]
     restart: unless-stopped
     deploy:
       resources:

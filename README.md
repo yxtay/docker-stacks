@@ -39,6 +39,7 @@ Autonomous AI agent stack.
 - **searxng** — Self-hosted meta-search engine for agent web search
 - **headroom** — Upstream proxy for opencode and Nous providers
 - **fastcrw** — Firecrawl-compatible web scrape/crawl/search API
+- **lightpanda** — Lightweight headless browser with CDP endpoint for agent automation
 
 ### Proxy Stack (`proxy/`)
 

@@ -38,9 +38,7 @@ Autonomous AI agent stack.
 - **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
 - **searxng** — Self-hosted meta-search engine for agent web search
 - **headroom** — Upstream proxy for opencode and Nous providers
-- **crw** — Self-hosted fastCRW: Firecrawl-compatible web scrape/crawl/search
-  API (Rust, ~50MB RAM), on the agent proxy network. Hermes's web_extract can
-  point at it via FIRECRAWL_API_URL=<http://crw:3000>
+- **fastcrw** — Firecrawl-compatible web scrape/crawl/search API
 
 ### Proxy Stack (`proxy/`)
 
@@ -172,7 +170,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

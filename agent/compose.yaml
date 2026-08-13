@@ -202,37 +202,38 @@ services:
       pangolin.public-resources.searxng.targets[0].port: 8080
       pangolin.public-resources.searxng.targets[0].method: http
 
-  crw:
+  fastcrw:
     # nosemgrep
-    image: ghcr.io/us/crw:latest # Renovate pins digest (automergeDigest)
+    image: ghcr.io/us/crw:0.30.0@sha256:24ab5cf54456183265f7acb060b693a3d2f1e24f4f6a1f3df0742df1fcc0f6aa
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      - /run:exec
+      # - /run:exec
       - /tmp
     expose:
-      - 3000 # CRW API (Firecrawl-compatible /v1 + /firecrawl/v2)
+      - 3000
     healthcheck:
-      # image ships no HEALTHCHECK and has no curl/wget/node; bash + /dev/tcp
-      # present -> HTTP GET /health must return 200 (validates the server, not
-      # just the open port). Self-hosted API is unauthenticated.
-      test:
-        [
-          "CMD",
-          "bash",
-          "-c",
-          "exec 3<>/dev/tcp/127.0.0.1/3000; printf 'GET /health HTTP/1.0\\r\\n\\r\\n' >&3; grep -q '200 OK' <&3",
-        ]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/3000"]
     restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: 2
-          memory: 2g
+          cpus: 1
+          memory: 4g
           pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
+      pangolin.public-resources.fastcrw.name: fastcrw
+      pangolin.public-resources.fastcrw.mode: http
+      pangolin.public-resources.fastcrw.full-domain: "fastcrw.${DOMAIN:?}"
+      pangolin.public-resources.fastcrw.auth.sso-enabled: true
+      pangolin.public-resources.fastcrw.targets[0].hostname: fastcrw
+      pangolin.public-resources.fastcrw.targets[0].port: 3000
+      pangolin.public-resources.fastcrw.targets[0].method: http
 
 networks:
   default:

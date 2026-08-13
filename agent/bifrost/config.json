@@ -10,31 +10,12 @@
     }
   },
   "providers": {
-    "nous": {
-      "keys": [
-        {
-          "name": "nous",
-          "value": "env.NOUS_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "base_url": "https://inference-api.nousresearch.com",
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai"
-      }
-    },
     "opencode-go": {
       "keys": [
         {
           "name": "opencode-go",
           "value": "env.OPENCODE_GO_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
+          "models": ["*"]
         }
       ],
       "network_config": {
@@ -47,8 +28,7 @@
         {
           "name": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
+          "models": ["*"]
         }
       ],
       "network_config": {
@@ -60,7 +40,7 @@
   "governance": {
     "routing_rules": [
       {
-        "id": "auto-simple",
+        "id": "simple",
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
@@ -68,16 +48,18 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash",
-            "weight": 1.0
+            "model": "deepseek-v4-flash"
           }
         ],
-        "fallbacks": ["opencode-go/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/deepseek-v4-flash-free",
+          "opencode-go/mimo-v2.5"
+        ],
         "scope": "global",
         "priority": 10
       },
       {
-        "id": "auto-medium",
+        "id": "medium",
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
@@ -85,16 +67,18 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash",
-            "weight": 1.0
+            "model": "deepseek-v4-flash"
           }
         ],
-        "fallbacks": ["opencode-go/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/deepseek-v4-flash-free",
+          "opencode-go/mimo-v2.5"
+        ],
         "scope": "global",
         "priority": 20
       },
       {
-        "id": "auto-complex",
+        "id": "complex",
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
@@ -102,16 +86,18 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash",
-            "weight": 1.0
+            "model": "deepseek-v4-flash"
           }
         ],
-        "fallbacks": ["opencode-go/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/deepseek-v4-flash-free",
+          "opencode-go/mimo-v2.5"
+        ],
         "scope": "global",
         "priority": 30
       },
       {
-        "id": "auto-reasoning",
+        "id": "reasoning",
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
@@ -119,28 +105,51 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash",
-            "weight": 1.0
+            "model": "deepseek-v4-flash"
           }
         ],
-        "fallbacks": ["opencode-go/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/deepseek-v4-flash-free",
+          "opencode-go/mimo-v2.5"
+        ],
         "scope": "global",
         "priority": 40
       },
       {
-        "id": "auto-fallback",
-        "name": "Fallback",
+        "id": "auto",
+        "name": "Auto",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash",
-            "weight": 1.0
+            "model": "deepseek-v4-flash"
           }
         ],
-        "fallbacks": ["opencode-go/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/deepseek-v4-flash-free",
+          "opencode-go/mimo-v2.5"
+        ],
+        "scope": "global",
+        "priority": 90
+      },
+      {
+        "id": "vision",
+        "name": "Vision",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"vision\"",
+        "targets": [
+          {
+            "provider": "opencode-go",
+            "model": "mimo-v2.5"
+          }
+        ],
+        "fallbacks": [
+          "opencode-zen/mimo-v2.5-free",
+          "opencode-go/gpt-5.6-luna"
+        ],
         "scope": "global",
         "priority": 100
       }

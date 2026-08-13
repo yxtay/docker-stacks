@@ -13,6 +13,7 @@
     "opencode-go": {
       "keys": [
         {
+          "name": "opencode-go",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"]
         }
@@ -25,6 +26,7 @@
     "opencode-zen": {
       "keys": [
         {
+          "name": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"]
         }

@@ -36,9 +36,8 @@ Autonomous AI agent stack.
 - **bifrost** — High-performance AI gateway with complexity-based routing,
   fallbacks, and request/response logging
 - **camofox** — Anti-detection browser server for AI agents, powered by Camoufox
-- **searxng** — Self-hosted meta-search engine for agent web search
-- **headroom** — Upstream proxy for opencode and Nous providers
 - **fastcrw** — Firecrawl-compatible web scrape/crawl/search API
+- **searxng** — Self-hosted meta-search engine for agent web search
 - **lightpanda** — Lightweight headless browser with CDP endpoint for agent automation
 
 ### Proxy Stack (`proxy/`)
@@ -171,7 +170,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

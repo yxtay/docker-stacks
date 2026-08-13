@@ -236,7 +236,7 @@ services:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      - /home/lightpanda
+      - /home/lightpanda:uid=999,gid=999
     expose:
       - 9222
     healthcheck:

@@ -14,11 +14,7 @@
       "keys": [
         {
           "value": "env.OPENCODE_GO_API_KEY",
-          "models": ["*"],
-          "aliases": {
-            "auto": "deepseek-v4-flash",
-            "vision": "mimo-v2.5"
-          }
+          "models": ["*"]
         }
       ],
       "network_config": {

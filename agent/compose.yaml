@@ -236,7 +236,7 @@ services:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      - /root/.local/share/lightpanda
+      - /home/lightpanda
     expose:
       - 9222
     healthcheck:

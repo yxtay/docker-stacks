@@ -173,7 +173,7 @@ services:
       CRW_EXTRACTION__LLM__BASE_URL: http://bifrost:8080/v1
       CRW_EXTRACTION__LLM__API_KEY: bifrost
       CRW_EXTRACTION__LLM__MODEL: auto
-      CRW_EXTRACTION__LLM__PROVIDER: openai
+      CRW_EXTRACTION__LLM__PROVIDER: openai-compatible
       CRW_EXTRACTION__LLM_FALLBACK__ENABLE: 1
       CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
       CRW_SEARCH__SEARXNG_URL: http://searxng:8080

@@ -229,14 +229,11 @@ services:
 
   lightpanda:
     image: lightpanda/browser:0.3.6@sha256:bf2328538effa8392166d0cbdba9943a2c97fd19cd2e75b88c8c6f0cf03a1beb
-    command: [lightpanda, serve, --advertise-host, lightpanda]
+    command: [lightpanda, serve, --host, 0.0.0.0, --advertise-host, lightpanda]
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /root
     expose:
       - 9222
     healthcheck:

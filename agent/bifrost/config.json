@@ -40,6 +40,7 @@
   "governance": {
     "routing_rules": [
       {
+        "id": "simple",
         "name": "Simple",
         "enabled": true,
         "chain_rule": false,
@@ -58,6 +59,7 @@
         "priority": 10
       },
       {
+        "id": "medium",
         "name": "Medium",
         "enabled": true,
         "chain_rule": false,
@@ -76,6 +78,7 @@
         "priority": 20
       },
       {
+        "id": "complex",
         "name": "Complex",
         "enabled": true,
         "chain_rule": false,
@@ -94,6 +97,7 @@
         "priority": 30
       },
       {
+        "id": "reasoning",
         "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
@@ -112,6 +116,7 @@
         "priority": 40
       },
       {
+        "id": "auto",
         "name": "Auto",
         "enabled": true,
         "chain_rule": false,
@@ -130,6 +135,7 @@
         "priority": 90
       },
       {
+        "id": "vision",
         "name": "Vision",
         "enabled": true,
         "chain_rule": false,

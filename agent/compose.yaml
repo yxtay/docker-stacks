@@ -174,8 +174,6 @@ services:
       CRW_EXTRACTION__LLM__API_KEY: bifrost
       CRW_EXTRACTION__LLM__MODEL: auto
       CRW_EXTRACTION__LLM__PROVIDER: openai
-      CRW_RENDERER__CAMOUFOX__BASE_URL: http://camofox:9377
-      CRW_RENDERER__CAMOUFOX__INCLUDE_IN_AUTO: 1
       CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
       CRW_SEARCH__SEARXNG_URL: http://searxng:8080
     cap_drop:

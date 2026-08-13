@@ -13,7 +13,7 @@
     "opencode-go": {
       "keys": [
         {
-          "name": "opencode-go",
+          "id": "opencode-go",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"]
         }
@@ -26,7 +26,7 @@
     "opencode-zen": {
       "keys": [
         {
-          "name": "opencode-zen",
+          "id": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"]
         }
@@ -40,8 +40,7 @@
   "governance": {
     "routing_rules": [
       {
-        "id": "auto-simple",
-        "name": "Simple",
+        "id": "simple",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
@@ -59,8 +58,7 @@
         "priority": 10
       },
       {
-        "id": "auto-medium",
-        "name": "Medium",
+        "id": "medium",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
@@ -78,8 +76,7 @@
         "priority": 20
       },
       {
-        "id": "auto-complex",
-        "name": "Complex",
+        "id": "complex",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
@@ -97,8 +94,7 @@
         "priority": 30
       },
       {
-        "id": "auto-reasoning",
-        "name": "Reasoning",
+        "id": "reasoning",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
@@ -116,8 +112,7 @@
         "priority": 40
       },
       {
-        "id": "auto-default",
-        "name": "Auto",
+        "id": "auto",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
@@ -135,8 +130,7 @@
         "priority": 90
       },
       {
-        "id": "vision-default",
-        "name": "Vision",
+        "id": "vision",
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"vision\"",

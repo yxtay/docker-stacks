@@ -55,62 +55,6 @@
         "default_request_timeout_in_seconds": 300,
         "max_retries": 3
       }
-    },
-    "gemini": {
-      "keys": [
-        {
-          "name": "gemini",
-          "value": "env.GEMINI_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "cerebras": {
-      "keys": [
-        {
-          "name": "cerebras",
-          "value": "env.CEREBRAS_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "groq": {
-      "keys": [
-        {
-          "name": "groq",
-          "value": "env.GROQ_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
-    },
-    "openrouter": {
-      "keys": [
-        {
-          "name": "openrouter",
-          "value": "env.OPENROUTER_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      }
     }
   },
   "governance": {
@@ -123,12 +67,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
           {
-            "provider": "opencode-zen",
-            "model": "deepseek-v4-flash-free",
+            "provider": "opencode-go",
+            "model": "deepseek-v4-flash",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 10
       },
@@ -140,12 +84,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
           {
-            "provider": "opencode-zen",
-            "model": "deepseek-v4-flash-free",
+            "provider": "opencode-go",
+            "model": "deepseek-v4-flash",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 20
       },
@@ -157,12 +101,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
           {
-            "provider": "opencode-zen",
-            "model": "deepseek-v4-flash-free",
+            "provider": "opencode-go",
+            "model": "deepseek-v4-flash",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 30
       },
@@ -174,12 +118,12 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
           {
-            "provider": "opencode-zen",
-            "model": "deepseek-v4-flash-free",
+            "provider": "opencode-go",
+            "model": "deepseek-v4-flash",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 40
       },
@@ -191,12 +135,12 @@
         "cel_expression": "model == \"auto\"",
         "targets": [
           {
-            "provider": "opencode-zen",
-            "model": "deepseek-v4-flash-free",
+            "provider": "opencode-go",
+            "model": "deepseek-v4-flash",
             "weight": 1.0
           }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free"],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

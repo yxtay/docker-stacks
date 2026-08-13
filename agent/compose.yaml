@@ -239,6 +239,8 @@ services:
       - /root/.local/share/lightpanda
     expose:
       - 9222
+    healthcheck:
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/9222"]
     restart: unless-stopped
     deploy:
       resources:

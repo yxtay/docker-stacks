@@ -10,31 +10,15 @@
     }
   },
   "providers": {
-    "nous": {
-      "keys": [
-        {
-          "name": "nous",
-          "value": "env.NOUS_API_KEY",
-          "models": ["*"],
-          "weight": 1.0
-        }
-      ],
-      "network_config": {
-        "base_url": "https://inference-api.nousresearch.com",
-        "default_request_timeout_in_seconds": 300,
-        "max_retries": 3
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai"
-      }
-    },
     "opencode-go": {
       "keys": [
         {
-          "name": "opencode-go",
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"],
-          "weight": 1.0
+          "aliases": {
+            "auto": "deepseek-v4-flash",
+            "vision": "mimo-v2.5"
+          }
         }
       ],
       "network_config": {
@@ -45,7 +29,6 @@
     "opencode-zen": {
       "keys": [
         {
-          "name": "opencode-zen",
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"],
           "weight": 1.0

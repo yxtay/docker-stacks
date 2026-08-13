@@ -171,6 +171,7 @@ services:
     image: ghcr.io/us/crw:0.30.0@sha256:24ab5cf54456183265f7acb060b693a3d2f1e24f4f6a1f3df0742df1fcc0f6aa
     environment:
       CRW_EXTRACTION__LLM__BASE_URL: http://bifrost:8080/v1
+      CRW_EXTRACTION__LLM__API_KEY: ""
       CRW_EXTRACTION__LLM__MODEL: auto
       CRW_EXTRACTION__LLM__PROVIDER: openai
       CRW_RENDERER__CAMOUFOX__BASE_URL: http://camofox:9377

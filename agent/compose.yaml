@@ -172,7 +172,7 @@ services:
       searxng:
         condition: service_healthy
       lightpanda:
-        condition: service_started
+        condition: service_healthy
     environment:
       CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
       CRW_SEARCH__SEARXNG_URL: http://searxng:8080
@@ -195,6 +195,13 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
+      pangolin.public-resources.fastcrw.name: fastcrw
+      pangolin.public-resources.fastcrw.mode: http
+      pangolin.public-resources.fastcrw.full-domain: "fastcrw.${DOMAIN:?}"
+      pangolin.public-resources.fastcrw.auth.sso-enabled: true
+      pangolin.public-resources.fastcrw.targets[0].hostname: fastcrw
+      pangolin.public-resources.fastcrw.targets[0].port: 3000
+      pangolin.public-resources.fastcrw.targets[0].method: http
 
   searxng:
     image: ghcr.io/searxng/searxng:2026.8.10-0a118066d@sha256:cd22dbf7fac8b25d5e39e65af53a4b47009df5ad3162e270c477fd5b30ce03f2

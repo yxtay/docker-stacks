@@ -233,9 +233,9 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /tmp
+    # read_only: true
+    # tmpfs:
+    #   - /tmp
     expose:
       - 9222
     healthcheck:

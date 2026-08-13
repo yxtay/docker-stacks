@@ -165,32 +165,6 @@ services:
       pangolin.public-resources.camofox.targets[0].port: 6080
       pangolin.public-resources.camofox.targets[0].method: http
 
-  fastcrw:
-    # nosemgrep
-    image: ghcr.io/us/crw:0.30.0@sha256:24ab5cf54456183265f7acb060b693a3d2f1e24f4f6a1f3df0742df1fcc0f6aa
-    environment:
-      CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
-      CRW_SEARCH__SEARXNG_URL: http://searxng:8080
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    expose:
-      - 3000
-    healthcheck:
-      test: [CMD, bash, -c, ":>/dev/tcp/localhost/3000"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
-
   searxng:
     image: ghcr.io/searxng/searxng:2026.8.10-0a118066d@sha256:cd22dbf7fac8b25d5e39e65af53a4b47009df5ad3162e270c477fd5b30ce03f2
     environment:
@@ -258,6 +232,32 @@ services:
       pangolin.public-resources.lightpanda.targets[0].hostname: lightpanda
       pangolin.public-resources.lightpanda.targets[0].port: 9222
       pangolin.public-resources.lightpanda.targets[0].method: http
+
+  fastcrw:
+    # nosemgrep
+    image: ghcr.io/us/crw:0.30.0@sha256:24ab5cf54456183265f7acb060b693a3d2f1e24f4f6a1f3df0742df1fcc0f6aa
+    environment:
+      CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
+      CRW_SEARCH__SEARXNG_URL: http://searxng:8080
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    expose:
+      - 3000
+    healthcheck:
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/3000"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
 networks:
   default:

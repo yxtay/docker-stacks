@@ -213,8 +213,8 @@ services:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      # - /run:exec
-      - /tmp
+    # - /run:exec
+    # - /tmp
     expose:
       - 3000
     healthcheck:

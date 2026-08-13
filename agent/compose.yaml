@@ -251,13 +251,6 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: "reverse_proxy_auth lightpanda lightpanda:9222"
-      pangolin.public-resources.lightpanda.name: lightpanda
-      pangolin.public-resources.lightpanda.mode: http
-      pangolin.public-resources.lightpanda.full-domain: "lightpanda.${DOMAIN:?}"
-      pangolin.public-resources.lightpanda.auth.sso-enabled: true
-      pangolin.public-resources.lightpanda.targets[0].hostname: lightpanda
-      pangolin.public-resources.lightpanda.targets[0].port: 9222
-      pangolin.public-resources.lightpanda.targets[0].method: http
 
 networks:
   default:

@@ -17,6 +17,7 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       FIRECRAWL_API_URL: http://fastcrw:3000
       SEARXNG_URL: http://searxng:8080
+      PATH: /opt/data/home/.local/bin:/opt/data/bin:/opt/hermes/.venv/bin:/opt/hermes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       OBSIDIAN_VAULT_PATH: /opt/data/wiki
       WIKI_PATH: /opt/data/wiki
     env_file:

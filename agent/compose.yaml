@@ -11,8 +11,8 @@ services:
       MNEMOSYNE_CROSS_SESSION: 1
       MNEMOSYNE_DEFAULT_SCOPE: global
       MNEMOSYNE_LLM_ENABLED: 1
-      MNEMOSYNE_LLM_BASE_URL: http://bifrost:8080/v1
-      MNEMOSYNE_LLM_MODEL: auto
+      MNEMOSYNE_HOST_LLM_ENABLED: 1
+      MNEMOSYNE_HOST_LLM_TIMEOUT: 120
       CAMOFOX_URL: http://camofox:9377
       DOCKER_HOST: tcp://socket-proxy:2375
       FIRECRAWL_API_URL: http://fastcrw:3000

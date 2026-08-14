@@ -135,11 +135,11 @@
         "priority": 90
       },
       {
-        "id": "vision",
-        "name": "Vision",
+        "id": "multimodal",
+        "name": "Multimodal",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "model == \"vision\"",
+        "cel_expression": "model == \"multimodal\"",
         "targets": [
           {
             "provider": "opencode-go",

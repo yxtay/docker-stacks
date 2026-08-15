@@ -227,7 +227,6 @@ services:
     depends_on:
       gomplate:
         condition: service_completed_successfully
-        restart: true
     environment:
       SEARXNG_SECRET: ${SEARXNG_SECRET:?}
       SEARXNG_BASE_URL: ${SEARXNG_BASE_URL:-https://searxng.${DOMAIN:?}}

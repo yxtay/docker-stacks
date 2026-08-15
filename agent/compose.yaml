@@ -213,7 +213,7 @@ services:
     volumes:
       - ./searxng:/searxng
     environment:
-      NTFY_TOPIC_PREFIX: ${BRAVE_SEARCH_API_KEY:?}
+      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
     deploy:
       resources:
         limits:

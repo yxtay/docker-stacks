@@ -203,15 +203,16 @@ services:
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:49628827462fb9cf0822832f9444fb633dee18e5b4f2eb6944ef909a001564d4
     command:
-      - --file=/searxng/settings.template.yml
-      - --out=/searxng/settings.yml
+      - --file=/input/settings.template.yml
+      - --out=/output/settings.yml
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./searxng:/searxng
+      - ./searxng:/input:ro
+      - /apps/searxng:/output
     environment:
       BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
     deploy:
@@ -237,7 +238,7 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - /apps/searxng/settings.yml:/etc/searxng/settings.yml:ro
       - /apps/searxng/cache:/var/cache/searxng
     expose:
       - 8080

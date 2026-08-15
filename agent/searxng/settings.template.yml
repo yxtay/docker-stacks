@@ -10,3 +10,8 @@ search:
     - json
     - csv
     - rss
+
+engines:
+  - name: braveapi
+    api_key: "{{ .Env.BRAVE_SEARCH_API_KEY }}"
+    inactive: false

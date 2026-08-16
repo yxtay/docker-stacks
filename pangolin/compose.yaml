@@ -6,6 +6,9 @@ services:
       - --out=/pangolin/config.yml
       - --file=/input/traefik/traefik.template.yml
       - --out=/traefik/traefik.yml
+    environment:
+      DOMAIN: ${DOMAIN:?}
+      PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}
     cap_drop:
       - ALL
     security_opt:
@@ -15,9 +18,6 @@ services:
       - ./:/input:ro
       - /apps/pangolin:/pangolin
       - ./traefik:/traefik
-    environment:
-      DOMAIN: ${DOMAIN:?}
-      PANGOLIN_DOMAIN: ${PANGOLIN_DOMAIN:-pangolin.${DOMAIN}}
     deploy:
       resources:
         limits:

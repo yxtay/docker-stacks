@@ -1,8 +1,10 @@
 # SearXNG user settings
 use_default_settings: true
 
-server:
-  image_proxy: true
+engines:
+  - name: braveapi
+    api_key: "{{ .Env.BRAVE_SEARCH_API_KEY }}"
+    inactive: false
 
 search:
   formats:
@@ -11,7 +13,5 @@ search:
     - csv
     - rss
 
-engines:
-  - name: braveapi
-    api_key: "{{ .Env.BRAVE_SEARCH_API_KEY }}"
-    inactive: false
+server:
+  image_proxy: true

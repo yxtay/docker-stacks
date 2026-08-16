@@ -4,6 +4,8 @@ services:
     command:
       - --file=/input/notifications.template.yml
       - --out=/output/notifications.yml
+    environment:
+      NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     cap_drop:
       - ALL
     security_opt:
@@ -12,8 +14,6 @@ services:
     volumes:
       - ./dozzle:/input:ro
       - /apps/dozzle:/output
-    environment:
-      NTFY_TOPIC_PREFIX: ${NTFY_TOPIC_PREFIX:?}
     deploy:
       resources:
         limits:

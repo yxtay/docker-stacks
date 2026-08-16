@@ -102,6 +102,11 @@ services:
       - CACHEDIR.TAG
       - /apps/
       - /data/apps/
+    environment:
+      RCLONE_CONFIG_GDRIVE_TYPE: drive
+      RCLONE_CONFIG_GDRIVE_SCOPE: drive
+      RCLONE_CONFIG_GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID:?}
+      RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:?}
     cap_add:
       - DAC_OVERRIDE
     cap_drop:

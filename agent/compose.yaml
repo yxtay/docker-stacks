@@ -209,7 +209,6 @@ services:
       - --out=/output/settings.yml
     environment:
       BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
-      SEARXNG_USERAGENT_SUFFIX: ${SEARXNG_USERAGENT_SUFFIX:?}
     cap_drop:
       - ALL
     security_opt:

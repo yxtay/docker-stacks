@@ -15,6 +15,3 @@ search:
 
 server:
   image_proxy: true
-
-outgoing:
-  useragent_suffix: "{{ .Env.SEARXNG_USERAGENT_SUFFIX }}"

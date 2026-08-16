@@ -207,6 +207,9 @@ services:
     command:
       - --file=/input/settings.template.yml
       - --out=/output/settings.yml
+    environment:
+      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
+      SEARXNG_USERAGENT_SUFFIX: ${SEARXNG_USERAGENT_SUFFIX:?}
     cap_drop:
       - ALL
     security_opt:
@@ -215,8 +218,6 @@ services:
     volumes:
       - ./searxng:/input:ro
       - /apps/searxng:/output
-    environment:
-      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
     deploy:
       resources:
         limits:

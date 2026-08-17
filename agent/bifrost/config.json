@@ -146,10 +146,7 @@
             "model": "gpt-5.6-luna"
           }
         ],
-        "fallbacks": [
-          "opencode-zen/mimo-v2.5-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

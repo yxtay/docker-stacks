@@ -1,10 +1,16 @@
 # SearXNG user settings
-use_default_settings: true
+use_default_settings:
+  engines:
+    remove:
+      - ahmia
+      - torch
 
 engines:
   - name: braveapi
     api_key: "{{ .Env.BRAVE_SEARCH_API_KEY }}"
     inactive: false
+  - name: wikidata
+    timeout: 10
 
 search:
   formats:
@@ -15,3 +21,6 @@ search:
 
 server:
   image_proxy: true
+
+outgoing:
+  useragent_suffix: "{{ .Env.SEARXNG_USERAGENT_SUFFIX }}"

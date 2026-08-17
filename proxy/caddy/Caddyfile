@@ -116,6 +116,9 @@ localhost:80, caddy:80 {
 }
 
 {$DOMAIN} {
+	tls {
+		dns duckdns {env.DUCKDNS_TOKEN}
+	}
 	redir https://www.{host}{uri} permanent
 }
 

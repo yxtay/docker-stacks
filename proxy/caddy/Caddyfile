@@ -8,7 +8,6 @@
 			time_format rfc3339
 		}
 	}
-	dns duckdns {env.DUCKDNS_TOKEN}
 
 	crowdsec {
 		api_url http://crowdsec:8080
@@ -73,6 +72,9 @@
 (defaults) {
 	crowdsec
 	appsec
+	tls {
+		dns duckdns {env.DUCKDNS_TOKEN}
+	}
 	encode
 	import security_headers
 }
@@ -114,6 +116,9 @@ localhost:80, caddy:80 {
 }
 
 {$DOMAIN} {
+	tls {
+		dns duckdns {env.DUCKDNS_TOKEN}
+	}
 	redir https://www.{host}{uri} permanent
 }
 

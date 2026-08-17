@@ -48,12 +48,12 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash"
+            "model": "gpt-5.6-luna"
           }
         ],
         "fallbacks": [
           "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+          "opencode-go/deepseek-v4-flash"
         ],
         "scope": "global",
         "priority": 10
@@ -67,12 +67,12 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash"
+            "model": "gpt-5.6-luna"
           }
         ],
         "fallbacks": [
           "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+          "opencode-go/deepseek-v4-flash"
         ],
         "scope": "global",
         "priority": 20
@@ -86,12 +86,12 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash"
+            "model": "gpt-5.6-luna"
           }
         ],
         "fallbacks": [
           "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+          "opencode-go/deepseek-v4-flash"
         ],
         "scope": "global",
         "priority": 30
@@ -105,12 +105,12 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash"
+            "model": "gpt-5.6-luna"
           }
         ],
         "fallbacks": [
           "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+          "opencode-go/deepseek-v4-flash"
         ],
         "scope": "global",
         "priority": 40
@@ -124,12 +124,12 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "deepseek-v4-flash"
+            "model": "gpt-5.6-luna"
           }
         ],
         "fallbacks": [
           "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+          "opencode-go/deepseek-v4-flash"
         ],
         "scope": "global",
         "priority": 90
@@ -143,13 +143,10 @@
         "targets": [
           {
             "provider": "opencode-go",
-            "model": "mimo-v2.5"
+            "model": "gpt-5.6-luna"
           }
         ],
-        "fallbacks": [
-          "opencode-zen/mimo-v2.5-free",
-          "opencode-go/gpt-5.6-luna"
-        ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

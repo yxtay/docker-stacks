@@ -57,7 +57,7 @@ services:
 
   beszel:
     # nosemgrep
-    image: ghcr.io/henrygd/beszel/beszel:0.18.7@sha256:5b583633750cae65a9c1ab399c4c0eed229666ad74e103801724e3bc465338b8
+    image: ghcr.io/henrygd/beszel/beszel:0.18.8@sha256:d562169ffe44b294ec847d2129a11621b5086aa62128ec37352ab4a194256103
     cap_drop:
       - ALL
     security_opt:
@@ -84,7 +84,7 @@ services:
 
   beszel-agent:
     # nosemgrep
-    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.7@sha256:41252f7c7adf0b53ee1d72cbe2e3ea7adc7fffd357ff54bf2bd0c59d166e30c9
+    image: ghcr.io/henrygd/beszel/beszel-agent:0.18.8@sha256:f8f493cc228efeccedded61b4f67d81f3d9cbde7d7174d7732382fab6c03dac2
     cap_drop:
       - ALL
     security_opt:

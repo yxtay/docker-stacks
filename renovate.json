@@ -16,7 +16,8 @@
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
-    "labels": ["security"]
+    "labels": ["security"],
+    "minimumReleaseAge": "0 days"
   },
   "pre-commit": {
     "enabled": true
@@ -24,7 +25,8 @@
   "packageRules": [
     {
       "matchDepNames": ["gitleaks/gitleaks"],
-      "allowedVersions": ">8.30.1"
+      "allowedVersions": ">8.30.1",
+      "minimumReleaseAge": "7 days"
     }
   ]
 }

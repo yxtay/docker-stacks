@@ -20,5 +20,11 @@
   },
   "pre-commit": {
     "enabled": true
-  }
+  },
+  "packageRules": [
+    {
+      "matchDepNames": ["gitleaks/gitleaks"],
+      "allowedVersions": ">8.30.1"
+    }
+  ]
 }

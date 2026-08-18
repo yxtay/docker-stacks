@@ -13,7 +13,6 @@
   ],
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   "osvVulnerabilityAlerts": true,
-  "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
@@ -26,7 +25,8 @@
   "packageRules": [
     {
       "matchDepNames": ["gitleaks/gitleaks"],
-      "allowedVersions": ">8.30.1"
+      "allowedVersions": ">8.30.1",
+      "minimumReleaseAge": "3 days"
     }
   ]
 }

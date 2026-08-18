@@ -11,4 +11,4 @@ jobs:
       issues: write
       pull-requests: write
     # nosemgrep
-    uses: yxtay/.github/.github/workflows/pr.yml@7be16049c6ff9be6ccbb68e4bc8fc885b9faa91c # main
+    uses: yxtay/.github/.github/workflows/pr.yml@3162634a396310eadc5c727ec4e69345026a5f63 # main

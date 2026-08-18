@@ -169,7 +169,7 @@ services:
 
   fastcrw:
     # nosemgrep
-    image: ghcr.io/us/crw:0.30.0@sha256:24ab5cf54456183265f7acb060b693a3d2f1e24f4f6a1f3df0742df1fcc0f6aa
+    image: ghcr.io/us/crw:0.31.0@sha256:1baeee6566fd55be49709115c5fb21b60156852608874da60836e280c8e0d50a
     environment:
       CRW_DOCUMENT__SANDBOX: 1
       CRW_EXTRACTION__LLM__BASE_URL: http://bifrost:8080/v1

@@ -13,10 +13,12 @@
   ],
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   "osvVulnerabilityAlerts": true,
+  "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
-    "labels": ["security"]
+    "labels": ["security"],
+    "minimumReleaseAge": false
   },
   "pre-commit": {
     "enabled": true

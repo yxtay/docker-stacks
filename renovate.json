@@ -26,7 +26,7 @@
     {
       "matchDepNames": ["gitleaks/gitleaks"],
       "allowedVersions": ">8.30.1",
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": "7 days"
     }
   ]
 }

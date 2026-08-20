@@ -8,6 +8,8 @@ services:
       # containers
       CONTAINERS: 1
       EXEC: 0
+      ALLOW_LOGS: 1
+      ALLOW_TOP: 1
       # post only
       ALLOW_START: 1 # dozzle
       ALLOW_STOP: 1 # dozzle

@@ -6,7 +6,8 @@
     "disable_content_logging": true,
     "compat": {
       "should_drop_params": true,
-      "should_convert_params": true
+      "should_convert_params": true,
+      "convert_chat_to_responses": true
     }
   },
   "providers": {
@@ -46,15 +47,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "hy3"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/deepseek-v4-flash-free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 10
       },
@@ -65,15 +60,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "hy3"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/deepseek-v4-flash-free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 20
       },
@@ -84,15 +73,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "hy3"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/deepseek-v4-flash-free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 30
       },
@@ -103,15 +86,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "hy3"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/deepseek-v4-flash-free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 40
       },
@@ -122,15 +99,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "hy3"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
-        ],
+        "fallbacks": ["opencode-zen/deepseek-v4-flash-free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 90
       },
@@ -141,10 +112,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
         "targets": [
-          {
-            "provider": "opencode-go",
-            "model": "mimo-v2.5"
-          }
+          { "provider": "opencode-go", "model": "muse-spark-1.2-contributor" }
         ],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
@@ -155,9 +123,7 @@
   "logs_store": {
     "enabled": true,
     "type": "sqlite",
-    "config": {
-      "path": "./logs.db"
-    },
+    "config": { "path": "./logs.db" },
     "retention_days": 90
   }
 }

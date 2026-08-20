@@ -116,7 +116,7 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
+        "targets": [{ "provider": "opencode-go", "model": "mimo-v2.5" }],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100

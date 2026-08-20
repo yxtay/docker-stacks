@@ -11,6 +11,8 @@ cache/**
 *_cache/**
 .git/**
 tmp/**
+node_modules/**
+venv/**
 
 # App-specific paths
 MediaCover/**

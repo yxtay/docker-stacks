@@ -46,11 +46,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 10
       },
@@ -60,11 +59,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 20
       },
@@ -74,11 +72,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 30
       },
@@ -88,11 +85,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 40
       },
@@ -102,11 +98,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
-        "targets": [{ "provider": "opencode-go", "model": "hy3" }],
-        "fallbacks": [
-          "opencode-zen/deepseek-v4-flash-free",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 90
       },
@@ -116,7 +111,9 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [{ "provider": "opencode-go", "model": "mimo-v2.5" }],
+        "targets": [
+          { "provider": "opencode-zen", "model": "x-preview-f-free" }
+        ],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100

@@ -297,7 +297,7 @@ services:
 
   browserless:
     # nosemgrep
-    image: ghcr.io/browserless/chromium:v2.27.0
+    image: ghcr.io/browserless/chromium:v2.56.0@sha256:6f3149efabf5e04a44385974448c85264398db416bc63f884564316d0fcadc3e
     environment:
       TOKEN: ${BROWSERLESS_TOKEN:?}
       EXIT_ON_HEALTH_FAILURE: true

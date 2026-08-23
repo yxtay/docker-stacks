@@ -308,6 +308,8 @@ services:
     shm_size: 4g
     tmpfs:
       - /tmp:size=512m
+    expose:
+      - 3000
     healthcheck:
       test: [CMD, wget, -qO-, "http://localhost:3000/health"]
     restart: unless-stopped

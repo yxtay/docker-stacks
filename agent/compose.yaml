@@ -312,7 +312,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:3000/pressure"]
+      test: [CMD, curl, -fsSL, "http://localhost:3000/pressure"]
     restart: unless-stopped
     deploy:
       resources:

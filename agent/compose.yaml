@@ -174,11 +174,6 @@ services:
     image: ghcr.io/us/crw:0.31.0@sha256:1baeee6566fd55be49709115c5fb21b60156852608874da60836e280c8e0d50a
     environment:
       CRW_CONFIG: config.docker
-      CRW_EXTRACTION__LLM__BASE_URL: http://bifrost:8080/v1
-      CRW_EXTRACTION__LLM__API_KEY: bifrost
-      CRW_EXTRACTION__LLM__MODEL: auto
-      CRW_EXTRACTION__LLM__PROVIDER: openai-compatible
-      CRW_EXTRACTION__LLM_FALLBACK__ENABLE: 1
     cap_drop:
       - ALL
     security_opt:

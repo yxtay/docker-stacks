@@ -312,7 +312,8 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, sh, -c, "curl -fsSL http://localhost:3000/pressure?token=$$TOKEN"]
+      test:
+        [CMD, sh, -c, "curl -fsSL http://localhost:3000/pressure?token=$$TOKEN"]
     restart: unless-stopped
     deploy:
       resources:

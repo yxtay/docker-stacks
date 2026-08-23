@@ -173,20 +173,7 @@ services:
     # nosemgrep
     image: ghcr.io/us/crw:0.31.0@sha256:1baeee6566fd55be49709115c5fb21b60156852608874da60836e280c8e0d50a
     environment:
-      CRW_DOCUMENT__SANDBOX: 1
-      CRW_EXTRACTION__LLM__BASE_URL: http://bifrost:8080/v1
-      CRW_EXTRACTION__LLM__API_KEY: bifrost
-      CRW_EXTRACTION__LLM__MODEL: auto
-      CRW_EXTRACTION__LLM__PROVIDER: openai-compatible
-      CRW_EXTRACTION__LLM_FALLBACK__ENABLE: 1
-      CRW_RENDERER__HTTP_TIMEOUT_MS: 4000
-      CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
-      CRW_RENDERER__LIGHTPANDA_TIMEOUT_MS: 2500
-      CRW_RENDERER__CHROME__WS_URL: ws://browserless:3000?token=${BROWSERLESS_TOKEN:?}
-      CRW_SEARCH__SEARXNG_URL: http://searxng:8080
-      CRW_SEARCH__QUERY_EXPAND: 1
-      CRW_SEARCH__QUERY_EXPAND_VARIANTS: 3
-      CRW_SEARCH__ANSWER_CALIBRATED: 1
+      CRW_CONFIG: config.docker
     cap_drop:
       - ALL
     security_opt:
@@ -296,13 +283,14 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: "reverse_proxy_auth lightpanda lightpanda:9222"
 
-  browserless:
+  chrome:
     # nosemgrep
-    image: ghcr.io/browserless/chromium:v2.56.0@sha256:6f3149efabf5e04a44385974448c85264398db416bc63f884564316d0fcadc3e
-    environment:
-      TOKEN: ${BROWSERLESS_TOKEN:?}
-      EXIT_ON_HEALTH_FAILURE: true
-      EXTERNAL: http://browserless:3000
+    image: chromedp/headless-shell:151.0.7922.109@sha256:2d349b544a1ea6b5b5fd7c0fe99215ff662339c57407ee2e8c0a11af93516b04
+    command:
+      - --remote-allow-origins=*
+      - --ignore-certificate-errors
+      - --disable-http2
+      - --disable-blink-features=AutomationControlled
     cap_drop:
       - ALL
     security_opt:
@@ -311,9 +299,9 @@ services:
     tmpfs:
       - /tmp:size=512m
     expose:
-      - 3000
+      - 9222
     healthcheck:
-      test: [CMD, sh, -c, "curl -fsSL http://localhost:3000/pressure?token=$$TOKEN"]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/9222"]
     restart: unless-stopped
     deploy:
       resources:
@@ -323,7 +311,7 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: "reverse_proxy_auth browserless browserless:3000"
+      caddy.import: "reverse_proxy_auth chrome chrome:9222"
 
 networks:
   default:

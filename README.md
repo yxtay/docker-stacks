@@ -39,7 +39,7 @@ Autonomous AI agent stack.
 - **fastcrw** — Firecrawl-compatible web scrape/crawl/search API
 - **searxng** — Self-hosted meta-search engine for agent web search
 - **lightpanda** — Lightweight headless browser with CDP endpoint for agent automation
-- **browserless** — Anti-fingerprint Chromium renderer for fastcrw stealth scraping
+- **chrome** — Headless Chrome renderer for fastcrw via direct CDP on :9222
 
 ### Proxy Stack (`proxy/`)
 

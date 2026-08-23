@@ -302,6 +302,7 @@ services:
     environment:
       TOKEN: ${BROWSERLESS_TOKEN:?}
       EXIT_ON_HEALTH_FAILURE: true
+      EXTERNAL: http://browserless:3000
     cap_drop:
       - ALL
     security_opt:

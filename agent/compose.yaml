@@ -319,6 +319,16 @@ services:
           cpus: 2
           memory: 4g
           pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: "reverse_proxy_auth browserless browserless:3000"
+      pangolin.public-resources.browserless.name: browserless
+      pangolin.public-resources.browserless.mode: http
+      pangolin.public-resources.browserless.full-domain: "browserless.${DOMAIN:?}"
+      pangolin.public-resources.browserless.auth.sso-enabled: true
+      pangolin.public-resources.browserless.targets[0].hostname: browserless
+      pangolin.public-resources.browserless.targets[0].port: 3000
+      pangolin.public-resources.browserless.targets[0].method: http
 
 networks:
   default:

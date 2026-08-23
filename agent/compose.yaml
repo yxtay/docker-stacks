@@ -180,6 +180,7 @@ services:
       CRW_EXTRACTION__LLM__PROVIDER: openai-compatible
       CRW_EXTRACTION__LLM_FALLBACK__ENABLE: 1
       CRW_RENDERER__HTTP_TIMEOUT_MS: 4000
+      CRW_RENDERER__CHROME__WS_URL: ws://browserless:3000?token=${BROWSERLESS_TOKEN:?}
       CRW_RENDERER__LIGHTPANDA__WS_URL: ws://lightpanda:9222
       CRW_SEARCH__SEARXNG_URL: http://searxng:8080
       CRW_SEARCH__QUERY_EXPAND: 1
@@ -206,6 +207,31 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
+
+  browserless:
+    # nosemgrep
+    image: ghcr.io/browserless/chromium:v2.27.0
+    environment:
+      TOKEN: ${BROWSERLESS_TOKEN:?}
+      EXIT_ON_HEALTH_FAILURE: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    shm_size: 4g
+    tmpfs:
+      - /tmp:size=512m
+    expose:
+      - 3000
+    healthcheck:
+      test: [CMD, wget, -qO-, "http://localhost:3000/health"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 4g
+          pids: 512
 
   gomplate:
     image: ghcr.io/hairyhenderson/gomplate:latest@sha256:caf942c5bbcb2cdcd15230e93e138825ecbcc0e590afab85d37a1c2b5c7b3523

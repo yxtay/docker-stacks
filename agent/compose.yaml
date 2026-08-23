@@ -312,7 +312,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:3000/health"]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/3000"]
     restart: unless-stopped
     deploy:
       resources:

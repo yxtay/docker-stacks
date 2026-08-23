@@ -301,7 +301,7 @@ services:
     expose:
       - 9222
     healthcheck:
-      test: [CMD, socat, -T2, /dev/null, "TCP:localhost:9222"]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/9222"]
     restart: unless-stopped
     deploy:
       resources:

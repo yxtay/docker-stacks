@@ -306,7 +306,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 2
+          cpus: 1
           memory: 4g
           pids: 512
     labels:

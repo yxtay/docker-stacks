@@ -1,0 +1,16 @@
+# SearXNG user settings
+use_default_settings:
+  engines:
+    remove:
+      - ahmia
+      - torch
+
+search:
+  formats:
+    - html
+    - json
+    - csv
+    - rss
+
+server:
+  image_proxy: true

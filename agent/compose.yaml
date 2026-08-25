@@ -201,6 +201,7 @@ services:
     environment:
       SEARXNG_SECRET: ${SEARXNG_SECRET:?}
       SEARXNG_BASE_URL: ${SEARXNG_BASE_URL:-https://searxng.${DOMAIN:?}}
+      SEARXNG_USERAGENT_SUFFIX: ${SEARXNG_USERAGENT_SUFFIX:-}
     cap_add:
       - CHOWN
     cap_drop:

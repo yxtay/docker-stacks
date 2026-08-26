@@ -78,12 +78,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [{ "provider": "opencode-go", "model": "ox-alpha-free" }],
-        "fallbacks": [
-          "opencode-zen/hy3-free",
-          "nous/tencent/hy3:free",
-          "opencode-go/hy3"
-        ],
+        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
+        "fallbacks": ["nous/tencent/hy3:free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 10
       },
@@ -93,12 +89,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
-        "targets": [{ "provider": "opencode-go", "model": "ox-alpha-free" }],
-        "fallbacks": [
-          "opencode-zen/hy3-free",
-          "nous/tencent/hy3:free",
-          "opencode-go/hy3"
-        ],
+        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
+        "fallbacks": ["nous/tencent/hy3:free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 20
       },
@@ -108,12 +100,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
-        "targets": [{ "provider": "opencode-go", "model": "ox-alpha-free" }],
-        "fallbacks": [
-          "opencode-zen/hy3-free",
-          "nous/tencent/hy3:free",
-          "opencode-go/hy3"
-        ],
+        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
+        "fallbacks": ["nous/tencent/hy3:free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 30
       },
@@ -123,12 +111,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
-        "targets": [{ "provider": "opencode-go", "model": "ox-alpha-free" }],
-        "fallbacks": [
-          "opencode-zen/hy3-free",
-          "nous/tencent/hy3:free",
-          "opencode-go/hy3"
-        ],
+        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
+        "fallbacks": ["nous/tencent/hy3:free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 40
       },
@@ -138,12 +122,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
-        "targets": [{ "provider": "opencode-go", "model": "ox-alpha-free" }],
-        "fallbacks": [
-          "opencode-zen/hy3-free",
-          "nous/tencent/hy3:free",
-          "opencode-go/hy3"
-        ],
+        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
+        "fallbacks": ["nous/tencent/hy3:free", "opencode-go/hy3"],
         "scope": "global",
         "priority": 90
       },

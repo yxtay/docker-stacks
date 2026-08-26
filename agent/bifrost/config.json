@@ -53,9 +53,21 @@
         "value": "env.BIFROST_API_KEY",
         "is_active": true,
         "provider_configs": [
-          { "provider": "nous", "allowed_models": ["*"], "allow_all_keys": true },
-          { "provider": "opencode-go", "allowed_models": ["*"], "allow_all_keys": true },
-          { "provider": "opencode-zen", "allowed_models": ["*"], "allow_all_keys": true }
+          {
+            "provider": "nous",
+            "allowed_models": ["*"],
+            "allow_all_keys": true
+          },
+          {
+            "provider": "opencode-go",
+            "allowed_models": ["*"],
+            "allow_all_keys": true
+          },
+          {
+            "provider": "opencode-zen",
+            "allowed_models": ["*"],
+            "allow_all_keys": true
+          }
         ]
       }
     ],

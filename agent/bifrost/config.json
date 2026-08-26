@@ -56,17 +56,17 @@
           {
             "provider": "nous",
             "allowed_models": ["*"],
-            "allow_all_keys": true
+            "key_ids": ["*"]
           },
           {
             "provider": "opencode-go",
             "allowed_models": ["*"],
-            "allow_all_keys": true
+            "key_ids": ["*"]
           },
           {
             "provider": "opencode-zen",
             "allowed_models": ["*"],
-            "allow_all_keys": true
+            "key_ids": ["*"]
           }
         ]
       }

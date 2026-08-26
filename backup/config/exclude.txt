@@ -1,5 +1,6 @@
 # General patterns
 *.bak
+*.DS_Store
 *.lock
 *.pid
 *.pyc

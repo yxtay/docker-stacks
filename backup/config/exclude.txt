@@ -19,8 +19,8 @@ MediaCover/**
 altmount/.nzbs/**
 altmount/metadata/**
 esphome/.esphome/**
+geoip/**
 hermes/**/.cua-driver/**
-hermes/**/.hermes/**
 hermes/**/.local/**
 hermes/**/.npm/**
 hermes/**/bin/**

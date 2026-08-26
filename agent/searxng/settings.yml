@@ -4,7 +4,10 @@ use_default_settings:
     remove:
       - ahmia
       - torch
-      - wikidata
+
+engines:
+  - name: wikidata
+    timeout: 10
 
 search:
   formats:
@@ -15,3 +18,6 @@ search:
 
 server:
   image_proxy: true
+
+outgoing:
+  useragent_suffix: +https://github.com/yxtay

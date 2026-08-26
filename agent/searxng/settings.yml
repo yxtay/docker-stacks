@@ -4,7 +4,6 @@ use_default_settings:
     remove:
       - ahmia
       - torch
-      - wikidata
 
 search:
   formats:
@@ -15,3 +14,6 @@ search:
 
 server:
   image_proxy: true
+
+outgoing:
+  useragent_suffix: +https://gitHub.com/yxtay

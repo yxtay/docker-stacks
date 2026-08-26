@@ -5,6 +5,10 @@ use_default_settings:
       - ahmia
       - torch
 
+engines:
+  - name: wikidata
+    timeout: 10
+
 search:
   formats:
     - html

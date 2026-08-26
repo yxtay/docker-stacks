@@ -15,6 +15,7 @@ node_modules/**
 venv/**
 
 # App-specific paths
+backups/**
 MediaCover/**
 altmount/.nzbs/**
 altmount/metadata/**

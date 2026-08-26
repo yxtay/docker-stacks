@@ -48,8 +48,8 @@
   "governance": {
     "virtual_keys": [
       {
-        "id": "default",
-        "name": "Default",
+        "id": "main",
+        "name": "Main",
         "value": "env.BIFROST_API_KEY",
         "is_active": true
       }

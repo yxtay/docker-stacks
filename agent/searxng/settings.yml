@@ -16,4 +16,4 @@ server:
   image_proxy: true
 
 outgoing:
-  useragent_suffix: +https://gitHub.com/yxtay
+  useragent_suffix: +https://github.com/yxtay

@@ -4,6 +4,7 @@ use_default_settings:
     remove:
       - ahmia
       - torch
+      - wikidata
 
 search:
   formats:

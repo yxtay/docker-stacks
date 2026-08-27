@@ -6,6 +6,12 @@ use_default_settings:
       - torch
 
 engines:
+  - name: braveapi
+    api_key: "{{ .Env.BRAVE_SEARCH_API_KEY }}"
+    inactive: false
+  - name: exaapi
+    api_key: "{{ .Env.EXA_API_KEY }}"
+    inactive: false
   - name: wikidata
     timeout: 10
 

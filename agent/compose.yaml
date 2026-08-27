@@ -195,8 +195,34 @@ services:
       caddy: "*.{$$DOMAIN}"
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
+  gomplate:
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:8d91cb8e6c092039b44d9aafbd2d20c9d0e969b2c2ee4293f2c7b503784f1cd9
+    command:
+      - --file=/input/settings.template.yml
+      - --out=/output/settings.yml
+    environment:
+      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:?}
+      EXA_API_KEY: ${EXA_API_KEY:?}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./searxng:/input:ro
+      - /apps/searxng:/output
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4G
+          pids: 512
+
   searxng:
     image: ghcr.io/searxng/searxng:2026.8.10-0a118066d@sha256:cd22dbf7fac8b25d5e39e65af53a4b47009df5ad3162e270c477fd5b30ce03f2
+    depends_on:
+      gomplate:
+        condition: service_completed_successfully
     environment:
       SEARXNG_SECRET: ${SEARXNG_SECRET:?}
       SEARXNG_BASE_URL: ${SEARXNG_BASE_URL:-https://searxng.${DOMAIN:?}}
@@ -207,7 +233,7 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - /apps/searxng/settings.yml:/etc/searxng/settings.yml:ro
       - /apps/searxng/cache:/var/cache/searxng
     expose:
       - 8080

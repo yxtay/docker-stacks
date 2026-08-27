@@ -178,7 +178,7 @@ services:
 
   immich-kiosk:
     # nosemgrep
-    image: ghcr.io/damongolding/immich-kiosk:0.42.0@sha256:96909e1c7f52323e4cd742cc14d2650d9a421fdbf85699f64e065f6aa6fbaa89
+    image: ghcr.io/damongolding/immich-kiosk:0.43.0@sha256:1a9de53040bd714984024545aa4592f16a225b152cdd67c605e900aea6ca1080
     depends_on:
       immich-server:
         condition: service_healthy

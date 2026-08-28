@@ -190,11 +190,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
-        "fallbacks": [
-          "commandcode/MiniMaxAI/MiniMax-M3",
-          "opencode-go/mimo-v2.5"
+        "targets": [
+          { "provider": "commandcode", "model": "MiniMaxAI/MiniMax-M3" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

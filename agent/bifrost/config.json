@@ -11,6 +11,48 @@
     }
   },
   "providers": {
+    "commandcode": {
+      "keys": [
+        {
+          "name": "commandcode",
+          "value": "env.COMMANDCODE_API_KEY",
+          "models": ["*"]
+        }
+      ],
+      "network_config": {
+        "base_url": "https://api.commandcode.ai/provider/v1"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    },
+    "nous": {
+      "keys": [
+        {
+          "name": "nous",
+          "value": "env.NOUS_API_KEY",
+          "models": ["*"]
+        }
+      ],
+      "network_config": {
+        "base_url": "https://inference-api.nousresearch.com"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    },
+    "ollama": {
+      "keys": [
+        {
+          "name": "ollama-cloud",
+          "value": "env.OLLAMA_API_KEY",
+          "models": ["*"],
+          "ollama_key_config": {
+            "url": "https://ollama.com"
+          }
+        }
+      ]
+    },
     "opencode-go": {
       "keys": [
         {
@@ -28,21 +70,6 @@
           "models": ["*"]
         }
       ]
-    },
-    "nous": {
-      "keys": [
-        {
-          "name": "nous",
-          "value": "env.NOUS_API_KEY",
-          "models": ["*"]
-        }
-      ],
-      "network_config": {
-        "base_url": "https://inference-api.nousresearch.com"
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai"
-      }
     }
   },
   "governance": {
@@ -54,7 +81,17 @@
         "is_active": true,
         "provider_configs": [
           {
+            "provider": "commandcode",
+            "allowed_models": ["*"],
+            "key_ids": ["*"]
+          },
+          {
             "provider": "nous",
+            "allowed_models": ["*"],
+            "key_ids": ["*"]
+          },
+          {
+            "provider": "ollama",
             "allowed_models": ["*"],
             "key_ids": ["*"]
           },

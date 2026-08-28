@@ -41,10 +41,10 @@
         "base_provider_type": "openai"
       }
     },
-    "ollama-cloud": {
+    "ollama": {
       "keys": [
         {
-          "name": "ollama-cloud",
+          "name": "ollama",
           "value": "env.OLLAMA_API_KEY",
           "models": ["*"],
           "ollama_key_config": {
@@ -116,11 +116,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama-cloud/minimax-m3:cloud",
-          "opencode-go/hy3"
-        ],
+        "fallbacks": ["nous/tencent/hy3:free", "ollama/minimax-m3:cloud", "opencode-go/hy3"],
         "scope": "global",
         "priority": 10
       },
@@ -131,11 +127,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama-cloud/minimax-m3:cloud",
-          "opencode-go/hy3"
-        ],
+        "fallbacks": ["nous/tencent/hy3:free", "ollama/minimax-m3:cloud", "opencode-go/hy3"],
         "scope": "global",
         "priority": 20
       },
@@ -146,11 +138,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama-cloud/minimax-m3:cloud",
-          "opencode-go/hy3"
-        ],
+        "fallbacks": ["nous/tencent/hy3:free", "ollama/minimax-m3:cloud", "opencode-go/hy3"],
         "scope": "global",
         "priority": 30
       },
@@ -161,11 +149,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama-cloud/minimax-m3:cloud",
-          "opencode-go/hy3"
-        ],
+        "fallbacks": ["nous/tencent/hy3:free", "ollama/minimax-m3:cloud", "opencode-go/hy3"],
         "scope": "global",
         "priority": 40
       },
@@ -176,11 +160,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama-cloud/minimax-m3:cloud",
-          "opencode-go/hy3"
-        ],
+        "fallbacks": ["nous/tencent/hy3:free", "ollama/minimax-m3:cloud", "opencode-go/hy3"],
         "scope": "global",
         "priority": 90
       },
@@ -190,9 +170,7 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [
-          { "provider": "ollama-cloud", "model": "minimax-m3:cloud" }
-        ],
+        "targets": [{ "provider": "ollama", "model": "minimax-m3:cloud" }],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100

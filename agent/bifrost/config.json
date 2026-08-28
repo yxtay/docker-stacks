@@ -20,7 +20,7 @@
         }
       ],
       "network_config": {
-        "base_url": "https://api.commandcode.ai/provider/v1"
+        "base_url": "https://api.commandcode.ai/provider"
       },
       "custom_provider_config": {
         "base_provider_type": "openai"

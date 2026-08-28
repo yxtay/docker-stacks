@@ -41,7 +41,7 @@
         "base_provider_type": "openai"
       }
     },
-    "ollama": {
+    "ollama-cloud": {
       "keys": [
         {
           "name": "ollama-cloud",
@@ -118,7 +118,7 @@
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
         "fallbacks": [
           "nous/tencent/hy3:free",
-          "commandcode/MiniMaxAI/MiniMax-M3",
+          "ollama-cloud/minimax-m3:cloud",
           "opencode-go/hy3"
         ],
         "scope": "global",
@@ -133,7 +133,7 @@
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
         "fallbacks": [
           "nous/tencent/hy3:free",
-          "commandcode/MiniMaxAI/MiniMax-M3",
+          "ollama-cloud/minimax-m3:cloud",
           "opencode-go/hy3"
         ],
         "scope": "global",
@@ -148,7 +148,7 @@
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
         "fallbacks": [
           "nous/tencent/hy3:free",
-          "commandcode/MiniMaxAI/MiniMax-M3",
+          "ollama-cloud/minimax-m3:cloud",
           "opencode-go/hy3"
         ],
         "scope": "global",
@@ -163,7 +163,7 @@
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
         "fallbacks": [
           "nous/tencent/hy3:free",
-          "commandcode/MiniMaxAI/MiniMax-M3",
+          "ollama-cloud/minimax-m3:cloud",
           "opencode-go/hy3"
         ],
         "scope": "global",
@@ -178,7 +178,7 @@
         "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
         "fallbacks": [
           "nous/tencent/hy3:free",
-          "commandcode/MiniMaxAI/MiniMax-M3",
+          "ollama-cloud/minimax-m3:cloud",
           "opencode-go/hy3"
         ],
         "scope": "global",
@@ -191,7 +191,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
         "targets": [
-          { "provider": "commandcode", "model": "MiniMaxAI/MiniMax-M3" }
+          { "provider": "ollama-cloud", "model": "minimax-m3:cloud" }
         ],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",

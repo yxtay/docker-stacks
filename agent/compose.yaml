@@ -68,7 +68,7 @@ services:
 
   socket-proxy:
     # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.3@sha256:5907a638bb14ee873500f6161dd3aaa4d9b3e67a35912db8c9995e134d990ec0
+    image: ghcr.io/linuxserver/socket-proxy:3.4.4@sha256:c0e905167a19a756f47e7fcf724ac08e47a883238ef2e1dfb1bd62e94d481ce5
     environment:
       ALLOW_LOGS: 1
       ALLOW_TOP: 1

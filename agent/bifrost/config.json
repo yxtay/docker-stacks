@@ -115,12 +115,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama/minimax-m3:cloud",
-          "opencode-go/hy3"
+        "targets": [
+          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 10
       },
@@ -130,12 +128,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
-        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama/minimax-m3:cloud",
-          "opencode-go/hy3"
+        "targets": [
+          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 20
       },
@@ -145,12 +141,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
-        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama/minimax-m3:cloud",
-          "opencode-go/hy3"
+        "targets": [
+          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 30
       },
@@ -160,12 +154,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
-        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama/minimax-m3:cloud",
-          "opencode-go/hy3"
+        "targets": [
+          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 40
       },
@@ -175,12 +167,10 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
-        "targets": [{ "provider": "opencode-zen", "model": "hy3-free" }],
-        "fallbacks": [
-          "nous/tencent/hy3:free",
-          "ollama/minimax-m3:cloud",
-          "opencode-go/hy3"
+        "targets": [
+          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 90
       },
@@ -190,8 +180,8 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [{ "provider": "ollama", "model": "minimax-m3:cloud" }],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
+        "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

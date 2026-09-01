@@ -1,7 +1,7 @@
 services:
   hermes:
     # nosemgrep
-    image: nousresearch/hermes-agent:v2026.8.27@sha256:e0df6adebddf29b91112aefc999d4aaf6846c9eb544faca5672a16a13590ff79
+    image: nousresearch/hermes-agent:v2026.8.31@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524
     command: gateway run
     working_dir: /opt/data
     environment:
@@ -258,7 +258,7 @@ services:
       pangolin.public-resources.searxng.targets[0].method: http
 
   lightpanda:
-    image: lightpanda/browser:0.3.7@sha256:eae2c7f8ff39a7a24540d21c7561ce219fd14b1bf2b92403930c6d140f2d1337
+    image: lightpanda/browser:0.4.0@sha256:01eb5d37ba537259d60ebfe32be49d3db4c7b6d1daac23b59b8532126fe30df0
     command: [lightpanda, serve, --host, 0.0.0.0, --advertise-host, lightpanda]
     cap_drop:
       - ALL

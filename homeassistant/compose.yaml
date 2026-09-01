@@ -125,7 +125,7 @@ services:
 
   trmnlha:
     # nosemgrep
-    image: ghcr.io/usetrmnl/trmnl-ha-amd64:0.10.2@sha256:f8bb23aaa4c2d8b30cc2243374fabc1b759c0676d22c1b013c1a14ceaebf5e45
+    image: ghcr.io/usetrmnl/trmnl-ha-amd64:0.10.3@sha256:042034fef5d91140d2d1e8cac43697e9496f07fa86d6137daedbfd2774c11107
     environment:
       HOME_ASSISTANT_URL: "http://${IP_ADDRESS:-host.docker.internal}:8123"
       ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}

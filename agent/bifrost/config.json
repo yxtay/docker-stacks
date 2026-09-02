@@ -117,8 +117,9 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [{ "provider": "opencode-go", "model": "glm-5.3-flash" }],
         "fallbacks": [
+          "opencode-go/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "opencode-go/deepseek-v4-flash"
+          "opencode-go/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 10
@@ -131,8 +132,9 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [{ "provider": "opencode-go", "model": "qwen3.8-flash" }],
         "fallbacks": [
+          "opencode-go/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "opencode-go/deepseek-v4-flash"
+          "opencode-go/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 20

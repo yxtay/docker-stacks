@@ -15,7 +15,7 @@ perms = 0
 
 ignore = Name __pycache__
 ignore = Name .{DS_Store,git}
-ignore = Name *.{bak,DS_Store,pid,pyc,lock}
+ignore = Name *.{bak,DS_Store,pid,pyc,lock,sock}
 ignore = Name {,.,*.,*-,*_}{cache,tmp}
 ignore = Name {node_modules,venv}
 

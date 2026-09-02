@@ -4,6 +4,7 @@
 *.lock
 *.pid
 *.pyc
+*.sock
 *.tmp
 __pycache__/**
 cache/**

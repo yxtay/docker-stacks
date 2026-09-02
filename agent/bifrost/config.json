@@ -110,17 +110,32 @@
     ],
     "routing_rules": [
       {
-        "id": "simple",
-        "name": "Simple",
+        "id": "reasoning",
+        "name": "Reasoning",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [
-          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
+        "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
+        "targets": [{ "provider": "opencode-go", "model": "glm-5.3-flash" }],
+        "fallbacks": [
+          "opencode-zen/mimo-v2.5-free",
+          "opencode-go/deepseek-v4-flash"
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 10
+      },
+      {
+        "id": "complex",
+        "name": "Complex",
+        "enabled": true,
+        "chain_rule": false,
+        "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
+        "targets": [{ "provider": "opencode-go", "model": "qwen3.8-flash" }],
+        "fallbacks": [
+          "opencode-zen/mimo-v2.5-free",
+          "opencode-go/deepseek-v4-flash"
+        ],
+        "scope": "global",
+        "priority": 20
       },
       {
         "id": "medium",
@@ -133,31 +148,16 @@
         ],
         "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
-        "priority": 20
-      },
-      {
-        "id": "complex",
-        "name": "Complex",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
-        "targets": [
-          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
-        ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
-        "scope": "global",
         "priority": 30
       },
       {
-        "id": "reasoning",
-        "name": "Reasoning",
+        "id": "simple",
+        "name": "Simple",
         "enabled": true,
         "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
-        "targets": [
-          { "provider": "opencode-go", "model": "deepseek-v4-flash" }
-        ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
+        "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
+        "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
+        "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 40
       },

@@ -26,7 +26,7 @@ services:
           pids: 512
 
   pangolin:
-    image: ghcr.io/fosrl/pangolin:1.22.0@sha256:4e6f068bbb2b4d0a0a8b7808bcb5b762053208c09d3f074cc58969332d9e3e06
+    image: ghcr.io/fosrl/pangolin:1.22.1@sha256:f313d0738c4c470e79198f16c9b917eb83e960b7676941c2dc4fa04843340818
     depends_on:
       gomplate:
         condition: service_completed_successfully

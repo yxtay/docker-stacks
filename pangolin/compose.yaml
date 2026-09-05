@@ -26,7 +26,7 @@ services:
           pids: 512
 
   pangolin:
-    image: ghcr.io/fosrl/pangolin:1.22.1@sha256:f313d0738c4c470e79198f16c9b917eb83e960b7676941c2dc4fa04843340818
+    image: ghcr.io/fosrl/pangolin:1.22.2@sha256:83a55f933b4d970da85333ba9715a36550972398939ba1b70fe0381434259b96
     depends_on:
       gomplate:
         condition: service_completed_successfully
@@ -94,7 +94,7 @@ services:
           pids: 512
 
   traefik:
-    image: ghcr.io/traefik/traefik:v3.7.12@sha256:9c2a54d87f76f5c2f5f2682c68394af92fb12c0a2686798d6462a3f84bd78eaf
+    image: ghcr.io/traefik/traefik:v3.7.13@sha256:f86a2cab1b5c649070c49f883c743dd32d8485a56e3368c5f93b9e91f1e91259
     container_name: traefik
     depends_on:
       gomplate:

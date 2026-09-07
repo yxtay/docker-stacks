@@ -54,6 +54,9 @@
         "extra_headers": {
           "user-agent": "bifrost",
           "x-opencode-session": "bifrost"
+        },
+        "custom_provider_config": {
+          "base_provider_type": "openai"
         }
       }
     }

@@ -44,7 +44,7 @@
     "opencode-free": {
       "keys": [
         {
-          "name": "free",
+          "name": "opencode-free",
           "value": "",
           "models": ["*"]
         }

@@ -41,18 +41,6 @@
         "base_provider_type": "openai"
       }
     },
-    "ollama": {
-      "keys": [
-        {
-          "name": "ollama",
-          "value": "env.OLLAMA_API_KEY",
-          "models": ["*"],
-          "ollama_key_config": {
-            "url": "https://ollama.com"
-          }
-        }
-      ]
-    },
     "opencode-go": {
       "keys": [
         {
@@ -60,7 +48,12 @@
           "value": "env.OPENCODE_GO_API_KEY",
           "models": ["*"]
         }
-      ]
+      ],
+      "network_config": {
+        "extra_headers": {
+          "x-opencode-session": ""
+        }
+      }
     },
     "opencode-zen": {
       "keys": [
@@ -69,7 +62,12 @@
           "value": "env.OPENCODE_ZEN_API_KEY",
           "models": ["*"]
         }
-      ]
+      ],
+      "network_config": {
+        "extra_headers": {
+          "x-opencode-session": ""
+        }
+      }
     }
   },
   "governance": {

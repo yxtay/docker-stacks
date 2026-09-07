@@ -41,15 +41,18 @@
         }
       }
     },
-    "opencode-free": {
+    "opencode-zen": {
+      "keys": [
+        {
+          "name": "opencode-zen",
+          "value": "env.OPENCODE_GO_API_KEY",
+          "models": ["*"]
+        }
+      ],
       "network_config": {
-        "base_url": "https://opencode.ai/zen/v1",
         "extra_headers": {
           "user-agent": "bifrost",
           "x-opencode-session": "bifrost"
-        },
-        "custom_provider_config": {
-          "base_provider_type": "openai"
         }
       }
     }
@@ -73,7 +76,7 @@
             "key_ids": ["*"]
           },
           {
-            "provider": "opencode-free",
+            "provider": "opencode-zen",
             "allowed_models": ["*"],
             "key_ids": ["*"]
           }
@@ -90,7 +93,7 @@
         "targets": [{ "provider": "opencode-go", "model": "glm-5.3-flash" }],
         "fallbacks": [
           "opencode-go/deepseek-v4-flash",
-          "opencode-free/mimo-v2.5-free",
+          "opencode-zen/mimo-v2.5-free",
           "opencode-go/mimo-v2.5"
         ],
         "scope": "global",
@@ -105,7 +108,7 @@
         "targets": [{ "provider": "opencode-go", "model": "qwen3.8-flash" }],
         "fallbacks": [
           "opencode-go/deepseek-v4-flash",
-          "opencode-free/mimo-v2.5-free",
+          "opencode-zen/mimo-v2.5-free",
           "opencode-go/mimo-v2.5"
         ],
         "scope": "global",
@@ -120,7 +123,7 @@
         "targets": [
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
-        "fallbacks": ["opencode-free/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 30
       },
@@ -130,7 +133,7 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [{ "provider": "opencode-free", "model": "mimo-v2.5-free" }],
+        "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
         "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 40
@@ -144,7 +147,7 @@
         "targets": [
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
-        "fallbacks": ["opencode-free/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
+        "fallbacks": ["opencode-zen/mimo-v2.5-free", "opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 90
       },
@@ -154,7 +157,7 @@
         "enabled": true,
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
-        "targets": [{ "provider": "opencode-free", "model": "mimo-v2.5-free" }],
+        "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
         "fallbacks": ["opencode-go/mimo-v2.5"],
         "scope": "global",
         "priority": 100

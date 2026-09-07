@@ -42,13 +42,6 @@
       }
     },
     "opencode-free": {
-      "keys": [
-        {
-          "name": "opencode-free",
-          "value": "",
-          "models": ["*"]
-        }
-      ],
       "network_config": {
         "base_url": "https://opencode.ai/zen/v1",
         "extra_headers": {

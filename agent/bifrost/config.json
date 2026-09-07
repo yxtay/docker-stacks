@@ -26,21 +26,6 @@
         "base_provider_type": "openai"
       }
     },
-    "nous": {
-      "keys": [
-        {
-          "name": "nous",
-          "value": "env.NOUS_API_KEY",
-          "models": ["*"]
-        }
-      ],
-      "network_config": {
-        "base_url": "https://inference-api.nousresearch.com"
-      },
-      "custom_provider_config": {
-        "base_provider_type": "openai"
-      }
-    },
     "opencode-go": {
       "keys": [
         {
@@ -57,13 +42,6 @@
       }
     },
     "opencode-zen": {
-      "keys": [
-        {
-          "name": "opencode-zen",
-          "value": "env.OPENCODE_ZEN_API_KEY",
-          "models": ["*"]
-        }
-      ],
       "network_config": {
         "extra_headers": {
           "user-agent": "bifrost",

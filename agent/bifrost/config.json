@@ -51,7 +51,8 @@
       ],
       "network_config": {
         "extra_headers": {
-          "x-opencode-session": "hermes"
+          "user-agent": "bifrost",
+          "x-opencode-session": "bifrost"
         }
       }
     },
@@ -65,7 +66,8 @@
       ],
       "network_config": {
         "extra_headers": {
-          "x-opencode-session": "hermes"
+          "user-agent": "bifrost",
+          "x-opencode-session": "bifrost"
         }
       }
     }

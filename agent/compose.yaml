@@ -68,7 +68,7 @@ services:
 
   socket-proxy:
     # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.4@sha256:cba12c42b1df30a6446856028f5ab726e9d8921f1ea74be509216c5e41357d42
+    image: ghcr.io/linuxserver/socket-proxy:3.4.4@sha256:ba211325155c463a1a6e6a038c928f21447a8e60ce02ecf41302047974097e84
     environment:
       ALLOW_LOGS: 1
       ALLOW_TOP: 1
@@ -196,7 +196,7 @@ services:
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:8d91cb8e6c092039b44d9aafbd2d20c9d0e969b2c2ee4293f2c7b503784f1cd9
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:347d186b146f2ce82c0857acf4cadd1c34c2855bdd5b6a93cb77e779793c8680
     command:
       - --file=/input/settings.template.yml
       - --out=/output/settings.yml

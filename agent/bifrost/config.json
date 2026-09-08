@@ -94,9 +94,9 @@
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "commandcode/mimo-v2.5"
+          "commandcode/xiaomi/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 10
@@ -111,9 +111,9 @@
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "commandcode/mimo-v2.5"
+          "commandcode/xiaomi/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 20
@@ -128,9 +128,9 @@
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "commandcode/mimo-v2.5"
+          "commandcode/xiaomi/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 30
@@ -142,9 +142,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek-v4-flash" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4-flash" }
         ],
-        "fallbacks": ["opencode-zen/mimo-v2.5-free", "commandcode/mimo-v2.5"],
+        "fallbacks": [
+          "opencode-zen/mimo-v2.5-free",
+          "commandcode/xiaomi/mimo-v2.5"
+        ],
         "scope": "global",
         "priority": 40
       },
@@ -158,9 +161,9 @@
           { "provider": "opencode-go", "model": "deepseek-v4-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4-flash",
           "opencode-zen/mimo-v2.5-free",
-          "commandcode/mimo-v2.5"
+          "commandcode/xiaomi/mimo-v2.5"
         ],
         "scope": "global",
         "priority": 90
@@ -172,7 +175,7 @@
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
         "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
-        "fallbacks": ["commandcode/mimo-v2.5"],
+        "fallbacks": ["commandcode/xiaomi/mimo-v2.5"],
         "scope": "global",
         "priority": 100
       }

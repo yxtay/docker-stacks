@@ -18,8 +18,6 @@ venv/**
 
 # App-specific paths
 MediaCover/**
-altmount/.nzbs/**
-altmount/metadata/**
 esphome/.esphome/**
 geoip/**
 hermes/**/.cua-driver/**

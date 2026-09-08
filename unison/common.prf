@@ -20,7 +20,6 @@ ignore = Name {,.,*.,*-,*_}{cache,tmp}
 ignore = Name {node_modules,venv}
 
 ignore = Name MediaCover
-ignore = BelowPath altmount/{.nzbs,metadata}
 ignore = BelowPath esphome/.esphome
 ignore = BelowPath geoip
 ignore = Regex hermes/(.*/)?(\.cua-driver|\.local|\.npm|bin|lazy-packages)

@@ -149,9 +149,7 @@ Self-hosted photo and video management.
 Usenet streaming and indexing.
 
 - **nzbdavex** — Extended NZB WebDAV server
-- **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
-- **altmount** — Usenet WebDAV mount
 - **aiostreams** — Stremio super-addon
 
 ### Torrent Stack (`torrent/`)
@@ -171,7 +169,7 @@ Scheduled tasks via systemd user timers (`systemd/`). Install with
 `bin/setup-systemd.sh`.
 
 | Timer              | Schedule    | Purpose                            |
-|--------------------|-------------|------------------------------------|
+| ------------------ | ----------- | ---------------------------------- |
 | `arcane-up`        | Every 5 min | GitOps stack sync                  |
 | `rsync-apps`       | Hourly      | Local /apps → /data/apps sync      |
 | `logrotate`        | Hourly      | App log rotation                   |

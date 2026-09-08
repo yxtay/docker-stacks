@@ -149,9 +149,7 @@ Self-hosted photo and video management.
 Usenet streaming and indexing.
 
 - **nzbdavex** — Extended NZB WebDAV server
-- **usenetstreamer** — Stremio addon
 - **streamnzb** — Usenet streamer
-- **altmount** — Usenet WebDAV mount
 - **aiostreams** — Stremio super-addon
 
 ### Torrent Stack (`torrent/`)

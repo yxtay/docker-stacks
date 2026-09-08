@@ -59,59 +59,6 @@ services:
       pangolin.public-resources.nzbdavex.rules[3].value: "*/view/*"
       pangolin.public-resources.nzbdavex.rules[3].enabled: true
 
-  usenetstreamer:
-    # nosemgrep
-    image: ghcr.io/sanket9225/usenetstreamer:1.8.4@sha256:db65b436c13ae23e29f5727e2c3055b190d77c166ecdb11d5e5a0042686f9871
-    environment:
-      ADDON_SHARED_SECRET: ${USENETSTREAMER_SHARED_SECRET:?}
-      CONFIG_DIR: /data/config
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/usenetstreamer:/data/config
-    tmpfs:
-      - /usr/src/app/cache
-    expose:
-      - 7000
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://127.0.0.1:7000/"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy_auth usenetstreamer usenetstreamer:7000
-      tinyauth.apps.usenetstreamer.path.allow: \/(manifest.json|nzb|stream)
-      pangolin.public-resources.usenetstreamer.name: usenetstreamer
-      pangolin.public-resources.usenetstreamer.mode: http
-      pangolin.public-resources.usenetstreamer.full-domain: "usenetstreamer.${DOMAIN:?}"
-      pangolin.public-resources.usenetstreamer.auth.sso-enabled: true
-      pangolin.public-resources.usenetstreamer.targets[0].hostname: usenetstreamer
-      pangolin.public-resources.usenetstreamer.targets[0].port: 7000
-      pangolin.public-resources.usenetstreamer.targets[0].method: http
-      pangolin.public-resources.usenetstreamer.rules[0].action: allow
-      pangolin.public-resources.usenetstreamer.rules[0].match: path
-      pangolin.public-resources.usenetstreamer.rules[0].value: "*/manifest.json"
-      pangolin.public-resources.usenetstreamer.rules[0].enabled: true
-      pangolin.public-resources.usenetstreamer.rules[1].action: allow
-      pangolin.public-resources.usenetstreamer.rules[1].match: path
-      pangolin.public-resources.usenetstreamer.rules[1].value: "*/nzb/*"
-      pangolin.public-resources.usenetstreamer.rules[1].enabled: true
-      pangolin.public-resources.usenetstreamer.rules[2].action: allow
-      pangolin.public-resources.usenetstreamer.rules[2].match: path
-      pangolin.public-resources.usenetstreamer.rules[2].value: "*/stream/*"
-      pangolin.public-resources.usenetstreamer.rules[2].enabled: true
-
   streamnzb:
     # nosemgrep
     image: ghcr.io/gaisberg/streamnzb:v5.18.0@sha256:64b213891a6199d7e2803832ba40c292f39d4e4ea4e5be8ff867707b10b51131
@@ -183,7 +130,6 @@ services:
       - nzbdavex.${DOMAIN}:host-gateway
       - usernetstreamer.${DOMAIN}:host-gateway
       - streamnzb.${DOMAIN}:host-gateway
-      - altmount.${DOMAIN}:host-gateway
     restart: unless-stopped
     deploy:
       resources:

@@ -92,7 +92,7 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "opencode-zen/mimo-v2.5-free",
           "commandcode/xiaomi/mimo-v2.5"
         ],
@@ -107,7 +107,7 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "opencode-zen/mimo-v2.5-free",
           "commandcode/xiaomi/mimo-v2.5"
         ],
@@ -122,7 +122,7 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "opencode-zen/mimo-v2.5-free",
           "commandcode/xiaomi/mimo-v2.5"
         ],
@@ -137,7 +137,7 @@
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "opencode-zen/mimo-v2.5-free",
           "commandcode/xiaomi/mimo-v2.5"
         ],
@@ -152,7 +152,7 @@
         "cel_expression": "model == \"auto\"",
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4-flash",
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "opencode-zen/mimo-v2.5-free",
           "commandcode/xiaomi/mimo-v2.5"
         ],

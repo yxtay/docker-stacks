@@ -93,8 +93,8 @@
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "opencode-zen/mimo-v2.5-free",
-          "commandcode/xiaomi/mimo-v2.5"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "opencode-zen/mimo-v2.5-free"
         ],
         "scope": "global",
         "priority": 10
@@ -108,8 +108,8 @@
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "opencode-zen/mimo-v2.5-free",
-          "commandcode/xiaomi/mimo-v2.5"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "opencode-zen/mimo-v2.5-free"
         ],
         "scope": "global",
         "priority": 20
@@ -123,8 +123,8 @@
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "opencode-zen/mimo-v2.5-free",
-          "commandcode/xiaomi/mimo-v2.5"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "opencode-zen/mimo-v2.5-free"
         ],
         "scope": "global",
         "priority": 30
@@ -138,8 +138,8 @@
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "opencode-zen/mimo-v2.5-free",
-          "commandcode/xiaomi/mimo-v2.5"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "opencode-zen/mimo-v2.5-free"
         ],
         "scope": "global",
         "priority": 40
@@ -153,8 +153,8 @@
         "targets": [{ "provider": "opencode-go", "model": "deepseek-flash" }],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "opencode-zen/mimo-v2.5-free",
-          "commandcode/xiaomi/mimo-v2.5"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "opencode-zen/mimo-v2.5-free"
         ],
         "scope": "global",
         "priority": 90
@@ -167,6 +167,7 @@
         "cel_expression": "model == \"multimodal\"",
         "targets": [{ "provider": "opencode-zen", "model": "mimo-v2.5-free" }],
         "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/meta/muse-spark-1.3-contributor",
           "commandcode/xiaomi/mimo-v2.5"
         ],

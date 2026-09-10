@@ -110,8 +110,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - /apps/bifrost:/app/data
       - ./bifrost/config.json:/app/data/config.json:ro
+      - /apps/bifrost:/app/data
     expose:
       - 8080
     restart: unless-stopped

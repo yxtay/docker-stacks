@@ -133,7 +133,7 @@ services:
       pangolin.public-resources.bifrost.targets[0].method: http
 
   camofox:
-    image: ghcr.io/jo-inc/camofox-browser:1.14.0@sha256:86c79eed8a6b3a78859f73bc70d6003c5566b85e969354ec454524b28197ffce
+    image: ghcr.io/jo-inc/camofox-browser:1.15.0@sha256:e32beb2a6c958126bc2eb0882dedd97880bd822c0c15ea5b24cff558400664ae
     environment:
       CAMOFOX_API_KEY: ${CAMOFOX_API_KEY:?}
       ENABLE_VNC: 1
@@ -170,7 +170,7 @@ services:
 
   fastcrw:
     # nosemgrep
-    image: ghcr.io/us/crw:0.34.0@sha256:c0d6054c4016bf37ff57e6333f99275b7d3faa513e595cc47fc07275cefb5387
+    image: ghcr.io/us/crw:0.34.1@sha256:0e673d87b756f28c6ce432cd6dc6e3fb10547e7c18e6d59db9c7b74f6bdbbf0d
     environment:
       CRW_CONFIG: config.docker
     cap_drop:

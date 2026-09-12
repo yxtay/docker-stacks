@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: lscr.io/linuxserver/homeassistant:2026.9.1@sha256:9275f3697e72d5ea042bc54663b848c4aae59596195eba396df3b37738123907
+    image: lscr.io/linuxserver/homeassistant:2026.9.2@sha256:76bf385d9f4ead87286db6e9966f5afc861a7cc59edd9493f06bc18810feb2f3
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -45,7 +45,7 @@ services:
 
   music-assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:2.10.2@sha256:09c02b4ee491976efa6d698265f72571f064031bb1a2c9a1c32e104392209690
+    image: ghcr.io/music-assistant/server:2.10.3@sha256:885872224fa541c0faefc936625c939ba705a00e89c180f89e877f58448ea5d5
     # Additional caps needed to mount smb folders within the container:
     # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
     # security_opt: [apparmor:unconfined]

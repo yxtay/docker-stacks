@@ -23,7 +23,7 @@ services:
 
   prowlarr:
     # nosemgrep
-    image: ghcr.io/linuxserver/prowlarr:2.5.2@sha256:aaa16ba7d66e413db6d0358d3b6c68d833578ba7f176f24a51807181e7637fce
+    image: ghcr.io/linuxserver/prowlarr:2.6.5@sha256:c96b56d94d116a9f4de94bc23d3381689492e6c3cfb7435320e8d982e406f99a
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -115,7 +115,7 @@ services:
 
   radarr:
     # nosemgrep
-    image: ghcr.io/linuxserver/radarr:6.3.0@sha256:fe051413dfd91b383ba04910552e83fb0306895fefee275c48dafe7bb90807dc
+    image: ghcr.io/linuxserver/radarr:6.4.4@sha256:c960f2b52ec6542dbe6707c5a21e696a7c74fd8b17997454f4d10a55dacee133
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -157,7 +157,7 @@ services:
 
   sonarr:
     # nosemgrep
-    image: ghcr.io/linuxserver/sonarr:4.0.19@sha256:82172b363f9eddc02aca544f880a044f2ceb9aaf190bc87e4454e2f705eb91d0
+    image: ghcr.io/linuxserver/sonarr:4.0.20@sha256:a5c1a5fecbef946927ab90ad68df319ac5fe644057e5fc18cd993f01ac07b2b2
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

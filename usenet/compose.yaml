@@ -61,7 +61,7 @@ services:
 
   streamnzb:
     # nosemgrep
-    image: ghcr.io/gaisberg/streamnzb:v6.1.0@sha256:c593d3d1432c18a4871f540e824d8686658014745c791d07f848bc52241e551d
+    image: ghcr.io/gaisberg/streamnzb:v6.2.0@sha256:3f5864a7f28877b87766e24de627368ad7569ca3a392223f16fe779703a2a3bf
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

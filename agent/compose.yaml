@@ -171,7 +171,7 @@ services:
 
   fastcrw:
     # nosemgrep
-    image: ghcr.io/us/crw:0.35.1@sha256:a6a13d88fe38d4cc498643c6f302d4890b4b3c6e84f304c94964dccd298d7a06
+    image: ghcr.io/us/crw:0.36.0@sha256:569611fe6bc0833d7349bcec99e5c5f6cb6814bd5f756eb17d302fe4e3d7480a
     environment:
       CRW_CONFIG: config.docker
     cap_drop:

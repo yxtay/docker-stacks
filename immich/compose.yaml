@@ -144,6 +144,10 @@ services:
     depends_on:
       immich-server:
         condition: service_healthy
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:

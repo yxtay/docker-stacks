@@ -144,6 +144,10 @@ services:
     depends_on:
       immich-server:
         condition: service_healthy
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
     cap_drop:
       - ALL
     security_opt:
@@ -157,7 +161,7 @@ services:
     networks:
       - proxy
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:8080/"]
+      test: [CMD, wget, -qO-, "http://localhost:8080/api/status"]
     restart: unless-stopped
     deploy:
       resources:

@@ -70,7 +70,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 10
@@ -86,7 +87,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 20
@@ -102,7 +104,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 30
@@ -118,7 +121,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 40
@@ -134,7 +138,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 90
@@ -150,7 +155,8 @@
         ],
         "fallbacks": [
           "commandcode/deepseek/deepseek-v4.1-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
+          "commandcode/meta/muse-spark-1.3-contributor",
+          "commandcode/xiaomi/mimo-v2.6-flash"
         ],
         "scope": "global",
         "priority": 100

@@ -66,9 +66,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 10
       },
@@ -79,9 +82,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 20
       },
@@ -92,9 +98,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 30
       },
@@ -105,9 +114,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 40
       },
@@ -118,9 +130,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 90
       },
@@ -131,9 +146,12 @@
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
         "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
+          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
         ],
-        "fallbacks": ["commandcode/meta/muse-spark-1.3-contributor"],
+        "fallbacks": [
+          "commandcode/deepseek/deepseek-v4.1-flash",
+          "commandcode/meta/muse-spark-1.3-contributor"
+        ],
         "scope": "global",
         "priority": 100
       }

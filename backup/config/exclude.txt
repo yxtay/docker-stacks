@@ -33,7 +33,6 @@ immich/data/library/**
 immich/data/thumbs/**
 immich/data/upload/**
 nzbdavex/blobs/**
-portainer/compose/**
 profilarr/data/databases/**
 prowlarr/Definitions/**
 traefik/plugins/**

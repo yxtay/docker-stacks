@@ -25,6 +25,7 @@ hermes/**/.local/**
 hermes/**/.npm/**
 hermes/**/bin/**
 hermes/**/lazy-packages/**
+hermes/**/mnemosyne/models/**
 homeassistant/deps/**
 homeassistant/tts/**
 immich/data/encoded-video/**

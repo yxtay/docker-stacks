@@ -14,7 +14,7 @@ cache/**
 .git/**
 tmp/**
 node_modules/**
-venv/**
+.venv/**
 
 # App-specific paths
 MediaCover/**
@@ -25,6 +25,7 @@ hermes/**/.local/**
 hermes/**/.npm/**
 hermes/**/bin/**
 hermes/**/lazy-packages/**
+hermes/**/mnemosyne/models/**
 homeassistant/deps/**
 homeassistant/tts/**
 immich/data/encoded-video/**
@@ -32,7 +33,6 @@ immich/data/library/**
 immich/data/thumbs/**
 immich/data/upload/**
 nzbdavex/blobs/**
-portainer/compose/**
 profilarr/data/databases/**
 prowlarr/Definitions/**
 traefik/plugins/**

@@ -112,7 +112,7 @@ services:
 
   aiostreams:
     # nosemgrep
-    image: ghcr.io/viren070/aiostreams:v2.35.2@sha256:439465bb8eeebd40046efd8c96441512e55bb920604ba2431cea14be64bb6798
+    image: ghcr.io/viren070/aiostreams:v2.35.3@sha256:9ed6e7a6210d4f4937ed826a0d21bb36efcace6148eda98a29aeb2fb8346c635
     environment:
       BASE_URL: "https://aiostreams.${DOMAIN:?}"
       SECRET_KEY: ${AIOSTREAMS_SECRET_KEY:?}

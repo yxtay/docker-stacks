@@ -99,7 +99,7 @@ services:
 
   bifrost:
     # nosemgrep
-    image: maximhq/bifrost:v2.2.3@sha256:975487b95c6399de26e3a108164f21ae52687b316580a13ff0c239b865649ed2
+    image: maximhq/bifrost:v2.2.4@sha256:5f8215163cea192451f4b2ee5e0b583874ffe9435a5ab733e08c07aaf38ace57
     working_dir: /app/data
     env_file:
       - .env

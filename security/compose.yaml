@@ -42,7 +42,7 @@ services:
 
   crowdsec-firewall-bouncer:
     # nosemgrep
-    image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.37@sha256:0ec362bd029296fe2d0243f7ad1cf442b02d30da16595a740c6f87a6cc72c522
+    image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.38@sha256:ece5da4dbc65e84784e1d21043667ddee34c0fc8e74bdb95d2e378021dc97f0e
     # Optional non-root mode:
     # user: 1000:1000
     depends_on:

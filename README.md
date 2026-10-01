@@ -148,7 +148,6 @@ Self-hosted photo and video management.
 
 Usenet streaming and indexing.
 
-- **nzbdavex** — Extended NZB WebDAV server
 - **streamnzb** — Usenet streamer
 - **aiostreams** — Stremio super-addon
 

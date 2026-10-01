@@ -1,7 +1,7 @@
 services:
   netalertx:
     # nosemgrep
-    image: ghcr.io/netalertx/netalertx:26.9.0@sha256:0ee5cdcaa8a84bfd2f31354b4b30e603804d124821055b9942dcffb52d2ce4bc
+    image: ghcr.io/netalertx/netalertx:26.10.0@sha256:f95bca7a794141296dd1d16be5bb7f39f6fdbcd20353cdb51eee696e12d317f6
     environment:
       LISTEN_ADDR: ${LISTEN_ADDR:-0.0.0.0}
       PORT: ${PORT:-20211}

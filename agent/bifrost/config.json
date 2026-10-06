@@ -66,10 +66,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],
@@ -83,10 +82,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],
@@ -100,10 +98,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],
@@ -117,10 +114,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],
@@ -134,10 +130,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"auto\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],
@@ -151,10 +146,9 @@
         "chain_rule": false,
         "cel_expression": "model == \"multimodal\"",
         "targets": [
-          { "provider": "commandcode", "model": "stealth/space-bunny-alpha" }
+          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
         ],
         "fallbacks": [
-          "commandcode/deepseek/deepseek-v4.1-flash",
           "commandcode/xiaomi/mimo-v2.6-flash",
           "commandcode/meta/muse-spark-1.3-contributor"
         ],

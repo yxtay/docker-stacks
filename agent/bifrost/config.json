@@ -5,7 +5,6 @@
     "enable_logging": true,
     "disable_content_logging": true,
     "log_retention_days": 90,
-    "enforce_auth_on_inference": true,
     "compat": {
       "convert_text_to_chat": true,
       "convert_chat_to_responses": true,

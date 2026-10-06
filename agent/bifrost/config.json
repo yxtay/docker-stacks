@@ -4,10 +4,13 @@
   "client": {
     "enable_logging": true,
     "disable_content_logging": true,
+    "log_retention_days": 90,
     "compat": {
+      "convert_text_to_chat": true,
+      "convert_chat_to_responses": true,
       "should_drop_params": true,
       "should_convert_params": true,
-      "convert_chat_to_responses": true
+      "azure_deepseek": true
     }
   },
   "providers": {

@@ -282,7 +282,7 @@ services:
 
   chrome:
     # nosemgrep
-    image: chromedp/headless-shell:latest@sha256:47e3a0c0cbef29e321d16c893cd804996243f710ca7855770dd4f9c4cd2b8627
+    image: chromedp/headless-shell:latest@sha256:0dc9356ce1428962cddcf938dab712a8c56de79adc326f9138298f13df440071
     command:
       - --remote-allow-origins=*
       - --ignore-certificate-errors

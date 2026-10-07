@@ -197,8 +197,8 @@ services:
       - /apps/immich-kiosk:/config
     tmpfs:
       - /tmp
-    expose:
-      - 3000
+    ports:
+      - 3000:3000
     networks:
       - proxy
     healthcheck:

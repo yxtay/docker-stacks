@@ -184,8 +184,8 @@ services:
       - /tmp
     # Host network needed for MQTT broker (1883) and mDNS
     network_mode: host
-    # healthcheck:
-    #   test: [CMD, wget, -qO-, "http://localhost:8765"]
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8765/healthz"]
     restart: unless-stopped
     deploy:
       resources:

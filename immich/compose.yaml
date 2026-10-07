@@ -223,7 +223,7 @@ services:
 
   aitjcize-photoframe:
     # nosemgrep
-    image: aitjcize/esp32-photoframe-server:v1.17.1
+    image: aitjcize/esp32-photoframe-server:v1.17.1@sha256:f8ee758c12f860df979a9179a26056836b306d3b0c1bfe3c9a27d6ef7fe93587
     cap_drop:
       - ALL
     security_opt:

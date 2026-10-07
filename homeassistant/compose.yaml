@@ -166,7 +166,7 @@ services:
 
   tesserae:
     # nosemgrep
-    image: ghcr.io/dmellok/tesserae:0.436.1
+    image: ghcr.io/dmellok/tesserae:0.436.1@sha256:d889a0d1098d03686624802b8819f85dabce9def7ef47b4c06fef02fdb162a47
     environment:
       TZ: ${TZ:-UTC}
       TESSERAE_IN_DOCKER: 1

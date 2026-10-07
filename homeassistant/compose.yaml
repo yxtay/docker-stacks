@@ -181,8 +181,6 @@ services:
     read_only: true
     volumes:
       - /apps/tesserae:/app/data
-    tmpfs:
-      - /tmp
     # Host network needed for MQTT broker (1883) and mDNS
     network_mode: host
     healthcheck:

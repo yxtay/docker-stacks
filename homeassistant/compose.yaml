@@ -169,6 +169,8 @@ services:
     image: ghcr.io/dmellok/tesserae:0.436.1
     environment:
       TESSERAE_IN_DOCKER: 1
+    cap_add:
+      - CHOWN
     cap_drop:
       - ALL
     security_opt:
@@ -180,8 +182,8 @@ services:
       - /tmp
     # Host network needed for MQTT broker (1883) and mDNS
     network_mode: host
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:8765"]
+    # healthcheck:
+    #   test: [CMD, wget, -qO-, "http://localhost:8765"]
     restart: unless-stopped
     deploy:
       resources:

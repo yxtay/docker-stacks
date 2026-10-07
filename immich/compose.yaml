@@ -221,7 +221,7 @@ services:
       pangolin.public-resources.immich-kiosk.targets[0].port: 3000
       pangolin.public-resources.immich-kiosk.targets[0].method: http
 
-  aitjcize:
+  aitjcize-photoframe:
     # nosemgrep
     image: aitjcize/esp32-photoframe-server:v1.17.1
     cap_drop:
@@ -246,14 +246,14 @@ services:
           pids: 512
     labels:
       caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy aitjcize aitjcize:9607
-      pangolin.public-resources.aitjcize.name: aitjcize
-      pangolin.public-resources.aitjcize.mode: http
-      pangolin.public-resources.aitjcize.full-domain: "aitjcize.${DOMAIN:?}"
-      pangolin.public-resources.aitjcize.auth.sso-enabled: true
-      pangolin.public-resources.aitjcize.targets[0].hostname: aitjcize
-      pangolin.public-resources.aitjcize.targets[0].port: 9607
-      pangolin.public-resources.aitjcize.targets[0].method: http
+      caddy.import: reverse_proxy aitjcize-photoframe aitjcize-photoframe:9607
+      pangolin.public-resources.aitjcize-photoframe.name: aitjcize-photoframe
+      pangolin.public-resources.aitjcize-photoframe.mode: http
+      pangolin.public-resources.aitjcize-photoframe.full-domain: "aitjcize-photoframe.${DOMAIN:?}"
+      pangolin.public-resources.aitjcize-photoframe.auth.sso-enabled: true
+      pangolin.public-resources.aitjcize-photoframe.targets[0].hostname: aitjcize-photoframe
+      pangolin.public-resources.aitjcize-photoframe.targets[0].port: 9607
+      pangolin.public-resources.aitjcize-photoframe.targets[0].method: http
 
 networks:
   default:

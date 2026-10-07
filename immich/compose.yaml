@@ -221,40 +221,6 @@ services:
       pangolin.public-resources.immich-kiosk.targets[0].port: 3000
       pangolin.public-resources.immich-kiosk.targets[0].method: http
 
-  aitjcize-photoframe:
-    # nosemgrep
-    image: aitjcize/esp32-photoframe-server:v1.17.1
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/aitjcize:/data
-    expose:
-      - 9607
-    networks:
-      - proxy
-    healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:9607/api/status"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy aitjcize-photoframe aitjcize-photoframe:9607
-      pangolin.public-resources.aitjcize-photoframe.name: aitjcize-photoframe
-      pangolin.public-resources.aitjcize-photoframe.mode: http
-      pangolin.public-resources.aitjcize-photoframe.full-domain: "aitjcize-photoframe.${DOMAIN:?}"
-      pangolin.public-resources.aitjcize-photoframe.auth.sso-enabled: true
-      pangolin.public-resources.aitjcize-photoframe.targets[0].hostname: aitjcize-photoframe
-      pangolin.public-resources.aitjcize-photoframe.targets[0].port: 9607
-      pangolin.public-resources.aitjcize-photoframe.targets[0].method: http
-
 networks:
   default:
   proxy:

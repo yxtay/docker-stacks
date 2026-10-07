@@ -164,6 +164,47 @@ services:
       pangolin.public-resources.trmnlha.targets[0].port: 10000
       pangolin.public-resources.trmnlha.targets[0].method: http
 
+  tesserae:
+    # nosemgrep
+    image: ghcr.io/dmellok/tesserae:0.436.1
+    environment:
+      TZ: ${TZ:-UTC}
+      TESSERAE_IN_DOCKER: 1
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/tesserae:/app/data
+    tmpfs:
+      - /tmp
+    # Host network needed for MQTT broker (1883) and mDNS
+    network_mode: host
+    healthcheck:
+      test: [CMD, curl, -fsSL, "http://localhost:8765/healthz"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy tesserae ${IP_ADDRESS:-host.docker.internal}:8765
+      pangolin.public-resources.tesserae.name: tesserae
+      pangolin.public-resources.tesserae.mode: http
+      pangolin.public-resources.tesserae.full-domain: "tesserae.${DOMAIN:?}"
+      pangolin.public-resources.tesserae.auth.sso-enabled: true
+      pangolin.public-resources.tesserae.targets[0].hostname: ${IP_ADDRESS:-host.docker.internal}
+      pangolin.public-resources.tesserae.targets[0].port: 8765
+      pangolin.public-resources.tesserae.targets[0].method: http
+
 networks:
   default:
     name: proxy

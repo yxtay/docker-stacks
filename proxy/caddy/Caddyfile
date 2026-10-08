@@ -63,24 +63,6 @@
 		?Cross-Origin-Opener-Policy "same-origin"
 		# Limit current resource loading to the site and sub-domains only
 		?Cross-Origin-Resource-Policy "same-site"
-		# Restrict browser features for embedded content
-		?Permissions-Policy <<EOF
-			bluetooth=(self),
-			camera=(self),
-			display-capture=(self),
-			geolocation=(self),
-			hid=(self),
-			microphone=(self),
-			midi=(self),
-			payment=(self),
-			serial=(self),
-			usb=(self),
-			accelerometer=(),
-			gyroscope=(),
-			idle-detection=(),
-			magnetometer=(),
-			xr-spatial-tracking=()
-			EOF
 		# Set Referrer Policy
 		Referrer-Policy "strict-origin-when-cross-origin"
 		# Enable HTTP Strict Transport Security (HSTS)

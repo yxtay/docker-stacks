@@ -44,7 +44,7 @@
 		# Restrictive baseline CSP
 		# 'unsafe-inline' needed for LibreSpeed
 		# 'unsafe-eval' needed for Immich and Immich Kiosk
-		?Content-Security-Policy <<CSP
+		?Content-Security-Policy <<EOF
 			default-src 'self';
 			script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
 			style-src 'self' 'unsafe-inline' https:;
@@ -57,13 +57,13 @@
 			object-src 'none';
 			base-uri 'self';
 			upgrade-insecure-requests
-			CSP
+			EOF
 		# Process-Isolate documents to prevent others from access in pop-up window
 		?Cross-Origin-Opener-Policy "same-origin"
 		# Limit current resource loading to the site and sub-domains only
 		?Cross-Origin-Resource-Policy "same-site"
 		# Restrict browser features for embedded content
-		?Permissions-Policy <<PP
+		?Permissions-Policy <<EOF
 			camera=(self),
 			microphone=(self),
 			geolocation=(self),
@@ -79,7 +79,7 @@
 			gyroscope=(),
 			magnetometer=(),
 			xr-spatial-tracking=()
-			PP
+			EOF
 		# Set Referrer Policy
 		Referrer-Policy "strict-origin-when-cross-origin"
 		# Enable HTTP Strict Transport Security (HSTS)

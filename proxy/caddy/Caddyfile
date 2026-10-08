@@ -47,7 +47,6 @@
 		# frame-src and frame-ancestors needed for Tesserae to embed Immich Kiosk
 		?Content-Security-Policy <<EOF
 			default-src 'self';
-			connect-src 'self' wss: ws:;
 			font-src 'self' https:;
 			frame-src 'self' https://*.{$DOMAIN};
 			img-src 'self' data: https:;

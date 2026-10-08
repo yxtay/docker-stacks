@@ -131,7 +131,7 @@ mDNS/device discovery.
 - **homeassistant** — Home automation platform
 - **music-assistant** — Music streaming server (SMB mount support)
 - **esphome** — ESP device firmware manager (OTA/USB flash)
-- **trmnlha** — TRMNL e-ink display dashboard for HA
+- **tesserae** — E-ink photo frame display server
 
 ### Immich Stack (`immich/`)
 

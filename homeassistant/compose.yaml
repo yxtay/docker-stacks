@@ -123,47 +123,6 @@ services:
       pangolin.public-resources.esphome.targets[0].port: 6052
       pangolin.public-resources.esphome.targets[0].method: http
 
-  trmnlha:
-    # nosemgrep
-    image: ghcr.io/usetrmnl/trmnl-ha-amd64:0.11.0@sha256:c7b4027372264eb5faee88eac45ce257218f6dd146f1337dc66c25fd6b775b28
-    environment:
-      HOME_ASSISTANT_URL: "http://${IP_ADDRESS:-host.docker.internal}:8123"
-      ACCESS_TOKEN: ${HOME_ASSISTANT_TOKEN}
-      KEEP_BROWSER_OPEN: "true"
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    volumes:
-      - /apps/trmnlha:/data
-    tmpfs:
-      - /root
-      - /tmp
-    ports:
-      - 10000:10000
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:10000/health"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy trmnlha trmnlha:10000
-      pangolin.public-resources.trmnlha.name: trmnlha
-      pangolin.public-resources.trmnlha.mode: http
-      pangolin.public-resources.trmnlha.full-domain: "trmnlha.${DOMAIN:?}"
-      pangolin.public-resources.trmnlha.auth.sso-enabled: true
-      pangolin.public-resources.trmnlha.targets[0].hostname: trmnlha
-      pangolin.public-resources.trmnlha.targets[0].port: 10000
-      pangolin.public-resources.trmnlha.targets[0].method: http
-
   tesserae:
     # nosemgrep
     image: ghcr.io/dmellok/tesserae:0.436.1@sha256:d889a0d1098d03686624802b8819f85dabce9def7ef47b4c06fef02fdb162a47

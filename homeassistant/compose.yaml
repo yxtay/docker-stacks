@@ -82,47 +82,6 @@ services:
       pangolin.public-resources.music-assistant.targets[0].port: 8095
       pangolin.public-resources.music-assistant.targets[0].method: http
 
-  esphome:
-    # nosemgrep
-    image: ghcr.io/esphome/esphome:2026.9.1@sha256:776a845d508909bf426d2ee7bdd81796361ebe6a7f091807ce1d6d0b48985413
-    environment:
-      PLATFORMIO_CORE_DIR: /config/.esphome/platformio
-      UV_CACHE_DIR: /config/.esphome/platformio/.cache/uv
-    cap_add:
-      - NET_RAW
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    # devices:
-    #   - /dev/ttyUSB0:/dev/ttyUSB0
-    #   - /dev/ttyACM0:/dev/ttyACM0
-    volumes:
-      - /apps/esphome:/config
-    tmpfs:
-      - /root
-    network_mode: host
-    healthcheck:
-      test: [CMD, curl, -fsSL, "http://localhost:6052/version"]
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: 2
-          memory: 4g
-          pids: 512
-    labels:
-      caddy: "*.{$$DOMAIN}"
-      caddy.import: reverse_proxy esphome ${IP_ADDRESS:-host.docker.internal}:6052
-      pangolin.public-resources.esphome.name: esphome
-      pangolin.public-resources.esphome.mode: http
-      pangolin.public-resources.esphome.full-domain: "esphome.${DOMAIN:?}"
-      pangolin.public-resources.esphome.auth.sso-enabled: true
-      pangolin.public-resources.esphome.targets[0].hostname: ${IP_ADDRESS:-host.docker.internal}
-      pangolin.public-resources.esphome.targets[0].port: 6052
-      pangolin.public-resources.esphome.targets[0].method: http
-
   tesserae:
     # nosemgrep
     image: ghcr.io/dmellok/tesserae:0.436.1@sha256:d889a0d1098d03686624802b8819f85dabce9def7ef47b4c06fef02fdb162a47

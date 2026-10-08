@@ -18,6 +18,7 @@ node_modules/**
 
 # App-specific paths
 MediaCover/**
+esphome/.esphome/**
 geoip/**
 hermes/**/.cua-driver/**
 hermes/**/.local/**

@@ -51,7 +51,19 @@ http:
           Server: ""
           X-Powered-By: ""
           X-Forwarded-Proto: https
-          Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' wss: ws:; frame-ancestors 'self'; form-action 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+          Content-Security-Policy: >-
+            default-src 'self';
+            font-src 'self' https:;
+            frame-src 'self' https://*.{{env "DOMAIN"}};
+            img-src 'self' data: https:;
+            object-src 'none';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+            style-src 'self' 'unsafe-inline' https:;
+            connect-src 'self' wss: ws:;
+            base-uri 'self';
+            form-action 'self';
+            frame-ancestors 'self' https://*.{{env "DOMAIN"}};
+            upgrade-insecure-requests
           Cross-Origin-Opener-Policy: same-origin
           Cross-Origin-Resource-Policy: same-site
           Permissions-Policy: "camera=(self), microphone=(self), geolocation=(self), payment=(self), usb=(self), serial=(self), hid=(self), midi=(self), display-capture=(self), bluetooth=(self), idle-detection=(), accelerometer=(), gyroscope=(), magnetometer=(), xr-spatial-tracking=()"

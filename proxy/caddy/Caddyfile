@@ -44,6 +44,7 @@
 		# Restrictive baseline CSP
 		# 'unsafe-inline' needed for LibreSpeed
 		# 'unsafe-eval' needed for Immich and Immich Kiosk
+		# frame-src and frame-ancestors needed for Tesserae to embed Immich Kiosk
 		?Content-Security-Policy <<EOF
 			default-src 'self';
 			script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;

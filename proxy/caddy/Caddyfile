@@ -47,16 +47,16 @@
 		# frame-src and frame-ancestors needed for Tesserae to embed Immich Kiosk
 		?Content-Security-Policy <<EOF
 			default-src 'self';
+			connect-src 'self' wss: ws:;
+			font-src 'self' https:;
+			frame-src 'self' https://*.{$DOMAIN};
+			img-src 'self' data: https:;
+			object-src 'none';
 			script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
 			style-src 'self' 'unsafe-inline' https:;
-			img-src 'self' data: https:;
-			font-src 'self' https:;
-			connect-src 'self' wss: ws:;
-			frame-src 'self' https://*.{$DOMAIN};
-			frame-ancestors 'self' https://*.{$DOMAIN};
-			form-action 'self';
-			object-src 'none';
 			base-uri 'self';
+			form-action 'self';
+			frame-ancestors 'self' https://*.{$DOMAIN};
 			upgrade-insecure-requests
 			EOF
 		# Process-Isolate documents to prevent others from access in pop-up window
@@ -65,19 +65,19 @@
 		?Cross-Origin-Resource-Policy "same-site"
 		# Restrict browser features for embedded content
 		?Permissions-Policy <<EOF
-			camera=(self),
-			microphone=(self),
-			geolocation=(self),
-			payment=(self),
-			usb=(self),
-			serial=(self),
-			hid=(self),
-			midi=(self),
-			display-capture=(self),
 			bluetooth=(self),
-			idle-detection=(),
+			camera=(self),
+			display-capture=(self),
+			geolocation=(self),
+			hid=(self),
+			microphone=(self),
+			midi=(self),
+			payment=(self),
+			serial=(self),
+			usb=(self),
 			accelerometer=(),
 			gyroscope=(),
+			idle-detection=(),
 			magnetometer=(),
 			xr-spatial-tracking=()
 			EOF

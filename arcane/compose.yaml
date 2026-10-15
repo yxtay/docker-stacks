@@ -1,7 +1,7 @@
 services:
   arcane:
     # nosemgrep
-    image: ghcr.io/getarcaneapp/manager:v2.16.0@sha256:55c408366127a1f104834557124e06c96ca746fd02de86ce6b6c143001b4d182
+    image: ghcr.io/getarcaneapp/manager:v2.16.1@sha256:e211067a6808c1598175141cd19c48eab874a24b5b649be3ddcb3894db7e73cd
     environment:
       APP_URL: ${APP_URL:-http://localhost:3552}
       PUID: ${PUID:-}

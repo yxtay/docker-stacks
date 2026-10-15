@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: lscr.io/linuxserver/homeassistant:2026.10.1@sha256:e3481a08cd7d2c4fba4d821578d325e1c62e2b5568aa10c1ef5e15a2baea784f
+    image: lscr.io/linuxserver/homeassistant:2026.10.1@sha256:80c73e1f3578953c4c646acf6b02d9bf0068482f307b582b0d9a755ff4ceb2d5
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}

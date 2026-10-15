@@ -66,7 +66,7 @@ services:
 
   socket-proxy:
     # nosemgrep
-    image: ghcr.io/linuxserver/socket-proxy:3.4.6@sha256:8c059dcb7f496212967dcf1d4136f727f2a23eea4da881945c12b1414aafdf4c
+    image: ghcr.io/linuxserver/socket-proxy:3.4.7@sha256:e5d819de59b343c01b2fe7adc7fad3c7a60e5dba08e45f1ac317352bc08599b5
     environment:
       ALLOW_LOGS: 1
       ALLOW_TOP: 1
@@ -256,7 +256,7 @@ services:
       pangolin.public-resources.searxng.targets[0].method: http
 
   lightpanda:
-    image: lightpanda/browser:1.0.0@sha256:5b84708cb3d9bef841aba4a4cd299f4de0609ac1bd7d4c6fbfcbf168d56b685e
+    image: lightpanda/browser:1.0.1@sha256:e398c80a48556a271d548811fb5fb9c8bb748d3fba7a168ba2a5734524c1966a
     command: [lightpanda, serve, --host, 0.0.0.0, --advertise-host, lightpanda]
     cap_drop:
       - ALL

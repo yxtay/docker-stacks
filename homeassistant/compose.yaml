@@ -61,8 +61,8 @@ services:
       - /apps/mosquitto/data:/mosquitto/data
     tmpfs:
       - /run:exec
-    # Host network so Home Assistant and LAN devices reach the broker on 1883
-    network_mode: host
+    ports:
+      - 1883:1883
     healthcheck:
       test: [CMD, mosquitto_sub, -t, $$SYS/#, -C, "1", -i, healthcheck, -W, "3"]
     restart: unless-stopped

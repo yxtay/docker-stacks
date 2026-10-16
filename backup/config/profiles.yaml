@@ -47,6 +47,7 @@ profiles:
         - logs
         # App-specific paths
         - immich/database
+        - tesserae/core/device_logs
 
     forget: &forget
       send-after-fail: *send-after-fail

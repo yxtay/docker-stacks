@@ -57,7 +57,8 @@ services:
       - no-new-privileges:true
     read_only: true
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - /apps/mosquitto/config:/mosquitto/config
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - /apps/mosquitto/data:/mosquitto/data
     tmpfs:
       - /run:exec

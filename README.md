@@ -129,6 +129,7 @@ Home automation and related services. All services use host networking for
 mDNS/device discovery.
 
 - **homeassistant** — Home automation platform
+- **mosquitto** — MQTT broker
 - **music-assistant** — Music streaming server (SMB mount support)
 - **tesserae** — E-ink photo frame display server
 

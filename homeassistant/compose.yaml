@@ -48,6 +48,7 @@ services:
     image: docker.io/library/eclipse-mosquitto:2.1.2-alpine
     cap_add:
       - CHOWN
+      - DAC_OVERRIDE
     cap_drop:
       - ALL
     security_opt:

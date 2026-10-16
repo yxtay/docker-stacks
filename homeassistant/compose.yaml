@@ -64,7 +64,7 @@ services:
     ports:
       - 1883:1883
     healthcheck:
-      test: [CMD, mosquitto_sub, -t, $$SYS/#, -C, "1", -i, healthcheck, -W, "3"]
+      test: [CMD, mosquitto_sub, -p, "1884", -t, $$SYS/#, -C, "1", -i, healthcheck, -W, "3"]
     restart: unless-stopped
     deploy:
       resources:

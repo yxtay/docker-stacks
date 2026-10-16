@@ -32,7 +32,14 @@ immich/data/encoded-video/**
 immich/data/library/**
 immich/data/thumbs/**
 immich/data/upload/**
-nzbdavex/blobs/**
 profilarr/data/databases/**
 prowlarr/Definitions/**
+tesserae/core/device_logs/**
+tesserae/core/previews/**
+tesserae/core/renders/**
 traefik/plugins/**
+unison/ar*
+unison/fp*
+unison/lk*
+unison/sc*
+unison/tm*

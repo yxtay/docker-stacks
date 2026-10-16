@@ -43,6 +43,33 @@ services:
       pangolin.public-resources.homeassistant.targets[0].port: 8123
       pangolin.public-resources.homeassistant.targets[0].method: http
 
+  mosquitto:
+    # nosemgrep
+    image: docker.io/library/eclipse-mosquitto:2.1.2-alpine
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/mosquitto:/mosquitto
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - 1883:1883
+    healthcheck:
+      test: [CMD, mosquitto_sub, -p, "1884", -t, $$SYS/#, -C, "1", -i, healthcheck, -W, "3"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1g
+          pids: 512
+
   music-assistant:
     # nosemgrep
     image: ghcr.io/music-assistant/server:2.10.6@sha256:45fdb050e06962097a07feeb092606ad119fac17965c8228a57146448d5fa772

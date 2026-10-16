@@ -46,11 +46,6 @@ services:
   mosquitto:
     # nosemgrep
     image: docker.io/library/eclipse-mosquitto:2.1.2-alpine
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
     cap_drop:
       - ALL
     security_opt:
@@ -59,8 +54,6 @@ services:
     volumes:
       - /apps/mosquitto:/mosquitto
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-    tmpfs:
-      - /run:exec
     ports:
       - 1883:1883
     healthcheck:

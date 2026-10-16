@@ -35,4 +35,7 @@ immich/data/upload/**
 nzbdavex/blobs/**
 profilarr/data/databases/**
 prowlarr/Definitions/**
+tesserae/core/device_logs/**
+tesserae/core/previews/**
+tesserae/core/renders/**
 traefik/plugins/**

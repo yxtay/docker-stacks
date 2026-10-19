@@ -1,7 +1,7 @@
 services:
   trawl:
     # nosemgrep
-    image: ghcr.io/germondai/trawl:1.8.0@sha256:44091fc0af5f9a0190d4cb23d944f69207684a28382a921800dda5b73b41ba2f
+    image: ghcr.io/germondai/trawl:1.9.0@sha256:d46a0365262551f5ac06b2aacf63986c2605b685e0f5c60693771c7631118e34
     cap_drop:
       - ALL
     security_opt:

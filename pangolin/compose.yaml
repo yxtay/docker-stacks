@@ -37,6 +37,7 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/app/config
+      - /apps/traefik/letsencrypt:/app/config/letsencrypt:ro
       - /apps/pangolin/cache:/app/.next/cache
       - /apps/geoip:/usr/share/GeoIP:ro
     tmpfs:

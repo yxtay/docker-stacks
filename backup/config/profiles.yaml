@@ -1,7 +1,7 @@
 version: "2"
 
 # {{ $local_repo := "local:/backup" }}
-# {{ $remote_repo := "rclone:dropbox:/backup" }}
+# {{ $remote_repo := "rclone:dropbox:/backup/restic" }}
 # {{ $password_file := "/run/secrets/restic_password" }}
 
 global:

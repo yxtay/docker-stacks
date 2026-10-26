@@ -28,5 +28,5 @@ ignore = BelowPath homeassistant/{deps,tts}
 ignore = BelowPath immich/data/{encoded-video,library,thumbs,upload}
 ignore = BelowPath profilarr/data/databases
 ignore = BelowPath prowlarr/Definitions
-ignore = BelowPath tesserae/{previews,renders}
+ignore = BelowPath tesserae/core/{previews,renders}
 ignore = Path unison/{ar,fp,lk,sc,tm}*

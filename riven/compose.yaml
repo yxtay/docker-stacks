@@ -60,7 +60,7 @@ services:
     networks:
       - proxy
     healthcheck:
-      test: [CMD, bash, -c, "exec 3<>/dev/tcp/127.0.0.1/9000"]
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/9000"]
     restart: unless-stopped
     deploy:
       resources:

@@ -1,7 +1,7 @@
 services:
   riven:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts:main
+    image: ghcr.io/rivenmedia/riven-ts:main@sha256:97ed9a4ba817fa68e5764ce45f0dd9eea1e9704f46a4d86041e9d74d2d907736
     depends_on:
       postgres:
         condition: service_healthy
@@ -42,7 +42,7 @@ services:
 
   riven-frontend:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts-frontend:main
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:96a0f84a4bbcb293b0e8027d5746c0fd68826e968551ccd35b7a53855ad92af6
     depends_on:
       riven:
         condition: service_healthy
@@ -88,7 +88,7 @@ services:
 
   postgres:
     # nosemgrep
-    image: postgres:18-alpine
+    image: postgres:18-alpine@sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
       POSTGRES_USER: ${POSTGRES_USER:?}
@@ -123,7 +123,7 @@ services:
 
   redis:
     # nosemgrep
-    image: redis:8-alpine
+    image: redis:8-alpine@sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537
     command: redis-server --maxmemory-policy noeviction
     cap_add:
       - CHOWN

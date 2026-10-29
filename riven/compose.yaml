@@ -12,6 +12,8 @@ services:
       RIVEN_SETTING__databaseUrl: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
       RIVEN_SETTING__redisUrl: redis://cache:6379
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
+      RIVEN_FRONTEND_SETTING__origin: https://riven.${DOMAIN:?}
+      RIVEN_FRONTEND_SETTING__passkeyRpId: riven.${DOMAIN:?}
     env_file:
       - .env
     cap_add:

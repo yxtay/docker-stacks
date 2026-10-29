@@ -8,14 +8,12 @@ services:
       cache:
         condition: service_healthy
     environment:
-      TZ: ${TZ:-Etc/UTC}
-      RIVEN_SETTING__gqlHost: 0.0.0.0
+      RIVEN_SETTING__host: 0.0.0.0
       RIVEN_SETTING__adminUserCredentials: ${ADMIN_USER_CREDENTIALS:?}
       RIVEN_SETTING__databaseUrl: postgres://postgres:${POSTGRES_PASSWORD:?}@database:5432/riven
       RIVEN_SETTING__redisUrl: redis://cache:6379
       RIVEN_SETTING__vfsMountPath: /mnt/remote/riven
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
-      RIVEN_SETTING__logDirectory: /app/logs
       RIVEN_SETTING__enabledPlugins: ${ENABLED_PLUGINS:-[]}
       RIVEN_PLUGIN_SETTING__REPO_PLUGIN_TMDB__apiKey: ${TMDB_API_KEY:?}
       RIVEN_PLUGIN_SETTING__REPO_PLUGIN_STREMTHRU__torboxApiKey: ${TORBOX_API_KEY:-}
@@ -53,7 +51,6 @@ services:
       riven:
         condition: service_healthy
     environment:
-      TZ: ${TZ:-Etc/UTC}
       ORIGIN: https://riven.${DOMAIN:?}
       BACKEND_URL: http://riven:3000
     cap_drop:

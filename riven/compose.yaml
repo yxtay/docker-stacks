@@ -58,6 +58,7 @@ services:
     expose:
       - 9000
     networks:
+      - default
       - proxy
     healthcheck:
       test: [CMD, bash, -c, ":>/dev/tcp/localhost/9000"]

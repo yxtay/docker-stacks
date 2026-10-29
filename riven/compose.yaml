@@ -123,8 +123,8 @@ services:
 
   redis:
     # nosemgrep
-    image: redis:8-alpine@sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537
-    command: redis-server --maxmemory-policy noeviction
+    image: ghcr.io/valkey-io/valkey:9.1.3-alpine
+    command: valkey-server --maxmemory-policy noeviction
     cap_add:
       - CHOWN
       - SETGID
@@ -137,7 +137,7 @@ services:
     tmpfs:
       - /data
     healthcheck:
-      test: [CMD, redis-cli, ping]
+      test: [CMD, valkey-cli, ping]
     restart: unless-stopped
     deploy:
       resources:

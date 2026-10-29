@@ -9,21 +9,11 @@ services:
         condition: service_healthy
     environment:
       RIVEN_SETTING__host: 0.0.0.0
-      RIVEN_SETTING__adminUserCredentials: ${ADMIN_USER_CREDENTIALS:?}
       RIVEN_SETTING__databaseUrl: postgres://postgres:${POSTGRES_PASSWORD:?}@database:5432/riven
       RIVEN_SETTING__redisUrl: redis://cache:6379
-      RIVEN_SETTING__vfsMountPath: ${VFS_MOUNT_PATH:-/mnt/remote/riven}
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
-      RIVEN_SETTING__logLevel: ${LOG_LEVEL:-}
-      RIVEN_SETTING__preferSeasonPacks: ${PREFER_SEASON_PACKS:-}
-      RIVEN_SETTING__dubbedAnimeOnly: ${DUBBED_ANIME_ONLY:-}
-      RIVEN_SETTING__minimumAverageBitrateMovies: ${MINIMUM_AVERAGE_BITRATE_MOVIES:-}
-      RIVEN_SETTING__minimumAverageBitrateEpisodes: ${MINIMUM_AVERAGE_BITRATE_EPISODES:-}
-      RIVEN_SETTING__enabledPlugins: ${ENABLED_PLUGINS:-[]}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_TMDB__apiKey: ${TMDB_API_KEY:?}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_STREMTHRU__torboxApiKey: ${TORBOX_API_KEY:-}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__apiKey: ${MDBLIST_API_KEY:-}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__lists: ${MDBLIST_LISTS:-[]}
+    env_file:
+      - .env
     cap_add:
       - SYS_ADMIN
     cap_drop:

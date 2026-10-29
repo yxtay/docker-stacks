@@ -38,7 +38,7 @@ submitting changes.
     image does not already define a healthcheck. Specify only the `test`
     command, leaving `interval`, `timeout`, `retries` as defaults.
   - Prefer the service's built-in health check command when available
-    (e.g., `redis-cli ping`, `pg_isready`, `/dozzle healthcheck`,
+    (e.g., `valkey-cli ping`, `pg_isready`, `/dozzle healthcheck`,
     `/beszel health`). Fall back to `curl -fsSL` or `wget -qO-` for
     HTTP checks.
   - Prefer `ghcr.io` over `docker.io` registry.
@@ -65,7 +65,8 @@ submitting changes.
   - Add `cap_drop: [ALL]` and explicitly `cap_add` only required
     capabilities:
     - LinuxServer.io images: `CHOWN, DAC_OVERRIDE, SETGID, SETUID`
-    - PostgreSQL/Redis: `CHOWN, DAC_OVERRIDE, SETGID, SETUID`
+    - PostgreSQL: `CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID`
+    - Valkey: `CHOWN, SETGID, SETUID`
     - Network services (ports < 1024): `NET_BIND_SERVICE`
     - VPN/firewall: `NET_ADMIN, NET_RAW`
     - FUSE mounts: `CHOWN, DAC_OVERRIDE, SYS_ADMIN` with

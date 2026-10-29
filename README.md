@@ -171,8 +171,8 @@ intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
 - **riven** — Media orchestrator and virtual filesystem (GraphQL API, no auth;
   never exposed outside the stack)
 - **riven-frontend** — Web UI, behind forward auth
-- **db** — PostgreSQL (internal `db` network only)
-- **cache** — Redis job queue (internal `db` network only)
+- **postgres** — PostgreSQL (internal `db` network only)
+- **redis** — Redis job queue (internal `db` network only)
 
 ## Systemd Timers
 

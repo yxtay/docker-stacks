@@ -3,14 +3,14 @@ services:
     # nosemgrep
     image: ghcr.io/rivenmedia/riven-ts:main
     depends_on:
-      db:
+      postgres:
         condition: service_healthy
-      cache:
+      redis:
         condition: service_healthy
     environment:
       RIVEN_SETTING__host: 0.0.0.0
-      RIVEN_SETTING__databaseUrl: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      RIVEN_SETTING__redisUrl: redis://cache:6379
+      RIVEN_SETTING__databaseUrl: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      RIVEN_SETTING__redisUrl: redis://redis:6379
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
       RIVEN_FRONTEND_SETTING__origin: https://riven.${DOMAIN:?}
       RIVEN_FRONTEND_SETTING__passkeyRpId: riven.${DOMAIN:?}
@@ -86,7 +86,7 @@ services:
       pangolin.public-resources.riven.targets[0].port: 9000
       pangolin.public-resources.riven.targets[0].method: http
 
-  db:
+  postgres:
     # nosemgrep
     image: postgres:18-alpine
     environment:
@@ -121,7 +121,7 @@ services:
           memory: 4g
           pids: 512
 
-  cache:
+  redis:
     # nosemgrep
     image: redis:8-alpine
     command: redis-server --maxmemory-policy noeviction --save "" --appendonly no

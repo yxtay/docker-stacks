@@ -71,6 +71,7 @@ services:
     labels:
       caddy: "*.{$$DOMAIN}"
       caddy.import: reverse_proxy_auth riven riven-frontend:9000
+      tinyauth.apps.riven.path.allow: \/api\/auth
       pangolin.public-resources.riven.name: riven
       pangolin.public-resources.riven.mode: http
       pangolin.public-resources.riven.full-domain: "riven.${DOMAIN:?}"

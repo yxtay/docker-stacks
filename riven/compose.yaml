@@ -28,11 +28,8 @@ services:
       - /mnt/remote:/mnt/remote:rshared
     expose:
       - 3000
-    networks:
-      - default
-      - db
     healthcheck:
-      test: [CMD, wget, --spider, -q, "http://127.0.0.1:3000/api/auth/ok"]
+      test: [CMD, wget, -qO-, "http://localhost:3000/api/auth/ok"]
     restart: unless-stopped
     deploy:
       resources:
@@ -61,9 +58,9 @@ services:
     expose:
       - 9000
     networks:
-      - default
+      - proxy
     healthcheck:
-      test: [CMD, wget, --spider, -q, "http://127.0.0.1:9000"]
+      test: [CMD, wget, -qO-, "http://localhost:9000"]
     restart: unless-stopped
     deploy:
       resources:
@@ -107,8 +104,6 @@ services:
     tmpfs:
       - /etc/postgresql
       - /run
-    networks:
-      - db
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped
@@ -134,8 +129,6 @@ services:
     read_only: true
     tmpfs:
       - /data
-    networks:
-      - db
     healthcheck:
       test: [CMD, redis-cli, ping]
     restart: unless-stopped
@@ -148,7 +141,6 @@ services:
 
 networks:
   default:
+  proxy:
     name: proxy
     external: true
-  db:
-    internal: true

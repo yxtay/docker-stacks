@@ -124,7 +124,7 @@ services:
   redis:
     # nosemgrep
     image: redis:8-alpine
-    command: redis-server --maxmemory-policy noeviction --save "" --appendonly no
+    command: redis-server --maxmemory-policy noeviction
     cap_add:
       - CHOWN
       - SETGID

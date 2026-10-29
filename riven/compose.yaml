@@ -9,7 +9,7 @@ services:
         condition: service_healthy
     environment:
       RIVEN_SETTING__host: 0.0.0.0
-      RIVEN_SETTING__databaseUrl: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      RIVEN_SETTING__databaseUrl: postgres://${DB_USERNAME}:${POSTGRES_PASSWORD}@database:5432/${DB_DATABASE_NAME}
       RIVEN_SETTING__redisUrl: redis://cache:6379
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
     env_file:
@@ -86,11 +86,11 @@ services:
     # nosemgrep
     image: postgres:18-alpine
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
-      POSTGRES_USER: ${POSTGRES_USER:?}
-      PGUSER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB:?}
-      PGDATABASE: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?}
+      POSTGRES_USER: ${DB_USERNAME:?}
+      PGUSER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME:?}
+      PGDATABASE: ${DB_DATABASE_NAME}
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

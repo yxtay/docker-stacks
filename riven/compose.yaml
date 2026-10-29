@@ -55,8 +55,7 @@ services:
       - no-new-privileges:true
     read_only: true
     tmpfs:
-      - /run:exec
-      - /tmp
+      - /app/apps/frontend/.next/cache
     expose:
       - 9000
     networks:

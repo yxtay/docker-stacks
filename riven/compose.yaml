@@ -75,6 +75,10 @@ services:
       pangolin.public-resources.riven.mode: http
       pangolin.public-resources.riven.full-domain: "riven.${DOMAIN:?}"
       pangolin.public-resources.riven.auth.sso-enabled: true
+      pangolin.public-resources.riven.rules[0].action: allow
+      pangolin.public-resources.riven.rules[0].match: path
+      pangolin.public-resources.riven.rules[0].value: /api/auth/*
+      pangolin.public-resources.riven.rules[0].enabled: true
       pangolin.public-resources.riven.targets[0].hostname: riven-frontend
       pangolin.public-resources.riven.targets[0].port: 9000
       pangolin.public-resources.riven.targets[0].method: http

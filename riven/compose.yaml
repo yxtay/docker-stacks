@@ -29,7 +29,7 @@ services:
     expose:
       - 3000
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:3000/api/auth/ok"]
+      test: [CMD, wget, -qO-, "http://127.0.0.1:3000/api/auth/ok"]
     restart: unless-stopped
     deploy:
       resources:
@@ -60,7 +60,7 @@ services:
     networks:
       - proxy
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost:9000"]
+      test: [CMD, wget, -qO-, "http://127.0.0.1:9000"]
     restart: unless-stopped
     deploy:
       resources:

@@ -9,7 +9,7 @@ services:
         condition: service_healthy
     environment:
       RIVEN_SETTING__host: 0.0.0.0
-      RIVEN_SETTING__databaseUrl: postgres://${DB_USERNAME}:${POSTGRES_PASSWORD}@database:5432/${DB_DATABASE_NAME}
+      RIVEN_SETTING__databaseUrl: postgres://${DB_USERNAME}:${DB_PASSWORD}@database:5432/${DB_DATABASE_NAME}
       RIVEN_SETTING__redisUrl: redis://cache:6379
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
     env_file:

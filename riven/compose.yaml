@@ -96,7 +96,6 @@ services:
       PGUSER: postgres
       POSTGRES_DB: riven
       PGDATABASE: riven
-      POSTGRES_INITDB_ARGS: --data-checksums
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

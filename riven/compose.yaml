@@ -1,0 +1,157 @@
+services:
+  riven:
+    # nosemgrep
+    image: ghcr.io/rivenmedia/riven-ts:main
+    depends_on:
+      database:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      RIVEN_SETTING__gqlHost: 0.0.0.0
+      RIVEN_SETTING__adminUserCredentials: ${ADMIN_USER_CREDENTIALS:?}
+      RIVEN_SETTING__databaseUrl: postgres://postgres:${POSTGRES_PASSWORD:?}@database:5432/riven
+      RIVEN_SETTING__redisUrl: redis://cache:6379
+      RIVEN_SETTING__vfsMountPath: /mnt/remote/riven
+      RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
+      RIVEN_SETTING__logDirectory: /app/logs
+      RIVEN_SETTING__enabledPlugins: ${ENABLED_PLUGINS:-[]}
+      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_TMDB__apiKey: ${TMDB_API_KEY:?}
+      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_STREMTHRU__torboxApiKey: ${TORBOX_API_KEY:-}
+    cap_add:
+      - SYS_ADMIN
+    cap_drop:
+      - ALL
+    security_opt:
+      - apparmor:unconfined
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    volumes:
+      - /apps/riven/data:/app/data
+      - /apps/riven/logs:/app/logs
+      - /mnt/remote:/mnt/remote:rshared
+    expose:
+      - 3000
+    networks:
+      - default
+      - db
+    healthcheck:
+      test: [CMD, wget, --spider, -q, "http://127.0.0.1:3000/api/auth/ok"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 4g
+          pids: 512
+
+  riven-frontend:
+    # nosemgrep
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main
+    depends_on:
+      riven:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      ORIGIN: https://riven.${DOMAIN:?}
+      BACKEND_URL: http://riven:3000
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /run:exec
+      - /tmp
+    expose:
+      - 9000
+    networks:
+      - default
+    healthcheck:
+      test: [CMD, wget, --spider, -q, "http://127.0.0.1:9000"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth riven riven-frontend:9000
+      pangolin.public-resources.riven.name: riven
+      pangolin.public-resources.riven.mode: http
+      pangolin.public-resources.riven.full-domain: "riven.${DOMAIN:?}"
+      pangolin.public-resources.riven.auth.sso-enabled: true
+      pangolin.public-resources.riven.targets[0].hostname: riven-frontend
+      pangolin.public-resources.riven.targets[0].port: 9000
+      pangolin.public-resources.riven.targets[0].method: http
+
+  database:
+    # nosemgrep
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: riven
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - /apps/riven/db:/var/lib/postgresql/data
+    tmpfs:
+      - /run
+    networks:
+      - db
+    healthcheck:
+      test: [CMD, pg_isready, -U, postgres]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+  cache:
+    # nosemgrep
+    image: redis:8-alpine
+    command: redis-server --maxmemory-policy noeviction --save "" --appendonly no
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /data
+    networks:
+      - db
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+
+networks:
+  default:
+    name: proxy
+    external: true
+  db:
+    internal: true

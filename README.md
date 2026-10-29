@@ -162,6 +162,18 @@ Torrent streaming and indexing.
 - **sonarr** — TV show manager
 - **profilarr** — ARR profile manager
 
+### Riven Stack (`riven/`)
+
+Debrid streaming via [Riven TS](https://riven.tv/docs/getting-started);
+intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
+`/mnt/remote/riven`. Config is via `RIVEN_SETTING__*` environment variables.
+
+- **riven** — Media orchestrator and virtual filesystem (GraphQL API, no auth;
+  never exposed outside the stack)
+- **riven-frontend** — Web UI, behind forward auth
+- **database** — PostgreSQL (internal `db` network only)
+- **cache** — Redis job queue (internal `db` network only)
+
 ## Systemd Timers
 
 Scheduled tasks via systemd user timers (`systemd/`). Install with

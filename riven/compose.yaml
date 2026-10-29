@@ -14,11 +14,11 @@ services:
       RIVEN_SETTING__redisUrl: redis://cache:6379
       RIVEN_SETTING__vfsMountPath: /mnt/remote/riven
       RIVEN_SETTING__rankingConfigPath: /app/data/riven-ranking-config.json
-      RIVEN_SETTING__enabledPlugins: '["stremthru","comet","mdblist"]'
+      RIVEN_SETTING__enabledPlugins: ${ENABLED_PLUGINS:-[]}
       RIVEN_PLUGIN_SETTING__REPO_PLUGIN_TMDB__apiKey: ${TMDB_API_KEY:?}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_STREMTHRU__torboxApiKey: ${TORBOX_API_KEY:?}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__apiKey: ${MDBLIST_API_KEY:?}
-      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__lists: ${MDBLIST_LISTS:?}
+      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_STREMTHRU__torboxApiKey: ${TORBOX_API_KEY:-}
+      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__apiKey: ${MDBLIST_API_KEY:-}
+      RIVEN_PLUGIN_SETTING__REPO_PLUGIN_MDBLIST__lists: ${MDBLIST_LISTS:-[]}
     cap_add:
       - SYS_ADMIN
     cap_drop:

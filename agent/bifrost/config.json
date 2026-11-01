@@ -34,15 +34,14 @@
         {
           "name": "commandcode-jev",
           "value": "env.COMMANDCODE_API_KEY",
-          "models": ["typesafe/jev"]
+          "models": ["*"]
         }
       ],
       "network_config": {
         "base_url": "https://api.commandcode.ai/provider"
       },
       "custom_provider_config": {
-        "base_provider_type": "typesafe",
-        "allowed_requests": { "list_models": false, "decisions": true }
+        "base_provider_type": "typesafe"
       }
     },
     "opencode-go": {

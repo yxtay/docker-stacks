@@ -66,9 +66,13 @@
       "decision": { "provider": "commandcode-jev", "model": "typesafe/jev" },
       "session": { "enabled": true },
       "keywords": {
-        "simple_keywords": [],
-        "medium_keywords": [],
-        "complex_keywords": []
+        "simple_keywords": ["fix the grammar in this sentence."],
+        "medium_keywords": [
+          "apply a standard method to this technical question."
+        ],
+        "complex_keywords": [
+          "design a solution under several competing constraints."
+        ]
       }
     },
     "virtual_keys": [

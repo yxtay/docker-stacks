@@ -29,21 +29,6 @@
         "base_provider_type": "openai"
       }
     },
-    "commandcode-jev": {
-      "keys": [
-        {
-          "name": "commandcode-jev",
-          "value": "env.COMMANDCODE_API_KEY",
-          "models": ["*"]
-        }
-      ],
-      "network_config": {
-        "base_url": "https://api.commandcode.ai/provider"
-      },
-      "custom_provider_config": {
-        "base_provider_type": "typesafe"
-      }
-    },
     "opencode-go": {
       "keys": [
         {
@@ -61,24 +46,6 @@
     }
   },
   "governance": {
-    "complexity_analyzer_config": {
-      "classifier": "decision",
-      "decision": {
-        "provider": "commandcode-jev",
-        "model": "typesafe/jev",
-        "previous_message_count": 5
-      },
-      "session": { "enabled": true },
-      "keywords": {
-        "simple_keywords": ["fix the grammar in this sentence."],
-        "medium_keywords": [
-          "apply a standard method to this technical question."
-        ],
-        "complex_keywords": [
-          "design a solution under several competing constraints."
-        ]
-      }
-    },
     "virtual_keys": [
       {
         "id": "main",
@@ -90,64 +57,11 @@
             "provider": "commandcode",
             "allowed_models": ["*"],
             "key_ids": ["*"]
-          },
-          {
-            "provider": "commandcode-jev",
-            "allowed_models": ["*"],
-            "key_ids": ["*"]
           }
         ]
       }
     ],
     "routing_rules": [
-      {
-        "id": "complex",
-        "name": "Complex",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"COMPLEX\"",
-        "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
-        ],
-        "fallbacks": [
-          "commandcode/xiaomi/mimo-v2.6-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
-        ],
-        "scope": "global",
-        "priority": 20
-      },
-      {
-        "id": "medium",
-        "name": "Medium",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"MEDIUM\"",
-        "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
-        ],
-        "fallbacks": [
-          "commandcode/xiaomi/mimo-v2.6-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
-        ],
-        "scope": "global",
-        "priority": 30
-      },
-      {
-        "id": "simple",
-        "name": "Simple",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"SIMPLE\"",
-        "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
-        ],
-        "fallbacks": [
-          "commandcode/xiaomi/mimo-v2.6-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
-        ],
-        "scope": "global",
-        "priority": 40
-      },
       {
         "id": "auto",
         "name": "Auto",

@@ -84,22 +84,6 @@
     ],
     "routing_rules": [
       {
-        "id": "reasoning",
-        "name": "Reasoning",
-        "enabled": true,
-        "chain_rule": false,
-        "cel_expression": "model == \"auto\" && complexity_tier == \"REASONING\"",
-        "targets": [
-          { "provider": "commandcode", "model": "deepseek/deepseek-v4.1-flash" }
-        ],
-        "fallbacks": [
-          "commandcode/xiaomi/mimo-v2.6-flash",
-          "commandcode/meta/muse-spark-1.3-contributor"
-        ],
-        "scope": "global",
-        "priority": 10
-      },
-      {
         "id": "complex",
         "name": "Complex",
         "enabled": true,

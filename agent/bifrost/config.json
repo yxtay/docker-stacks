@@ -29,6 +29,22 @@
         "base_provider_type": "openai"
       }
     },
+    "commandcode-jev": {
+      "keys": [
+        {
+          "name": "commandcode-jev",
+          "value": "env.COMMANDCODE_API_KEY",
+          "models": ["typesafe/jev"]
+        }
+      ],
+      "network_config": {
+        "base_url": "https://api.commandcode.ai/provider"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "typesafe",
+        "allowed_requests": { "list_models": false, "decisions": true }
+      }
+    },
     "opencode-go": {
       "keys": [
         {
@@ -48,6 +64,7 @@
   "governance": {
     "complexity_analyzer_config": {
       "classifier": "decision",
+      "decision": { "provider": "commandcode-jev", "model": "typesafe/jev" },
       "session": { "enabled": true },
       "keywords": {
         "simple_keywords": ["fix the grammar in this sentence."],

@@ -29,6 +29,21 @@
         "base_provider_type": "openai"
       }
     },
+    "commandcode-jev": {
+      "keys": [
+        {
+          "name": "commandcode-jev",
+          "value": "env.COMMANDCODE_API_KEY",
+          "models": ["*"]
+        }
+      ],
+      "network_config": {
+        "base_url": "https://api.commandcode.ai/provider"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "typesafe"
+      }
+    },
     "opencode-go": {
       "keys": [
         {
@@ -55,6 +70,11 @@
         "provider_configs": [
           {
             "provider": "commandcode",
+            "allowed_models": ["*"],
+            "key_ids": ["*"]
+          },
+          {
+            "provider": "commandcode-jev",
             "allowed_models": ["*"],
             "key_ids": ["*"]
           }

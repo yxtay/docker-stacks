@@ -63,7 +63,11 @@
   "governance": {
     "complexity_analyzer_config": {
       "classifier": "decision",
-      "decision": { "provider": "commandcode-jev", "model": "typesafe/jev" },
+      "decision": {
+        "provider": "commandcode-jev",
+        "model": "typesafe/jev",
+        "previous_message_count": 5
+      },
       "session": { "enabled": true },
       "keywords": {
         "simple_keywords": ["fix the grammar in this sentence."],

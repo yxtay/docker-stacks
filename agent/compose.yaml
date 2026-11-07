@@ -194,7 +194,7 @@ services:
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:6f22b20148f5a890730c3c805d6d45fe12fc02dee24d2748c689e01ef3db83da
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:fe3edb7fbb16d6082e7f0e5b07570dfeb93ec41493e6195a9236a243535b45bc
     command:
       - --file=/input/settings.template.yml
       - --out=/output/settings.yml

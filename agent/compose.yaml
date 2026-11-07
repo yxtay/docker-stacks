@@ -98,7 +98,7 @@ services:
 
   bifrost:
     # nosemgrep
-    image: maximhq/bifrost:v2.4.0@sha256:a1c90607dcfd13c1fb2f9476ceb3bb24407a50ade7fdf3e61a59fb42b09e5c57
+    image: maximhq/bifrost:v2.5.0@sha256:b5258c5f11c79064fc8280e49513f54c0b1da81c78bd11d3b4c1f62f8926d1ab
     working_dir: /app/data
     env_file:
       - .env
@@ -168,7 +168,7 @@ services:
 
   fastcrw:
     # nosemgrep
-    image: ghcr.io/us/crw:0.41.0@sha256:97095128042f160808d2f63ce21d55891bd8a1d71a1ab0cc138f37e8b072783e
+    image: ghcr.io/us/crw:0.42.1@sha256:6d1397d8e592b540542077006c254dc78373eade7c47f112fba1b5108af7afe9
     environment:
       CRW_CONFIG: config.docker
     cap_drop:

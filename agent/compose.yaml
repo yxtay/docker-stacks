@@ -137,6 +137,9 @@ services:
       ENABLE_VNC: 1
       VNC_BIND: 0.0.0.0
       VNC_PASSWORD: ${CAMOFOX_VNC_PASSWORD:-}
+      # Image CMD defaults to a 128 MB V8 heap, which aborts on restore of a
+      # large persisted storage-state. 4096 stays below the 8g cgroup limit.
+      MAX_OLD_SPACE_SIZE: 4096
     cap_drop:
       - ALL
     security_opt:

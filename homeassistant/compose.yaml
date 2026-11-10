@@ -1,7 +1,7 @@
 services:
   homeassistant:
     # nosemgrep
-    image: lscr.io/linuxserver/homeassistant:2026.11.0@sha256:abc052d76efa30451f6e4777294f49bef84df83f29d16f255e5c76ee6343c366
+    image: lscr.io/linuxserver/homeassistant:2026.11.1@sha256:29bdfa746fb4426b265d80f3dbb307d5c01215bde705a6951e86abb5f81665ea
     environment:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
@@ -111,7 +111,7 @@ services:
 
   tesserae:
     # nosemgrep
-    image: ghcr.io/dmellok/tesserae:0.508.0@sha256:44f48008fe9ac4df253e995233701a917e27af21989231fe66721b7933791ebf
+    image: ghcr.io/dmellok/tesserae:0.509.0@sha256:0343e2da7ad25df3a6c26c7400e43e89af5b3f3512fbff563eb9d95f86619edb
     environment:
       TZ: ${TZ:-UTC}
       TESSERAE_IN_DOCKER: 1

@@ -1,7 +1,7 @@
 services:
   immich-server:
     # nosemgrep
-    image: ghcr.io/immich-app/immich-server:v3.3.6@sha256:e1981983b1c13f6024b57d72e7ecae3342eed1581201ab09fb248932d86c593a
+    image: ghcr.io/immich-app/immich-server:v3.4.0@sha256:7b7b575029168bfb9eb901d868ce7dbfda0d7818e78aaace29b7b8a08cd4e7d5
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
@@ -52,7 +52,7 @@ services:
   immich-machine-learning:
     # nosemgrep
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
-    image: ghcr.io/immich-app/immich-machine-learning:v3.3.6@sha256:14367bfb374b8576ddf49abd67c5ca0190a4c7fcf6303cdad65d7f7bf1a50bc2
+    image: ghcr.io/immich-app/immich-machine-learning:v3.4.0@sha256:f4e7275c9fbd956ed7bccc738ac57890bcbd9f9c17844d2ea0b137e38a083454
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
@@ -139,7 +139,7 @@ services:
 
   gphotos2immich:
     # nosemgrep
-    image: ghcr.io/warreth/gphotos2immich:v1.9.1@sha256:9ce315d3a8c9de44e339558657e81bf853a1d2450bc4b6ffb873f4e8b3c204b4
+    image: ghcr.io/warreth/gphotos2immich:v1.9.2@sha256:aadb063d262e9ce5da13176daf9ae9544f29a712450f46c0f21d356527fd4451
     depends_on:
       immich-server:
         condition: service_healthy

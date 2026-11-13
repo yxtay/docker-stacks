@@ -139,7 +139,7 @@ services:
 
   gphotos2immich:
     # nosemgrep
-    image: ghcr.io/warreth/gphotos2immich:v1.9.2@sha256:72a22d3fe559ddbf3e6f07963a460084360de990efef882e82438b108a5235a4
+    image: ghcr.io/warreth/gphotos2immich:v1.10.0@sha256:fc23c9744b4a3a31457176e490daff96576820b9748be86673518b33eccb09e6
     depends_on:
       immich-server:
         condition: service_healthy

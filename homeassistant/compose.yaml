@@ -72,7 +72,7 @@ services:
 
   music-assistant:
     # nosemgrep
-    image: ghcr.io/music-assistant/server:2.10.9@sha256:4ac0d5844363fbbefd6a61251df09d96cd546e05e01b8c1cc1a28803f0935e07
+    image: ghcr.io/music-assistant/server:2.10.10@sha256:716f1a036a47b191d96fb5cdbacffdf52bccfbc4931c14b4c53e9fd018a9e54b
     # Additional caps needed to mount smb folders within the container:
     # cap_add: [SYS_ADMIN, DAC_READ_SEARCH]
     # security_opt: [apparmor:unconfined]

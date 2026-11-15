@@ -27,9 +27,9 @@ submitting changes.
 - Formatting is enforced via pre-commit hooks for YAML, Shell scripts (shfmt),
   and Markdown.
 
-## Docker Stacks & Portainer
+## Docker Stacks & Arcane
 
-- For Docker Compose files (managed via Portainer):
+- For Docker Compose files (managed via Arcane):
   - Do not set `container_name`.
   - Use `expose` instead of `ports` for port configuration.
   - Avoid unnecessary quoting in `compose.yaml`; use double quotes only when

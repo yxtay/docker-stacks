@@ -3,12 +3,12 @@ services:
     # nosemgrep
     image: ghcr.io/getarcaneapp/manager:v3.0.0@sha256:5641899b379ff20e856efb8e3507f2c871a5ab9282d56854eac7028f256bfce3
     environment:
-      APP_URL: ${APP_URL:-http://localhost:3552}
+      ARCANE_APP_URL: ${APP_URL:-http://localhost:3552}
       PUID: ${PUID:-}
       PGID: ${PGID:-}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?}
-      JWT_SECRET: ${JWT_SECRET:?}
-      LOG_JSON: true
+      ARCANE_ENCRYPTION_KEY: ${ARCANE_ENCRYPTION_KEY:?}
+      ARCANE_JWT_SECRET: ${ARCANE_JWT_SECRET:?}
+      ARCANE_LOG_JSON: true
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

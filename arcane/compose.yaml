@@ -7,7 +7,6 @@ services:
       PUID: ${PUID:-}
       PGID: ${PGID:-}
       ARCANE_ENCRYPTION_KEY: ${ARCANE_ENCRYPTION_KEY:?}
-      ARCANE_JWT_SECRET: ${ARCANE_JWT_SECRET:?}
       ARCANE_LOG_JSON: true
     cap_add:
       - CHOWN

@@ -26,8 +26,7 @@ git switch --discard-changes --force-create "${DEFAULT_BRANCH}" "origin/${DEFAUL
 
 # Generate .env if missing
 if [ ! -f .env ]; then
-  echo "ENCRYPTION_KEY=$(openssl rand -hex 32)" >>.env
-  echo "JWT_SECRET=$(openssl rand -hex 32)" >>.env
+  echo "ARCANE_ENCRYPTION_KEY=$(openssl rand -hex 32)" >>.env
 fi
 
 docker compose up --detach --pull always --remove-orphans

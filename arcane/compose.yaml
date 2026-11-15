@@ -3,7 +3,7 @@ services:
     # nosemgrep
     image: ghcr.io/getarcaneapp/manager:v3.0.0@sha256:5641899b379ff20e856efb8e3507f2c871a5ab9282d56854eac7028f256bfce3
     environment:
-      ARCANE_APP_URL: ${APP_URL:-http://localhost:3552}
+      ARCANE_APP_URL: ${ARCANE_APP_URL:-http://localhost:3552}
       PUID: ${PUID:-}
       PGID: ${PGID:-}
       ARCANE_ENCRYPTION_KEY: ${ARCANE_ENCRYPTION_KEY:?}

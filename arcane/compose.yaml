@@ -8,6 +8,9 @@ services:
       PGID: ${PGID:-}
       ARCANE_ENCRYPTION_KEY: ${ARCANE_ENCRYPTION_KEY:?}
       ARCANE_LOG_JSON: true
+      # Trust Caddy (proxy network) for X-Forwarded-For/-Proto. /12 spans
+      # Docker's default pools; never widen to 192.168.0.0/16 (the LAN).
+      ARCANE_TRUSTED_PROXIES: 172.16.0.0/12
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

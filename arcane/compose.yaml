@@ -8,6 +8,8 @@ services:
       PGID: ${PGID:-}
       ARCANE_ENCRYPTION_KEY: ${ARCANE_ENCRYPTION_KEY:?}
       ARCANE_LOG_JSON: true
+      # Docker default networks
+      ARCANE_TRUSTED_PROXIES: 172.16.0.0/12
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

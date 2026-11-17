@@ -24,6 +24,7 @@ services:
       - apparmor:unconfined
     devices:
       - /dev/fuse:/dev/fuse:rwm
+    read_only: true
     volumes:
       - /apps/riven/data:/app/data
       - /apps/riven/logs:/app/logs

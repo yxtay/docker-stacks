@@ -1,6 +1,6 @@
 services:
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:75648fbf1ff7c1a089ac43a4f528cdab8bd2dfa80807930f8af3f4c85239892f
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:61233cf18105d37baf43e7e1cfd1b4ba99865f6eb4d5cf92010c69c7ff6fb453
     command:
       - --file=/input/notifications.template.yml
       - --out=/output/notifications.yml

@@ -135,8 +135,8 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
-    tmpfs:
-      - /data
+    volumes:
+      - /apps/riven/cache:/data
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped

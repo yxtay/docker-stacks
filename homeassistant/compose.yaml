@@ -45,7 +45,7 @@ services:
 
   mosquitto:
     # nosemgrep
-    image: eclipse-mosquitto:2.1.2-alpine@sha256:75d6662dee52c947dc9dd9c29f1d8d7ffef78ddaf38001caa09755681e8bbc98
+    image: eclipse-mosquitto:2.1.4-alpine@sha256:fa12172a051310efe5bcb7a6a11b77bd5faacb82cbacd7742aa758bf024fd8e4
     cap_add:
       - CHOWN
       - SETGID
@@ -111,7 +111,7 @@ services:
 
   tesserae:
     # nosemgrep
-    image: ghcr.io/dmellok/tesserae:0.513.0@sha256:5665f14bdf8b61301adee2531d8a8192ecf20c4b7169fe17a6c2ebdf812eab4b
+    image: ghcr.io/dmellok/tesserae:0.514.0@sha256:7602418ce9305c0ee1e277ff659697ef16b4c693331127e3b227edcdf5600863
     environment:
       TZ: ${TZ:-UTC}
       TESSERAE_IN_DOCKER: 1

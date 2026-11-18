@@ -144,7 +144,7 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 8g
+          memory: 6g
           pids: 512
 
 networks:

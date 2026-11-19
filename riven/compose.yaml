@@ -125,7 +125,7 @@ services:
   redis:
     # nosemgrep
     image: ghcr.io/valkey-io/valkey:9.1.4-alpine@sha256:56729e68bdda139cbd3f6a2538683dc3523325fc5711ea1a379938f1b37893f0
-    command: valkey-server --maxmemory 5gb --maxmemory-policy volatile-lru
+    command: valkey-server --maxmemory 6gb --maxmemory-policy volatile-lru
     cap_add:
       - CHOWN
       - SETGID

@@ -197,7 +197,7 @@ services:
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:a77fcfff4fa8e626e26e63303d4b036674580f296b8992e9fe3f9cb2ce0f7aff
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:dd978c2f3e04866782da064e51943109231649d6ae0adf119a1ecf9158c8dbee
     command:
       - --file=/input/settings.template.yml
       - --out=/output/settings.yml
@@ -285,7 +285,7 @@ services:
 
   chrome:
     # nosemgrep
-    image: chromedp/headless-shell:latest@sha256:8c574e39f0db5c1d9efe7c472c6e0fcfc1d91ac0be70eb1dead0f2d52cf104cc
+    image: chromedp/headless-shell:latest@sha256:381353d3530ab9d579d2fe8b9c0f4519c995617f5a71daf6bb649e2d12005bd9
     command:
       - --remote-allow-origins=*
       - --ignore-certificate-errors

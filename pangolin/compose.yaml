@@ -124,7 +124,7 @@ services:
       TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${LETSENCRYPT_EMAIL:-}
     network_mode: service:gerbil
     healthcheck:
-      test: [CMD, wget, -qO-, "http://localhost/ping"]
+      test: [CMD, traefik, healthcheck]
     restart: unless-stopped
     deploy:
       resources:

@@ -15,6 +15,7 @@ services:
     read_only: true
     volumes:
       - /apps/cli-debrid:/user
+      - /mnt/symlinks:/mnt/symlinks
       - /mnt/remote:/mnt/remote:rslave
     tmpfs:
       - /tmp

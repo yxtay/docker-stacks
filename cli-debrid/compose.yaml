@@ -66,11 +66,7 @@ services:
     networks:
       - default
     healthcheck:
-      test:
-        - CMD
-        - python
-        - -c
-        - import urllib.request; urllib.request.urlopen("http://localhost:5000/auth/login")
+      test: [CMD, bash, -c, ":>/dev/tcp/localhost/5000"]
     restart: unless-stopped
     deploy:
       resources:

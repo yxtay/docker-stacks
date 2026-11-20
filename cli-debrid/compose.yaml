@@ -16,9 +16,7 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - /apps/cli-debrid/db_content:/user/db_content
-      - /apps/cli-debrid/config:/user/config
-      - /apps/cli-debrid/logs:/user/logs
+      - /apps/cli-debrid:/user
       - /mnt/remote:/mnt/remote:rslave
     expose:
       - 5000

@@ -1,7 +1,7 @@
 services:
   riven:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts:main@sha256:cafc808643352b0905ad7a178965a666df0e240f6de2110285c34793109406f6
+    image: ghcr.io/rivenmedia/riven-ts:main@sha256:556c0c76bb5d463e2ad36b858df411c572c0841274f3d3be23e0ff5b3cd95fdd
     depends_on:
       postgres:
         condition: service_healthy
@@ -43,7 +43,7 @@ services:
 
   riven-frontend:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:1d1b1d97b09b9d1f7de9382e0b452369e001740d44036436869e407c9d5e9345
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:0d265f9ba12c0d932b5704faf27bd3977c9d1dc7f50ae1b8b052b162fa14bb93
     depends_on:
       riven:
         condition: service_healthy
@@ -124,7 +124,7 @@ services:
 
   redis:
     # nosemgrep
-    image: ghcr.io/valkey-io/valkey:9.2.0-alpine@sha256:4d67e1af80c653bd46c0bbe8de438c81a6535ab5a39b22f2100028f314005663
+    image: ghcr.io/valkey-io/valkey:9.2.0-alpine@sha256:c8e2d17498838af5d91e12eb7c11220b3434a7b7131a333e3af52ad5e0b80882
     command: valkey-server --maxmemory 5gb --maxmemory-policy volatile-lru
     cap_add:
       - CHOWN

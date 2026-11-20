@@ -17,7 +17,7 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
       - /apps/cli-mount:/app
-      - /mnt/remote:/mnt/remote:rshared
+      - /mnt/cli_mount:/mnt/cli_mount:rshared
     expose:
       - 8282
     networks:
@@ -58,8 +58,8 @@ services:
       - no-new-privileges:true
     volumes:
       - /apps/cli-debrid:/user
-      - /apps/cli-mount:/climount_data
       - /mnt/remote:/mnt/remote:rslave
+      - /mnt/cli_mount:/mnt/cli_mount:rslave
     expose:
       - 5000
     networks:

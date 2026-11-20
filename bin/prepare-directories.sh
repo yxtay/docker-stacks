@@ -4,7 +4,7 @@ set -euo pipefail
 dirs=(
   /apps
   /backups
-  /mnt/cli_mount
+  /mnt/remote/cli_mount
   /mnt/remote/debrid
   /mnt/torrent/downloads
   /mnt/torrent/movies

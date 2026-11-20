@@ -178,11 +178,12 @@ intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
 
 [cli_debrid](https://github.com/godver3/cli_debrid) media automation for debrid
 services, following the [Docker install guide]. No symlink folder or media
-server is configured. `/mnt/cli_mount` must be owned by `1000:1000` on the host
-(`sudo chown 1000:1000 /mnt/cli_mount`), otherwise cli-mount shows healthy but
-the mount stays empty. In the UIs, use Mount Path `/mnt/cli_mount` for cli-mount
-and `/mnt/cli_mount/__all__` for cli-debrid. `/mnt/remote` is also mounted into
-cli-debrid for use with Decypharr/Riven.
+server is configured. cli-mount mounts at `/mnt/remote/cli_mount`, which must be
+owned by `1000:1000` on the host (`sudo chown 1000:1000 /mnt/remote/cli_mount`),
+otherwise cli-mount shows healthy but the mount stays empty. In the UIs, use
+Mount Path `/mnt/remote/cli_mount` for cli-mount and
+`/mnt/remote/cli_mount/__all__` for cli-debrid, which sees it through its
+`/mnt/remote` mount.
 
 [Docker install guide]: https://godver3.github.io/cli_docs/installation/docker/
 

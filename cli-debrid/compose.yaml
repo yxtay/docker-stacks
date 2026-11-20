@@ -1,0 +1,55 @@
+services:
+  cli-debrid:
+    # nosemgrep
+    image: godver3/cli_debrid:dev-0.7.87
+    environment:
+      TZ: ${TZ:-Asia/Singapore}
+      MALLOC_ARENA_MAX: 2
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /apps/cli-debrid/db_content:/user/db_content
+      - /apps/cli-debrid/config:/user/config
+      - /apps/cli-debrid/logs:/user/logs
+      - /mnt/remote:/mnt/remote:rslave
+      - /mnt/symlinks:/mnt/symlinks
+    expose:
+      - 5000
+    networks:
+      - default
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen("http://localhost:5000")
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth cli-debrid cli-debrid:5000
+      pangolin.public-resources.cli-debrid.name: cli-debrid
+      pangolin.public-resources.cli-debrid.mode: http
+      pangolin.public-resources.cli-debrid.full-domain: "cli-debrid.${DOMAIN:?}"
+      pangolin.public-resources.cli-debrid.auth.sso-enabled: true
+      pangolin.public-resources.cli-debrid.targets[0].hostname: cli-debrid
+      pangolin.public-resources.cli-debrid.targets[0].port: 5000
+      pangolin.public-resources.cli-debrid.targets[0].method: http
+
+networks:
+  default:
+    name: proxy
+    external: true

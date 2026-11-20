@@ -174,6 +174,16 @@ intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
 - **postgres** — PostgreSQL (stack-internal `default` network only)
 - **redis** — Valkey job queue (stack-internal `default` network only)
 
+### CLI Debrid Stack (`cli-debrid/`)
+
+[cli_debrid](https://github.com/godver3/cli_debrid) media automation for debrid
+services. Runs in Symlink mode against the existing `/mnt/remote` mount
+(Decypharr or Riven), writing symlinks to `/mnt/symlinks` for the media server.
+Create `/mnt/symlinks` on the host and mount it at the same path in the media
+server.
+
+- **cli-debrid** — Scraper/queue manager and web UI (has its own user system)
+
 ## Systemd Timers
 
 Scheduled tasks via systemd user timers (`systemd/`). Install with

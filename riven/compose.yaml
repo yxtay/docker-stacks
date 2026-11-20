@@ -50,6 +50,7 @@ services:
     environment:
       ORIGIN: https://riven.${DOMAIN:?}
       BACKEND_URL: http://riven:3000
+      BACKEND_API_KEY: ${RIVEN_SETTING__apiKey:?}
     cap_drop:
       - ALL
     security_opt:

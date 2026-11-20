@@ -13,6 +13,7 @@ services:
       - ALL
     security_opt:
       - apparmor:unconfined
+    read_only: true
     devices:
       - /dev/fuse:/dev/fuse:rwm
     volumes:
@@ -56,6 +57,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
     volumes:
       - /apps/cli-debrid:/user
       - /mnt/remote:/mnt/remote:rslave

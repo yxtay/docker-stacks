@@ -177,10 +177,8 @@ intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
 ### CLI Debrid Stack (`cli-debrid/`)
 
 [cli_debrid](https://github.com/godver3/cli_debrid) media automation for debrid
-services. Runs in Symlink mode against the existing `/mnt/remote` mount
-(Decypharr or Riven), writing symlinks to `/mnt/symlinks` for the media server.
-Create `/mnt/symlinks` on the host and mount it at the same path in the media
-server.
+services. Requires the existing `/mnt/remote` mount (Decypharr or Riven); no
+symlink folder or media server is configured.
 
 - **cli-debrid** — Scraper/queue manager and web UI (has its own user system)
 

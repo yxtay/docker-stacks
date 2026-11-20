@@ -20,7 +20,6 @@ services:
       - /apps/cli-debrid/config:/user/config
       - /apps/cli-debrid/logs:/user/logs
       - /mnt/remote:/mnt/remote:rslave
-      - /mnt/symlinks:/mnt/symlinks
     expose:
       - 5000
     networks:

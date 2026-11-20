@@ -16,6 +16,8 @@ services:
     volumes:
       - /apps/cli-debrid:/user
       - /mnt/remote:/mnt/remote:rslave
+    tmpfs:
+      - /tmp
     expose:
       - 5000
     networks:

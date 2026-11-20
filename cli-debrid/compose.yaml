@@ -2,9 +2,6 @@ services:
   cli-debrid:
     # nosemgrep
     image: godver3/cli_debrid:dev-0.7.87
-    environment:
-      TZ: ${TZ:-Asia/Singapore}
-      MALLOC_ARENA_MAX: 2
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

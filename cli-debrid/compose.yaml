@@ -70,7 +70,7 @@ services:
         - CMD
         - python
         - -c
-        - import urllib.request; urllib.request.urlopen("http://localhost:5000")
+        - import urllib.request; urllib.request.urlopen("http://localhost:5000/auth/login")
     restart: unless-stopped
     deploy:
       resources:

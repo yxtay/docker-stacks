@@ -5,7 +5,8 @@ dirs=(
   /apps
   /backups
   /mnt/remote/cli_mount
-  /mnt/remote/debrid
+  /mnt/remote/decypharr
+  /mnt/remote/riven
   /mnt/torrent/downloads
   /mnt/torrent/movies
   /mnt/torrent/shows

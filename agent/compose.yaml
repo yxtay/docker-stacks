@@ -259,7 +259,7 @@ services:
       pangolin.public-resources.searxng.targets[0].method: http
 
   lightpanda:
-    image: lightpanda/browser:1.0.4@sha256:a9d899882899802bc3a6b82622a7ca394f8e1b828452869a0965d2e5097e6116
+    image: lightpanda/browser:1.0.5@sha256:c474699588315f2d5ba1574a0608feeaf29a31663b845b640d2dd87dd2781ce0
     command: [lightpanda, serve, --host, 0.0.0.0, --advertise-host, lightpanda]
     cap_drop:
       - ALL

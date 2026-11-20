@@ -1,7 +1,51 @@
 services:
+  cli-mount:
+    # nosemgrep
+    image: ghcr.io/mash2k3/cli_mount:dev
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+      - SYS_ADMIN
+    cap_drop:
+      - ALL
+    security_opt:
+      - apparmor:unconfined
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    volumes:
+      - /apps/cli-mount:/app
+      - /mnt/remote:/mnt/remote:rshared
+    expose:
+      - 8282
+    networks:
+      - default
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 4g
+          pids: 512
+    labels:
+      caddy: "*.{$$DOMAIN}"
+      caddy.import: reverse_proxy_auth cli-mount cli-mount:8282
+      pangolin.public-resources.cli-mount.name: cli-mount
+      pangolin.public-resources.cli-mount.mode: http
+      pangolin.public-resources.cli-mount.full-domain: "cli-mount.${DOMAIN:?}"
+      pangolin.public-resources.cli-mount.auth.sso-enabled: true
+      pangolin.public-resources.cli-mount.targets[0].hostname: cli-mount
+      pangolin.public-resources.cli-mount.targets[0].port: 8282
+      pangolin.public-resources.cli-mount.targets[0].method: http
+
   cli-debrid:
     # nosemgrep
     image: godver3/cli_debrid:dev-0.7.87
+    depends_on:
+      cli-mount:
+        condition: service_healthy
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
@@ -14,6 +58,7 @@ services:
       - no-new-privileges:true
     volumes:
       - /apps/cli-debrid:/user
+      - /apps/cli-mount:/climount_data
       - /mnt/remote:/mnt/remote:rslave
     expose:
       - 5000

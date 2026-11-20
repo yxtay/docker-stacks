@@ -177,10 +177,13 @@ intended to replace the Torrent stack. Riven mounts its FUSE filesystem at
 ### CLI Debrid Stack (`cli-debrid/`)
 
 [cli_debrid](https://github.com/godver3/cli_debrid) media automation for debrid
-services. Requires the existing `/mnt/remote` mount (Decypharr or Riven); no
-symlink folder or media server is configured.
+services. Uses `/mnt/remote` as the shared mount; no symlink folder or media
+server is configured. Set cli-mount's Mount Path to `/mnt/remote/cli_mount` in
+its UI.
 
-- **cli-debrid** — Scraper/queue manager and web UI (has its own user system)
+- **cli-mount** — FUSE mount for debrid/Usenet (Decypharr fork), web UI on :8282
+- **cli-debrid** — Scraper/queue manager and web UI (has its own user system);
+  reaches cli-mount at `http://cli-mount:8282`
 
 ## Systemd Timers
 

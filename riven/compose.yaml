@@ -1,7 +1,7 @@
 services:
   riven:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts:main@sha256:7fe1fefe7d3a6aa09e11a762523780c93f8a27a9309dce1b88ec5e5bef6d7129
+    image: ghcr.io/rivenmedia/riven-ts:main@sha256:23d7fa81af3c47fd0f55e44d0056c50b49a504780b17b378884a633be5c1d59b
     depends_on:
       postgres:
         condition: service_healthy
@@ -43,7 +43,7 @@ services:
 
   riven-frontend:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:fbc24964dd6d6d4f946d9a731c89a5ec842bc6679169c04121d7f4aa2e7d30ff
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:da659a457f9b97f7cc1b5b9e778135f21a3255ea7657db672555aab35d942af7
     depends_on:
       riven:
         condition: service_healthy
@@ -90,7 +90,7 @@ services:
 
   postgres:
     # nosemgrep
-    image: postgres:18-alpine@sha256:ff64c9e3bdf8e2120107d3559de8db314e8305f7e38c5105903c6295876738ff
+    image: postgres:18-alpine@sha256:0115267ab5a509022df9319c77be365cef335adb71556c75f60f5360ee247e71
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
       POSTGRES_USER: ${POSTGRES_USER:?}

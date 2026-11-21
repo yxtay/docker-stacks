@@ -9,4 +9,4 @@ jobs:
       contents: write
       pull-requests: write
     # nosemgrep
-    uses: yxtay/.github/.github/workflows/automerge.yml@3d924ebdedc1bb41f560eef56b7189a561282b87 # main
+    uses: yxtay/.github/.github/workflows/automerge.yml@df401b5b0ecb519a7b6115461cd7daef9b1fa9b1 # main

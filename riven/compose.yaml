@@ -1,7 +1,7 @@
 services:
   riven:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts:main@sha256:23d7fa81af3c47fd0f55e44d0056c50b49a504780b17b378884a633be5c1d59b
+    image: ghcr.io/rivenmedia/riven-ts:main@sha256:bd76416aa9e0bc81cae6ba89b5b1d91bbf592dd3e2f796c91258811daeab3951
     depends_on:
       postgres:
         condition: service_healthy
@@ -43,7 +43,7 @@ services:
 
   riven-frontend:
     # nosemgrep
-    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:da659a457f9b97f7cc1b5b9e778135f21a3255ea7657db672555aab35d942af7
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:f18ed11f2fa55ddf4592977ab81ff1bdaf066b768a36201594c891f2ceee2c28
     depends_on:
       riven:
         condition: service_healthy

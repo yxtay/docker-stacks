@@ -7,6 +7,7 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+      semver-major-days: 90
     commit-message:
       prefix: chore(docker-compose)
     groups:
@@ -19,6 +20,7 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+      semver-major-days: 90
     commit-message:
       prefix: ci(github-actions)
     groups:
@@ -31,6 +33,7 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+      semver-major-days: 90
     commit-message:
       prefix: chore(terraform)
     groups:

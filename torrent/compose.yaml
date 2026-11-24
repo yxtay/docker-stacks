@@ -1,7 +1,7 @@
 services:
   trawl:
     # nosemgrep
-    image: ghcr.io/germondai/trawl:1.11.1@sha256:f41dac1727c7d0c6d18381279792d89704b36ccfee537262118c7ee32d293ba8
+    image: ghcr.io/germondai/trawl:1.12.0@sha256:da3f25e18d6c5884c5db51d7d05c2dc5a197818b25f03d3dfbb8c3994177cf41
     cap_drop:
       - ALL
     security_opt:
@@ -23,7 +23,7 @@ services:
 
   prowlarr:
     # nosemgrep
-    image: ghcr.io/linuxserver/prowlarr:3.0.2@sha256:45117ba8439e2337a92ffe38a451a4dafc0be771754d05d88cdf102419d09646
+    image: ghcr.io/linuxserver/prowlarr:3.1.0@sha256:2806c9b763810589c42157730d547c293639e55c7610e9f5069314854639ec48
     cap_add:
       - CHOWN
       - DAC_OVERRIDE

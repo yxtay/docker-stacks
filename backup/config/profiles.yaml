@@ -47,6 +47,7 @@ profiles:
         - logs
         # App-specific paths
         - immich/database
+        - riven/db
         - tesserae/core/device_logs
 
     forget: &forget

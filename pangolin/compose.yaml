@@ -1,6 +1,6 @@
 services:
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:d6b1e5d22305dc9b88f6b728ade848278d02f78eea99a5a8793e2a11f45b4caa
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:b2d2e23b88f24574c4607bedf0b812504e04117c05c41a203feffa451a69b93f
     command:
       - --file=/input/pangolin/config.template.yml
       - --out=/pangolin/config.yml

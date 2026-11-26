@@ -64,6 +64,8 @@ services:
     read_only: true
     volumes:
       - /apps/aiostreams:/app/data
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     extra_hosts:

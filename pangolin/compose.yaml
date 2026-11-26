@@ -18,6 +18,8 @@ services:
       - ./:/input:ro
       - /apps/pangolin:/pangolin
       - ./traefik:/traefik
+    tmpfs:
+      - /tmp
     deploy:
       resources:
         limits:
@@ -76,6 +78,8 @@ services:
     read_only: true
     volumes:
       - /apps/pangolin:/var/config
+    tmpfs:
+      - /tmp
     expose:
       - 3004
     ports:

@@ -23,6 +23,8 @@ services:
       - /apps/geoip:/usr/share/GeoIP:ro
       - /apps/caddy:/config
       - /apps/caddy:/data
+    tmpfs:
+      - /tmp
     ports:
       - 80:80
       - 443:443
@@ -60,6 +62,8 @@ services:
     read_only: true
     volumes:
       - /apps/tinyauth:/data
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     networks:

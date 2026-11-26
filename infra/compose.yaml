@@ -54,6 +54,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
       - /run
+      - /tmp
     ports:
       - 127.0.0.1:2375:2375
     networks:
@@ -137,6 +138,8 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    tmpfs:
+      - /tmp
     expose:
       - 80
     restart: unless-stopped
@@ -161,6 +164,8 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped

@@ -72,8 +72,8 @@ submitting changes.
     - FUSE mounts: `CHOWN, DAC_OVERRIDE, SYS_ADMIN` with
       `security_opt: [apparmor:unconfined]` and
       `devices: [/dev/fuse:/dev/fuse:rwm]`
-  - Add `read_only: true` with `tmpfs: [/run:exec]`. Only add `/tmp`
-    to tmpfs if the service actually writes temp files (test first).
+  - Add `read_only: true` with `tmpfs: [/run:exec, /tmp]` (every service
+    gets `/tmp`; SQLite and others fail with "disk I/O error" without it).
     Mount writable paths as volumes.
   - LinuxServer.io images: `PUID`/`PGID` has no effect under
     `read_only: true` (container runs as UID 911). Images handle

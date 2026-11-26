@@ -22,6 +22,8 @@ services:
     volumes:
       - /apps/homeassistant:/config
       - /run/dbus:/run/dbus:ro
+    tmpfs:
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, curl, -fsSL, "http://localhost:8123"]
@@ -58,6 +60,8 @@ services:
     volumes:
       - /apps/mosquitto:/mosquitto
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    tmpfs:
+      - /tmp
     ports:
       - 1883:1883
     healthcheck:

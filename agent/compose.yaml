@@ -84,6 +84,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     tmpfs:
       - /run
+      - /tmp
     networks:
       - socket
     healthcheck:
@@ -110,6 +111,8 @@ services:
     volumes:
       - ./bifrost/config.json:/app/data/config.json:ro
       - /apps/bifrost:/app/data
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     restart: unless-stopped
@@ -146,6 +149,8 @@ services:
       - no-new-privileges:true
     volumes:
       - /apps/camofox:/root/.camofox
+    tmpfs:
+      - /tmp
     expose:
       - 6080
       - 9377
@@ -212,6 +217,8 @@ services:
     volumes:
       - ./searxng:/input:ro
       - /apps/searxng:/output
+    tmpfs:
+      - /tmp
     deploy:
       resources:
         limits:
@@ -236,6 +243,8 @@ services:
     volumes:
       - /apps/searxng/settings.yml:/etc/searxng/settings.yml:ro
       - /apps/searxng/cache:/var/cache/searxng
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     healthcheck:
@@ -268,6 +277,7 @@ services:
     read_only: true
     tmpfs:
       - /home/lightpanda:mode=1777
+      - /tmp
     expose:
       - 9222
     healthcheck:

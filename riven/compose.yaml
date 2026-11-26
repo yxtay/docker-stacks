@@ -29,6 +29,8 @@ services:
       - /apps/riven/data:/app/data
       - /apps/riven/logs:/app/logs
       - /mnt/remote:/mnt/remote:rshared
+    tmpfs:
+      - /tmp
     expose:
       - 3000
     healthcheck:
@@ -58,6 +60,7 @@ services:
     read_only: true
     tmpfs:
       - /app/apps/frontend/.next/cache
+      - /tmp
     expose:
       - 9000
     networks:
@@ -113,6 +116,7 @@ services:
     tmpfs:
       - /etc/postgresql
       - /run
+      - /tmp
     healthcheck:
       test: [CMD, pg_isready]
     restart: unless-stopped
@@ -138,6 +142,8 @@ services:
     read_only: true
     volumes:
       - /apps/riven/cache:/data
+    tmpfs:
+      - /tmp
     healthcheck:
       test: [CMD, valkey-cli, ping]
     restart: unless-stopped

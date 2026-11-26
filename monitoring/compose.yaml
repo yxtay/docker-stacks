@@ -14,6 +14,8 @@ services:
     volumes:
       - ./dozzle:/input:ro
       - /apps/dozzle:/output
+    tmpfs:
+      - /tmp
     deploy:
       resources:
         limits:
@@ -37,6 +39,8 @@ services:
     read_only: true
     volumes:
       - /apps/dozzle:/data
+    tmpfs:
+      - /tmp
     expose:
       - 8080
     networks:
@@ -98,6 +102,8 @@ services:
     volumes:
       - /apps/beszel/agent:/var/lib/beszel-agent
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    tmpfs:
+      - /tmp
     network_mode: host
     healthcheck:
       test: [CMD, /agent, health]

@@ -13,5 +13,4 @@ jobs:
       contents: read
       id-token: write
       security-events: write
-    # nosemgrep
     uses: yxtay/.github/.github/workflows/ossf.yml@df401b5b0ecb519a7b6115461cd7daef9b1fa9b1 # main

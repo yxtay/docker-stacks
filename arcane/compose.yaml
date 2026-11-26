@@ -1,6 +1,5 @@
 services:
   arcane:
-    # nosemgrep
     image: ghcr.io/getarcaneapp/manager:v3.1.1@sha256:f12cfe86238b892956d945681613e9056676ca0cda0d980abacad033ebb72bee
     environment:
       ARCANE_APP_URL: ${ARCANE_APP_URL:-http://localhost:3552}

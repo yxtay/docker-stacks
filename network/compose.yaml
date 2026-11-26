@@ -1,6 +1,5 @@
 services:
   netalertx:
-    # nosemgrep
     image: ghcr.io/netalertx/netalertx:26.10.28@sha256:ebce55cdbccc0f71544e6997541fe81db803b8c8bec3079435b8cd0a40d49b7e
     environment:
       LISTEN_ADDR: ${LISTEN_ADDR:-0.0.0.0}

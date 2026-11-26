@@ -1,6 +1,5 @@
 services:
   streamnzb:
-    # nosemgrep
     image: ghcr.io/gaisberg/streamnzb:v6.5.0@sha256:0ebc8792117e414ba676a512acdedad989695ddc792599923468eed48ab41c30
     cap_add:
       - CHOWN
@@ -51,7 +50,6 @@ services:
       pangolin.public-resources.streamnzb.rules[2].enabled: true
 
   aiostreams:
-    # nosemgrep
     image: ghcr.io/viren070/aiostreams:v2.38.1@sha256:1b90bc2fda70f365dff2ce98fc311a24708cca9841efe09aefe309cd4da1fb2c
     environment:
       BASE_URL: "https://aiostreams.${DOMAIN:?}"

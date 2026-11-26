@@ -1,6 +1,5 @@
 services:
   socket-proxy:
-    # nosemgrep
     image: ghcr.io/linuxserver/socket-proxy:3.4.8@sha256:6beb1743581ec3b2ed1a2bafd617e8c7a1d7ae2fe835293e333327618fc2b925
     environment:
       POST: 0
@@ -69,7 +68,6 @@ services:
           pids: 512
 
   tailscale:
-    # nosemgrep
     image: ghcr.io/tailscale/tailscale:v1.104.7@sha256:72c1e19e0aedca96b8533bbb0b4368564410ff20b17e53b804eb6c1f04a31be4
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY:?}
@@ -130,7 +128,6 @@ services:
           pids: 512
 
   whoami:
-    # nosemgrep
     image: ghcr.io/traefik/whoami:v1.12.0@sha256:c4717a8d1f0134a7444e24f881160e033991f23027c6c5a9a3f8fd22e70d1d44
     cap_drop:
       - ALL
@@ -151,7 +148,6 @@ services:
       caddy.import: reverse_proxy_auth whoami whoami:80
 
   librespeed:
-    # nosemgrep
     image: ghcr.io/librespeed/speedtest:6.3.1@sha256:bc34bf69b6c102b23ab81b6e77beb7cce321fb0d3be33ec6e80edef3e9dd8bab
     cap_add:
       - CHOWN

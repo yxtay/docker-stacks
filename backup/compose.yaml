@@ -1,6 +1,5 @@
 services:
   resticprofile:
-    # nosemgrep
     image: creativeprojects/resticprofile:0.35.0@sha256:188ba0f18cf710459de0f2780bcf1df9d454689f69de479ffb79f7f4ff8c7569
     entrypoint: [sh]
     command: >-

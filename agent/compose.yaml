@@ -1,6 +1,5 @@
 services:
   hermes:
-    # nosemgrep
     image: nousresearch/hermes-agent:v2026.9.24@sha256:fca358f12efd65bfaaca05884166f15c0e2788375ca30d77061ac1ebc96452b7
     command: gateway run
     working_dir: /opt/data
@@ -65,7 +64,6 @@ services:
       pangolin.public-resources.hermes.targets[0].method: http
 
   socket-proxy:
-    # nosemgrep
     image: ghcr.io/linuxserver/socket-proxy:3.4.8@sha256:6beb1743581ec3b2ed1a2bafd617e8c7a1d7ae2fe835293e333327618fc2b925
     environment:
       ALLOW_LOGS: 1
@@ -97,7 +95,6 @@ services:
           pids: 512
 
   bifrost:
-    # nosemgrep
     image: maximhq/bifrost:v2.6.0@sha256:5968d007ba4f74ee01bc4ceb071decb9927a0b7bb43dbb9072208f75e2d522e3
     working_dir: /app/data
     env_file:
@@ -170,7 +167,6 @@ services:
       pangolin.public-resources.camofox.targets[0].method: http
 
   fastcrw:
-    # nosemgrep
     image: ghcr.io/us/crw:0.49.2@sha256:ab114eb89f9e8dddd752aed7938faf78f0f84d63c9987570d2a3acb1e079b863
     environment:
       CRW_CONFIG: config.docker
@@ -284,7 +280,6 @@ services:
       caddy.import: "reverse_proxy_auth lightpanda lightpanda:9222"
 
   chrome:
-    # nosemgrep
     image: chromedp/headless-shell:latest@sha256:381353d3530ab9d579d2fe8b9c0f4519c995617f5a71daf6bb649e2d12005bd9
     command:
       - --remote-allow-origins=*

@@ -1,6 +1,5 @@
 services:
   immich-server:
-    # nosemgrep
     image: ghcr.io/immich-app/immich-server:v3.4.2@sha256:fc880c1bf665b4aab1e74c15e56ab871225989cd546536e6b77e771869af06bd
     # extends:
     #   file: hwaccel.transcoding.yml
@@ -50,7 +49,6 @@ services:
       pangolin.public-resources.immich.targets[0].method: http
 
   immich-machine-learning:
-    # nosemgrep
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     image: ghcr.io/immich-app/immich-machine-learning:v3.4.2@sha256:739405742a79bd7447227c553bb62ed5491aa36acf00bc667af7f9c93b6fae91
     # extends:
@@ -79,7 +77,6 @@ services:
           pids: 512
 
   redis:
-    # nosemgrep
     image: ghcr.io/valkey-io/valkey:9.2.0-alpine@sha256:c8e2d17498838af5d91e12eb7c11220b3434a7b7131a333e3af52ad5e0b80882
     cap_add:
       - CHOWN
@@ -103,7 +100,6 @@ services:
           pids: 512
 
   database:
-    # nosemgrep
     image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3@sha256:828081a755d3911a2d94f0a2be9f98570c07d52cf080fd310a9d6e4b83b73aa5
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:?}
@@ -138,7 +134,6 @@ services:
           pids: 512
 
   gphotos2immich:
-    # nosemgrep
     image: ghcr.io/warreth/gphotos2immich:v1.14.5@sha256:22fd2e79897b4de15579ab89db99a38c582f86c8cbcc00674f756d04ba433612
     depends_on:
       immich-server:
@@ -180,7 +175,6 @@ services:
       pangolin.public-resources.gphotos2immich.targets[0].method: http
 
   immich-kiosk:
-    # nosemgrep
     image: ghcr.io/damongolding/immich-kiosk:0.54.0@sha256:138c691695b3c759f70d15a8baea6636b5f4e55ae8fbf5272de1e124a4a7ae65
     depends_on:
       immich-server:

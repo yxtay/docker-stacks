@@ -22,7 +22,6 @@ services:
           pids: 512
 
   dozzle:
-    # nosemgrep
     image: ghcr.io/amir20/dozzle:v11.5.0@sha256:74600d62dd73a72a5d36fbd0c98af649203df921d74310b7ed383ef63392358e
     depends_on:
       gomplate:
@@ -56,7 +55,6 @@ services:
       caddy.import: reverse_proxy_auth dozzle dozzle:8080
 
   beszel:
-    # nosemgrep
     image: ghcr.io/henrygd/beszel/beszel:0.21.2@sha256:b0be90bd4aee2993fde763032a5098ce4386fba43cfe5031ec017b8d9e8c97a2
     cap_drop:
       - ALL
@@ -83,7 +81,6 @@ services:
       caddy.import: reverse_proxy_auth beszel beszel:8090
 
   beszel-agent:
-    # nosemgrep
     image: ghcr.io/henrygd/beszel/beszel-agent:0.21.2@sha256:343254226ae57a5cc6f8c23c755b1464730aba2abc7043116a2e222711ec6e1a
     cap_drop:
       - ALL

@@ -1,6 +1,5 @@
 services:
   crowdsec:
-    # nosemgrep
     image: ghcr.io/crowdsecurity/crowdsec:v1.8.2@sha256:65b74942f7e7ed5c60fde4ac15fc4ba715904c398c8b16dd451f4907d90347d4
     environment:
       COLLECTIONS: >-
@@ -41,7 +40,6 @@ services:
           pids: 512
 
   crowdsec-firewall-bouncer:
-    # nosemgrep
     image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.38@sha256:ece5da4dbc65e84784e1d21043667ddee34c0fc8e74bdb95d2e378021dc97f0e
     # Optional non-root mode:
     # user: 1000:1000

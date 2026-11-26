@@ -1,6 +1,5 @@
 services:
   trawl:
-    # nosemgrep
     image: ghcr.io/germondai/trawl:1.12.0@sha256:da3f25e18d6c5884c5db51d7d05c2dc5a197818b25f03d3dfbb8c3994177cf41
     cap_drop:
       - ALL
@@ -22,7 +21,6 @@ services:
           pids: 512
 
   prowlarr:
-    # nosemgrep
     image: ghcr.io/linuxserver/prowlarr:3.1.0@sha256:2806c9b763810589c42157730d547c293639e55c7610e9f5069314854639ec48
     cap_add:
       - CHOWN
@@ -70,7 +68,6 @@ services:
       pangolin.public-resources.prowlarr.rules[1].enabled: true
 
   decypharr:
-    # nosemgrep
     image: ghcr.io/sirrobot01/decypharr:v2.7@sha256:92f70e53530e4686d1346cd8a42dd97a41dd359ce5e378ebcb0858cfa2abc2df
     environment:
       PUID: 911
@@ -114,7 +111,6 @@ services:
       pangolin.public-resources.decypharr.targets[0].method: http
 
   radarr:
-    # nosemgrep
     image: ghcr.io/linuxserver/radarr:7.0.3@sha256:044788f5508b7f67a3e0368cdd142c77c4d4cd5aec2efaba53e1a68b6b6231e7
     cap_add:
       - CHOWN
@@ -156,7 +152,6 @@ services:
       pangolin.public-resources.radarr.targets[0].method: http
 
   sonarr:
-    # nosemgrep
     image: ghcr.io/linuxserver/sonarr:4.0.20@sha256:339814bbf50599ac3b59077c252f29833d0138b59a062d0e82ce37bdc7f04f86
     cap_add:
       - CHOWN
@@ -198,7 +193,6 @@ services:
       pangolin.public-resources.sonarr.targets[0].method: http
 
   profilarr:
-    # nosemgrep
     image: ghcr.io/dictionarry-hub/profilarr:2.3.1@sha256:352e42dec74ecfd68d13bb198fbc6d9346e3a8c55003026e1814e59319a2176d
     environment:
       ORIGIN: https://profilarr.${DOMAIN:?}

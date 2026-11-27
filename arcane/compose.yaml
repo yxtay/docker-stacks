@@ -1,6 +1,6 @@
 services:
   arcane:
-    image: ghcr.io/getarcaneapp/manager:v3.1.1@sha256:f12cfe86238b892956d945681613e9056676ca0cda0d980abacad033ebb72bee
+    image: ghcr.io/getarcaneapp/manager:v3.2.0@sha256:511a3f455fed51f601ff729931e12871ae1c8d098655686ec7ad6ee628897b1a
     environment:
       ARCANE_APP_URL: ${ARCANE_APP_URL:-http://localhost:3552}
       PUID: ${PUID:-}

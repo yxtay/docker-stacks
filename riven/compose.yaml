@@ -1,6 +1,6 @@
 services:
   riven:
-    image: ghcr.io/rivenmedia/riven-ts:main@sha256:08c26fda1d0e733dc3eba68bfd0ccd5a0b207503cf7ab684b2a1428a62f32af0
+    image: ghcr.io/rivenmedia/riven-ts:main@sha256:3a6bc8a05fed09cba2d536e35bf2b182bab6925e21cf8f9e1e3c116e4de6ba37
     depends_on:
       postgres:
         condition: service_healthy
@@ -41,7 +41,7 @@ services:
           pids: 512
 
   riven-frontend:
-    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:8dc7c6f7198073b46ea31c10ea4acde54616d3ff4c5eaadb3e3afdc372984ec2
+    image: ghcr.io/rivenmedia/riven-ts-frontend:main@sha256:bde5c09aa766561bb0f4a59b6ea1aa4828e097808fbee4552ee714ddc837d8ed
     depends_on:
       riven:
         condition: service_healthy

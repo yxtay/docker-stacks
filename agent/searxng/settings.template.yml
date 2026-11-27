@@ -19,7 +19,7 @@ engines:
     timeout: 10
   - name: bing
     disabled: false
-  - name: duckduckgo web
+  - name: yandex
     disabled: false
 
 search:

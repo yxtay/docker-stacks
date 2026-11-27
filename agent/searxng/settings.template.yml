@@ -4,6 +4,9 @@ use_default_settings:
     remove:
       - ahmia
       - torch
+      # hard-codes suspended_time=0 (searx/engines/duckduckgo.py), so it
+      # re-hits the origin every query instead of backing off
+      - duckduckgo
 
 engines:
   - name: braveapi
@@ -14,6 +17,10 @@ engines:
     inactive: false
   - name: wikidata
     timeout: 10
+  - name: bing
+    disabled: false
+  - name: duckduckgo web
+    disabled: false
 
 search:
   formats:
@@ -21,9 +28,17 @@ search:
     - json
     - csv
     - rss
+  ban_time_on_fail: 30
+  max_ban_time_on_fail: 600
+  suspended_times:
+    SearxEngineAccessDenied: 3600
+    SearxEngineCaptcha: 21600
+    SearxEngineTooManyRequests: 900
 
 server:
   image_proxy: true
 
 outgoing:
   useragent_suffix: +https://github.com/yxtay
+  max_request_timeout: 8.0
+  retries: 0

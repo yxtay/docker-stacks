@@ -167,7 +167,7 @@ services:
       pangolin.public-resources.camofox.targets[0].method: http
 
   fastcrw:
-    image: ghcr.io/us/crw:0.49.2@sha256:ab114eb89f9e8dddd752aed7938faf78f0f84d63c9987570d2a3acb1e079b863
+    image: ghcr.io/us/crw:0.49.3@sha256:72f5d62aa8c8454feb4f78b6f37a1838ba1b4e257d94bdd56fb821f1be314707
     environment:
       CRW_CONFIG: config.docker
     cap_drop:

@@ -193,7 +193,7 @@ services:
       caddy.import: "reverse_proxy_auth fastcrw fastcrw:3000"
 
   gomplate:
-    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:c91f21e2b94958ee397c2cc63898708471a99b305618f6a0ed8eee54a3da3457
+    image: ghcr.io/hairyhenderson/gomplate:latest@sha256:cf322ad4a29635035a942d44a3f77c93d4b5eeea00b839068527670c037b04a7
     command:
       - --file=/input/settings.template.yml
       - --out=/output/settings.yml
@@ -280,7 +280,7 @@ services:
       caddy.import: "reverse_proxy_auth lightpanda lightpanda:9222"
 
   chrome:
-    image: chromedp/headless-shell:latest@sha256:381353d3530ab9d579d2fe8b9c0f4519c995617f5a71daf6bb649e2d12005bd9
+    image: chromedp/headless-shell:latest@sha256:5bb2432d550896f4cb4266c367c48d82e6e2ed61f71ced68687bb175d62ce312
     command:
       - --remote-allow-origins=*
       - --ignore-certificate-errors
